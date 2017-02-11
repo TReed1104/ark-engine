@@ -36,6 +36,7 @@ Makefile
 *.user
 *.userosscache
 *.sln.docstates
+*.VC.db
 
 # Build results
 [Dd]ebug/
