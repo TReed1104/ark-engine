@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 #include <vector>
-#include <GL/glew.h>
+#include "GL\glew.h"
 #include "SDL.h"
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
