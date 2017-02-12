@@ -123,8 +123,8 @@ void Engine::InitialiseProgram(void) {
 	int openGLMajorVersion;
 	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &openGLMajorVersion);
 	if (openGLMajorVersion == 3) {
-		shaderList.push_back(Shader("Shaders/BaseVertex.vert", GL_VERTEX_SHADER));
-		shaderList.push_back(Shader("Shaders/BaseFragment.frag", GL_FRAGMENT_SHADER));
+		shaderList.push_back(Shader("../Shaders/BaseVertex.vert", GL_VERTEX_SHADER));
+		shaderList.push_back(Shader("../Shaders/BaseFragment.frag", GL_FRAGMENT_SHADER));
 	}
 
 	glProgram = CreateGLProgram(shaderList);	// Create the Program.
