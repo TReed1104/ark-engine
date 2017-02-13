@@ -1,4 +1,3 @@
-// Include Guard, helps prevent recursive inclusion.
 #ifndef Shader_h_included
 #define Shader_h_included
 

@@ -2,7 +2,7 @@
 using namespace std;
 
 int main(int argc, char* args[]) {
-	Engine engine = Engine(args[0], glm::vec2(360, 360));
+	Engine engine = Engine(args[0]);
 	engine.Run();
 	return 0;
 }

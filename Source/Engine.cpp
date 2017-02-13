@@ -1,20 +1,49 @@
 #include "Engine.h"
 
-Engine::Engine(char* gameName, glm::vec2 initialWindowSize) {
+Engine::Engine(char* gameName) {
 	exeName = gameName;
-	windowSize = initialWindowSize;
+	windowSize = glm::vec2(MINIMUM_WINDOW_SIZE_WIDTH, MINIMUM_WINDOW_SIZE_HEIGHT);
 	aspectRatio = (windowSize.x / windowSize.y);
 	fieldOfView = glm::radians(45.0f);
 	oldFrameTime = 0.0f;
 	currentFrameTime = 0.0f;
+	InitialiseWorldCamera();
 }
 Engine::~Engine() {
+	delete player;
 
+	for (int i = 0; i < tileRegister.size(); i++)
+	{
+		delete tileRegister[i];
+	}
+
+	for (int i = 0; i < agentRegister.size(); i++)
+	{
+		delete agentRegister[i];
+	}
+	std::cout << "Game Class Deconstructor Successful!" << std::endl;
 }
 
 void Engine::Run(void) {
 	SetupEnvironment();				// Does all the setup function calls for OpenGL, SDL and glew.
 	std::cout << ">> Game runtime started" << std::endl;
+
+	int gameTimer = 0;	// temp timer for timeout.
+	while (isRunning) {
+		currentFrameTime = SDL_GetTicks();
+		float deltaTime = ((currentFrameTime - oldFrameTime) / 1000);
+
+		EventHandling();
+		Update(deltaTime);
+		Renderer();
+
+		oldFrameTime = currentFrameTime;
+
+		gameTimer++;
+		if (gameTimer >= 500) {
+			isRunning = false;
+		}
+	}
 
 	std::cout << ">> Game runtime finished" << std::endl;
 	CleanupSDL();					// Cleans up after SDL.
@@ -141,26 +170,26 @@ void Engine::InitialiseProgram(void) {
 
 	// Get the location pointer for the attributes.
 	// Vertex Shader locations.
-	vertexPositionAttrib = glGetAttribLocation(glProgram, "vertexPosition");
-	colourAttrib = glGetAttribLocation(glProgram, "vertexColor");
-	uvAttrib = glGetAttribLocation(glProgram, "vertexUV");
+	shaderComponent.vertexPositionAttrib = glGetAttribLocation(glProgram, "vertexPosition");
+	shaderComponent.colourAttrib = glGetAttribLocation(glProgram, "vertexColor");
+	shaderComponent.uvAttrib = glGetAttribLocation(glProgram, "vertexUV");
 	// Fragment Shader locations.
-	modelMatrixUniform = glGetUniformLocation(glProgram, "modelMatrix");
-	viewMatrixUniform = glGetUniformLocation(glProgram, "viewMatrix");
-	projectionMatrixUniform = glGetUniformLocation(glProgram, "projectionMatrix");
-	textureSamplerUniform = glGetUniformLocation(glProgram, "textureSampler");
-	hasTextureUniform = glGetUniformLocation(glProgram, "hasTexture");
+	shaderComponent.modelMatrixUniform = glGetUniformLocation(glProgram, "modelMatrix");
+	shaderComponent.viewMatrixUniform = glGetUniformLocation(glProgram, "viewMatrix");
+	shaderComponent.projectionMatrixUniform = glGetUniformLocation(glProgram, "projectionMatrix");
+	shaderComponent.textureSamplerUniform = glGetUniformLocation(glProgram, "textureSampler");
+	shaderComponent.hasTextureUniform = glGetUniformLocation(glProgram, "hasTexture");
 
 	// If any of the shaderlocations have failed to be found, print the value of each for debugging.
-	if (vertexPositionAttrib == -1 || colourAttrib == -1 || uvAttrib == -1 || modelMatrixUniform == -1 || viewMatrixUniform == -1 ||
-		projectionMatrixUniform == -1 ||textureSamplerUniform == -1 || hasTextureUniform == -1) {
+	if (shaderComponent.vertexPositionAttrib == -1 || shaderComponent.colourAttrib == -1 || shaderComponent.uvAttrib == -1 || shaderComponent.modelMatrixUniform == -1 || shaderComponent.viewMatrixUniform == -1 ||
+		shaderComponent.projectionMatrixUniform == -1 || shaderComponent.textureSamplerUniform == -1 || shaderComponent.hasTextureUniform == -1) {
 		std::cout << "Error assigning program locations" << std::endl;
-		std::cout << "vertexPositionAttrib: " << vertexPositionAttrib << std::endl;
-		std::cout << "colourAttrib: " << colourAttrib << std::endl;
-		std::cout << "uvLocation: " << uvAttrib << std::endl;
-		std::cout << "modelMatrixLocation: " << modelMatrixUniform << std::endl;
-		std::cout << "viewMatrixLocation: " << viewMatrixUniform << std::endl;
-		std::cout << "textureSamplerLocation: " << textureSamplerUniform << std::endl;
+		std::cout << "vertexPositionAttrib: " << shaderComponent.vertexPositionAttrib << std::endl;
+		std::cout << "colourAttrib: " << shaderComponent.colourAttrib << std::endl;
+		std::cout << "uvLocation: " << shaderComponent.uvAttrib << std::endl;
+		std::cout << "modelMatrixLocation: " << shaderComponent.modelMatrixUniform << std::endl;
+		std::cout << "viewMatrixLocation: " << shaderComponent.viewMatrixUniform << std::endl;
+		std::cout << "textureSamplerLocation: " << shaderComponent.textureSamplerUniform << std::endl;
 	}
 
 	// Clean up shaders, they aren't needed anymore as they are loaded into the program.
@@ -168,8 +197,75 @@ void Engine::InitialiseProgram(void) {
 		glDeleteShader(shaderList[iLoop].shaderID);
 	}
 }
-void Engine::LoadContect(void) {
+Model Engine::LoadModel(std::string modelPath) {
+	// Load in a Model.
+	if (modelPath != "")		// If the model path is set...
+	{
+		Assimp::Importer importer;	// An importer for importing the model data.
+		const aiScene* scene = importer.ReadFile(modelPath, aiProcess_Triangulate | aiProcess_GenNormals);		// Read the Model file.
 
+		Model currentModel;					// A temporary model object to store the model data, this is added to the model register after population.
+											// Loop through each mesh in the loaded model.
+		for (int i = 0; i < scene->mNumMeshes; i++)
+		{
+			Model::Mesh currentMesh = Model::Mesh();		// A temporary Mesh object to store the current mesh data, this object is added to the current model at the end of each iteration.
+
+											// Loop through the array of vertices.
+			for (int j = 0; j < scene->mMeshes[i]->mNumVertices; j++)
+			{
+				// Grabs each vertex value and puts them together into a Vector 3, this is as model files store the vertex positions as three seperate values.
+				currentMesh.vertexPositions.push_back(glm::vec3(scene->mMeshes[i]->mVertices[j].x, scene->mMeshes[i]->mVertices[j].y, scene->mMeshes[i]->mVertices[j].z));
+
+				// Check if the current mesh has UVs setup for texturing.
+				if (scene->mMeshes[i]->mTextureCoords[0] != NULL)
+				{
+					// Grabs each UV value and puts them together into a Vector 2, this is as model files store the UVs as two seperate values.
+					currentMesh.hasTextures = true;
+					currentMesh.uvs.push_back(glm::vec2(scene->mMeshes[i]->mTextureCoords[0][j].x, scene->mMeshes[i]->mTextureCoords[0][j].y));
+				}
+				else
+				{
+					// If the current mesh is not setup for texturing, give the vertex a white colour value.
+					currentMesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+				}
+				// Check if the current mesh has surface normals setup ready for lighting.
+				if (scene->mMeshes[i]->mNormals != NULL)
+				{
+					currentMesh.surfaceNormals.push_back(glm::vec3(scene->mMeshes[i]->mNormals[j].x, scene->mMeshes[i]->mNormals[j].y, scene->mMeshes[i]->mNormals[j].z));
+				}
+			}
+			// Loops through the array of indices, pushing each of them to the index vector individually, this is because they are used individually whilst drawing instead of in 3s.
+			for (int j = 0; j < scene->mMeshes[i]->mNumFaces; j++)
+			{
+				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[0]);
+				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[1]);
+				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[2]);
+			}
+			// Add the current mesh into the tempModel vector (copies it).
+			currentModel.meshes.push_back(currentMesh);
+			currentModel.name = modelPath;
+		}
+		std::cout << "Model loaded: " << modelPath << std::endl;	// Outputs that the model has been loaded.
+		importer.FreeScene();						// Cleans up the loader.
+		return currentModel;
+	}
+}
+void Engine::LoadContent(void) {
+
+	modelRegister.push_back(LoadModel("../Content/Models/tile.obj"));
+
+	player = new GameObject(*this, modelRegister[0], glm::vec3(0.0f, 0.0f, 0.0f), "../Content/Textures/tileset.png");
+
+
+	player->model.InitialiseMeshShaderObject(shaderComponent);
+	for (int i = 0; i < tileRegister.size(); i++)
+	{
+		tileRegister[i]->model.meshes[i].InitialiseShaderObjects(shaderComponent);
+	}
+	for (int i = 0; i < agentRegister.size(); i++)
+	{
+		agentRegister[i]->model.meshes[i].InitialiseShaderObjects(shaderComponent);
+	}
 }
 void Engine::SetupEnvironment(void) {
 	std::cout << ">> Setting up Environment..." << std::endl;
@@ -181,7 +277,7 @@ void Engine::SetupEnvironment(void) {
 	SDL_GL_SwapWindow(sdlWindow);
 	InitialiseProgram();
 	std::cout << ">> Setup Complete" << std::endl;
-	LoadContect();
+	LoadContent();
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 }
@@ -191,4 +287,42 @@ void Engine::CleanupSDL(void) {
 	SDL_DestroyWindow(sdlWindow);
 	std::cout << ">> Cleanup Successful" << std::endl;
 	std::cout << ">> Cleanup complete" << std::endl;
+}
+void Engine::InitialiseWorldCamera(void) {
+	camera = Camera(*this, glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	camera.projectionMatrix = glm::ortho(0.0f, windowSize.x, windowSize.y, 0.0f);
+}
+void Engine::EventHandling(void) {
+
+}
+void Engine::Update(float deltaTime) {
+
+	
+	if (player != nullptr)
+	{
+		player->Update(deltaTime);
+	}
+}
+void Engine::Draw(void) {
+
+	if (player != nullptr)
+	{
+		player->Draw();
+	}
+}
+void Engine::Renderer(void) {
+	glViewport(0, 0, windowSize.x, windowSize.y);		// Sets view port.
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);							// Sets the colour of the cleared buffer colour.
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);				// Clear the color buffer and depth buffer.
+
+																	// The Main Render.
+	glUseProgram(glProgram);										// Tells OpenGL what program to use.
+	glUniformMatrix4fv(shaderComponent.viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.viewMatrix));				// Pass the viewMatrix to the Shader.
+	glUniformMatrix4fv(shaderComponent.projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.projectionMatrix));	// Pass the projectionMatrix to the Shader.
+	Draw();
+	glUseProgram(0);												// Clears the OpenGL program to use.
+
+																	// The Post Render Calls.
+
+	SDL_GL_SwapWindow(sdlWindow);									// Gives the frame buffer to the display (swapBuffers).
 }
