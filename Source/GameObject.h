@@ -13,7 +13,8 @@
 #include <gtc/type_ptr.hpp>
 #include <SDL_image.h>
 #include "Model.h"
-#include "Texture.h"
+#include "Texture.hpp"
+#include "EngineConfig.h"
 
 class Engine;
 
@@ -21,15 +22,17 @@ class GameObject {
 public:
 	Engine* engine;
 	Model model;
+	bool isTextured;
 	int currentTextureIndex;
 	std::vector<Texture> textureRegister;
+	glm::vec2 sourceFrameSize;
 	glm::vec3 position;
 	glm::vec3 drawPosition;
 	float rotation;
 	glm::vec3 scale;
 	glm::vec3 velocity;
 
-	GameObject(Engine &engine, Model mesh = Model(), glm::vec3 position = glm::vec3(0.0f), char* texturePath = "");
+	GameObject(Engine &engine, Model mesh = Model(), glm::vec3 position = glm::vec3(0.0f), char* texturePath = "", glm::vec2 sourceFrameSize = glm::vec2(TILE_SIZE_X, TILE_SIZE_Y));
 	~GameObject();
 
 	virtual void Update(float deltaTime);
@@ -37,7 +40,7 @@ public:
 	void Translate(glm::vec3 translation);
 	void Rotate(float rotationAngle, glm::vec3 rotationAxis);
 	void Scale(glm::vec3 scale);
-	void LoadTextures(char* texturePath);
+	bool LoadTextures(char* texturePath);
 
 private:
 };

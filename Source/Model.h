@@ -5,7 +5,7 @@
 #include <vector>
 #include <GL/glew.h>
 #include <glm.hpp>
-#include "ShaderComponents.h"
+#include "ShaderComponents.hpp"
 
 
 
@@ -16,7 +16,8 @@ public:
 	{
 	public:
 		// Public Member Variables.
-		ShaderComponents shaderLocations;
+		VertexShaderComponents vertexShaderComponents;
+		FragementShaderComponents fragementShaderComponents;
 		GLuint vertexBufferObject;
 		GLuint indicesBufferObject;
 		GLuint colourBufferObject;
@@ -34,7 +35,7 @@ public:
 		~Mesh() {}
 
 		// Public Member Function Declarations
-		void InitialiseShaderObjects(ShaderComponents shaderComponents);
+		void InitialiseShaderObjects(VertexShaderComponents vertexShaderComponents, FragementShaderComponents fragShaderComponents);
 
 	private:
 		// Private Member Function Declarations
@@ -56,6 +57,6 @@ public:
 
 	// Public Member Function Declarations
 	void UpdateViewMatrix();
-	void InitialiseMeshShaderObject(ShaderComponents shaderComponents);
+	void InitialiseMeshShaderObject(VertexShaderComponents vertexShaderComponents, FragementShaderComponents fragShaderComponents);
 };
 #endif

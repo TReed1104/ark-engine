@@ -8,14 +8,16 @@
 
 class Engine;
 class Tile;
+class GameObject;
 
 class Camera
 {
 public:
 	// Public Member Variables.
+	enum CameraMode {FreeFollow, LockedFollow, Manual,};
 	Engine* engine;
+	CameraMode controlMode;
 	glm::vec3 position;
-	glm::vec2 cameraGridPosition;
 	glm::vec3 lookAt;
 	glm::vec3 upVector;
 	glm::mat4 viewMatrix;
@@ -27,6 +29,9 @@ public:
 	~Camera();
 
 	// Public Member Function Declarations
-	void Update(float deltaTime);
+	void Update(float deltaTime, GameObject &object);
+	void FollowObject(GameObject &object);
+	void ManualControl(void);
+	void SetControlMode(CameraMode newMode);
 };
 #endif

@@ -170,26 +170,26 @@ void Engine::InitialiseProgram(void) {
 
 	// Get the location pointer for the attributes.
 	// Vertex Shader locations.
-	shaderComponent.vertexPositionAttrib = glGetAttribLocation(glProgram, "vertexPosition");
-	shaderComponent.colourAttrib = glGetAttribLocation(glProgram, "vertexColor");
-	shaderComponent.uvAttrib = glGetAttribLocation(glProgram, "vertexUV");
+	vertexShaderComponent.vertexPositionAttrib = glGetAttribLocation(glProgram, "vertexPosition");
+	vertexShaderComponent.colourAttrib = glGetAttribLocation(glProgram, "vertexColor");
+	vertexShaderComponent.uvAttrib = glGetAttribLocation(glProgram, "vertexUV");
 	// Fragment Shader locations.
-	shaderComponent.modelMatrixUniform = glGetUniformLocation(glProgram, "modelMatrix");
-	shaderComponent.viewMatrixUniform = glGetUniformLocation(glProgram, "viewMatrix");
-	shaderComponent.projectionMatrixUniform = glGetUniformLocation(glProgram, "projectionMatrix");
-	shaderComponent.textureSamplerUniform = glGetUniformLocation(glProgram, "textureSampler");
-	shaderComponent.hasTextureUniform = glGetUniformLocation(glProgram, "hasTexture");
+	fragementShaderComponent.modelMatrixUniform = glGetUniformLocation(glProgram, "modelMatrix");
+	fragementShaderComponent.viewMatrixUniform = glGetUniformLocation(glProgram, "viewMatrix");
+	fragementShaderComponent.projectionMatrixUniform = glGetUniformLocation(glProgram, "projectionMatrix");
+	fragementShaderComponent.textureSamplerUniform = glGetUniformLocation(glProgram, "textureSampler");
+	fragementShaderComponent.hasTextureUniform = glGetUniformLocation(glProgram, "hasTexture");
 
 	// If any of the shaderlocations have failed to be found, print the value of each for debugging.
-	if (shaderComponent.vertexPositionAttrib == -1 || shaderComponent.colourAttrib == -1 || shaderComponent.uvAttrib == -1 || shaderComponent.modelMatrixUniform == -1 || shaderComponent.viewMatrixUniform == -1 ||
-		shaderComponent.projectionMatrixUniform == -1 || shaderComponent.textureSamplerUniform == -1 || shaderComponent.hasTextureUniform == -1) {
+	if (vertexShaderComponent.vertexPositionAttrib == -1 || vertexShaderComponent.colourAttrib == -1 || vertexShaderComponent.uvAttrib == -1 || fragementShaderComponent.modelMatrixUniform == -1 || fragementShaderComponent.viewMatrixUniform == -1 ||
+		fragementShaderComponent.projectionMatrixUniform == -1 || fragementShaderComponent.textureSamplerUniform == -1 || fragementShaderComponent.hasTextureUniform == -1) {
 		std::cout << "Error assigning program locations" << std::endl;
-		std::cout << "vertexPositionAttrib: " << shaderComponent.vertexPositionAttrib << std::endl;
-		std::cout << "colourAttrib: " << shaderComponent.colourAttrib << std::endl;
-		std::cout << "uvLocation: " << shaderComponent.uvAttrib << std::endl;
-		std::cout << "modelMatrixLocation: " << shaderComponent.modelMatrixUniform << std::endl;
-		std::cout << "viewMatrixLocation: " << shaderComponent.viewMatrixUniform << std::endl;
-		std::cout << "textureSamplerLocation: " << shaderComponent.textureSamplerUniform << std::endl;
+		std::cout << "vertexPositionAttrib: " << vertexShaderComponent.vertexPositionAttrib << std::endl;
+		std::cout << "colourAttrib: " << vertexShaderComponent.colourAttrib << std::endl;
+		std::cout << "uvLocation: " << vertexShaderComponent.uvAttrib << std::endl;
+		std::cout << "modelMatrixLocation: " << fragementShaderComponent.modelMatrixUniform << std::endl;
+		std::cout << "viewMatrixLocation: " << fragementShaderComponent.viewMatrixUniform << std::endl;
+		std::cout << "textureSamplerLocation: " << fragementShaderComponent.textureSamplerUniform << std::endl;
 	}
 
 	// Clean up shaders, they aren't needed anymore as they are loaded into the program.
@@ -199,44 +199,38 @@ void Engine::InitialiseProgram(void) {
 }
 Model Engine::LoadModel(std::string modelPath) {
 	// Load in a Model.
-	if (modelPath != "")		// If the model path is set...
-	{
+	if (modelPath != "") {
 		Assimp::Importer importer;	// An importer for importing the model data.
 		const aiScene* scene = importer.ReadFile(modelPath, aiProcess_Triangulate | aiProcess_GenNormals);		// Read the Model file.
 
 		Model currentModel;					// A temporary model object to store the model data, this is added to the model register after population.
-											// Loop through each mesh in the loaded model.
-		for (int i = 0; i < scene->mNumMeshes; i++)
-		{
+		
+		// Loop through each mesh in the loaded model.
+		for (int i = 0; i < scene->mNumMeshes; i++) {
 			Model::Mesh currentMesh = Model::Mesh();		// A temporary Mesh object to store the current mesh data, this object is added to the current model at the end of each iteration.
 
-											// Loop through the array of vertices.
-			for (int j = 0; j < scene->mMeshes[i]->mNumVertices; j++)
-			{
+			// Loop through the array of vertices.
+			for (int j = 0; j < scene->mMeshes[i]->mNumVertices; j++) {
 				// Grabs each vertex value and puts them together into a Vector 3, this is as model files store the vertex positions as three seperate values.
 				currentMesh.vertexPositions.push_back(glm::vec3(scene->mMeshes[i]->mVertices[j].x, scene->mMeshes[i]->mVertices[j].y, scene->mMeshes[i]->mVertices[j].z));
 
 				// Check if the current mesh has UVs setup for texturing.
-				if (scene->mMeshes[i]->mTextureCoords[0] != NULL)
-				{
+				if (scene->mMeshes[i]->mTextureCoords[0] != NULL) {
 					// Grabs each UV value and puts them together into a Vector 2, this is as model files store the UVs as two seperate values.
 					currentMesh.hasTextures = true;
 					currentMesh.uvs.push_back(glm::vec2(scene->mMeshes[i]->mTextureCoords[0][j].x, scene->mMeshes[i]->mTextureCoords[0][j].y));
 				}
-				else
-				{
+				//else {
 					// If the current mesh is not setup for texturing, give the vertex a white colour value.
 					currentMesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-				}
+				//}
 				// Check if the current mesh has surface normals setup ready for lighting.
-				if (scene->mMeshes[i]->mNormals != NULL)
-				{
+				if (scene->mMeshes[i]->mNormals != NULL) {
 					currentMesh.surfaceNormals.push_back(glm::vec3(scene->mMeshes[i]->mNormals[j].x, scene->mMeshes[i]->mNormals[j].y, scene->mMeshes[i]->mNormals[j].z));
 				}
 			}
 			// Loops through the array of indices, pushing each of them to the index vector individually, this is because they are used individually whilst drawing instead of in 3s.
-			for (int j = 0; j < scene->mMeshes[i]->mNumFaces; j++)
-			{
+			for (int j = 0; j < scene->mMeshes[i]->mNumFaces; j++) {
 				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[0]);
 				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[1]);
 				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[2]);
@@ -254,17 +248,17 @@ void Engine::LoadContent(void) {
 
 	modelRegister.push_back(LoadModel("../Content/Models/tile.obj"));
 
-	player = new GameObject(*this, modelRegister[0], glm::vec3(0.0f, 0.0f, 0.0f), "../Content/Textures/tileset.png");
+	player = new GameObject(*this, modelRegister[0], glm::vec3(0.0f, 0.0f, 0.0f), "../Content/Textures/placeholder.png");
 
 
-	player->model.InitialiseMeshShaderObject(shaderComponent);
+	player->model.InitialiseMeshShaderObject(vertexShaderComponent, fragementShaderComponent);
 	for (int i = 0; i < tileRegister.size(); i++)
 	{
-		tileRegister[i]->model.meshes[i].InitialiseShaderObjects(shaderComponent);
+		tileRegister[i]->model.meshes[i].InitialiseShaderObjects(vertexShaderComponent, fragementShaderComponent);
 	}
 	for (int i = 0; i < agentRegister.size(); i++)
 	{
-		agentRegister[i]->model.meshes[i].InitialiseShaderObjects(shaderComponent);
+		agentRegister[i]->model.meshes[i].InitialiseShaderObjects(vertexShaderComponent, fragementShaderComponent);
 	}
 }
 void Engine::SetupEnvironment(void) {
@@ -304,25 +298,31 @@ void Engine::Update(float deltaTime) {
 	}
 }
 void Engine::Draw(void) {
+	// Draw the level to the buffers.
 
+
+	// Draw the player to the buffers.
 	if (player != nullptr)
 	{
 		player->Draw();
 	}
+
+	// Draw the NPCs
+
 }
 void Engine::Renderer(void) {
+	// Pre-render
 	glViewport(0, 0, windowSize.x, windowSize.y);		// Sets view port.
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);							// Sets the colour of the cleared buffer colour.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);				// Clear the color buffer and depth buffer.
 
-																	// The Main Render.
-	glUseProgram(glProgram);										// Tells OpenGL what program to use.
-	glUniformMatrix4fv(shaderComponent.viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.viewMatrix));				// Pass the viewMatrix to the Shader.
-	glUniformMatrix4fv(shaderComponent.projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.projectionMatrix));	// Pass the projectionMatrix to the Shader.
-	Draw();
-	glUseProgram(0);												// Clears the OpenGL program to use.
+	// Main Render
+	glUseProgram(glProgram);
+	glUniformMatrix4fv(fragementShaderComponent.viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.viewMatrix));				// Pass the viewMatrix to the Shader.
+	glUniformMatrix4fv(fragementShaderComponent.projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.projectionMatrix));	// Pass the projectionMatrix to the Shader.
+	Draw();	// Does the actual drawing of the GameObjects, this is seperated to make it easier to read.
+	glUseProgram(0);
 
-																	// The Post Render Calls.
-
-	SDL_GL_SwapWindow(sdlWindow);									// Gives the frame buffer to the display (swapBuffers).
+	// Post-Render
+	SDL_GL_SwapWindow(sdlWindow);	// Gives the frame buffer to the display (swapBuffers).
 }

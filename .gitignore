@@ -260,3 +260,5 @@ Temporary Items
 
 
 
+*.opendb
+ArkEngine/ArkEngine-debug.exe

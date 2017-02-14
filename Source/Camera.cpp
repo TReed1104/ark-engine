@@ -2,7 +2,7 @@
 #include "Camera.h"
 #include "Tile.h"
 #include "Engine.h"
-
+#include "GameObject.h"
 
 Camera::Camera(Engine &engine, glm::vec3 &cameraPosition, glm::vec3 &cameraLookAt, glm::vec3 &upVector) {
 	// Initialise the Camera.
@@ -16,12 +16,24 @@ Camera::~Camera() {
 
 }
 
-void Camera::Update(float deltaTime) {
+void Camera::Update(float deltaTime, GameObject &object) {
+	if (controlMode == CameraMode::FreeFollow || controlMode == CameraMode::LockedFollow) {
+		FollowObject(object);
+	}
+	else if (controlMode == CameraMode::Manual) {
+		ManualControl();
+	}
+	viewMatrix = glm::lookAt(position, lookAt, upVector);	// Update the ViewMatrix.
+}
+void Camera::FollowObject(GameObject &object) {
 	if (engine->player != nullptr) {
 		position = glm::vec3(engine->player->position.x, engine->player->position.y, position.z);
 		lookAt = glm::vec3(position.x, position.y, lookAt.z);
 	}
-	// Calculate the position of the AABB in the TileMap grid, the math is floored to get grid position.
-	cameraGridPosition = glm::floor(glm::vec2(position.x, position.y) / glm::vec2(TILE_SIZE_X, TILE_SIZE_Y));
-	viewMatrix = glm::lookAt(position, lookAt, upVector);	// Update the ViewMatrix.
+}
+void Camera::ManualControl(void) {
+
+}
+void Camera::SetControlMode(CameraMode newMode) {
+
 }

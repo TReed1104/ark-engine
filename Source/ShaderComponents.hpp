@@ -1,17 +1,22 @@
-// Include Guard, helps prevent recursive inclusion.
 #ifndef ShaderComponents_h_included
 #define ShaderComponents_h_included
 
 // Header file Includes.
 #include <GL/glew.h>
 
-class ShaderComponents
-{
+class VertexShaderComponents {
 public:
-	// Public Member Variables.
 	GLint vertexPositionAttrib;
 	GLint colourAttrib;
 	GLint uvAttrib;
+
+	VertexShaderComponents() {}
+	~VertexShaderComponents() {}
+};
+
+class FragementShaderComponents
+{
+public:
 	GLint hasTextureUniform;
 	GLint textureSamplerUniform;
 	GLint modelMatrixUniform;
@@ -19,7 +24,7 @@ public:
 	GLint projectionMatrixUniform;
 
 	// Constructors and Deconstructors
-	ShaderComponents() {}
-	~ShaderComponents() {}
+	FragementShaderComponents() {}
+	~FragementShaderComponents() {}
 };
 #endif

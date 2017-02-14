@@ -16,17 +16,12 @@
 #include <assimp/scene.h>
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
-#include "ShaderComponents.h"
+#include "ShaderComponents.hpp"
 #include "Shader.h"
 #include "Camera.h"
 #include "Tile.h"
 #include "GameObject.h"
-
-// Useful constants to the Engine.
-const float PI = 3.14f;
-const int MINIMUM_WINDOW_SIZE_WIDTH = 300;
-const int MINIMUM_WINDOW_SIZE_HEIGHT = 300;
-
+#include "EngineConfig.h"
 
 class Engine {
 public:
@@ -50,7 +45,8 @@ private:
 	bool isRunning = true;
 	SDL_GLContext glContext;
 	GLuint glProgram;
-	ShaderComponents shaderComponent;
+	VertexShaderComponents vertexShaderComponent;
+	FragementShaderComponents fragementShaderComponent;
 	float aspectRatio;
 	glm::vec2 windowSize;
 	float fieldOfView;
