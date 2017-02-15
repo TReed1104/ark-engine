@@ -40,7 +40,7 @@ void Engine::Run(void) {
 		oldFrameTime = currentFrameTime;
 
 		gameTimer++;
-		if (gameTimer >= 500) {
+		if (gameTimer >= 100) {
 			isRunning = false;
 		}
 	}
@@ -173,22 +173,22 @@ void Engine::InitialiseProgram(void) {
 	vertexShaderComponent.vertexPositionAttrib = glGetAttribLocation(glProgram, "vertexPosition");
 	vertexShaderComponent.colourAttrib = glGetAttribLocation(glProgram, "vertexColor");
 	vertexShaderComponent.uvAttrib = glGetAttribLocation(glProgram, "vertexUV");
+	vertexShaderComponent.modelMatrixUniform = glGetUniformLocation(glProgram, "modelMatrix");
+	vertexShaderComponent.viewMatrixUniform = glGetUniformLocation(glProgram, "viewMatrix");
+	vertexShaderComponent.projectionMatrixUniform = glGetUniformLocation(glProgram, "projectionMatrix");
 	// Fragment Shader locations.
-	fragementShaderComponent.modelMatrixUniform = glGetUniformLocation(glProgram, "modelMatrix");
-	fragementShaderComponent.viewMatrixUniform = glGetUniformLocation(glProgram, "viewMatrix");
-	fragementShaderComponent.projectionMatrixUniform = glGetUniformLocation(glProgram, "projectionMatrix");
 	fragementShaderComponent.textureSamplerUniform = glGetUniformLocation(glProgram, "textureSampler");
 	fragementShaderComponent.hasTextureUniform = glGetUniformLocation(glProgram, "hasTexture");
 
 	// If any of the shaderlocations have failed to be found, print the value of each for debugging.
-	if (vertexShaderComponent.vertexPositionAttrib == -1 || vertexShaderComponent.colourAttrib == -1 || vertexShaderComponent.uvAttrib == -1 || fragementShaderComponent.modelMatrixUniform == -1 || fragementShaderComponent.viewMatrixUniform == -1 ||
-		fragementShaderComponent.projectionMatrixUniform == -1 || fragementShaderComponent.textureSamplerUniform == -1 || fragementShaderComponent.hasTextureUniform == -1) {
+	if (vertexShaderComponent.vertexPositionAttrib == -1 || vertexShaderComponent.colourAttrib == -1 || vertexShaderComponent.uvAttrib == -1 || vertexShaderComponent.modelMatrixUniform == -1 || vertexShaderComponent.viewMatrixUniform == -1 ||
+		vertexShaderComponent.projectionMatrixUniform == -1 || fragementShaderComponent.textureSamplerUniform == -1 || fragementShaderComponent.hasTextureUniform == -1) {
 		std::cout << "Error assigning program locations" << std::endl;
 		std::cout << "vertexPositionAttrib: " << vertexShaderComponent.vertexPositionAttrib << std::endl;
 		std::cout << "colourAttrib: " << vertexShaderComponent.colourAttrib << std::endl;
 		std::cout << "uvLocation: " << vertexShaderComponent.uvAttrib << std::endl;
-		std::cout << "modelMatrixLocation: " << fragementShaderComponent.modelMatrixUniform << std::endl;
-		std::cout << "viewMatrixLocation: " << fragementShaderComponent.viewMatrixUniform << std::endl;
+		std::cout << "modelMatrixLocation: " << vertexShaderComponent.modelMatrixUniform << std::endl;
+		std::cout << "viewMatrixLocation: " << vertexShaderComponent.viewMatrixUniform << std::endl;
 		std::cout << "textureSamplerLocation: " << fragementShaderComponent.textureSamplerUniform << std::endl;
 	}
 
@@ -217,7 +217,7 @@ Model Engine::LoadModel(std::string modelPath) {
 				// Check if the current mesh has UVs setup for texturing.
 				if (scene->mMeshes[i]->mTextureCoords[0] != NULL) {
 					// Grabs each UV value and puts them together into a Vector 2, this is as model files store the UVs as two seperate values.
-					currentMesh.hasTextures = true;
+					currentMesh.isSetupForTextures = true;
 					currentMesh.uvs.push_back(glm::vec2(scene->mMeshes[i]->mTextureCoords[0][j].x, scene->mMeshes[i]->mTextureCoords[0][j].y));
 				}
 				//else {
@@ -318,8 +318,8 @@ void Engine::Renderer(void) {
 
 	// Main Render
 	glUseProgram(glProgram);
-	glUniformMatrix4fv(fragementShaderComponent.viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.viewMatrix));				// Pass the viewMatrix to the Shader.
-	glUniformMatrix4fv(fragementShaderComponent.projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.projectionMatrix));	// Pass the projectionMatrix to the Shader.
+	glUniformMatrix4fv(vertexShaderComponent.viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.viewMatrix));				// Pass the viewMatrix to the Shader.
+	glUniformMatrix4fv(vertexShaderComponent.projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.projectionMatrix));	// Pass the projectionMatrix to the Shader.
 	Draw();	// Does the actual drawing of the GameObjects, this is seperated to make it easier to read.
 	glUseProgram(0);
 

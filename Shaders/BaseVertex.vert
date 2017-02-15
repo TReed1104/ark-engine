@@ -10,8 +10,7 @@ uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 
-void main()
-{
+void main() {
 	fragmentColour = vertexColor;
 	vec4 newPosition = vec4(vertexPosition, 1.0);
 

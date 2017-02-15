@@ -39,14 +39,14 @@ void Model::Mesh::InitialiseVertexArray(void) {
 	glBindBuffer(GL_ARRAY_BUFFER, colourBufferObject);
 	glVertexAttribPointer(vertexShaderComponents.colourAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-	if (hasTextures) {
+	if (isSetupForTextures) {
 		glBindBuffer(GL_ARRAY_BUFFER, uvBufferObject);
 		glVertexAttribPointer(vertexShaderComponents.uvAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	}
 
 	glEnableVertexAttribArray(vertexShaderComponents.vertexPositionAttrib);		// Enable attribute at index positionLocation.
 	glEnableVertexAttribArray(vertexShaderComponents.colourAttrib);
-	if (hasTextures) {
+	if (isSetupForTextures) {
 		glEnableVertexAttribArray(vertexShaderComponents.uvAttrib);
 	}
 
@@ -55,7 +55,7 @@ void Model::Mesh::InitialiseVertexArray(void) {
 							// Clean up.
 	glDisableVertexAttribArray(vertexShaderComponents.vertexPositionAttrib);	//disable vertex attribute at index positionLocation.
 	glDisableVertexAttribArray(vertexShaderComponents.colourAttrib);
-	if (hasTextures) {
+	if (isSetupForTextures) {
 		glDisableVertexAttribArray(vertexShaderComponents.uvAttrib);
 	}
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //unbind array buffer.

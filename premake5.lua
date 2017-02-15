@@ -22,6 +22,7 @@ solution "ArkEngine"
 	{ 	
 		path.join("**.h"),
 		path.join("**.cpp"),
+		path.join("**.hpp"),
 		path.join("**.vert"),
 		path.join("**.frag"),
 		path.join("**.bmp"),

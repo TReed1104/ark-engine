@@ -22,7 +22,6 @@ class GameObject {
 public:
 	Engine* engine;
 	Model model;
-	bool isTextured;
 	int currentTextureIndex;
 	std::vector<Texture> textureRegister;
 	glm::vec2 sourceFrameSize;
@@ -40,7 +39,8 @@ public:
 	void Translate(glm::vec3 translation);
 	void Rotate(float rotationAngle, glm::vec3 rotationAxis);
 	void Scale(glm::vec3 scale);
-	bool LoadTextures(char* texturePath);
+	void LoadTexture(char* texturePath);
+	void LoadAndSplitTexture(char* texturePath);
 
 private:
 };

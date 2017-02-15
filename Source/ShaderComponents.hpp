@@ -9,6 +9,9 @@ public:
 	GLint vertexPositionAttrib;
 	GLint colourAttrib;
 	GLint uvAttrib;
+	GLint modelMatrixUniform;
+	GLint viewMatrixUniform;
+	GLint projectionMatrixUniform;
 
 	VertexShaderComponents() {}
 	~VertexShaderComponents() {}
@@ -19,9 +22,6 @@ class FragementShaderComponents
 public:
 	GLint hasTextureUniform;
 	GLint textureSamplerUniform;
-	GLint modelMatrixUniform;
-	GLint viewMatrixUniform;
-	GLint projectionMatrixUniform;
 
 	// Constructors and Deconstructors
 	FragementShaderComponents() {}

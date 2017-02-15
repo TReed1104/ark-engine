@@ -23,7 +23,7 @@ public:
 		GLuint colourBufferObject;
 		GLuint uvBufferObject;
 		GLuint vertexArrayObject;
-		bool hasTextures = false;
+		bool isSetupForTextures = false;
 		std::vector<glm::vec3> vertexPositions;
 		std::vector<unsigned int> indices;
 		std::vector<glm::vec3> colourData;
