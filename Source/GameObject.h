@@ -35,14 +35,20 @@ public:
 	~GameObject();
 
 	virtual void Update(float deltaTime);
-	virtual void Draw(void);
+	virtual void Draw(const ShaderPointers &shaderData);
+
+private:
+	glm::mat4 translationMatrix;
+	glm::mat4 rotationMatrix;
+	glm::mat4 scaleMatrix;
+
 	void Translate(glm::vec3 translation);
 	void Rotate(float rotationAngle, glm::vec3 rotationAxis);
 	void Scale(glm::vec3 scale);
+	glm::mat4 GetModelMatrix();
 	void LoadTexture(char* texturePath);
 	void LoadAndSplitTexture(char* texturePath);
 
-private:
 };
 
 #endif

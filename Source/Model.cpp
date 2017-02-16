@@ -1,6 +1,6 @@
 #include "Model.h"
 
-void Model::Mesh::InitialiseBuffers(void) {
+void Model::Mesh::SetVertexBuffers(const ShaderPointers &shaderPointers) {
 	if (vertexPositions.size() > 0) {
 		glGenBuffers(1, &vertexBufferObject);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
@@ -28,50 +28,42 @@ void Model::Mesh::InitialiseBuffers(void) {
 	}
 	std::cout << "Buffers OK! VBO GLuint: " << vertexBufferObject << ", IBO GLuint: " << indicesBufferObject << ", UBO GLuint: " << uvBufferObject << std::endl;
 }
-void Model::Mesh::InitialiseVertexArray(void) {
+void Model::Mesh::SetVertexArray(const ShaderPointers &shaderPointers) {
 	glGenVertexArrays(1, &vertexArrayObject);			// Create a Vertex Array Object
 	std::cout << "Vertex Array OK! GLuint: " << vertexArrayObject << std::endl;
 	glBindVertexArray(vertexArrayObject);				// Make the just created VAO the active one.
 
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);	// Bind positionBufferObject.
-	glVertexAttribPointer(vertexShaderComponents.vertexPositionAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);	// Specify that position data contains four floats per vertex, and goes into attribute index positionLocation
+	glVertexAttribPointer(shaderPointers.vertexPositionAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);	// Specify that position data contains four floats per vertex, and goes into attribute index positionLocation
 
 	glBindBuffer(GL_ARRAY_BUFFER, colourBufferObject);
-	glVertexAttribPointer(vertexShaderComponents.colourAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(shaderPointers.colourAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	if (isSetupForTextures) {
 		glBindBuffer(GL_ARRAY_BUFFER, uvBufferObject);
-		glVertexAttribPointer(vertexShaderComponents.uvAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+		glVertexAttribPointer(shaderPointers.uvAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	}
 
-	glEnableVertexAttribArray(vertexShaderComponents.vertexPositionAttrib);		// Enable attribute at index positionLocation.
-	glEnableVertexAttribArray(vertexShaderComponents.colourAttrib);
+	glEnableVertexAttribArray(shaderPointers.vertexPositionAttrib);		// Enable attribute at index positionLocation.
+	glEnableVertexAttribArray(shaderPointers.colourAttrib);
 	if (isSetupForTextures) {
-		glEnableVertexAttribArray(vertexShaderComponents.uvAttrib);
+		glEnableVertexAttribArray(shaderPointers.uvAttrib);
 	}
 
 	glBindVertexArray(0);	// Unbind the VAO so we can't change it.
 
 							// Clean up.
-	glDisableVertexAttribArray(vertexShaderComponents.vertexPositionAttrib);	//disable vertex attribute at index positionLocation.
-	glDisableVertexAttribArray(vertexShaderComponents.colourAttrib);
+	glDisableVertexAttribArray(shaderPointers.vertexPositionAttrib);	//disable vertex attribute at index positionLocation.
+	glDisableVertexAttribArray(shaderPointers.colourAttrib);
 	if (isSetupForTextures) {
-		glDisableVertexAttribArray(vertexShaderComponents.uvAttrib);
+		glDisableVertexAttribArray(shaderPointers.uvAttrib);
 	}
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //unbind array buffer.
 }
-void Model::Mesh::InitialiseShaderObjects(VertexShaderComponents vertexShaderComponents, FragementShaderComponents fragShaderComponents)
-{
-	this->vertexShaderComponents = vertexShaderComponents;
-	this->fragementShaderComponents = fragShaderComponents;
-	InitialiseBuffers();
-	InitialiseVertexArray();
-}
-void Model::UpdateViewMatrix() {
-	modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
-}
-void Model::InitialiseMeshShaderObject(VertexShaderComponents vertexShaderComponents, FragementShaderComponents fragShaderComponents) {
+
+void Model::SetVertexData(const ShaderPointers &shaderPointers) {
 	for (int i = 0; i < meshes.size(); i++) {
-		meshes[i].InitialiseShaderObjects(vertexShaderComponents, fragShaderComponents);
+		meshes[i].SetVertexBuffers(shaderPointers);
+		meshes[i].SetVertexArray(shaderPointers);
 	}
 }

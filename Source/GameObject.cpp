@@ -10,10 +10,9 @@ GameObject::GameObject(Engine &engine, Model model, glm::vec3 position, char * t
 	rotation = 0.0f;
 	scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	velocity = glm::vec3(0.0f);
-	this->model.translationMatrix = glm::translate(this->model.translationMatrix, position);
-	this->model.rotationMatrix = glm::mat4(1.0f);
-	this->model.scaleMatrix = glm::mat4(1.0f);
-	this->model.UpdateViewMatrix();
+	this->translationMatrix = glm::translate(this->translationMatrix, position);
+	this->rotationMatrix = glm::mat4(1.0f);
+	this->scaleMatrix = glm::mat4(1.0f);
 	this->sourceFrameSize = sourceFrameSize;
 	this->currentTextureIndex = 0;
 
@@ -23,13 +22,17 @@ GameObject::~GameObject() {
 
 }
 
+// Game Run Time.
 void GameObject::Update(float deltaTime) {
+	// Derived logic will be called here.
+
+
+	// Set the transforms for the object.
 	Translate(drawPosition);
 	Rotate(rotation, glm::vec3(0.0f, 1.0f, 0.0f));
 	Scale(scale);
-	this->model.UpdateViewMatrix();
 }
-void GameObject::Draw(void) {
+void GameObject::Draw(const ShaderPointers &shaderData) {
 	// Loop through each mesh of the model
 	for (int i = 0; i < model.meshes.size(); i++) {
 		Model::Mesh &currentMesh = model.meshes[i];
@@ -38,20 +41,21 @@ void GameObject::Draw(void) {
 		glBindVertexArray(currentMesh.vertexArrayObject);
 
 		// Passes the model matrix to the Vertex Shader.
-		glUniformMatrix4fv(currentMesh.vertexShaderComponents.modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(model.modelMatrix));
+		
+		glUniformMatrix4fv(shaderData.modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(this->GetModelMatrix()));
 
 		bool useTextures = ((textureRegister.size() > 0) && currentMesh.isSetupForTextures);		// Decides whether the current mesh has been correctly setup for texturing.
 		if (useTextures) {
 
-			glUniform1i(currentMesh.fragementShaderComponents.hasTextureUniform, useTextures);		// Tells the Fragment shader that it is to try and use textures and not the colour buffer data.
+			glUniform1i(shaderData.hasTextureUniform, useTextures);		// Tells the Fragment shader that it is to try and use textures and not the colour buffer data.
 
 			// Texturing setup for the current draw call.
 			glActiveTexture(GL_TEXTURE0);															// Select the active texture.
 			glBindTexture(GL_TEXTURE_2D, textureRegister[currentTextureIndex].textureID);			// Bind the current texture from the register as the active texture chosen above.
-			glUniform1i(currentMesh.fragementShaderComponents.textureSamplerUniform, 0);			// Passes active texture 0 to the Fragement shader.
+			glUniform1i(shaderData.textureSamplerUniform, 0);			// Passes active texture 0 to the Fragement shader.
 		}
 		else {
-			glUniform1i(currentMesh.fragementShaderComponents.hasTextureUniform, false);			// Tells the Fragment shader that it is to try and use the colour buffer data and not textures.
+			glUniform1i(shaderData.hasTextureUniform, false);			// Tells the Fragment shader that it is to try and use the colour buffer data and not textures.
 		}
 
 		// Bind the indices buffer as the one to be used in the draw call, this is how OpenGL decides how to draw each triangle.
@@ -72,15 +76,22 @@ void GameObject::Draw(void) {
 		glBindVertexArray(0);
 	}
 }
+
+// Transformation
 void GameObject::Translate(glm::vec3 translation) {
-	this->model.translationMatrix = glm::translate(glm::mat4(1.0f), translation);
+	translationMatrix = glm::translate(glm::mat4(1.0f), translation);
 }
 void GameObject::Rotate(float rotationAngle, glm::vec3 rotationAxis) {
-	this->model.rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotationAngle), rotationAxis);
+	rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotationAngle), rotationAxis);
 }
 void GameObject::Scale(glm::vec3 scale) {
-	this->model.scaleMatrix = glm::scale(glm::mat4(1.0f), scale);
+	scaleMatrix = glm::scale(glm::mat4(1.0f), scale);
 }
+glm::mat4 GameObject::GetModelMatrix() {
+	return (translationMatrix * rotationMatrix * scaleMatrix);
+}
+
+// Texturing
 void GameObject::LoadTexture(char * texturePath) {
 	// This function loads a texture into memory to be used with a source rectangle to depict what part of it to render.
 	if (texturePath != "") {

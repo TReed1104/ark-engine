@@ -16,7 +16,7 @@
 #include <assimp/scene.h>
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
-#include "ShaderComponents.hpp"
+#include "ShaderPointers.hpp"
 #include "Shader.h"
 #include "Camera.h"
 #include "Tile.h"
@@ -45,8 +45,7 @@ private:
 	bool isRunning = true;
 	SDL_GLContext glContext;
 	GLuint glProgram;
-	VertexShaderComponents vertexShaderComponent;
-	FragementShaderComponents fragementShaderComponent;
+	ShaderPointers shaderData;
 	float aspectRatio;
 	glm::vec2 windowSize;
 	float fieldOfView;

@@ -169,27 +169,25 @@ void Engine::InitialiseProgram(void) {
 	}
 
 	// Get the location pointer for the attributes.
-	// Vertex Shader locations.
-	vertexShaderComponent.vertexPositionAttrib = glGetAttribLocation(glProgram, "vertexPosition");
-	vertexShaderComponent.colourAttrib = glGetAttribLocation(glProgram, "vertexColor");
-	vertexShaderComponent.uvAttrib = glGetAttribLocation(glProgram, "vertexUV");
-	vertexShaderComponent.modelMatrixUniform = glGetUniformLocation(glProgram, "modelMatrix");
-	vertexShaderComponent.viewMatrixUniform = glGetUniformLocation(glProgram, "viewMatrix");
-	vertexShaderComponent.projectionMatrixUniform = glGetUniformLocation(glProgram, "projectionMatrix");
-	// Fragment Shader locations.
-	fragementShaderComponent.textureSamplerUniform = glGetUniformLocation(glProgram, "textureSampler");
-	fragementShaderComponent.hasTextureUniform = glGetUniformLocation(glProgram, "hasTexture");
+	shaderData.vertexPositionAttrib = glGetAttribLocation(glProgram, "vertexPosition");
+	shaderData.colourAttrib = glGetAttribLocation(glProgram, "vertexColor");
+	shaderData.uvAttrib = glGetAttribLocation(glProgram, "vertexUV");
+	shaderData.modelMatrixUniform = glGetUniformLocation(glProgram, "modelMatrix");
+	shaderData.viewMatrixUniform = glGetUniformLocation(glProgram, "viewMatrix");
+	shaderData.projectionMatrixUniform = glGetUniformLocation(glProgram, "projectionMatrix");
+	shaderData.textureSamplerUniform = glGetUniformLocation(glProgram, "textureSampler");
+	shaderData.hasTextureUniform = glGetUniformLocation(glProgram, "hasTexture");
 
 	// If any of the shaderlocations have failed to be found, print the value of each for debugging.
-	if (vertexShaderComponent.vertexPositionAttrib == -1 || vertexShaderComponent.colourAttrib == -1 || vertexShaderComponent.uvAttrib == -1 || vertexShaderComponent.modelMatrixUniform == -1 || vertexShaderComponent.viewMatrixUniform == -1 ||
-		vertexShaderComponent.projectionMatrixUniform == -1 || fragementShaderComponent.textureSamplerUniform == -1 || fragementShaderComponent.hasTextureUniform == -1) {
+	if (shaderData.vertexPositionAttrib == -1 || shaderData.colourAttrib == -1 || shaderData.uvAttrib == -1 || shaderData.modelMatrixUniform == -1 || shaderData.viewMatrixUniform == -1 ||
+		shaderData.projectionMatrixUniform == -1 || shaderData.textureSamplerUniform == -1 || shaderData.hasTextureUniform == -1) {
 		std::cout << "Error assigning program locations" << std::endl;
-		std::cout << "vertexPositionAttrib: " << vertexShaderComponent.vertexPositionAttrib << std::endl;
-		std::cout << "colourAttrib: " << vertexShaderComponent.colourAttrib << std::endl;
-		std::cout << "uvLocation: " << vertexShaderComponent.uvAttrib << std::endl;
-		std::cout << "modelMatrixLocation: " << vertexShaderComponent.modelMatrixUniform << std::endl;
-		std::cout << "viewMatrixLocation: " << vertexShaderComponent.viewMatrixUniform << std::endl;
-		std::cout << "textureSamplerLocation: " << fragementShaderComponent.textureSamplerUniform << std::endl;
+		std::cout << "vertexPositionAttrib: " << shaderData.vertexPositionAttrib << std::endl;
+		std::cout << "colourAttrib: " << shaderData.colourAttrib << std::endl;
+		std::cout << "uvLocation: " << shaderData.uvAttrib << std::endl;
+		std::cout << "modelMatrixLocation: " << shaderData.modelMatrixUniform << std::endl;
+		std::cout << "viewMatrixLocation: " << shaderData.viewMatrixUniform << std::endl;
+		std::cout << "textureSamplerLocation: " << shaderData.textureSamplerUniform << std::endl;
 	}
 
 	// Clean up shaders, they aren't needed anymore as they are loaded into the program.
@@ -245,21 +243,25 @@ Model Engine::LoadModel(std::string modelPath) {
 	}
 }
 void Engine::LoadContent(void) {
-
+	// Load the Model Register
 	modelRegister.push_back(LoadModel("../Content/Models/tile.obj"));
 
+	// Loop through the model register and setup the Vertex Objects for every model for their default states.
+	for (int i = 0; i < modelRegister.size(); i++) {
+		modelRegister[i].SetVertexData(shaderData);
+	}
+
+	// Load the Tile Register
+
+	// Load the Level Register
+
+	// Load the player
 	player = new GameObject(*this, modelRegister[0], glm::vec3(0.0f, 0.0f, 0.0f), "../Content/Textures/placeholder.png");
 
+	// Load the Agent Register
 
-	player->model.InitialiseMeshShaderObject(vertexShaderComponent, fragementShaderComponent);
-	for (int i = 0; i < tileRegister.size(); i++)
-	{
-		tileRegister[i]->model.meshes[i].InitialiseShaderObjects(vertexShaderComponent, fragementShaderComponent);
-	}
-	for (int i = 0; i < agentRegister.size(); i++)
-	{
-		agentRegister[i]->model.meshes[i].InitialiseShaderObjects(vertexShaderComponent, fragementShaderComponent);
-	}
+	// Load the Item Register
+
 }
 void Engine::SetupEnvironment(void) {
 	std::cout << ">> Setting up Environment..." << std::endl;
@@ -304,7 +306,7 @@ void Engine::Draw(void) {
 	// Draw the player to the buffers.
 	if (player != nullptr)
 	{
-		player->Draw();
+		player->Draw(shaderData);
 	}
 
 	// Draw the NPCs
@@ -318,8 +320,8 @@ void Engine::Renderer(void) {
 
 	// Main Render
 	glUseProgram(glProgram);
-	glUniformMatrix4fv(vertexShaderComponent.viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.viewMatrix));				// Pass the viewMatrix to the Shader.
-	glUniformMatrix4fv(vertexShaderComponent.projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.projectionMatrix));	// Pass the projectionMatrix to the Shader.
+	glUniformMatrix4fv(shaderData.viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.viewMatrix));				// Pass the viewMatrix to the Shader.
+	glUniformMatrix4fv(shaderData.projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.projectionMatrix));	// Pass the projectionMatrix to the Shader.
 	Draw();	// Does the actual drawing of the GameObjects, this is seperated to make it easier to read.
 	glUseProgram(0);
 

@@ -3,8 +3,7 @@
 
 // Header file Includes.
 #include <GL/glew.h>
-
-class VertexShaderComponents {
+class ShaderPointers {
 public:
 	GLint vertexPositionAttrib;
 	GLint colourAttrib;
@@ -12,19 +11,10 @@ public:
 	GLint modelMatrixUniform;
 	GLint viewMatrixUniform;
 	GLint projectionMatrixUniform;
-
-	VertexShaderComponents() {}
-	~VertexShaderComponents() {}
-};
-
-class FragementShaderComponents
-{
-public:
 	GLint hasTextureUniform;
 	GLint textureSamplerUniform;
 
-	// Constructors and Deconstructors
-	FragementShaderComponents() {}
-	~FragementShaderComponents() {}
+	ShaderPointers() {};
+	~ShaderPointers() {};
 };
 #endif

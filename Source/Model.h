@@ -5,9 +5,7 @@
 #include <vector>
 #include <GL/glew.h>
 #include <glm.hpp>
-#include "ShaderComponents.hpp"
-
-
+#include "ShaderPointers.hpp"
 
 class Model
 {
@@ -15,9 +13,6 @@ public:
 	class Mesh
 	{
 	public:
-		// Public Member Variables.
-		VertexShaderComponents vertexShaderComponents;
-		FragementShaderComponents fragementShaderComponents;
 		GLuint vertexBufferObject;
 		GLuint indicesBufferObject;
 		GLuint colourBufferObject;
@@ -30,33 +25,19 @@ public:
 		std::vector<glm::vec2> uvs;
 		std::vector<glm::vec3> surfaceNormals;
 
-		// Constructors and Deconstructors
 		Mesh() {}
 		~Mesh() {}
 
-		// Public Member Function Declarations
-		void InitialiseShaderObjects(VertexShaderComponents vertexShaderComponents, FragementShaderComponents fragShaderComponents);
-
-	private:
-		// Private Member Function Declarations
-		void InitialiseBuffers(void);
-		void InitialiseVertexArray(void);
+		void SetVertexBuffers(const ShaderPointers &shaderPointers);
+		void SetVertexArray(const ShaderPointers &shaderPointers);
 	};
 
-	// Public Member Variables.
 	std::string name;
 	std::vector<Mesh> meshes;
-	glm::mat4 translationMatrix;
-	glm::mat4 rotationMatrix;
-	glm::mat4 scaleMatrix;
-	glm::mat4 modelMatrix;
 
-	// Constructors and Deconstructors
 	Model() {}
 	~Model() {}
 
-	// Public Member Function Declarations
-	void UpdateViewMatrix();
-	void InitialiseMeshShaderObject(VertexShaderComponents vertexShaderComponents, FragementShaderComponents fragShaderComponents);
+	void SetVertexData(const ShaderPointers &shaderPointers);
 };
 #endif
