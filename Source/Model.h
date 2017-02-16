@@ -33,11 +33,12 @@ public:
 		Mesh();
 		~Mesh();
 
-		void SetVertexBuffers();
-		void SetVertexArray(const ShaderPointers &shaderPointers);
+		void GenerateVertexBuffers();
+		void GenerateVertexArrayObject(const ShaderPointers &shaderPointers);
+	private:
+
 	};
 
-	const Engine* engine;
 	std::string name;
 	std::vector<Mesh> meshes;
 
@@ -45,6 +46,10 @@ public:
 	Model(const Engine &engine, std::string name = "");
 	~Model();
 
-	void SetVertexData();
+	void SetVertexObjects();
+
+private:
+	const Engine* engine;
+
 };
 #endif

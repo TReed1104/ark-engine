@@ -28,21 +28,15 @@ void Engine::Run(void) {
 	SetupEnvironment();				// Does all the setup function calls for OpenGL, SDL and glew.
 	std::cout << ">> Game runtime started" << std::endl;
 
-	int gameTimer = 0;	// temp timer for timeout.
 	while (isRunning) {
 		currentFrameTime = SDL_GetTicks();
 		float deltaTime = ((currentFrameTime - oldFrameTime) / 1000);
 
-		EventHandling();
+		EventHandler();
 		Update(deltaTime);
 		Renderer();
 
 		oldFrameTime = currentFrameTime;
-
-		gameTimer++;
-		if (gameTimer >= 100) {
-			isRunning = false;
-		}
 	}
 
 	std::cout << ">> Game runtime finished" << std::endl;
@@ -245,7 +239,7 @@ void Engine::LoadContent(void) {
 
 	// Loop through the model register and setup the Vertex Objects for every model for their default states.
 	for (int i = 0; i < modelRegister.size(); i++) {
-		modelRegister[i].SetVertexData();
+		modelRegister[i].SetVertexObjects();
 	}
 
 	// Load the Tile Register
@@ -285,8 +279,54 @@ void Engine::InitialiseWorldCamera(void) {
 	camera = Camera(*this, glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	camera.projectionMatrix = glm::ortho(0.0f, windowSize.x, windowSize.y, 0.0f);
 }
-void Engine::EventHandling(void) {
+void Engine::EventHandler(void) {
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+		switch (event.type)	 {
+		case SDL_WINDOWEVENT: 
+			Event_Window(event.window);
+			break;
+		case SDL_QUIT:
+			isRunning = false;
+			break; 
+		case SDL_KEYDOWN:			// Key down handling.
+			Event_KeyDown(event.key);
+			break;
+		case SDL_KEYUP:				// Key up handling.
+			Event_KeyUp(event.key);
+			break;
+		}
+	}
+}
+void Engine::Event_Window(const SDL_WindowEvent &windowEvent) {
+	switch (windowEvent.event) {
+	case SDL_WINDOWEVENT_RESIZED:
+		// Resize logic.
+		windowSize = glm::vec2(windowEvent.data1, windowEvent.data2);
+		break;
+	default:
+		break;
+	}
+}
+void Engine::Event_KeyDown(const SDL_KeyboardEvent &keyboardEvent) {
+	if (!keyboardEvent.repeat) {
+		switch (keyboardEvent.keysym.sym) {
+		case SDLK_ESCAPE:
+			isRunning = false;
+			break;
+		default:
+			break;
+		}
+	}
+}
+void Engine::Event_KeyUp(const SDL_KeyboardEvent &keyboardEvent) {
+	if (!keyboardEvent.repeat) {
+		switch (keyboardEvent.keysym.sym) {
 
+		default:
+			break;
+		}
+	}
 }
 void Engine::Update(float deltaTime) {
 

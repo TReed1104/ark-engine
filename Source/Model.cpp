@@ -8,7 +8,7 @@ Model::Mesh::~Mesh() {
 
 }
 
-void Model::Mesh::SetVertexBuffers() {
+void Model::Mesh::GenerateVertexBuffers() {
 	if (vertexPositions.size() > 0) {
 		glGenBuffers(1, &vertexBufferObject);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
@@ -36,7 +36,7 @@ void Model::Mesh::SetVertexBuffers() {
 	}
 	std::cout << "Buffers OK! VBO GLuint: " << vertexBufferObject << ", IBO GLuint: " << indicesBufferObject << ", UBO GLuint: " << uvBufferObject << std::endl;
 }
-void Model::Mesh::SetVertexArray(const ShaderPointers &shaderPointers) {
+void Model::Mesh::GenerateVertexArrayObject(const ShaderPointers &shaderPointers) {
 	// Generate and bind a Vertex Array Object.
 	glGenVertexArrays(1, &vertexArrayObject);
 	glBindVertexArray(vertexArrayObject);
@@ -76,9 +76,9 @@ Model::~Model() {
 
 }
 
-void Model::SetVertexData() {
+void Model::SetVertexObjects() {
 	for (int i = 0; i < meshes.size(); i++) {
-		meshes[i].SetVertexBuffers();
-		meshes[i].SetVertexArray(engine->shaderPointers);
+		meshes[i].GenerateVertexBuffers();
+		meshes[i].GenerateVertexArrayObject(engine->shaderPointers);
 	}
 }

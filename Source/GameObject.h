@@ -20,7 +20,6 @@ class Engine;
 
 class GameObject {
 public:
-	const Engine* engine;
 	Model model;
 	int currentTextureIndex;
 	std::vector<Texture> textureRegister;
@@ -38,6 +37,7 @@ public:
 	virtual void Draw();
 
 private:
+	const Engine* engine;
 	glm::mat4 translationMatrix;
 	glm::mat4 rotationMatrix;
 	glm::mat4 scaleMatrix;
