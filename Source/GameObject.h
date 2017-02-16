@@ -20,7 +20,7 @@ class Engine;
 
 class GameObject {
 public:
-	Engine* engine;
+	const Engine* engine;
 	Model model;
 	int currentTextureIndex;
 	std::vector<Texture> textureRegister;
@@ -31,23 +31,23 @@ public:
 	glm::vec3 scale;
 	glm::vec3 velocity;
 
-	GameObject(Engine &engine, Model mesh = Model(), glm::vec3 position = glm::vec3(0.0f), char* texturePath = "", glm::vec2 sourceFrameSize = glm::vec2(TILE_SIZE_X, TILE_SIZE_Y));
+	GameObject(const Engine &engine, const Model &model, glm::vec3 position = glm::vec3(0.0f), char* texturePath = "", glm::vec2 sourceFrameSize = glm::vec2(TILE_SIZE_X, TILE_SIZE_Y));
 	~GameObject();
 
 	virtual void Update(float deltaTime);
-	virtual void Draw(const ShaderPointers &shaderData);
+	virtual void Draw();
 
 private:
 	glm::mat4 translationMatrix;
 	glm::mat4 rotationMatrix;
 	glm::mat4 scaleMatrix;
 
-	void Translate(glm::vec3 translation);
-	void Rotate(float rotationAngle, glm::vec3 rotationAxis);
-	void Scale(glm::vec3 scale);
+	void Translate(const glm::vec3 &translation);
+	void Rotate(const float &rotationAngle, const glm::vec3 &rotationAxis);
+	void Scale(const glm::vec3 &scale);
 	glm::mat4 GetModelMatrix();
-	void LoadTexture(char* texturePath);
-	void LoadAndSplitTexture(char* texturePath);
+	void LoadTexture(const char* texturePath);
+	void LoadAndSplitTexture(const char* texturePath);
 
 };
 

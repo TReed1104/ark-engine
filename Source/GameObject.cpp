@@ -1,8 +1,7 @@
 #include "GameObject.h"
 #include "Engine.h"
 
-GameObject::GameObject(Engine &engine, Model model, glm::vec3 position, char * texturePath, glm::vec2 sourceFrameSize) {
-	// Initialise the GameObject.
+GameObject::GameObject(const Engine &engine, const Model &model, glm::vec3 position, char * texturePath, glm::vec2 sourceFrameSize) {
 	this->engine = &engine;
 	this->model = model;
 	this->position = position;
@@ -32,7 +31,7 @@ void GameObject::Update(float deltaTime) {
 	Rotate(rotation, glm::vec3(0.0f, 1.0f, 0.0f));
 	Scale(scale);
 }
-void GameObject::Draw(const ShaderPointers &shaderData) {
+void GameObject::Draw() {
 	// Loop through each mesh of the model
 	for (int i = 0; i < model.meshes.size(); i++) {
 		Model::Mesh &currentMesh = model.meshes[i];
@@ -42,20 +41,20 @@ void GameObject::Draw(const ShaderPointers &shaderData) {
 
 		// Passes the model matrix to the Vertex Shader.
 		
-		glUniformMatrix4fv(shaderData.modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(this->GetModelMatrix()));
+		glUniformMatrix4fv(engine->shaderPointers.modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(GetModelMatrix()));
 
 		bool useTextures = ((textureRegister.size() > 0) && currentMesh.isSetupForTextures);		// Decides whether the current mesh has been correctly setup for texturing.
 		if (useTextures) {
 
-			glUniform1i(shaderData.hasTextureUniform, useTextures);		// Tells the Fragment shader that it is to try and use textures and not the colour buffer data.
+			glUniform1i(engine->shaderPointers.hasTextureUniform, useTextures);		// Tells the Fragment shader that it is to try and use textures and not the colour buffer data.
 
 			// Texturing setup for the current draw call.
 			glActiveTexture(GL_TEXTURE0);															// Select the active texture.
 			glBindTexture(GL_TEXTURE_2D, textureRegister[currentTextureIndex].textureID);			// Bind the current texture from the register as the active texture chosen above.
-			glUniform1i(shaderData.textureSamplerUniform, 0);			// Passes active texture 0 to the Fragement shader.
+			glUniform1i(engine->shaderPointers.textureSamplerUniform, 0);			// Passes active texture 0 to the Fragement shader.
 		}
 		else {
-			glUniform1i(shaderData.hasTextureUniform, false);			// Tells the Fragment shader that it is to try and use the colour buffer data and not textures.
+			glUniform1i(engine->shaderPointers.hasTextureUniform, false);			// Tells the Fragment shader that it is to try and use the colour buffer data and not textures.
 		}
 
 		// Bind the indices buffer as the one to be used in the draw call, this is how OpenGL decides how to draw each triangle.
@@ -78,13 +77,13 @@ void GameObject::Draw(const ShaderPointers &shaderData) {
 }
 
 // Transformation
-void GameObject::Translate(glm::vec3 translation) {
+void GameObject::Translate(const glm::vec3 &translation) {
 	translationMatrix = glm::translate(glm::mat4(1.0f), translation);
 }
-void GameObject::Rotate(float rotationAngle, glm::vec3 rotationAxis) {
+void GameObject::Rotate(const float &rotationAngle, const glm::vec3 &rotationAxis) {
 	rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotationAngle), rotationAxis);
 }
-void GameObject::Scale(glm::vec3 scale) {
+void GameObject::Scale(const glm::vec3 &scale) {
 	scaleMatrix = glm::scale(glm::mat4(1.0f), scale);
 }
 glm::mat4 GameObject::GetModelMatrix() {
@@ -92,7 +91,7 @@ glm::mat4 GameObject::GetModelMatrix() {
 }
 
 // Texturing
-void GameObject::LoadTexture(char * texturePath) {
+void GameObject::LoadTexture(const char * texturePath) {
 	// This function loads a texture into memory to be used with a source rectangle to depict what part of it to render.
 	if (texturePath != "") {
 		//int init = IMG_Init(IMG_INIT_PNG);
@@ -128,7 +127,7 @@ void GameObject::LoadTexture(char * texturePath) {
 		SDL_FreeSurface(image);
 	}
 }
-void GameObject::LoadAndSplitTexture(char * texturePath) {
+void GameObject::LoadAndSplitTexture(const char * texturePath) {
 	// This function loads a texture into memory and divides it into seperate textures of a specified size, this takes more computation but does not require a source rectangle.
 	if (texturePath != "") {
 		//int init = IMG_Init(IMG_INIT_PNG);

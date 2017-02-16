@@ -7,37 +7,44 @@
 #include <glm.hpp>
 #include "ShaderPointers.hpp"
 
+class Engine;
+
 class Model
 {
 public:
 	class Mesh
 	{
 	public:
+		// Buffers where the data about the mesh are stored for use by OpenGL
 		GLuint vertexBufferObject;
 		GLuint indicesBufferObject;
 		GLuint colourBufferObject;
 		GLuint uvBufferObject;
 		GLuint vertexArrayObject;
-		bool isSetupForTextures = false;
+
+		// The attributes of the mesh itself.
+		bool isSetupForTextures;
 		std::vector<glm::vec3> vertexPositions;
 		std::vector<unsigned int> indices;
 		std::vector<glm::vec3> colourData;
 		std::vector<glm::vec2> uvs;
 		std::vector<glm::vec3> surfaceNormals;
 
-		Mesh() {}
-		~Mesh() {}
+		Mesh();
+		~Mesh();
 
-		void SetVertexBuffers(const ShaderPointers &shaderPointers);
+		void SetVertexBuffers();
 		void SetVertexArray(const ShaderPointers &shaderPointers);
 	};
 
+	const Engine* engine;
 	std::string name;
 	std::vector<Mesh> meshes;
 
 	Model() {}
-	~Model() {}
+	Model(const Engine &engine, std::string name = "");
+	~Model();
 
-	void SetVertexData(const ShaderPointers &shaderPointers);
+	void SetVertexData();
 };
 #endif

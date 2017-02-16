@@ -169,25 +169,25 @@ void Engine::InitialiseProgram(void) {
 	}
 
 	// Get the location pointer for the attributes.
-	shaderData.vertexPositionAttrib = glGetAttribLocation(glProgram, "vertexPosition");
-	shaderData.colourAttrib = glGetAttribLocation(glProgram, "vertexColor");
-	shaderData.uvAttrib = glGetAttribLocation(glProgram, "vertexUV");
-	shaderData.modelMatrixUniform = glGetUniformLocation(glProgram, "modelMatrix");
-	shaderData.viewMatrixUniform = glGetUniformLocation(glProgram, "viewMatrix");
-	shaderData.projectionMatrixUniform = glGetUniformLocation(glProgram, "projectionMatrix");
-	shaderData.textureSamplerUniform = glGetUniformLocation(glProgram, "textureSampler");
-	shaderData.hasTextureUniform = glGetUniformLocation(glProgram, "hasTexture");
+	shaderPointers.vertexPositionAttrib = glGetAttribLocation(glProgram, "vertexPosition");
+	shaderPointers.colourAttrib = glGetAttribLocation(glProgram, "vertexColor");
+	shaderPointers.uvAttrib = glGetAttribLocation(glProgram, "vertexUV");
+	shaderPointers.modelMatrixUniform = glGetUniformLocation(glProgram, "modelMatrix");
+	shaderPointers.viewMatrixUniform = glGetUniformLocation(glProgram, "viewMatrix");
+	shaderPointers.projectionMatrixUniform = glGetUniformLocation(glProgram, "projectionMatrix");
+	shaderPointers.textureSamplerUniform = glGetUniformLocation(glProgram, "textureSampler");
+	shaderPointers.hasTextureUniform = glGetUniformLocation(glProgram, "hasTexture");
 
 	// If any of the shaderlocations have failed to be found, print the value of each for debugging.
-	if (shaderData.vertexPositionAttrib == -1 || shaderData.colourAttrib == -1 || shaderData.uvAttrib == -1 || shaderData.modelMatrixUniform == -1 || shaderData.viewMatrixUniform == -1 ||
-		shaderData.projectionMatrixUniform == -1 || shaderData.textureSamplerUniform == -1 || shaderData.hasTextureUniform == -1) {
+	if (shaderPointers.vertexPositionAttrib == -1 || shaderPointers.colourAttrib == -1 || shaderPointers.uvAttrib == -1 || shaderPointers.modelMatrixUniform == -1 || shaderPointers.viewMatrixUniform == -1 ||
+		shaderPointers.projectionMatrixUniform == -1 || shaderPointers.textureSamplerUniform == -1 || shaderPointers.hasTextureUniform == -1) {
 		std::cout << "Error assigning program locations" << std::endl;
-		std::cout << "vertexPositionAttrib: " << shaderData.vertexPositionAttrib << std::endl;
-		std::cout << "colourAttrib: " << shaderData.colourAttrib << std::endl;
-		std::cout << "uvLocation: " << shaderData.uvAttrib << std::endl;
-		std::cout << "modelMatrixLocation: " << shaderData.modelMatrixUniform << std::endl;
-		std::cout << "viewMatrixLocation: " << shaderData.viewMatrixUniform << std::endl;
-		std::cout << "textureSamplerLocation: " << shaderData.textureSamplerUniform << std::endl;
+		std::cout << "vertexPositionAttrib: " << shaderPointers.vertexPositionAttrib << std::endl;
+		std::cout << "colourAttrib: " << shaderPointers.colourAttrib << std::endl;
+		std::cout << "uvLocation: " << shaderPointers.uvAttrib << std::endl;
+		std::cout << "modelMatrixLocation: " << shaderPointers.modelMatrixUniform << std::endl;
+		std::cout << "viewMatrixLocation: " << shaderPointers.viewMatrixUniform << std::endl;
+		std::cout << "textureSamplerLocation: " << shaderPointers.textureSamplerUniform << std::endl;
 	}
 
 	// Clean up shaders, they aren't needed anymore as they are loaded into the program.
@@ -201,27 +201,25 @@ Model Engine::LoadModel(std::string modelPath) {
 		Assimp::Importer importer;	// An importer for importing the model data.
 		const aiScene* scene = importer.ReadFile(modelPath, aiProcess_Triangulate | aiProcess_GenNormals);		// Read the Model file.
 
-		Model currentModel;					// A temporary model object to store the model data, this is added to the model register after population.
+		Model currentModel = Model(*this, modelPath);
 		
 		// Loop through each mesh in the loaded model.
 		for (int i = 0; i < scene->mNumMeshes; i++) {
-			Model::Mesh currentMesh = Model::Mesh();		// A temporary Mesh object to store the current mesh data, this object is added to the current model at the end of each iteration.
+			Model::Mesh currentMesh = Model::Mesh();
 
-			// Loop through the array of vertices.
 			for (int j = 0; j < scene->mMeshes[i]->mNumVertices; j++) {
-				// Grabs each vertex value and puts them together into a Vector 3, this is as model files store the vertex positions as three seperate values.
+				// Get the vertices from assimp.
 				currentMesh.vertexPositions.push_back(glm::vec3(scene->mMeshes[i]->mVertices[j].x, scene->mMeshes[i]->mVertices[j].y, scene->mMeshes[i]->mVertices[j].z));
 
-				// Check if the current mesh has UVs setup for texturing.
+				// If the mesh is setup for texturing, get all the textures from assimp.
 				if (scene->mMeshes[i]->mTextureCoords[0] != NULL) {
-					// Grabs each UV value and puts them together into a Vector 2, this is as model files store the UVs as two seperate values.
 					currentMesh.isSetupForTextures = true;
 					currentMesh.uvs.push_back(glm::vec2(scene->mMeshes[i]->mTextureCoords[0][j].x, scene->mMeshes[i]->mTextureCoords[0][j].y));
 				}
-				//else {
-					// If the current mesh is not setup for texturing, give the vertex a white colour value.
-					currentMesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-				//}
+
+				// Populate the colour buffer with a default value.
+				currentMesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+
 				// Check if the current mesh has surface normals setup ready for lighting.
 				if (scene->mMeshes[i]->mNormals != NULL) {
 					currentMesh.surfaceNormals.push_back(glm::vec3(scene->mMeshes[i]->mNormals[j].x, scene->mMeshes[i]->mNormals[j].y, scene->mMeshes[i]->mNormals[j].z));
@@ -233,9 +231,8 @@ Model Engine::LoadModel(std::string modelPath) {
 				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[1]);
 				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[2]);
 			}
-			// Add the current mesh into the tempModel vector (copies it).
+
 			currentModel.meshes.push_back(currentMesh);
-			currentModel.name = modelPath;
 		}
 		std::cout << "Model loaded: " << modelPath << std::endl;	// Outputs that the model has been loaded.
 		importer.FreeScene();						// Cleans up the loader.
@@ -248,7 +245,7 @@ void Engine::LoadContent(void) {
 
 	// Loop through the model register and setup the Vertex Objects for every model for their default states.
 	for (int i = 0; i < modelRegister.size(); i++) {
-		modelRegister[i].SetVertexData(shaderData);
+		modelRegister[i].SetVertexData();
 	}
 
 	// Load the Tile Register
@@ -306,7 +303,7 @@ void Engine::Draw(void) {
 	// Draw the player to the buffers.
 	if (player != nullptr)
 	{
-		player->Draw(shaderData);
+		player->Draw();
 	}
 
 	// Draw the NPCs
@@ -320,8 +317,8 @@ void Engine::Renderer(void) {
 
 	// Main Render
 	glUseProgram(glProgram);
-	glUniformMatrix4fv(shaderData.viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.viewMatrix));				// Pass the viewMatrix to the Shader.
-	glUniformMatrix4fv(shaderData.projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.projectionMatrix));	// Pass the projectionMatrix to the Shader.
+	glUniformMatrix4fv(shaderPointers.viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.viewMatrix));				// Pass the viewMatrix to the Shader.
+	glUniformMatrix4fv(shaderPointers.projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.projectionMatrix));	// Pass the projectionMatrix to the Shader.
 	Draw();	// Does the actual drawing of the GameObjects, this is seperated to make it easier to read.
 	glUseProgram(0);
 

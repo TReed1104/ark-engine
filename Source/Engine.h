@@ -34,6 +34,9 @@ public:
 	std::vector<GameObject*> agentRegister;
 	std::vector<GameObject*> itemRegister;
 	SDL_Window *sdlWindow;
+	ShaderPointers shaderPointers;
+	SDL_GLContext glContext;
+	GLuint glProgram;
 
 	Engine(char* gameName);
 	~Engine(void);
@@ -43,9 +46,6 @@ public:
 private:
 	std::string exeName;
 	bool isRunning = true;
-	SDL_GLContext glContext;
-	GLuint glProgram;
-	ShaderPointers shaderData;
 	float aspectRatio;
 	glm::vec2 windowSize;
 	float fieldOfView;
