@@ -1,5 +1,5 @@
-#ifndef Camera_h_included
-#define Camera_h_included
+#ifndef ARKENGINE_CAMERA_H_
+#define ARKENGINE_CAMERA_H_
 
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
@@ -25,13 +25,13 @@ public:
 
 	// Constructors and Deconstructors
 	Camera() {}
-	Camera(Engine &engine, glm::vec3 &cameraPosition = glm::vec3(0.0f), glm::vec3 &cameraLookAt = glm::vec3(0.0f), glm::vec3 &upVector = glm::vec3(0.0f, 1.0f, 0.0f));
+	Camera(Engine &engine, const glm::vec3& cameraPosition = glm::vec3(0.0f), const glm::vec3& cameraLookAt = glm::vec3(0.0f), const glm::vec3& upVector = glm::vec3(0.0f, 1.0f, 0.0f));
 	~Camera();
 
 	// Public Member Function Declarations
-	void Update(float deltaTime, GameObject &object);
-	void FollowObject(GameObject &object);
+	void Update(const float& deltaTime, const GameObject& object);
+	void FollowObject(const GameObject& object);
 	void ManualControl(void);
-	void SetControlMode(CameraMode newMode);
+	void SetControlMode(const CameraMode& newMode);
 };
 #endif

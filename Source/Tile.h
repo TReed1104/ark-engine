@@ -1,5 +1,5 @@
-#ifndef Tile_h_included
-#define Tile_h_included
+#ifndef ARKENGINE_TILE_H_
+#define ARKENGINE_TILE_H_
 
 class Tile {
 

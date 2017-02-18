@@ -1,5 +1,5 @@
-#ifndef Texture_hpp_included
-#define Texture_hpp_included
+#ifndef ARKENGINE_TEXTURE_HPP_
+#define ARKENGINE_TEXTURE_HPP_
 
 #include <string>
 #include <GL/glew.h>
@@ -9,7 +9,7 @@ public:
 	std::string name;
 	GLuint textureID;
 
-	Texture(std::string name) {
+	Texture(const std::string& name) {
 		this->name = name;
 		this->textureID = -1;
 	}

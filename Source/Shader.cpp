@@ -1,14 +1,14 @@
 #include "Shader.h"
 
-Shader::Shader(const std::string shaderLocation, GLenum eShaderType) {
-	LoadShader(shaderLocation);
-	CreateShader(eShaderType, strShader);
+Shader::Shader(const std::string& shaderLocation, const GLenum& eShaderType) {
+	Load(shaderLocation);
+	Create(eShaderType, strShader);
 }
 Shader::~Shader() {
 
 }
 
-void Shader::LoadShader(std::string ShaderLocation) {
+void Shader::Load(const std::string& ShaderLocation) {
 	bool complete = false;
 	std::string line = "";
 	std::string text = "";
@@ -25,7 +25,7 @@ void Shader::LoadShader(std::string ShaderLocation) {
 	strShader = text;
 	complete = true;
 }
-void Shader::CreateShader(GLenum eShaderType, const std::string &strShaderFile){
+void Shader::Create(const GLenum& eShaderType, const std::string& strShaderFile){
 	shaderID = glCreateShader(eShaderType);
 	// Error check
 	const char *strFileData = strShaderFile.c_str();

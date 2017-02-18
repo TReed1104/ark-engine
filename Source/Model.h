@@ -1,5 +1,5 @@
-#ifndef Mesh_h_included
-#define Mesh_h_included
+#ifndef ARKENGINE_MODEL_H_
+#define ARKENGINE_MODEL_H_
 
 #include <iostream>
 #include <vector>
@@ -34,7 +34,7 @@ public:
 		~Mesh();
 
 		void GenerateVertexBuffers();
-		void GenerateVertexArrayObject(const ShaderPointers &shaderPointers);
+		void GenerateVertexArrayObject(const ShaderPointers& shaderPointers);
 	private:
 
 	};
@@ -43,7 +43,7 @@ public:
 	std::vector<Mesh> meshes;
 
 	Model() {}
-	Model(const Engine &engine, std::string name = "");
+	Model(const Engine &engine, const std::string& name = "");
 	~Model();
 
 	void SetVertexObjects();

@@ -68,7 +68,7 @@ void Model::Mesh::GenerateVertexArrayObject(const ShaderPointers &shaderPointers
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //unbind array buffer.
 }
 
-Model::Model(const Engine &engine, std::string name) {
+Model::Model(const Engine &engine, const std::string& name) {
 	this->engine = &engine;
 	this->name = name;
 }

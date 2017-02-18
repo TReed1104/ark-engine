@@ -1,5 +1,5 @@
-#ifndef Engine_h_included
-#define Engine_h_included
+#ifndef ARKENGINE_ENGINE_H_
+#define ARKENGINE_ENGINE_H_
 
 #include <iostream>
 #include <algorithm>
@@ -33,7 +33,7 @@ public:
 	GameObject* player;
 	std::vector<GameObject*> agentRegister;
 	std::vector<GameObject*> itemRegister;
-	SDL_Window *sdlWindow;
+	SDL_Window* sdlWindow;
 	ShaderPointers shaderPointers;
 	SDL_GLContext glContext;
 	GLuint glProgram;
@@ -57,17 +57,17 @@ private:
 	void CreateSDLWindow(void);
 	void CreateSDLContext(void);
 	void InitialiseGlew(void);
-	GLuint CreateGLProgram(const std::vector<Shader> &shaderList);
+	GLuint CreateGLProgram(const std::vector<Shader>& shaderList);
 	void InitialiseProgram(void);
-	Model LoadModel(std::string modelPath);
+	Model LoadModel(const std::string& modelPath);
 	void LoadContent(void);
 	void SetupEnvironment(void);
 	void CleanupSDL(void);
 	void InitialiseWorldCamera(void);
 	void EventHandler(void);
-	void Event_Window(const SDL_WindowEvent &windowEvent);
-	void Event_KeyDown(const SDL_KeyboardEvent &keyboardEvent);
-	void Event_KeyUp(const SDL_KeyboardEvent &keyboardEvent);
+	void Event_Window(const SDL_WindowEvent& windowEvent);
+	void Event_KeyDown(const SDL_KeyboardEvent& keyboardEvent);
+	void Event_KeyUp(const SDL_KeyboardEvent& keyboardEvent);
 	void Update(float deltaTime);
 	void Draw(void);
 	void Renderer(void);

@@ -1,7 +1,6 @@
-#ifndef Shader_h_included
-#define Shader_h_included
+#ifndef ARKENGINE_SHADER_H_
+#define ARKENGINE_SHADER_H_
 
-// Header file Includes.
 #include <GL/glew.h>
 #include <vector>
 #include <string>
@@ -11,15 +10,13 @@
 
 class Shader {
 public:
-	// Public Member Variables.
 	GLuint shaderID;
 	std::string strShader;
 
-	Shader(const std::string shaderLocation, GLenum eShaderType);		// Constructor.
-	~Shader();															// Deconstructor.
+	Shader(const std::string& shaderLocation, const GLenum& eShaderType);
+	~Shader();
 
-																		// Public Methods.
-	void LoadShader(std::string ShaderLocation);
-	void CreateShader(GLenum eShaderType, const std::string &strShaderFile);
+	void Load(const std::string& ShaderLocation);
+	void Create(const GLenum& eShaderType, const std::string& strShaderFile);
 };
 #endif

@@ -1,5 +1,5 @@
-#ifndef GameObject_h_included
-#define GameObject_h_included
+#ifndef ARKENGINE_GAMEOBJECT_H_
+#define ARKENGINE_GAMEOBJECT_H_
 
 #include <string>
 #include <vector>
@@ -23,14 +23,16 @@ public:
 	Model model;
 	int currentTextureIndex;
 	std::vector<Texture> textureRegister;
+	glm::vec2 textureDimensions;
 	glm::vec2 sourceFrameSize;
+	glm::vec2 sourceFramePosition;
 	glm::vec3 position;
 	glm::vec3 drawPosition;
 	float rotation;
 	glm::vec3 scale;
 	glm::vec3 velocity;
 
-	GameObject(const Engine &engine, const Model &model, glm::vec3 position = glm::vec3(0.0f), char* texturePath = "", glm::vec2 sourceFrameSize = glm::vec2(TILE_SIZE_X, TILE_SIZE_Y));
+	GameObject(const Engine& engine, const Model& model, const glm::vec3& position = glm::vec3(0.0f), const char* texturePath = "", const glm::vec2& sourceFrameSize = glm::vec2(TILE_SIZE_X, TILE_SIZE_Y));
 	~GameObject();
 
 	virtual void Update(float deltaTime);
@@ -47,8 +49,6 @@ private:
 	void Scale(const glm::vec3 &scale);
 	glm::mat4 GetModelMatrix();
 	void LoadTexture(const char* texturePath);
-	void LoadAndSplitTexture(const char* texturePath);
-
 };
 
 #endif

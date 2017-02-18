@@ -162,26 +162,41 @@ void Engine::InitialiseProgram(void) {
 		std::cout << "GLSL program created Successfully! The GLUint is: " << glProgram << std::endl;
 	}
 
-	// Get the location pointer for the attributes.
+	// Get the Vertex Shader Pointers
 	shaderPointers.vertexPositionAttrib = glGetAttribLocation(glProgram, "vertexPosition");
 	shaderPointers.colourAttrib = glGetAttribLocation(glProgram, "vertexColor");
 	shaderPointers.uvAttrib = glGetAttribLocation(glProgram, "vertexUV");
 	shaderPointers.modelMatrixUniform = glGetUniformLocation(glProgram, "modelMatrix");
 	shaderPointers.viewMatrixUniform = glGetUniformLocation(glProgram, "viewMatrix");
 	shaderPointers.projectionMatrixUniform = glGetUniformLocation(glProgram, "projectionMatrix");
+	// Get the Fragment Shader Pointers
 	shaderPointers.textureSamplerUniform = glGetUniformLocation(glProgram, "textureSampler");
 	shaderPointers.hasTextureUniform = glGetUniformLocation(glProgram, "hasTexture");
+	shaderPointers.textureDimensionsUniform = glGetUniformLocation(glProgram, "textureDimensions");
+	shaderPointers.sourceFrameSizeUniform = glGetUniformLocation(glProgram, "sourceFrameSize");
+	shaderPointers.sourceFramePositionUniform = glGetUniformLocation(glProgram, "sourceFramePosition");
 
-	// If any of the shaderlocations have failed to be found, print the value of each for debugging.
-	if (shaderPointers.vertexPositionAttrib == -1 || shaderPointers.colourAttrib == -1 || shaderPointers.uvAttrib == -1 || shaderPointers.modelMatrixUniform == -1 || shaderPointers.viewMatrixUniform == -1 ||
-		shaderPointers.projectionMatrixUniform == -1 || shaderPointers.textureSamplerUniform == -1 || shaderPointers.hasTextureUniform == -1) {
-		std::cout << "Error assigning program locations" << std::endl;
+
+	// Check if any of the Vertex Shader Pointers were not set.
+	if (shaderPointers.vertexPositionAttrib == -1 || shaderPointers.colourAttrib == -1 || shaderPointers.uvAttrib == -1 || 
+		shaderPointers.modelMatrixUniform == -1 || shaderPointers.viewMatrixUniform == -1 || shaderPointers.projectionMatrixUniform == -1 ) {
+		std::cout << "Error assigning Vertex Shader Pointers" << std::endl;
 		std::cout << "vertexPositionAttrib: " << shaderPointers.vertexPositionAttrib << std::endl;
 		std::cout << "colourAttrib: " << shaderPointers.colourAttrib << std::endl;
 		std::cout << "uvLocation: " << shaderPointers.uvAttrib << std::endl;
 		std::cout << "modelMatrixLocation: " << shaderPointers.modelMatrixUniform << std::endl;
 		std::cout << "viewMatrixLocation: " << shaderPointers.viewMatrixUniform << std::endl;
+	}
+
+	// Check if any of the Fragment Shader Pointers were not set.
+	if (shaderPointers.textureSamplerUniform == -1 || shaderPointers.hasTextureUniform == -1 || shaderPointers.textureDimensionsUniform == -1 ||
+		shaderPointers.sourceFrameSizeUniform == -1 || shaderPointers.sourceFramePositionUniform == -1) {
+		std::cout << "Error assigning Fragment Shader Pointers" << std::endl;
 		std::cout << "textureSamplerLocation: " << shaderPointers.textureSamplerUniform << std::endl;
+		std::cout << "hasTextureUniform: " << shaderPointers.hasTextureUniform << std::endl;
+		std::cout << "textureDimensions: " << shaderPointers.textureDimensionsUniform << std::endl;
+		std::cout << "sourceFrameSize: " << shaderPointers.sourceFrameSizeUniform << std::endl;
+		std::cout << "sourceFramePosition: " << shaderPointers.sourceFramePositionUniform << std::endl;
 	}
 
 	// Clean up shaders, they aren't needed anymore as they are loaded into the program.
@@ -189,7 +204,7 @@ void Engine::InitialiseProgram(void) {
 		glDeleteShader(shaderList[iLoop].shaderID);
 	}
 }
-Model Engine::LoadModel(std::string modelPath) {
+Model Engine::LoadModel(const std::string& modelPath) {
 	// Load in a Model.
 	if (modelPath != "") {
 		Assimp::Importer importer;	// An importer for importing the model data.
@@ -267,6 +282,8 @@ void Engine::SetupEnvironment(void) {
 	LoadContent();
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendEquation(GL_FUNC_ADD);
 }
 void Engine::CleanupSDL(void) {
 	std::cout << ">> Starting Cleanup..." << std::endl;
@@ -298,7 +315,7 @@ void Engine::EventHandler(void) {
 		}
 	}
 }
-void Engine::Event_Window(const SDL_WindowEvent &windowEvent) {
+void Engine::Event_Window(const SDL_WindowEvent& windowEvent) {
 	switch (windowEvent.event) {
 	case SDL_WINDOWEVENT_RESIZED:
 		// Resize logic.
@@ -308,7 +325,7 @@ void Engine::Event_Window(const SDL_WindowEvent &windowEvent) {
 		break;
 	}
 }
-void Engine::Event_KeyDown(const SDL_KeyboardEvent &keyboardEvent) {
+void Engine::Event_KeyDown(const SDL_KeyboardEvent& keyboardEvent) {
 	if (!keyboardEvent.repeat) {
 		switch (keyboardEvent.keysym.sym) {
 		case SDLK_ESCAPE:
@@ -319,7 +336,7 @@ void Engine::Event_KeyDown(const SDL_KeyboardEvent &keyboardEvent) {
 		}
 	}
 }
-void Engine::Event_KeyUp(const SDL_KeyboardEvent &keyboardEvent) {
+void Engine::Event_KeyUp(const SDL_KeyboardEvent& keyboardEvent) {
 	if (!keyboardEvent.repeat) {
 		switch (keyboardEvent.keysym.sym) {
 
