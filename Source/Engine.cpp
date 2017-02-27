@@ -12,13 +12,11 @@ Engine::Engine(char* gameName) {
 Engine::~Engine() {
 	delete player;
 
-	for (int i = 0; i < tileRegister.size(); i++)
-	{
+	for (int i = 0; i < tileRegister.size(); i++) {
 		delete tileRegister[i];
 	}
 
-	for (int i = 0; i < agentRegister.size(); i++)
-	{
+	for (int i = 0; i < agentRegister.size(); i++) {
 		delete agentRegister[i];
 	}
 	std::cout << "Game Class Deconstructor Successful!" << std::endl;
@@ -262,7 +260,7 @@ void Engine::LoadContent(void) {
 	// Load the Level Register
 
 	// Load the player
-	player = new GameObject(*this, modelRegister[0], glm::vec3(0.0f, 0.0f, 0.0f), "../Content/Textures/placeholder.png");
+	player = new GameObject(*this, modelRegister[0], glm::vec3(16.0f, 32.0f, 0.0f), "../Content/Textures/placeholder.png");
 
 	// Load the Agent Register
 
@@ -346,25 +344,20 @@ void Engine::Event_KeyUp(const SDL_KeyboardEvent& keyboardEvent) {
 	}
 }
 void Engine::Update(float deltaTime) {
-
-	
-	if (player != nullptr)
-	{
+	if (player != nullptr) {
 		player->Update(deltaTime);
 	}
 }
 void Engine::Draw(void) {
-	// Draw the level to the buffers.
+	// Draw the level
 
 
-	// Draw the player to the buffers.
-	if (player != nullptr)
-	{
+	// Draw the player
+	if (player != nullptr) {
 		player->Draw();
 	}
 
 	// Draw the NPCs
-
 }
 void Engine::Renderer(void) {
 	// Pre-render

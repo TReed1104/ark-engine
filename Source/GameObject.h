@@ -40,14 +40,10 @@ public:
 
 private:
 	const Engine* engine;
-	glm::mat4 translationMatrix;
-	glm::mat4 rotationMatrix;
-	glm::mat4 scaleMatrix;
 
-	void Translate(const glm::vec3 &translation);
-	void Rotate(const float &rotationAngle, const glm::vec3 &rotationAxis);
-	void Scale(const glm::vec3 &scale);
-	glm::mat4 GetModelMatrix();
+	void Translate(const int& indexOfMesh, const glm::vec3 &translation);
+	void Rotate(const int& indexOfMesh, const float &rotationAngle, const glm::vec3 &rotationAxis);
+	void Scale(const int& indexOfMesh, const glm::vec3 &scale);
 	void LoadTexture(const char* texturePath);
 };
 

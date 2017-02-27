@@ -4,14 +4,15 @@
 GameObject::GameObject(const Engine &engine, const Model &model, const glm::vec3& position, const char* texturePath, const glm::vec2& sourceFrameSize) {
 	this->engine = &engine;
 	this->model = model;
+	this->model.SetMeshParents();
 	this->position = position;
 	this->drawPosition = position;
 	rotation = 0.0f;
 	scale = glm::vec3(1.0f);
 	velocity = glm::vec3(0.0f);
-	this->translationMatrix = glm::translate(this->translationMatrix, position);
-	this->rotationMatrix = glm::mat4(1.0f);
-	this->scaleMatrix = glm::mat4(1.0f);
+	this->model.Translate(drawPosition);
+	this->model.Rotate();
+	this->model.Scale();
 
 	// Textures
 	this->currentTextureIndex = 0;
@@ -29,10 +30,10 @@ void GameObject::Update(float deltaTime) {
 	// Derived logic will be called here.
 
 
-	// Set the transforms for the object.
-	Translate(drawPosition);
-	Rotate(rotation, glm::vec3(0.0f, 1.0f, 0.0f));
-	Scale(scale);
+	// Set the transforms for the overall model.
+	model.Translate(drawPosition);
+	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+	model.Scale(scale);
 }
 void GameObject::Draw() {
 	glEnable(GL_BLEND);
@@ -44,7 +45,7 @@ void GameObject::Draw() {
 		glBindVertexArray(currentMesh.vertexArrayObject);
 
 		// Passes the Model Matrix of the Object to the shader.
-		glUniformMatrix4fv(engine->shaderPointers.modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(GetModelMatrix()));
+		glUniformMatrix4fv(engine->shaderPointers.modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 
 		bool useTextures = ((textureRegister.size() > 0) && currentMesh.isSetupForTextures);
 		if (useTextures) {
@@ -85,17 +86,14 @@ void GameObject::Draw() {
 }
 
 // Transformation
-void GameObject::Translate(const glm::vec3& translation) {
-	translationMatrix = glm::translate(glm::mat4(1.0f), translation);
+void GameObject::Translate(const int& indexOfMesh, const glm::vec3& translation) {
+	model.SetMeshTranslation(indexOfMesh, translation);
 }
-void GameObject::Rotate(const float& rotationAngle, const glm::vec3& rotationAxis) {
-	rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotationAngle), rotationAxis);
+void GameObject::Rotate(const int& indexOfMesh, const float& rotationAngle, const glm::vec3& rotationAxis) {
+	model.SetMeshRotation(indexOfMesh, rotationAngle, rotationAxis);
 }
-void GameObject::Scale(const glm::vec3& scale) {
-	scaleMatrix = glm::scale(glm::mat4(1.0f), scale);
-}
-glm::mat4 GameObject::GetModelMatrix() {
-	return (translationMatrix * rotationMatrix * scaleMatrix);
+void GameObject::Scale(const int& indexOfMesh, const glm::vec3& scale) {
+	model.SetMeshScale(indexOfMesh, scale);
 }
 
 // Texturing
