@@ -28,7 +28,7 @@ solution "ArkEngine"
 		path.join("**.bmp"),
 		path.join("**.png"),
 		path.join("./Content/Models/**.obj"),
-		path.join("**.lvl"),
+		path.join("./Content/**.lua"),
 	}
 	excludes  -- don't build files in graphics_dependencies/
 	{
