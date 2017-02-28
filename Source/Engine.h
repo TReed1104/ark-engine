@@ -32,7 +32,7 @@ public:
 	std::vector<Model> modelRegister;
 	std::vector<Tile*> tileRegister;
 	Player* player;
-	std::vector<GameObject*> agentRegister;
+	std::vector<GameObject*> entityRegister;
 	std::vector<GameObject*> itemRegister;
 	SDL_Window* sdlWindow;
 	ShaderPointers shaderPointers;

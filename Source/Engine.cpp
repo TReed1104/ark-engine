@@ -16,8 +16,8 @@ Engine::~Engine() {
 		delete tileRegister[i];
 	}
 
-	for (int i = 0; i < agentRegister.size(); i++) {
-		delete agentRegister[i];
+	for (int i = 0; i < entityRegister.size(); i++) {
+		delete entityRegister[i];
 	}
 	std::cout << "Game Class Deconstructor Successful!" << std::endl;
 }
@@ -262,7 +262,7 @@ void Engine::LoadContent(void) {
 	// Load the player
 	player = new Player(*this, modelRegister[0], glm::vec3(16.0f, 32.0f, 0.0f), "../Content/Textures/placeholder.png");
 
-	// Load the Agent Register
+	// Load the Entity Register
 
 	// Load the Item Register
 
