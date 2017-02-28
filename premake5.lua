@@ -47,6 +47,7 @@ solution "ArkEngine"
 		"./Dependencies/assimp/include",
 		"./Dependencies/SDL2_image/include",
 		"./Dependencies/SDL2_ttf/include",
+		"./Dependencies/lua/src",
 	}
 
 

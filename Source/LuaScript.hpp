@@ -5,27 +5,28 @@
 #include <vector>
 #include <iostream>
 
+extern "C" {
+#include "lua.h"
+#include "lauxlib.h"
+#include "lualib.h"
+}
+
 class LuaScript
 {
 public:
-	LuaScript(const std::string& fileName);
-	~LuaScript();
+	LuaScript(const std::string& fileName) {
+
+	}
+	~LuaScript() {
+
+	}
 
 	template<typename T>
-	T Get(const std::string& variableName);
+	T Get(const std::string& variableName) {
+		return 0;
+	}
 
 private:
 
 };
-
-LuaScript::LuaScript(const std::string& fileName) {
-
-}
-LuaScript::~LuaScript() {
-
-}
-template<typename T>
-T LuaScript::Get(const std::string & variableName) {
-	return 0;
-}
 #endif

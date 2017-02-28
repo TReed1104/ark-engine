@@ -19,6 +19,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 // Engine Source
+#include "LuaScript.hpp"
 #include "EngineConfig.h"
 #include "ShaderPointers.hpp"
 #include "Shader.h"
