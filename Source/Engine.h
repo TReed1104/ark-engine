@@ -16,12 +16,13 @@
 #include <assimp/scene.h>
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
+#include "EngineConfig.h"
 #include "ShaderPointers.hpp"
 #include "Shader.h"
 #include "Camera.h"
 #include "Tile.h"
 #include "GameObject.h"
-#include "EngineConfig.h"
+#include "Player.h"
 
 class Engine {
 public:
@@ -30,7 +31,7 @@ public:
 	// Level Register
 	std::vector<Model> modelRegister;
 	std::vector<GameObject*> tileRegister;
-	GameObject* player;
+	Player* player;
 	std::vector<GameObject*> agentRegister;
 	std::vector<GameObject*> itemRegister;
 	SDL_Window* sdlWindow;

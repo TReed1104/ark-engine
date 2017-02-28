@@ -260,7 +260,7 @@ void Engine::LoadContent(void) {
 	// Load the Level Register
 
 	// Load the player
-	player = new GameObject(*this, modelRegister[0], glm::vec3(16.0f, 32.0f, 0.0f), "../Content/Textures/placeholder.png");
+	player = new Player(*this, modelRegister[0], glm::vec3(16.0f, 32.0f, 0.0f), "../Content/Textures/placeholder.png");
 
 	// Load the Agent Register
 
