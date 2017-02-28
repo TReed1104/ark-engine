@@ -1,12 +1,14 @@
 #ifndef ARKENGINE_ENGINE_H_
 #define ARKENGINE_ENGINE_H_
 
+// C++ libraries
 #include <iostream>
 #include <algorithm>
 #include <vector>
 #include <string>
 #include <vector>
-#include "GL\glew.h"
+// Graphics dependencies
+#include "GL/glew.h"
 #include "SDL.h"
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
@@ -16,37 +18,48 @@
 #include <assimp/scene.h>
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
+// Engine Source
 #include "EngineConfig.h"
 #include "ShaderPointers.hpp"
 #include "Shader.h"
 #include "Camera.h"
-#include "Tile.h"
 #include "GameObject.h"
+#include "Tile.h"
+#include "Entity.h"
 #include "Player.h"
 
 class Engine {
 public:
+	// Shader Locations
+	ShaderPointers shaderPointers;
+	
+	// Cameras
 	Camera camera;
-	// Texture Register
-	// Level Register
+
+	// Registers
+	std::vector<GameObject*> levelRegister;
 	std::vector<Model> modelRegister;
 	std::vector<Tile*> tileRegister;
-	Player* player;
-	std::vector<GameObject*> entityRegister;
 	std::vector<GameObject*> itemRegister;
-	SDL_Window* sdlWindow;
-	ShaderPointers shaderPointers;
-	SDL_GLContext glContext;
-	GLuint glProgram;
+	std::vector<Entity*> entityRegister;
+	Player* player;
 
+	// Constructors
 	Engine(char* gameName);
 	~Engine(void);
 
+	// Functions
 	void Run(void);
 
 private:
-	std::string exeName;
+	// GL variables
+	SDL_Window* sdlWindow;
+	SDL_GLContext glContext;
+	GLuint glProgram;
 	bool isRunning = true;
+
+	// Program variables
+	std::string exeName;
 	float aspectRatio;
 	glm::vec2 windowSize;
 	float fieldOfView;

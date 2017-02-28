@@ -65,7 +65,6 @@ public:
 	void Translate(const glm::vec3& translation = glm::vec3(0.0f));
 	void Rotate(const float& rotationAngle = 0.0f, const glm::vec3& rotationAxis = glm::vec3(0.0f));
 	void Scale(const glm::vec3& scale = glm::vec3(0.0f));
-
 	void SetMeshTranslation(const int& indexOfMesh, const glm::vec3& translation = glm::vec3(0.0f));
 	void SetMeshRotation(const int& indexOfMesh, const float& rotationAngle = 0.0f, const glm::vec3& rotationAxis = glm::vec3(0.0f, 0.0f, 1.0f));
 	void SetMeshScale(const int& indexOfMesh, const glm::vec3& scale = glm::vec3(0.0f));
