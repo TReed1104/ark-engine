@@ -30,7 +30,7 @@ public:
 	// Texture Register
 	// Level Register
 	std::vector<Model> modelRegister;
-	std::vector<GameObject*> tileRegister;
+	std::vector<Tile*> tileRegister;
 	Player* player;
 	std::vector<GameObject*> agentRegister;
 	std::vector<GameObject*> itemRegister;
