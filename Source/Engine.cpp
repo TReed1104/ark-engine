@@ -246,6 +246,9 @@ Model Engine::LoadModel(const std::string& modelPath) {
 		return currentModel;
 	}
 }
+void Engine::LoadLevels(void) {
+
+}
 void Engine::LoadContent(void) {
 	// Load the Model Register
 	modelRegister.push_back(LoadModel("../Content/Models/tile.obj"));

@@ -19,7 +19,6 @@
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 // Engine Source
-#include "LuaScript.hpp"
 #include "EngineConfig.h"
 #include "ShaderPointers.hpp"
 #include "Shader.h"
@@ -28,6 +27,12 @@
 #include "Tile.h"
 #include "Entity.h"
 #include "Player.h"
+
+extern "C" {
+#include "lua.h"
+#include "lauxlib.h"
+#include "lualib.h"
+}
 
 class Engine {
 public:
@@ -75,6 +80,7 @@ private:
 	GLuint CreateGLProgram(const std::vector<Shader>& shaderList);
 	void InitialiseProgram(void);
 	Model LoadModel(const std::string& modelPath);
+	void LoadLevels(void);
 	void LoadContent(void);
 	void SetupEnvironment(void);
 	void CleanupSDL(void);
@@ -86,6 +92,7 @@ private:
 	void Update(float deltaTime);
 	void Draw(void);
 	void Renderer(void);
+	
 
 };
 
