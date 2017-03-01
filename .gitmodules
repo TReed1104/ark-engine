@@ -1,0 +1,3 @@
+[submodule "EngineLibraries"]
+	path = EngineLibraries
+	url = https://github.com/TReed1104/EngineLibraries
