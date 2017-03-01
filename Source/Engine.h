@@ -28,12 +28,6 @@
 #include "Entity.h"
 #include "Player.h"
 
-extern "C" {
-#include "lua.h"
-#include "lauxlib.h"
-#include "lualib.h"
-}
-
 class Engine {
 public:
 	// Shader Locations
