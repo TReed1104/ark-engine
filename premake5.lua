@@ -32,7 +32,7 @@ solution "ArkEngine"
 	}
 	excludes  -- don't build files in graphics_dependencies/
 	{
-		"./Dependencies/**"
+		"./EngineLibraries/**"
 	}
 	
 	-- where are header files?
@@ -40,14 +40,14 @@ solution "ArkEngine"
 	includedirs
 	{
 		"./Source",
-		"./Dependencies/SDL2/include",
-		"./Dependencies/SDL2/include/SDL2",
-		"./Dependencies/glew/include",
-		"./Dependencies/glm/glm",
-		"./Dependencies/assimp/include",
-		"./Dependencies/SDL2_image/include",
-		"./Dependencies/SDL2_ttf/include",
-		"./Dependencies/lua/src",
+		"./EngineLibraries/SDL2/include",
+		"./EngineLibraries/SDL2/include/SDL2",
+		"./EngineLibraries/glew/include",
+		"./EngineLibraries/glm/glm",
+		"./EngineLibraries/assimp/include",
+		"./EngineLibraries/SDL2_image/include",
+		"./EngineLibraries/SDL2_ttf/include",
+		"./EngineLibraries/lua/src",
 	}
 
 
@@ -62,6 +62,7 @@ solution "ArkEngine"
 			"assimp-vc130-mtd",
 			"SDL2_image",
 			"SDL2_ttf",
+			"lua",
 		}
 	configuration
 	{
@@ -71,11 +72,12 @@ solution "ArkEngine"
 	configuration "windows"
 	libdirs
 	{
-		"./Dependencies/glew/lib/Release/Win32",
-		"./Dependencies/SDL2/lib/win32",
-		"./Dependencies/assimp/lib",
-		"./Dependencies/SDL2_image/lib/x86",
-		"./Dependencies/SDL2_ttf/lib/x86",
+		"./EngineLibraries/glew/lib/Release/Win32",
+		"./EngineLibraries/SDL2/lib/win32",
+		"./EngineLibraries/assimp/lib",
+		"./EngineLibraries/SDL2_image/lib/x86",
+		"./EngineLibraries/SDL2_ttf/lib/x86",
+		"./EngineLibraries/lua/lib",
 	}
 	
 	configuration "*Debug"
@@ -92,17 +94,13 @@ solution "ArkEngine"
 	-- copy dlls on windows 
 	configuration "windows"
 		os.mkdir(projectName)
-		-- GLEW
-		os.copyfile("./Dependencies/glew/bin/Release/Win32/glew32.dll", path.join(projectName, "glew32.dll"))
-		-- SDL2        D
-		os.copyfile("./Dependencies/SDL2/lib/win32/SDL2.dll", path.join(projectName, "SDL2.dll"))
-		-- assimp      D
-		os.copyfile("./Dependencies/assimp/bin/assimp-vc130-mtd.dll", path.join(projectName, "assimp-vc130-mtd.dll"))
-		-- SDL2_image  D
-		os.copyfile("./Dependencies/SDL2_image/lib/x86/SDL2_image.dll", path.join(projectName, "SDL2_image.dll"))
-		os.copyfile("./Dependencies/SDL2_image/lib/x86/libjpeg-9.dll", path.join(projectName, "libjpeg-9.dll"))
-		os.copyfile("./Dependencies/SDL2_image/lib/x86/libpng16-16.dll", path.join(projectName, "libpng16-16.dll"))
-		-- SDL2_ttf    D
-		os.copyfile("./Dependencies/SDL2_ttf/lib/x86/SDL2_ttf.dll", path.join(projectName, "SDL2_ttf.dll"))
-		os.copyfile("./Dependencies/SDL2_ttf/lib/x86/libfreetype-6.dll", path.join(projectName, "libfreetype-6.dll"))
-		os.copyfile("./Dependencies/SDL2_ttf/lib/x86/zlib1.dll", path.join(projectName, "zlib1.dll"))
+		os.copyfile("./EngineLibraries/glew/bin/Release/Win32/glew32.dll", path.join(projectName, "glew32.dll"))
+		os.copyfile("./EngineLibraries/SDL2/lib/win32/SDL2.dll", path.join(projectName, "SDL2.dll"))
+		os.copyfile("./EngineLibraries/assimp/bin/assimp-vc130-mtd.dll", path.join(projectName, "assimp-vc130-mtd.dll"))
+		os.copyfile("./EngineLibraries/SDL2_image/lib/x86/SDL2_image.dll", path.join(projectName, "SDL2_image.dll"))
+		os.copyfile("./EngineLibraries/SDL2_image/lib/x86/libjpeg-9.dll", path.join(projectName, "libjpeg-9.dll"))
+		os.copyfile("./EngineLibraries/SDL2_image/lib/x86/libpng16-16.dll", path.join(projectName, "libpng16-16.dll"))
+		os.copyfile("./EngineLibraries/SDL2_ttf/lib/x86/SDL2_ttf.dll", path.join(projectName, "SDL2_ttf.dll"))
+		os.copyfile("./EngineLibraries/SDL2_ttf/lib/x86/libfreetype-6.dll", path.join(projectName, "libfreetype-6.dll"))
+		os.copyfile("./EngineLibraries/SDL2_ttf/lib/x86/zlib1.dll", path.join(projectName, "zlib1.dll"))
+		os.copyfile("./EngineLibraries/lua/lib/lua.dll", path.join(projectName, "lua.dll"))

@@ -1,2 +1,2 @@
 @echo off
-Dependencies\premake\premake5.exe vs2015
+EngineLibraries\premake\premake5.exe vs2015
