@@ -18,7 +18,8 @@ public:
 	~LuaScript();
 
 	template<typename T> T Get(const std::string& variableName);
-	void Run();
+	template<typename T> std::vector<T> GetVector(const std::string& arrayName);
+	void RunScript();
 
 private:
 	lua_State* L;
@@ -50,6 +51,23 @@ template<typename T> T LuaScript::Get(const std::string& variableName) {
 	Clean();
 	return luaValue;
 }
+template<typename T> inline std::vector<T> LuaScript::GetVector(const std::string & arrayName) {
+	std::vector<T> arrayFromLua;
+	HandleLuaStack(arrayName.c_str());
+
+	// Check we can find the array.
+	if (lua_isnil(L, -1)) {
+		return std::vector<T>();
+	}
+
+	lua_pushnil(L);
+	while (lua_next(L, -2)) {
+		arrayFromLua.push_back(GetValueFromLua<T>(arrayName));
+		lua_pop(L, 1);
+	}
+	Clean();
+	return arrayFromLua;
+}
 // Functions returning a value when things go wrong.
 template<typename T> inline T LuaScript::GetDefaultValue() {
 	return 0;
@@ -76,5 +94,10 @@ template<> inline float LuaScript::GetValueFromLua(const std::string& variableNa
 template<> inline bool LuaScript::GetValueFromLua(const std::string& variableName) {
 	return (bool)lua_toboolean(L, -1);
 }
-
+template<> inline std::string LuaScript::GetValueFromLua(const std::string& variableName) {
+	if (!lua_isstring(L, -1)) {
+		OutputError(variableName, "Not a string");
+	}
+	return (std::string)lua_tostring(L, -1);
+}
 #endif

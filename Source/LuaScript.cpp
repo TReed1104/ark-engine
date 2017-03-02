@@ -48,6 +48,6 @@ bool LuaScript::HandleLuaStack(const std::string & variableName) {
 	}
 	return true;
 }
-void LuaScript::Run() {
+void LuaScript::RunScript() {
 
 }
