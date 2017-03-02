@@ -250,6 +250,9 @@ void Engine::LoadLevels(void) {
 	LuaScript script = LuaScript("../Content/Levels/placeholder.lua");
 	glm::vec2 mapGridSize = glm::vec2(script.Get<int>("map.tile_grid_size.X"), script.Get<int>("map.tile_grid_size.Y"));
 	glm::vec2 playerStartPosition = glm::vec2(script.Get<int>("map.player_start_grid_position.X"), script.Get<int>("map.player_start_grid_position.Y"));
+	std::vector<int> test = script.GetVector<int>("map.map_data");
+	std::vector<std::string> testString = script.GetVector<std::string>("map.tester_string");
+
 	std::cout << "Loading Map Data" << std::endl;
 	std::cout << "Map Tile Grid Size: (" << mapGridSize.x << ", " << mapGridSize.y << ")" <<std::endl;
 	std::cout << "Player Start Position: (" << playerStartPosition.x << ", " << playerStartPosition.y << ")" << std::endl;
