@@ -1,5 +1,5 @@
-#ifndef ARKENGINE_UTILITYIES_HPP_
-#define ARKENGINE_UTILITYIES_HPP_
+#ifndef ARKENGINE_UTILITIES_HPP_
+#define ARKENGINE_UTILITIES_HPP_
 #include <string>
 #include <vector>
 
