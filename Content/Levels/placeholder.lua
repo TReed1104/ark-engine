@@ -17,5 +17,11 @@ map = {
 	},
 	tester_string = {
 		"one", "two", "three",
-	}
+	},
+	tester_bool = {
+		true, false, true, false,
+	},
+	tester_float = {
+		1.2, 2.0, 3.0,
+	},
 }
