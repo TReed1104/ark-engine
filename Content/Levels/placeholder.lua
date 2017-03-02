@@ -1,4 +1,26 @@
 map = {
+	-- Data Type Tests.
+	test_int = 0,
+	test_float = 3.14159265358979323,
+	test_string = "This is a test string.",
+	test_bool = true,
+
+	-- Array Type Tests
+	tester_int = {
+		1, 2, 3, 4, 5
+	},
+	tester_float = {
+		1.1, 2.2, 3.3, 4.4, 5.5,
+	},
+	tester_string = {
+		"One", "Two", "Three", "Four", "Five",
+	},
+	tester_bool = {
+		true, false, true, false, false,
+	},
+
+
+	-- Real Map data
 	tile_grid_size = {
 		X = 250,
 		Y = 120,
@@ -14,14 +36,5 @@ map = {
 		00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,
 		00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,
 		00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,
-	},
-	tester_string = {
-		"one", "two", "three",
-	},
-	tester_bool = {
-		true, false, true, false,
-	},
-	tester_float = {
-		1.2, 2.0, 3.0,
 	},
 }
