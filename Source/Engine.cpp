@@ -247,7 +247,8 @@ Model Engine::LoadModel(const std::string& modelPath) {
 	}
 }
 void Engine::LoadLevels(void) {
-
+	LuaScript script = LuaScript("../Content/Levels/test_level.lua");
+	int x = script.Get<int>("map.tile_grid_size.X");
 }
 void Engine::LoadContent(void) {
 	// Load the Model Register
@@ -261,7 +262,7 @@ void Engine::LoadContent(void) {
 	// Load the Tile Register
 
 	// Load the Level Register
-
+	LoadLevels();
 	// Load the player
 	player = new Player(*this, modelRegister[0], glm::vec3(16.0f, 32.0f, 0.0f), "../Content/Textures/placeholder.png");
 

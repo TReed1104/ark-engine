@@ -45,7 +45,7 @@ template<typename T> T LuaScript::Get(const std::string& variableName) {
 		luaValue = GetDefaultValue<T>();
 	}
 
-	lua_pop(L, level + 1);
+	lua_pop(L, currentLevel + 1);
 	return luaValue;
 }
 // Functions returning a value when things go wrong.
