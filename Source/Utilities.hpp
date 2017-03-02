@@ -10,19 +10,24 @@ public:
 	~Utilities() {}
 
 	static std::vector<std::string> StringSplit(const std::string& stringToSplit, const char& splitToken) {
-		std::vector<std::string> splitString;
+		// Splits a string using the given splitToken, E.g. ""The.Cat.Sat.On.The.Mat" splits with token '.' into Array[6] = {The, Cat, Sat, On, The, Mat};
 
-		std::string currentSplit = "";
-		int sizeOfStringArray = stringToSplit.size();
+		std::vector<std::string> splitString;	// Stores the split sections of string for the return.
+		std::string currentSplit = "";			// Stores the current section being split off.
+
+		int sizeOfStringArray = stringToSplit.size();			// .Size() of a const so it never changes and we store it once.
 		for (unsigned int i = 0; i < sizeOfStringArray; i++) {
-			if (stringToSplit.at(i) == splitToken) {
+			char currentChar = stringToSplit.at(i);
+			if (currentChar == splitToken) {
 				splitString.push_back(currentSplit);
 				currentSplit = "";
 			}
 			else {
-				currentSplit += stringToSplit.at(i);
+				currentSplit += currentChar;
 			}
-			if (i == sizeOfStringArray - 1) {
+
+			if (i == sizeOfStringArray - 1 && currentChar != splitToken) {
+				// Catches the final section of string as there might not be a follow up split token.
 				splitString.push_back(currentSplit);
 			}
 		}
