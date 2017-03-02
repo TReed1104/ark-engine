@@ -252,6 +252,8 @@ void Engine::LoadLevels(void) {
 	glm::vec2 playerStartPosition = glm::vec2(script.Get<int>("map.player_start_grid_position.X"), script.Get<int>("map.player_start_grid_position.Y"));
 	std::vector<int> test = script.GetVector<int>("map.map_data");
 	std::vector<std::string> testString = script.GetVector<std::string>("map.tester_string");
+	std::vector<bool> testBool = script.GetVector<bool>("map.tester_bool");
+	std::vector<float> testFloat = script.GetVector<float>("map.tester_float");
 
 	std::cout << "Loading Map Data" << std::endl;
 	std::cout << "Map Tile Grid Size: (" << mapGridSize.x << ", " << mapGridSize.y << ")" <<std::endl;
