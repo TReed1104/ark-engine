@@ -27,6 +27,7 @@
 #include "Tile.h"
 #include "Entity.h"
 #include "Player.h"
+#include "LuaScript.h"
 
 class Engine {
 public:
