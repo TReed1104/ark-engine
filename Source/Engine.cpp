@@ -247,8 +247,12 @@ Model Engine::LoadModel(const std::string& modelPath) {
 	}
 }
 void Engine::LoadLevels(void) {
-	LuaScript script = LuaScript("../Content/Levels/test_level.lua");
-	int x = script.Get<int>("map.tile_grid_size.X");
+	LuaScript script = LuaScript("../Content/Levels/placeholder.lua");
+	glm::vec2 mapGridSize = glm::vec2(script.Get<int>("map.tile_grid_size.X"), script.Get<int>("map.tile_grid_size.Y"));
+	glm::vec2 playerStartPosition = glm::vec2(script.Get<int>("map.player_start_grid_position.X"), script.Get<int>("map.player_start_grid_position.Y"));
+	std::cout << "Loading Map Data" << std::endl;
+	std::cout << "Map Tile Grid Size: (" << mapGridSize.x << ", " << mapGridSize.y << ")" <<std::endl;
+	std::cout << "Player Start Position: (" << playerStartPosition.x << ", " << playerStartPosition.y << ")" << std::endl;
 }
 void Engine::LoadContent(void) {
 	// Load the Model Register

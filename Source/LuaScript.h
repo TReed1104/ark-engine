@@ -9,6 +9,7 @@ extern "C" {
 #include "lauxlib.h"
 #include "lualib.h"
 }
+#include "Utilities.hpp"
 
 class LuaScript
 {
@@ -24,6 +25,7 @@ private:
 	int currentLevel;
 
 	void OutputError(const std::string& variableName, const std::string& error);
+	void Clean();
 	template<typename T> T GetDefaultValue();
 	template<typename T> T GetValueFromLua(const std::string& variableName);
 	bool HandleLuaStack(const std::string& variableName);
@@ -45,7 +47,7 @@ template<typename T> T LuaScript::Get(const std::string& variableName) {
 		luaValue = GetDefaultValue<T>();
 	}
 
-	lua_pop(L, currentLevel + 1);
+	Clean();
 	return luaValue;
 }
 // Functions returning a value when things go wrong.
