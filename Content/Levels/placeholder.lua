@@ -1,21 +1,21 @@
 map = {
 	-- Data Type Tests.
-	test_int = 0,
+	test_int = 167,
 	test_float = 3.14159265358979323,
 	test_string = "This is a test string.",
 	test_bool = true,
 
 	-- Array Type Tests
-	tester_int = {
+	test_int_array = {
 		1, 2, 3, 4, 5
 	},
-	tester_float = {
+	test_float_array = {
 		1.1, 2.2, 3.3, 4.4, 5.5,
 	},
-	tester_string = {
+	test_string_array = {
 		"One", "Two", "Three", "Four", "Five",
 	},
-	tester_bool = {
+	test_bool_array = {
 		true, false, true, false, false,
 	},
 
