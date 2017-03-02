@@ -248,13 +248,20 @@ Model Engine::LoadModel(const std::string& modelPath) {
 }
 void Engine::LoadLevels(void) {
 	LuaScript script = LuaScript("../Content/Levels/placeholder.lua");
+
+	int testInt = script.Get<int>("map.test_int");
+	float testFloat = script.Get<float>("map.test_float");
+	std::string testString = script.Get<std::string>("map.test_string");
+	bool testBool = script.Get<bool>("map.test_bool");
+
+	std::vector<int> testIntArray = script.GetVector<int>("map.test_int_array");
+	std::vector<float> testFloatArray = script.GetVector<float>("map.test_float_array");
+	std::vector<std::string> testStringArray = script.GetVector<std::string>("map.test_string_array");
+	std::vector<bool> testBoolArray = script.GetVector<bool>("map.test_bool_array");
+
 	glm::vec2 mapGridSize = glm::vec2(script.Get<int>("map.tile_grid_size.X"), script.Get<int>("map.tile_grid_size.Y"));
 	glm::vec2 playerStartPosition = glm::vec2(script.Get<int>("map.player_start_grid_position.X"), script.Get<int>("map.player_start_grid_position.Y"));
-	std::vector<int> test = script.GetVector<int>("map.map_data");
-	std::vector<std::string> testString = script.GetVector<std::string>("map.tester_string");
-	std::vector<bool> testBool = script.GetVector<bool>("map.tester_bool");
-	std::vector<float> testFloat = script.GetVector<float>("map.tester_float");
-
+	std::vector<int> mapData = script.GetVector<int>("map.map_data");
 	std::cout << "Loading Map Data" << std::endl;
 	std::cout << "Map Tile Grid Size: (" << mapGridSize.x << ", " << mapGridSize.y << ")" <<std::endl;
 	std::cout << "Player Start Position: (" << playerStartPosition.x << ", " << playerStartPosition.y << ")" << std::endl;
