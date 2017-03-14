@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.0)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 CONAN_BASIC_SETUP()
 
-file(GLOB ArkEngineSrc "Source/*.c" "Source/*.h" "Source/*.cpp" "Source/*.hpp")
+file(GLOB ArkEngineSrc "src/*.c" "src/*.h" "src/*.cpp" "src/*.hpp")
 
 ADD_EXECUTABLE(ArkEngine ${ArkEngineSrc})
 TARGET_LINK_LIBRARIES(ArkEngine ${CONAN_LIBS})
