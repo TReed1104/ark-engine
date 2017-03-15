@@ -25,6 +25,7 @@
 #include "Camera.h"
 #include "GameObject.h"
 #include "Tile.h"
+#include "Level.h"
 #include "Entity.h"
 #include "Player.h"
 #include "LuaScript.h"
@@ -48,7 +49,7 @@ public:
 	std::vector<Tile*> tileRegister;
 	std::vector<GameObject*> itemRegister;
 	std::vector<Entity*> entityRegister;
-	std::vector<GameObject*> levelRegister;
+	std::vector<Level*> levelRegister;
 	Player* player;
 
 	// Constructors

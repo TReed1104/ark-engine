@@ -9,12 +9,21 @@ Engine::Engine(char* gameName) {
 Engine::~Engine() {
 	delete player;
 
+	// Delete all the entries in the registers.
 	for (int i = 0; i < tileRegister.size(); i++) {
 		delete tileRegister[i];
 	}
 
+	for (int i = 0; i < itemRegister.size(); i++) {
+		delete itemRegister[i];
+	}
+
 	for (int i = 0; i < entityRegister.size(); i++) {
 		delete entityRegister[i];
+	}
+
+	for (int i = 0; i < levelRegister.size(); i++) {
+		delete levelRegister[i];
 	}
 	std::cout << "Game Class Deconstructor Successful!" << std::endl;
 }
@@ -43,11 +52,17 @@ void Engine::Run(void) {
 }
 void Engine::LoadEngineConfig() {
 	LuaScript configScript = LuaScript(contentDirectory + "engine_config.lua");
-	tileSize = glm::vec2(configScript.Get<int>("config.tile_size.x"), configScript.Get<int>("config.tile_size.y"));
-	windowGridSize = glm::vec2(configScript.Get<int>("config.window_grid.x"), configScript.Get<int>("config.window_grid.y"));
-	windowScaler = glm::vec2(configScript.Get<int>("config.window_scale.x"), configScript.Get<int>("config.window_scale.y"));
-	windowDimensions = (tileSize * windowGridSize) * windowScaler;
-
+	if (configScript.isScriptLoaded) {
+		tileSize = glm::vec2(configScript.Get<int>("config.tile_size.x"), configScript.Get<int>("config.tile_size.y"));
+		windowGridSize = glm::vec2(configScript.Get<int>("config.window_grid.x"), configScript.Get<int>("config.window_grid.y"));
+		windowScaler = glm::vec2(configScript.Get<int>("config.window_scale.x"), configScript.Get<int>("config.window_scale.y"));
+		windowDimensions = (tileSize * windowGridSize) * windowScaler;
+	}
+	else {
+		// Config failed to load.
+		SDL_Quit();
+		exit(1);
+	}
 }
 void Engine::InitialiseSDL(void) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -270,7 +285,7 @@ void Engine::LoadTileRegister(void) {
 void Engine::LoadLevelRegister(void) {
 	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList("content/levels");
 	for (size_t i = 0; i < listOfLevelFiles.size(); i++) {
-
+		levelRegister.push_back(new Level(*this, listOfLevelFiles[i]));
 	}
 }
 void Engine::LoadItemRegister(void) {
