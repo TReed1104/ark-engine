@@ -144,8 +144,8 @@ void Engine::InitialiseProgram(void) {
 	int openGLMajorVersion;
 	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &openGLMajorVersion);
 	if (openGLMajorVersion == 3) {
-		shaderList.push_back(Shader("../Shaders/BaseVertex.vert", GL_VERTEX_SHADER));
-		shaderList.push_back(Shader("../Shaders/BaseFragment.frag", GL_FRAGMENT_SHADER));
+		shaderList.push_back(Shader("shaders/default.vert", GL_VERTEX_SHADER));
+		shaderList.push_back(Shader("shaders/default.frag", GL_FRAGMENT_SHADER));
 	}
 
 	glProgram = CreateGLProgram(shaderList);	// Create the Program.
@@ -247,28 +247,11 @@ Model Engine::LoadModel(const std::string& modelPath) {
 	}
 }
 void Engine::LoadLevels(void) {
-	LuaScript script = LuaScript("../Content/Levels/placeholder.lua");
-
-	int testInt = script.Get<int>("map.test_int");
-	float testFloat = script.Get<float>("map.test_float");
-	std::string testString = script.Get<std::string>("map.test_string");
-	bool testBool = script.Get<bool>("map.test_bool");
-
-	std::vector<int> testIntArray = script.GetVector<int>("map.test_int_array");
-	std::vector<float> testFloatArray = script.GetVector<float>("map.test_float_array");
-	std::vector<std::string> testStringArray = script.GetVector<std::string>("map.test_string_array");
-	std::vector<bool> testBoolArray = script.GetVector<bool>("map.test_bool_array");
-
-	glm::vec2 mapGridSize = glm::vec2(script.Get<int>("map.tile_grid_size.X"), script.Get<int>("map.tile_grid_size.Y"));
-	glm::vec2 playerStartPosition = glm::vec2(script.Get<int>("map.player_start_grid_position.X"), script.Get<int>("map.player_start_grid_position.Y"));
-	std::vector<int> mapData = script.GetVector<int>("map.map_data");
-	std::cout << "Loading Map Data" << std::endl;
-	std::cout << "Map Tile Grid Size: (" << mapGridSize.x << ", " << mapGridSize.y << ")" <<std::endl;
-	std::cout << "Player Start Position: (" << playerStartPosition.x << ", " << playerStartPosition.y << ")" << std::endl;
+	LuaScript script = LuaScript("content/levels/placeholder.lua");
 }
 void Engine::LoadContent(void) {
 	// Load the Model Register
-	modelRegister.push_back(LoadModel("../Content/Models/tile.obj"));
+	modelRegister.push_back(LoadModel("content/models/tile.obj"));
 
 	// Loop through the model register and setup the Vertex Objects for every model for their default states.
 	for (int i = 0; i < modelRegister.size(); i++) {
@@ -280,7 +263,7 @@ void Engine::LoadContent(void) {
 	// Load the Level Register
 	LoadLevels();
 	// Load the player
-	player = new Player(*this, modelRegister[0], glm::vec3(16.0f, 32.0f, 0.0f), "../Content/Textures/placeholder.png");
+	player = new Player(*this, modelRegister[0], glm::vec3(16.0f, 32.0f, 0.0f), "content/textures/placeholder.png");
 
 	// Load the Entity Register
 
