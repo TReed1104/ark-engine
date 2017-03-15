@@ -42,7 +42,7 @@ void Engine::Run(void) {
 	SDL_Quit();							// Quits the program.
 }
 void Engine::LoadEngineConfig() {
-	LuaScript configScript = LuaScript(contentDirectory + "configs/config.lua");
+	LuaScript configScript = LuaScript(contentDirectory + "config.lua");
 	tileSize = glm::vec2(configScript.Get<int>("config.tile_size.x"), configScript.Get<int>("config.tile_size.y"));
 	windowGridSize = glm::vec2(configScript.Get<int>("config.window_grid.x"), configScript.Get<int>("config.window_grid.y"));
 	windowDimensions = tileSize * windowGridSize;
