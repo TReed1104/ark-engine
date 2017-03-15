@@ -2,6 +2,9 @@
 #define ARKENGINE_UTILITIES_HPP_
 #include <string>
 #include <vector>
+#include <filesystem>
+
+namespace FileSystem = std::experimental::filesystem;
 
 class Utilities
 {
@@ -34,12 +37,19 @@ public:
 
 		return splitString;
 	}
-	static std::vector<std::string> GetFilesFromDirectory() {
-		std::vector<std::string> listOfFiles;
-
-		
-
-		return listOfFiles;
+	static std::vector<std::string> GetFileList(const std::string& directoryPath, bool recurssive = false) {
+		std::vector<std::string> fileList;
+		if (!recurssive) {
+			for (FileSystem::path currentEntry : FileSystem::directory_iterator(directoryPath)) {
+				fileList.push_back(currentEntry.string());
+			}
+		}
+		else {
+			for (FileSystem::path currentEntry : FileSystem::recursive_directory_iterator(directoryPath)) {
+				fileList.push_back(currentEntry.string());
+			}
+		}
+		return fileList;
 	}
 
 private:
