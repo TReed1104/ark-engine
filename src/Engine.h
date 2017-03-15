@@ -31,9 +31,11 @@
 
 class Engine {
 public:
+	// Core Engine Variables
 	std::string contentDirectory = "content/";
 	glm::vec2 tileSize;
 	glm::vec2 windowGridSize;
+	glm::vec2 windowScaler;
 
 	// Shader Locations
 	ShaderPointers shaderPointers;
@@ -42,11 +44,11 @@ public:
 	Camera camera;
 
 	// Registers
-	std::vector<GameObject*> levelRegister;
 	std::vector<Model> modelRegister;
 	std::vector<Tile*> tileRegister;
 	std::vector<GameObject*> itemRegister;
 	std::vector<Entity*> entityRegister;
+	std::vector<GameObject*> levelRegister;
 	Player* player;
 
 	// Constructors

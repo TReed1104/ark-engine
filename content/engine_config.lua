@@ -10,7 +10,14 @@ config = {
 		x = 16,
 		y = 14
 	},
--- Content Directory names.
+
+	-- Window Scaler
+	window_scale = {
+		x = 1.0,
+		y = 1.0
+	},
+
+	-- Content Directory names.
 	shaders_directory = "shaders",
 	levels_directory = "levels",
 	models_directory = "models",
