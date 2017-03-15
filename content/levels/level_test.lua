@@ -1,6 +1,6 @@
 map = {
 	-- Size of the map's tile grid
-	tile_grid_size = { X = 250, Y = 120, },
+	tile_grid_size = { X = 16, Y = 14, },
 	
 	-- Start position for the player
 	player_start_grid_position = { X = 12, Y = 15, },
