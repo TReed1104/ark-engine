@@ -14,7 +14,6 @@
 #include <SDL_image.h>
 #include "Model.h"
 #include "Texture.hpp"
-//#include "EngineConfig.h"
 
 class Engine;
 
