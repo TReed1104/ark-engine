@@ -65,9 +65,7 @@ private:
 
 	// Program variables
 	std::string exeName;
-	float aspectRatio;
 	glm::vec2 windowDimensions;
-	float fieldOfView;
 	float oldFrameTime;
 	float currentFrameTime;
 
@@ -86,9 +84,8 @@ private:
 	void LoadItemRegister(void);
 	void LoadEntityRegister(void);
 	void LoadContent(void);
-	void SetupEnvironment(void);
+	void InitialiseEngine(void);
 	void CleanupSDL(void);
-	void InitialiseWorldCamera(void);
 	void EventHandler(void);
 	void Event_Window(const SDL_WindowEvent& windowEvent);
 	void Event_KeyDown(const SDL_KeyboardEvent& keyboardEvent);

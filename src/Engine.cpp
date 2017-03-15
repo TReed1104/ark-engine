@@ -3,12 +3,8 @@
 
 Engine::Engine(char* gameName) {
 	exeName = gameName;
-	LoadEngineConfig();
-	aspectRatio = (windowDimensions.x / windowDimensions.y);
-	fieldOfView = glm::radians(45.0f);
 	oldFrameTime = 0.0f;
 	currentFrameTime = 0.0f;
-	InitialiseWorldCamera();
 }
 Engine::~Engine() {
 	delete player;
@@ -24,9 +20,12 @@ Engine::~Engine() {
 }
 
 void Engine::Run(void) {
-	SetupEnvironment();				// Does all the setup function calls for OpenGL, SDL and glew.
+	InitialiseEngine();		// Setup the OpenGL environment.
+	LoadContent();			// Load the game content.
+	camera = Camera(*this, glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::ortho(0.0f, windowDimensions.x, windowDimensions.y, 0.0f));
+	
+	// Game Loop
 	std::cout << ">> Game runtime started" << std::endl;
-
 	while (isRunning) {
 		currentFrameTime = SDL_GetTicks();
 		float deltaTime = ((currentFrameTime - oldFrameTime) / 1000);
@@ -37,8 +36,8 @@ void Engine::Run(void) {
 
 		oldFrameTime = currentFrameTime;
 	}
-
 	std::cout << ">> Game runtime finished" << std::endl;
+	
 	CleanupSDL();					// Cleans up after SDL.
 	SDL_Quit();							// Quits the program.
 }
@@ -287,8 +286,9 @@ void Engine::LoadContent(void) {
 	player = new Player(*this, modelRegister[0], glm::vec3(16.0f, 32.0f, 0.0f), "content/textures/placeholder.png");
 	LoadEntityRegister();
 }
-void Engine::SetupEnvironment(void) {
+void Engine::InitialiseEngine(void) {
 	std::cout << ">> Setting up Environment..." << std::endl;
+	LoadEngineConfig();
 	InitialiseSDL();
 	CreateSDLWindow();
 	CreateSDLContext();
@@ -297,7 +297,6 @@ void Engine::SetupEnvironment(void) {
 	SDL_GL_SwapWindow(sdlWindow);
 	InitialiseProgram();
 	std::cout << ">> Setup Complete" << std::endl;
-	LoadContent();
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -309,10 +308,6 @@ void Engine::CleanupSDL(void) {
 	SDL_DestroyWindow(sdlWindow);
 	std::cout << ">> Cleanup Successful" << std::endl;
 	std::cout << ">> Cleanup complete" << std::endl;
-}
-void Engine::InitialiseWorldCamera(void) {
-	camera = Camera(*this, glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	camera.projectionMatrix = glm::ortho(0.0f, windowDimensions.x, windowDimensions.y, 0.0f);
 }
 void Engine::EventHandler(void) {
 	SDL_Event event;
@@ -371,13 +366,13 @@ void Engine::Update(float deltaTime) {
 void Engine::Draw(void) {
 	// Draw the level
 
-
 	// Draw the player
 	if (player != nullptr) {
 		player->Draw();
 	}
 
 	// Draw the NPCs
+
 }
 void Engine::Renderer(void) {
 	// Pre-render

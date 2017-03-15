@@ -3,13 +3,14 @@
 #include "Engine.h"
 #include "GameObject.h"
 
-Camera::Camera(Engine &engine, const glm::vec3& cameraPosition, const glm::vec3& cameraLookAt, const glm::vec3& upVector) {
+Camera::Camera(Engine &engine, const glm::vec3& cameraPosition, const glm::vec3& cameraLookAt, const glm::vec3& upVector, const glm::mat4& projectionMatrix) {
 	// Initialise the Camera.
 	this->engine = &engine;
 	this->position = cameraPosition;
 	this->lookAt = cameraLookAt;
 	this->upVector = upVector;
 	this->viewMatrix = glm::lookAt(cameraPosition, cameraLookAt, upVector);
+	this->projectionMatrix = projectionMatrix;
 }
 Camera::~Camera() {
 

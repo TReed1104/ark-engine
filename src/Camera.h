@@ -25,7 +25,7 @@ public:
 
 	// Constructors and Deconstructors
 	Camera() {}
-	Camera(Engine &engine, const glm::vec3& cameraPosition = glm::vec3(0.0f), const glm::vec3& cameraLookAt = glm::vec3(0.0f), const glm::vec3& upVector = glm::vec3(0.0f, 1.0f, 0.0f));
+	Camera(Engine &engine, const glm::vec3& cameraPosition = glm::vec3(0.0f), const glm::vec3& cameraLookAt = glm::vec3(0.0f), const glm::vec3& upVector = glm::vec3(0.0f, 1.0f, 0.0f), const glm::mat4& projectionMatrix = glm::mat4());
 	~Camera();
 
 	// Public Member Function Declarations
