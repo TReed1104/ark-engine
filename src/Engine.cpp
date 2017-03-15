@@ -261,7 +261,7 @@ void Engine::LoadTileRegister(void) {
 
 }
 void Engine::LoadLevelRegister(void) {
-	std::vector<std::string> listOfLevelFiles = Utilities::GetFileList("content/levels");
+	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList("content/levels");
 	for (size_t i = 0; i < listOfLevelFiles.size(); i++) {
 
 	}

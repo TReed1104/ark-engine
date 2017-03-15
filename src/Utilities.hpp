@@ -6,13 +6,33 @@
 
 namespace FileSystem = std::experimental::filesystem;
 
-class Utilities
-{
+class FileSystemUtilities {
 public:
-	Utilities() {}
-	~Utilities() {}
+	static std::vector<std::string> GetFileList(const std::string& directoryPath) {
+		// Finds all the files within the given Directory.
+		std::vector<std::string> fileList;
 
-	static std::vector<std::string> StringSplit(const std::string& stringToSplit, const char& splitToken) {
+		for (FileSystem::path currentEntry : FileSystem::directory_iterator(directoryPath)) {
+			fileList.push_back(currentEntry.string());
+		}
+		return fileList;
+	}
+	static std::vector<std::string> GetFileListRecurssively(const std::string& directoryPath) {
+		// Finds all the files within the given Directory and any child directories.
+		std::vector<std::string> fileList;
+		for (FileSystem::path currentEntry : FileSystem::recursive_directory_iterator(directoryPath)) {
+			fileList.push_back(currentEntry.string());
+		}
+		return fileList;
+	}
+
+private:
+
+};
+
+class StringUtilities {
+public:
+	static std::vector<std::string> Split(const std::string& stringToSplit, const char& splitToken) {
 		// Splits a string using the given splitToken, E.g. ""The.Cat.Sat.On.The.Mat" splits with token '.' into Array[6] = {The, Cat, Sat, On, The, Mat};
 
 		std::vector<std::string> splitString;	// Stores the split sections of string for the return.
@@ -37,23 +57,7 @@ public:
 
 		return splitString;
 	}
-	static std::vector<std::string> GetFileList(const std::string& directoryPath, bool recurssive = false) {
-		std::vector<std::string> fileList;
-		if (!recurssive) {
-			for (FileSystem::path currentEntry : FileSystem::directory_iterator(directoryPath)) {
-				fileList.push_back(currentEntry.string());
-			}
-		}
-		else {
-			for (FileSystem::path currentEntry : FileSystem::recursive_directory_iterator(directoryPath)) {
-				fileList.push_back(currentEntry.string());
-			}
-		}
-		return fileList;
-	}
-
-private:
-
 };
+
 
 #endif
