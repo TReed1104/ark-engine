@@ -43,8 +43,7 @@ void Engine::Run(void) {
 	SDL_Quit();							// Quits the program.
 }
 void Engine::InitialiseSDL(void) {
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-	{
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		std::cout << ">> SDL_Init Error: " << SDL_GetError() << std::endl;
 		exit(1);
 	}
@@ -177,8 +176,8 @@ void Engine::InitialiseProgram(void) {
 
 
 	// Check if any of the Vertex Shader Pointers were not set.
-	if (shaderPointers.vertexPositionAttrib == -1 || shaderPointers.colourAttrib == -1 || shaderPointers.uvAttrib == -1 || 
-		shaderPointers.modelMatrixUniform == -1 || shaderPointers.viewMatrixUniform == -1 || shaderPointers.projectionMatrixUniform == -1 ) {
+	if (shaderPointers.vertexPositionAttrib == -1 || shaderPointers.colourAttrib == -1 || shaderPointers.uvAttrib == -1 ||
+		shaderPointers.modelMatrixUniform == -1 || shaderPointers.viewMatrixUniform == -1 || shaderPointers.projectionMatrixUniform == -1) {
 		std::cout << "Error assigning Vertex Shader Pointers" << std::endl;
 		std::cout << "vertexPositionAttrib: " << shaderPointers.vertexPositionAttrib << std::endl;
 		std::cout << "colourAttrib: " << shaderPointers.colourAttrib << std::endl;
@@ -210,7 +209,7 @@ Model Engine::LoadModel(const std::string& modelPath) {
 		const aiScene* scene = importer.ReadFile(modelPath, aiProcess_Triangulate | aiProcess_GenNormals);		// Read the Model file.
 
 		Model currentModel = Model(*this, modelPath);
-		
+
 		// Loop through each mesh in the loaded model.
 		for (int i = 0; i < scene->mNumMeshes; i++) {
 			Model::Mesh currentMesh = Model::Mesh();
@@ -248,8 +247,8 @@ Model Engine::LoadModel(const std::string& modelPath) {
 	}
 }
 void Engine::LoadModelRegister(void) {
-	
-	
+
+
 
 	modelRegister.push_back(LoadModel("content/models/tile.obj"));
 
@@ -262,7 +261,10 @@ void Engine::LoadTileRegister(void) {
 
 }
 void Engine::LoadLevelRegister(void) {
-	
+	std::vector<std::string> listOfLevelFiles = Utilities::GetFileList("content/levels");
+	for (size_t i = 0; i < listOfLevelFiles.size(); i++) {
+
+	}
 }
 void Engine::LoadItemRegister(void) {
 
@@ -309,40 +311,40 @@ void Engine::InitialiseWorldCamera(void) {
 void Engine::EventHandler(void) {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
-		switch (event.type)	 {
-		case SDL_WINDOWEVENT: 
-			Event_Window(event.window);
-			break;
-		case SDL_QUIT:
-			isRunning = false;
-			break; 
-		case SDL_KEYDOWN:			// Key down handling.
-			Event_KeyDown(event.key);
-			break;
-		case SDL_KEYUP:				// Key up handling.
-			Event_KeyUp(event.key);
-			break;
+		switch (event.type) {
+			case SDL_WINDOWEVENT:
+				Event_Window(event.window);
+				break;
+			case SDL_QUIT:
+				isRunning = false;
+				break;
+			case SDL_KEYDOWN:			// Key down handling.
+				Event_KeyDown(event.key);
+				break;
+			case SDL_KEYUP:				// Key up handling.
+				Event_KeyUp(event.key);
+				break;
 		}
 	}
 }
 void Engine::Event_Window(const SDL_WindowEvent& windowEvent) {
 	switch (windowEvent.event) {
-	case SDL_WINDOWEVENT_RESIZED:
-		// Resize logic.
-		windowSize = glm::vec2(windowEvent.data1, windowEvent.data2);
-		break;
-	default:
-		break;
+		case SDL_WINDOWEVENT_RESIZED:
+			// Resize logic.
+			windowSize = glm::vec2(windowEvent.data1, windowEvent.data2);
+			break;
+		default:
+			break;
 	}
 }
 void Engine::Event_KeyDown(const SDL_KeyboardEvent& keyboardEvent) {
 	if (!keyboardEvent.repeat) {
 		switch (keyboardEvent.keysym.sym) {
-		case SDLK_ESCAPE:
-			isRunning = false;
-			break;
-		default:
-			break;
+			case SDLK_ESCAPE:
+				isRunning = false;
+				break;
+			default:
+				break;
 		}
 	}
 }
@@ -350,8 +352,8 @@ void Engine::Event_KeyUp(const SDL_KeyboardEvent& keyboardEvent) {
 	if (!keyboardEvent.repeat) {
 		switch (keyboardEvent.keysym.sym) {
 
-		default:
-			break;
+			default:
+				break;
 		}
 	}
 }

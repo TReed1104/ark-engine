@@ -33,7 +33,7 @@ class Engine {
 public:
 	// Shader Locations
 	ShaderPointers shaderPointers;
-	
+
 	// Cameras
 	Camera camera;
 
@@ -91,9 +91,5 @@ private:
 	void Update(float deltaTime);
 	void Draw(void);
 	void Renderer(void);
-	
-
 };
-
-
 #endif
