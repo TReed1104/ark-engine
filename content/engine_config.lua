@@ -14,4 +14,4 @@ config = {
 	models_directory = "models",
 	textures_directory = "textures",
 	scripts_directory = "scripts",
-},
+}

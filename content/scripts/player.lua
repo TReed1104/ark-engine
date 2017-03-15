@@ -1,6 +1,6 @@
 player = {
 	-- Player Position
-	position = { X = 0, Y = 0, },
+	position = { x = 0, y = 0, },
 	-- Player Stats
 	health = 10,
-},
+}
