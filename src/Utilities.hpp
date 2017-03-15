@@ -35,7 +35,11 @@ public:
 		return splitString;
 	}
 	static std::vector<std::string> GetFilesFromDirectory() {
+		std::vector<std::string> listOfFiles;
 
+		
+
+		return listOfFiles;
 	}
 
 private:
