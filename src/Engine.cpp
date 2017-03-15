@@ -1,5 +1,6 @@
 #include "Engine.h"
 
+
 Engine::Engine(char* gameName) {
 	exeName = gameName;
 	windowSize = glm::vec2(MINIMUM_WINDOW_SIZE_WIDTH, MINIMUM_WINDOW_SIZE_HEIGHT);
@@ -246,33 +247,37 @@ Model Engine::LoadModel(const std::string& modelPath) {
 		return currentModel;
 	}
 }
-void Engine::LoadTiles(void) {
-
-}
-void Engine::LoadLevels(void) {
+void Engine::LoadModelRegister(void) {
 	
-}
-void Engine::LoadContent(void) {
-	// Load the Model Register
+	
+
 	modelRegister.push_back(LoadModel("content/models/tile.obj"));
 
 	// Loop through the model register and setup the Vertex Objects for every model for their default states.
 	for (int i = 0; i < modelRegister.size(); i++) {
 		modelRegister[i].SetVertexObjects();
 	}
+}
+void Engine::LoadTileRegister(void) {
 
-	// Load the Tile Register
+}
+void Engine::LoadLevelRegister(void) {
+	
+}
+void Engine::LoadItemRegister(void) {
 
-	// Load the Level Register
-	LoadLevels();
+}
+void Engine::LoadEntityRegister(void) {
 
-	// Load the player
+}
+void Engine::LoadContent(void) {
+	// Load the Registers
+	LoadModelRegister();
+	LoadTileRegister();
+	LoadLevelRegister();
+	LoadItemRegister();
 	player = new Player(*this, modelRegister[0], glm::vec3(16.0f, 32.0f, 0.0f), "content/textures/placeholder.png");
-
-	// Load the Entity Register
-
-	// Load the Item Register
-
+	LoadEntityRegister();
 }
 void Engine::SetupEnvironment(void) {
 	std::cout << ">> Setting up Environment..." << std::endl;
