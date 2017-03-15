@@ -3,8 +3,8 @@
 
 Engine::Engine(char* gameName) {
 	exeName = gameName;
-	windowSize = glm::vec2(MINIMUM_WINDOW_SIZE_WIDTH, MINIMUM_WINDOW_SIZE_HEIGHT);
-	aspectRatio = (windowSize.x / windowSize.y);
+	LoadEngineConfig();
+	aspectRatio = (windowDimensions.x / windowDimensions.y);
 	fieldOfView = glm::radians(45.0f);
 	oldFrameTime = 0.0f;
 	currentFrameTime = 0.0f;
@@ -42,6 +42,12 @@ void Engine::Run(void) {
 	CleanupSDL();					// Cleans up after SDL.
 	SDL_Quit();							// Quits the program.
 }
+void Engine::LoadEngineConfig() {
+	LuaScript configScript = LuaScript(contentDirectory + "configs/config.lua");
+	tileSize = glm::vec2(configScript.Get<int>("config.tile_size.x"), configScript.Get<int>("config.tile_size.y"));
+	windowGridSize = glm::vec2(configScript.Get<int>("config.window_grid.x"), configScript.Get<int>("config.window_grid.y"));
+	windowDimensions = tileSize * windowGridSize;
+}
 void Engine::InitialiseSDL(void) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		std::cout << ">> SDL_Init Error: " << SDL_GetError() << std::endl;
@@ -58,7 +64,7 @@ void Engine::CreateSDLWindow(void) {
 	const char *exeNameCStr = exeNameEnd.c_str();
 
 	// Create window
-	sdlWindow = SDL_CreateWindow(exeNameCStr, 100, 100, windowSize.x, windowSize.y, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+	sdlWindow = SDL_CreateWindow(exeNameCStr, 100, 100, windowDimensions.x, windowDimensions.y, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
 	// Error handling for the SDL Window.
 	if (sdlWindow == nullptr) {
@@ -287,7 +293,7 @@ void Engine::SetupEnvironment(void) {
 	CreateSDLWindow();
 	CreateSDLContext();
 	InitialiseGlew();
-	glViewport(0, 0, windowSize.x, windowSize.y);
+	glViewport(0, 0, windowDimensions.x, windowDimensions.y);
 	SDL_GL_SwapWindow(sdlWindow);
 	InitialiseProgram();
 	std::cout << ">> Setup Complete" << std::endl;
@@ -306,7 +312,7 @@ void Engine::CleanupSDL(void) {
 }
 void Engine::InitialiseWorldCamera(void) {
 	camera = Camera(*this, glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	camera.projectionMatrix = glm::ortho(0.0f, windowSize.x, windowSize.y, 0.0f);
+	camera.projectionMatrix = glm::ortho(0.0f, windowDimensions.x, windowDimensions.y, 0.0f);
 }
 void Engine::EventHandler(void) {
 	SDL_Event event;
@@ -331,7 +337,7 @@ void Engine::Event_Window(const SDL_WindowEvent& windowEvent) {
 	switch (windowEvent.event) {
 		case SDL_WINDOWEVENT_RESIZED:
 			// Resize logic.
-			windowSize = glm::vec2(windowEvent.data1, windowEvent.data2);
+			windowDimensions = glm::vec2(windowEvent.data1, windowEvent.data2);
 			break;
 		default:
 			break;
@@ -375,7 +381,7 @@ void Engine::Draw(void) {
 }
 void Engine::Renderer(void) {
 	// Pre-render
-	glViewport(0, 0, windowSize.x, windowSize.y);		// Sets view port.
+	glViewport(0, 0, windowDimensions.x, windowDimensions.y);		// Sets view port.
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);							// Sets the colour of the cleared buffer colour.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);				// Clear the color buffer and depth buffer.
 

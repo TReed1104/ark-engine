@@ -19,7 +19,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 // Engine Source
-#include "EngineConfig.h"
+//#include "EngineConfig.h"
 #include "ShaderPointers.hpp"
 #include "Shader.h"
 #include "Camera.h"
@@ -31,6 +31,10 @@
 
 class Engine {
 public:
+	std::string contentDirectory = "content/";
+	glm::vec2 tileSize;
+	glm::vec2 windowGridSize;
+
 	// Shader Locations
 	ShaderPointers shaderPointers;
 
@@ -62,12 +66,13 @@ private:
 	// Program variables
 	std::string exeName;
 	float aspectRatio;
-	glm::vec2 windowSize;
+	glm::vec2 windowDimensions;
 	float fieldOfView;
 	float oldFrameTime;
 	float currentFrameTime;
 
 	// Functions
+	void LoadEngineConfig();
 	void InitialiseSDL(void);
 	void CreateSDLWindow(void);
 	void CreateSDLContext(void);

@@ -5,7 +5,7 @@
 class Tile : public GameObject
 {
 public:
-	Tile(const Engine& engine, const Model& model, const glm::vec3& position = glm::vec3(0.0f), const char* texturePath = "", const glm::vec2& sourceFrameSize = glm::vec2(TILE_SIZE_X, TILE_SIZE_Y));
+	Tile(const Engine& engine, const Model& model, const glm::vec3& position = glm::vec3(0.0f), const char* texturePath = "", const glm::vec2& sourceFrameSize = glm::vec2(16, 16));
 	~Tile();
 
 	void Update(float deltaTime);
