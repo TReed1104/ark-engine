@@ -144,8 +144,8 @@ void Engine::InitialiseProgram(void) {
 	int openGLMajorVersion;
 	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &openGLMajorVersion);
 	if (openGLMajorVersion == 3) {
-		shaderList.push_back(Shader("shaders/default.vert", GL_VERTEX_SHADER));
-		shaderList.push_back(Shader("shaders/default.frag", GL_FRAGMENT_SHADER));
+		shaderList.push_back(Shader("content/shaders/default.vert", GL_VERTEX_SHADER));
+		shaderList.push_back(Shader("content/shaders/default.frag", GL_FRAGMENT_SHADER));
 	}
 
 	glProgram = CreateGLProgram(shaderList);	// Create the Program.
@@ -246,8 +246,11 @@ Model Engine::LoadModel(const std::string& modelPath) {
 		return currentModel;
 	}
 }
+void Engine::LoadTiles(void) {
+
+}
 void Engine::LoadLevels(void) {
-	LuaScript script = LuaScript("content/levels/placeholder.lua");
+	
 }
 void Engine::LoadContent(void) {
 	// Load the Model Register
@@ -262,6 +265,7 @@ void Engine::LoadContent(void) {
 
 	// Load the Level Register
 	LoadLevels();
+
 	// Load the player
 	player = new Player(*this, modelRegister[0], glm::vec3(16.0f, 32.0f, 0.0f), "content/textures/placeholder.png");
 

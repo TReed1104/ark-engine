@@ -75,6 +75,7 @@ private:
 	GLuint CreateGLProgram(const std::vector<Shader>& shaderList);
 	void InitialiseProgram(void);
 	Model LoadModel(const std::string& modelPath);
+	void LoadTiles(void);
 	void LoadLevels(void);
 	void LoadContent(void);
 	void SetupEnvironment(void);

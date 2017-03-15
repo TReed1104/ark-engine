@@ -20,9 +20,7 @@ set (CMAKE_CXX_STANDARD 11)
 # Set the project for VS to use.
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "ArkEngine")
 
-# Copy the content and shaders folders to the /build for VS to be able to find them.
+# Copy the content folder to the /build for VS to be able to find them.
 FILE(COPY content/ DESTINATION content)
-FILE(COPY shaders/ DESTINATION shaders)
-# Copy the content and shaders folders to the /build/bin so the exe can find them.
-FILE(COPY shaders/ DESTINATION bin/shaders)
+# Copy the content folder to the /build/bin so the exe can find them.
 FILE(COPY content/ DESTINATION bin/content)
