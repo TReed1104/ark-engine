@@ -52,6 +52,9 @@ public:
 	std::vector<Level*> levelRegister;
 	Player* player;
 
+	// Indexers
+	int indexCurrentLevel = 0;
+
 	// Constructors
 	Engine(char* gameName);
 	~Engine(void);

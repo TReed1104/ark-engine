@@ -12,10 +12,14 @@ class Level
 public:
 	glm::vec2 tileGridSize;
 	glm::vec2 playerStartPosition;
-	std::vector<std::vector<Tile>> tileMap;
+	Tile* tileMap;
+	Tile* test;
 
 	Level(const Engine& engine, const std::string& filePath);
 	~Level();
+
+	void Update(float deltaTime);
+	void Draw();
 
 private:
 	const Engine* engine;

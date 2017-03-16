@@ -385,18 +385,22 @@ void Engine::Event_KeyUp(const SDL_KeyboardEvent& keyboardEvent) {
 	}
 }
 void Engine::Update(float deltaTime) {
+	if (levelRegister[indexCurrentLevel] != nullptr) {
+		levelRegister[indexCurrentLevel]->Update(deltaTime);
+	}
 	if (player != nullptr) {
 		player->Update(deltaTime);
 	}
 }
 void Engine::Draw(void) {
 	// Draw the level
-
+	if (levelRegister[indexCurrentLevel] != nullptr) {
+		levelRegister[indexCurrentLevel]->Draw();
+	}
 	// Draw the player
 	if (player != nullptr) {
 		player->Draw();
 	}
-
 	// Draw the NPCs
 
 }

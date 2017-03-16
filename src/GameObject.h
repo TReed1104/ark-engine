@@ -31,6 +31,7 @@ public:
 	glm::vec3 scale;
 	glm::vec3 velocity;
 
+	GameObject() {}
 	GameObject(const Engine& engine, const Model& model, const glm::vec3& position = glm::vec3(0.0f), const char* texturePath = "", const glm::vec2& sourceFrameSize = glm::vec2(16, 16));
 	~GameObject();
 
