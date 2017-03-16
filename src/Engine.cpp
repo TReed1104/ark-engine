@@ -317,45 +317,46 @@ void Engine::LoadTextures(void) {
 	}
 }
 void Engine::LoadModels(void) {
+	std::vector<std::string> listOfModels = FileSystemUtilities::GetFileList(contentDirectory + "models");
+	for (size_t i = 0; i < listOfModels.size(); i++) {
+		modelRegister.push_back(LoadModel(listOfModels[i]));
 
-
-
-	modelRegister.push_back(LoadModel("content/models/tile.obj"));
-
+	}
 	// Loop through the model register and setup the Vertex Objects for every model for their default states.
 	for (int i = 0; i < modelRegister.size(); i++) {
 		modelRegister[i].SetVertexObjects();
 	}
 }
-void Engine::LoadTiles(void) {
+void Engine::LoadTilesets(void) {
 	// Load the Tilesets
 	std::vector<std::string> listOfTilesets = FileSystemUtilities::GetFileList(contentDirectory + "tilesets");
 	for (size_t i = 0; i < listOfTilesets.size(); i++) {
-
 		LuaScript tileConfigScript = LuaScript(listOfTilesets[i]);
-		int numberOfTiles = tileConfigScript.Get<int>("tileset.number_of_tiles");
+		if (tileConfigScript.isScriptLoaded) {
+			int numberOfTiles = tileConfigScript.Get<int>("tileset.number_of_tiles");
 
-		// Find the Texture for this Tileset.
-		int indexOfTileSetTexture = -1;
-		std::string tilesetTextureName = tileConfigScript.Get<std::string>("tileset.texture");
-		for (size_t i = 0; i < textureRegister.size(); i++) {
-			if (textureRegister[i].name.find(tilesetTextureName) != std::string::npos) {
-				indexOfTileSetTexture = i;
+			// Find the Texture for this Tileset.
+			int indexOfTileSetTexture = -1;
+			std::string tilesetTextureName = tileConfigScript.Get<std::string>("tileset.texture");
+			for (size_t i = 0; i < textureRegister.size(); i++) {
+				if (textureRegister[i].name.find(tilesetTextureName) != std::string::npos) {
+					indexOfTileSetTexture = i;
+				}
 			}
-		}
 
-		// Load each of the Tiles from the current Tileset script.
-		for (int i = 0; i < numberOfTiles; i++) {
-			std::string tileType = tileConfigScript.Get<std::string>("tileset.tile_" + std::to_string(i) + ".type");
-			int sourceFrameX = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.x");
-			int sourceFrameY = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.y");
-			glm::vec2 sourceFramePosition = glm::vec2(sourceFrameX, sourceFrameY);
+			// Load each of the Tiles from the current Tileset script.
+			for (int i = 0; i < numberOfTiles; i++) {
+				std::string tileType = tileConfigScript.Get<std::string>("tileset.tile_" + std::to_string(i) + ".type");
+				int sourceFrameX = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.x");
+				int sourceFrameY = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.y");
+				glm::vec2 sourceFramePosition = glm::vec2(sourceFrameX, sourceFrameY);
 
-			if (indexOfTileSetTexture != -1) {
-				tileRegister.push_back(new Tile(*this, modelRegister[0], textureRegister[indexOfTileSetTexture], "", sourceFramePosition));
-			}
-			else {
-				tileRegister.push_back(new Tile(*this, modelRegister[0], textureRegister[indexOfDefaultTexture], "", sourceFramePosition));
+				if (indexOfTileSetTexture != -1) {
+					tileRegister.push_back(new Tile(*this, modelRegister[0], textureRegister[indexOfTileSetTexture], "", sourceFramePosition));
+				}
+				else {
+					tileRegister.push_back(new Tile(*this, modelRegister[0], textureRegister[indexOfDefaultTexture], "", sourceFramePosition));
+				}
 			}
 		}
 	}
@@ -373,23 +374,25 @@ void Engine::LoadItems(void) {
 void Engine::LoadPlayer(void) {
 	// Load the Player
 	LuaScript playerScript = LuaScript(contentDirectory + "scripts/entities/player.lua");
-	glm::vec3 playerPosition = glm::vec3(playerScript.Get<float>("player.position.x"), playerScript.Get<float>("player.position.y"), playerScript.Get<float>("player.position.z"));
+	if (playerScript.isScriptLoaded) {
+		glm::vec3 playerPosition = glm::vec3(playerScript.Get<float>("player.position.x"), playerScript.Get<float>("player.position.y"), playerScript.Get<float>("player.position.z"));
 
-	// Find the Texture for the Player.
-	int indexOfPlayerTexture = -1;
-	std::string playerTextureName = playerScript.Get<std::string>("player.texture");
-	for (size_t i = 0; i < textureRegister.size(); i++) {
-		if (textureRegister[i].name.find(playerTextureName) != std::string::npos) {
-			indexOfPlayerTexture = i;
+		// Find the Texture for the Player.
+		int indexOfPlayerTexture = -1;
+		std::string playerTextureName = playerScript.Get<std::string>("player.texture");
+		for (size_t i = 0; i < textureRegister.size(); i++) {
+			if (textureRegister[i].name.find(playerTextureName) != std::string::npos) {
+				indexOfPlayerTexture = i;
+			}
 		}
-	}
 
-	// Initialise the Player and use the appropriate texture depending on if the declared texture was found.
-	if (indexOfPlayerTexture != -1) {
-		player = new Player(*this, modelRegister[0], textureRegister[indexOfPlayerTexture], playerPosition);
-	}
-	else {
-		player = new Player(*this, modelRegister[0], textureRegister[indexOfDefaultTexture], playerPosition);
+		// Initialise the Player and use the appropriate texture depending on if the declared texture was found.
+		if (indexOfPlayerTexture != -1) {
+			player = new Player(*this, modelRegister[0], textureRegister[indexOfPlayerTexture], playerPosition);
+		}
+		else {
+			player = new Player(*this, modelRegister[0], textureRegister[indexOfDefaultTexture], playerPosition);
+		}
 	}
 }
 void Engine::LoadEntities(void) {
@@ -403,7 +406,7 @@ void Engine::LoadContent(void) {
 	// Load all the game Content
 	LoadTextures();
 	LoadModels();
-	LoadTiles();
+	LoadTilesets();
 	LoadLevels();
 	LoadItems();
 	LoadPlayer();

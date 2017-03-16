@@ -32,6 +32,7 @@ void Level::Draw() {
 }
 
 void Level::Load(const std::string & filePath) {
+	// Load the information from the script
 	script = new LuaScript(filePath);
 	if (script->isScriptLoaded) {
 		nameOfTilest = script->Get<std::string>("map.tileset_name");

@@ -88,7 +88,7 @@ private:
 	void ImportTexture(const char* texturePath);
 	void LoadTextures(void);
 	void LoadModels(void);
-	void LoadTiles(void);
+	void LoadTilesets(void);
 	void LoadLevels(void);
 	void LoadItems(void);
 	void LoadPlayer(void);
