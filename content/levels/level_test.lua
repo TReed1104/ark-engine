@@ -1,4 +1,7 @@
 map = {
+	-- Name of the tileset to use for this level
+	tileset_name = "default",
+
 	-- Size of the map's tile grid
 	tile_grid_size = { x = 16, y = 14, },
 

@@ -10,6 +10,7 @@ class Engine;
 class Level
 {
 public:
+	std::string nameOfTilest;
 	glm::vec2 tileGridSize;
 	glm::vec2 playerStartPosition;
 	std::vector<Tile*> tileMap;
