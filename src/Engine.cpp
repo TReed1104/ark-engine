@@ -352,7 +352,7 @@ void Engine::LoadItems(void) {
 }
 void Engine::LoadPlayer(void) {
 	// Load the Player
-	LuaScript playerScript = LuaScript(contentDirectory + "scripts/entities/player.lua");
+	LuaScript playerScript = LuaScript(contentDirectory + "scripts/entities/entity_player.lua");
 	if (playerScript.isScriptLoaded) {
 		glm::vec3 playerPosition = glm::vec3(playerScript.Get<float>("player.position.x"), playerScript.Get<float>("player.position.y"), playerScript.Get<float>("player.position.z"));
 
