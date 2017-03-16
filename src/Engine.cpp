@@ -268,6 +268,48 @@ Model Engine::LoadModel(const std::string& modelPath) {
 		return currentModel;
 	}
 }
+void Engine::LoadTexture(const char * texturePath) {
+	// This function loads a texture into memory to be used with a source rectangle to depict what part of it to render.
+	if (texturePath != "EMPTY") {
+		//int init = IMG_Init(IMG_INIT_PNG);
+		SDL_Surface* image = IMG_Load(texturePath);	// Try and load the texture.
+		if (image == NULL) {
+			// If the texture was not loaded correctly, quit the program and show a error message on the console.
+			std::cout << "The loading of Spritesheet: " << texturePath << " failed." << std::endl;
+			SDL_Quit();
+			exit(1);
+		}
+		else {
+			std::cout << "The loading of Spritesheet: " << texturePath << " was successful." << std::endl;
+		}
+
+		Texture tempTexture = Texture(texturePath);
+		glGenTextures(1, &tempTexture.id);				// Generate a texture ID and store it
+		glBindTexture(GL_TEXTURE_2D, tempTexture.id);
+
+		// Set the texturing variables for this texture.
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+
+		tempTexture.dimensions = glm::vec2(image->w, image->h);
+		// Setup the texture.
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		textureRegister.push_back(tempTexture);
+		SDL_FreeSurface(image);
+	}
+}
+void Engine::LoadTextureRegister(void) {
+	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList("content/textures");
+	for (size_t i = 0; i < listOfTextures.size(); i++) {
+		LoadTexture(listOfTextures[i].c_str());
+	}
+}
 void Engine::LoadModelRegister(void) {
 
 
@@ -288,7 +330,7 @@ void Engine::LoadTileRegister(void) {
 		int sourceFrameY = tileConfigScript.Get<int>("tiles.tile_" + std::to_string(i) + ".source_frame_position.y");
 		glm::vec2 sourceFramePosition = glm::vec2(sourceFrameX, sourceFrameY);
 
-		tileRegister.push_back(new Tile(*this, modelRegister[0], "content/textures/tileset.png", "", sourceFramePosition));
+		tileRegister.push_back(new Tile(*this, modelRegister[0], textureRegister[1], "", sourceFramePosition));
 	}
 }
 void Engine::LoadLevelRegister(void) {
@@ -305,11 +347,12 @@ void Engine::LoadEntityRegister(void) {
 }
 void Engine::LoadContent(void) {
 	// Load the Registers
+	LoadTextureRegister();
 	LoadModelRegister();
 	LoadTileRegister();
 	LoadLevelRegister();
 	LoadItemRegister();
-	player = new Player(*this, modelRegister[0], glm::vec3(16.0f, 32.0f, 0.0f), "content/textures/placeholder.png");
+	player = new Player(*this, modelRegister[0], textureRegister[0], glm::vec3(16.0f, 32.0f, 0.0f));
 	LoadEntityRegister();
 }
 void Engine::InitialiseEngine(void) {

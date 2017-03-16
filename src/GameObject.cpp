@@ -1,7 +1,7 @@
 #include "GameObject.h"
 #include "Engine.h"
 
-GameObject::GameObject(const Engine &engine, const Model &model, const glm::vec3& position, const char* texturePath, const glm::vec2& sourceFrameSize) {
+GameObject::GameObject(const Engine& engine, const Model &model, const Texture& texture, const glm::vec3& position, const glm::vec2& sourceFrameSize) {
 	this->engine = &engine;
 	this->model = model;
 	this->model.SetMeshParents();
@@ -15,11 +15,9 @@ GameObject::GameObject(const Engine &engine, const Model &model, const glm::vec3
 	this->model.Scale();
 
 	// Textures
-	this->currentTextureIndex = 0;
+	this->texture = &texture;
 	this->sourceFrameSize = sourceFrameSize;
 	this->sourceFramePosition = glm::vec2(0, 0);
-	this->textureDimensions = glm::vec2(0, 0);
-	LoadTexture(texturePath);
 }
 GameObject::~GameObject() {
 
@@ -47,17 +45,17 @@ void GameObject::Draw() {
 		// Passes the Model Matrix of the Object to the shader.
 		glUniformMatrix4fv(engine->shaderPointers.modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 
-		bool useTextures = ((textureRegister.size() > 0) && currentMesh.isSetupForTextures);
+		bool useTextures = (texture->id != -1 && currentMesh.isSetupForTextures);
 		if (useTextures) {
 			// Textures are setup correctly, tell the shader to use the texture and setup the source frame.
 			glUniform1i(engine->shaderPointers.hasTextureUniform, useTextures);
-			glUniform2fv(engine->shaderPointers.textureDimensionsUniform, 1, glm::value_ptr(textureDimensions));
+			glUniform2fv(engine->shaderPointers.textureDimensionsUniform, 1, glm::value_ptr(texture->dimensions));
 			glUniform2fv(engine->shaderPointers.sourceFrameSizeUniform, 1, glm::value_ptr(sourceFrameSize));
 			glUniform2fv(engine->shaderPointers.sourceFramePositionUniform, 1, glm::value_ptr(sourceFramePosition));
 
 			// Activate the correct texture.
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, textureRegister[currentTextureIndex].textureID);
+			glBindTexture(GL_TEXTURE_2D, texture->id);
 			glUniform1i(engine->shaderPointers.textureSamplerUniform, 0);
 		}
 		else {
@@ -94,43 +92,5 @@ void GameObject::Rotate(const int& indexOfMesh, const float& rotationAngle, cons
 }
 void GameObject::Scale(const int& indexOfMesh, const glm::vec3& scale) {
 	model.SetMeshScale(indexOfMesh, scale);
-}
-
-// Texturing
-void GameObject::LoadTexture(const char* texturePath) {
-	// This function loads a texture into memory to be used with a source rectangle to depict what part of it to render.
-	if (texturePath != "") {
-		//int init = IMG_Init(IMG_INIT_PNG);
-		SDL_Surface* image = IMG_Load(texturePath);	// Try and load the texture.
-		if (image == NULL) {
-			// If the texture was not loaded correctly, quit the program and show a error message on the console.
-			std::cout << "The loading of Spritesheet: " << texturePath << " failed." << std::endl;
-			SDL_Quit();
-			exit(1);
-		}
-		else {
-			std::cout << "The loading of Spritesheet: " << texturePath << " was successful." << std::endl;
-		}
-
-		Texture tempTexture = Texture(texturePath);
-		glGenTextures(1, &tempTexture.textureID);				// Generate a texture ID and store it
-		glBindTexture(GL_TEXTURE_2D, tempTexture.textureID);
-
-		// Set the texturing variables for this texture.
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-
-		textureDimensions = glm::vec2(image->w, image->h);
-		// Setup the texture.
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		textureRegister.push_back(tempTexture);
-		SDL_FreeSurface(image);
-	}
 }
 

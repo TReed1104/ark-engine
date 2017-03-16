@@ -41,7 +41,7 @@ void Level::Load(const std::string & filePath) {
 		for (int y = 0; y < tileGridSize.y; y++) {
 			for (int x = 0; x < tileGridSize.x; x++) {
 				int index = y * tileGridSize.x + x;
-				tileMap.push_back(new Tile(*engine, engine->modelRegister[0], "content/textures/tileset.png", "", (engine->tileRegister[rawMapData[index]])->sourceFramePosition, glm::vec3(x * engine->tileSize.x, y * engine->tileSize.y, -0.01f), (engine->tileRegister[3])->sourceFrameSize));
+				tileMap.push_back(new Tile(*engine, engine->modelRegister[0], *(engine->tileRegister[rawMapData[index]])->texture, "", (engine->tileRegister[rawMapData[index]])->sourceFramePosition, glm::vec3(x * engine->tileSize.x, y * engine->tileSize.y, -0.01f), (engine->tileRegister[3])->sourceFrameSize));
 			}
 		}
 

@@ -50,6 +50,7 @@ public:
 	std::vector<GameObject*> itemRegister;
 	std::vector<Entity*> entityRegister;
 	std::vector<Level*> levelRegister;
+	std::vector<Texture> textureRegister;
 	Player* player;
 
 	// Indexers
@@ -84,6 +85,8 @@ private:
 	GLuint CreateGLProgram(const std::vector<Shader>& shaderList);
 	void InitialiseProgram(void);
 	Model LoadModel(const std::string& modelPath);
+	void LoadTexture(const char* texturePath);
+	void LoadTextureRegister(void);
 	void LoadModelRegister(void);
 	void LoadTileRegister(void);
 	void LoadLevelRegister(void);
