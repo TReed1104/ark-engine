@@ -2,21 +2,18 @@
 #include "Engine.h"
 #include "LuaScript.h"
 
-Tileset::Tileset(const Engine& engine, const std::string& name) {
+Tileset::Tileset(const Engine& engine) {
 	this->engine = &engine;
-	this->name = name;
 
 }
 
 Tileset::~Tileset() {
-	for (int i = 0; i < tileList.size(); i++) {
-		delete tileList[i];
-	}
 }
 
 void Tileset::Load(const std::string & tilesetScript) {
 	LuaScript tileConfigScript = LuaScript(tilesetScript);
 	if (tileConfigScript.isScriptLoaded) {
+		name = tileConfigScript.Get<std::string>("tileset.name");
 		int numberOfTiles = tileConfigScript.Get<int>("tileset.number_of_tiles");
 
 		// Find the Texture for this Tileset.
@@ -37,10 +34,10 @@ void Tileset::Load(const std::string & tilesetScript) {
 			glm::vec2 sourceFramePosition = glm::vec2(sourceFrameX, sourceFrameY);
 
 			if (indexOfTileSetTexture != -1) {
-				tileList.push_back(new Tile(*engine, engine->modelRegister[0], engine->textureRegister[indexOfTileSetTexture], "", sourceFramePosition));
+				tileList.push_back(Tile(*engine, engine->modelRegister[0], engine->textureRegister[indexOfTileSetTexture], "", sourceFramePosition));
 			}
 			else {
-				tileList.push_back(new Tile(*engine, engine->modelRegister[0], engine->textureRegister[engine->indexOfDefaultTexture], "", sourceFramePosition));
+				tileList.push_back(Tile(*engine, engine->modelRegister[0], engine->textureRegister[engine->indexOfDefaultTexture], "", sourceFramePosition));
 			}
 		}
 	}

@@ -8,9 +8,9 @@ class Tileset
 {
 public:
 	std::string name;
-	std::vector<Tile*> tileList;
+	std::vector<Tile> tileList;
 
-	Tileset(const Engine& engine, const std::string& name);
+	Tileset(const Engine& engine);
 	~Tileset();
 
 	void Load(const std::string& tilesetScript);

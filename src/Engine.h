@@ -23,6 +23,7 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "GameObject.h"
+#include "Tileset.h"
 #include "Tile.h"
 #include "Level.h"
 #include "Entity.h"
@@ -45,7 +46,7 @@ public:
 
 	// Registers
 	std::vector<Model> modelRegister;
-	std::vector<Tile*> tileRegister;
+	std::vector<Tileset> tilesetRegister;
 	std::vector<GameObject*> itemRegister;
 	std::vector<Entity*> entityRegister;
 	std::vector<Level*> levelRegister;

@@ -11,6 +11,7 @@ class Level
 {
 public:
 	std::string nameOfTilest;
+	int indexOfTileset;
 	glm::vec2 tileGridSize;
 	glm::vec2 playerStartPosition;
 	std::vector<Tile*> tileMap;
