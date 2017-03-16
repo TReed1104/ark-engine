@@ -280,7 +280,16 @@ void Engine::LoadModelRegister(void) {
 	}
 }
 void Engine::LoadTileRegister(void) {
+	LuaScript tileConfigScript = LuaScript(contentDirectory + "tile_config.lua");
+	int numberOfTiles = tileConfigScript.Get<int>("tiles.number_of_tiles");
+	for (int i = 0; i < numberOfTiles; i++) {
+		std::string tileType = tileConfigScript.Get<std::string>("tiles.tile_" + std::to_string(i) + ".type");
+		int sourceFrameX = tileConfigScript.Get<int>("tiles.tile_" + std::to_string(i) + ".source_frame_position.x");
+		int sourceFrameY = tileConfigScript.Get<int>("tiles.tile_" + std::to_string(i) + ".source_frame_position.y");
+		glm::vec2 sourceFramePosition = glm::vec2(sourceFrameX, sourceFrameY);
 
+		tileRegister.push_back(new Tile(*this, modelRegister[0], "content/textures/tileset.png", "", sourceFramePosition));
+	}
 }
 void Engine::LoadLevelRegister(void) {
 	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList("content/levels");
