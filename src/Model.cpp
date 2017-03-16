@@ -2,7 +2,7 @@
 #include "Engine.h"
 
 // Model definitions
-Engine* Model::engine;
+Engine* Model::engineReference;
 
 Model::Model(const std::string& name) {
 	this->name = name;
@@ -13,7 +13,7 @@ Model::~Model() {
 void Model::SetVertexObjects() {
 	for (int i = 0; i < meshes.size(); i++) {
 		meshes[i].GenerateVertexBuffers();
-		meshes[i].GenerateVertexArrayObject(engine->shaderPointers);
+		meshes[i].GenerateVertexArrayObject(engineReference->shaderPointers);
 	}
 }
 void Model::SetMeshParents() {

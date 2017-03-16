@@ -222,10 +222,10 @@ void Engine::InitialiseProgram(void) {
 	}
 }
 void Engine::SetEngineReferences(void) {
-	Model::engine = this;
-	GameObject::engine = this;
-	Tileset::engine = this;
-	Level::engine = this;
+	Model::s_EnginePointer = this;
+	GameObject::s_EnginePointer = this;
+	Tileset::s_EnginePointer = this;
+	Level::s_EnginePointer = this;
 }
 Model Engine::LoadModel(const std::string& modelPath) {
 	// Load in a Model.

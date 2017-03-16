@@ -19,7 +19,7 @@ class Engine;
 
 class GameObject {
 public:
-	static Engine* engine;
+	static Engine* engineReference;
 	Model model;
 	const Texture* texture;
 	glm::vec2 sourceFrameSize;
