@@ -328,30 +328,35 @@ void Engine::LoadModels(void) {
 	}
 }
 void Engine::LoadTiles(void) {
-	LuaScript tileConfigScript = LuaScript(contentDirectory + "tile_config.lua");
-	int numberOfTiles = tileConfigScript.Get<int>("tiles.number_of_tiles");
+	// Load the Tilesets
+	std::vector<std::string> listOfTilesets = FileSystemUtilities::GetFileList(contentDirectory + "tilesets");
+	for (size_t i = 0; i < listOfTilesets.size(); i++) {
 
-	// Find the Texture for this Tileset.
-	int indexOfTileSetTexture = -1;
-	std::string tilesetTextureName = tileConfigScript.Get<std::string>("tiles.texture");
-	for (size_t i = 0; i < textureRegister.size(); i++) {
-		if (textureRegister[i].name.find(tilesetTextureName) != std::string::npos) {
-			indexOfTileSetTexture = i;
+		LuaScript tileConfigScript = LuaScript(listOfTilesets[i]);
+		int numberOfTiles = tileConfigScript.Get<int>("tileset.number_of_tiles");
+
+		// Find the Texture for this Tileset.
+		int indexOfTileSetTexture = -1;
+		std::string tilesetTextureName = tileConfigScript.Get<std::string>("tileset.texture");
+		for (size_t i = 0; i < textureRegister.size(); i++) {
+			if (textureRegister[i].name.find(tilesetTextureName) != std::string::npos) {
+				indexOfTileSetTexture = i;
+			}
 		}
-	}
 
-	// Load each of the Tiles from the current Tileset script.
-	for (int i = 0; i < numberOfTiles; i++) {
-		std::string tileType = tileConfigScript.Get<std::string>("tiles.tile_" + std::to_string(i) + ".type");
-		int sourceFrameX = tileConfigScript.Get<int>("tiles.tile_" + std::to_string(i) + ".source_frame_position.x");
-		int sourceFrameY = tileConfigScript.Get<int>("tiles.tile_" + std::to_string(i) + ".source_frame_position.y");
-		glm::vec2 sourceFramePosition = glm::vec2(sourceFrameX, sourceFrameY);
+		// Load each of the Tiles from the current Tileset script.
+		for (int i = 0; i < numberOfTiles; i++) {
+			std::string tileType = tileConfigScript.Get<std::string>("tileset.tile_" + std::to_string(i) + ".type");
+			int sourceFrameX = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.x");
+			int sourceFrameY = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.y");
+			glm::vec2 sourceFramePosition = glm::vec2(sourceFrameX, sourceFrameY);
 
-		if (indexOfTileSetTexture != -1) {
-			tileRegister.push_back(new Tile(*this, modelRegister[0], textureRegister[indexOfTileSetTexture], "", sourceFramePosition));
-		}
-		else {
-			tileRegister.push_back(new Tile(*this, modelRegister[0], textureRegister[indexOfDefaultTexture], "", sourceFramePosition));
+			if (indexOfTileSetTexture != -1) {
+				tileRegister.push_back(new Tile(*this, modelRegister[0], textureRegister[indexOfTileSetTexture], "", sourceFramePosition));
+			}
+			else {
+				tileRegister.push_back(new Tile(*this, modelRegister[0], textureRegister[indexOfDefaultTexture], "", sourceFramePosition));
+			}
 		}
 	}
 }
