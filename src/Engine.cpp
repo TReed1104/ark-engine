@@ -1,6 +1,5 @@
 #include "Engine.h"
 
-
 Engine::Engine(char* gameName) {
 	exeName = gameName;
 	oldFrameTime = 0.0f;
@@ -32,7 +31,7 @@ void Engine::Run(void) {
 	InitialiseEngine();		// Setup the OpenGL environment.
 	LoadContent();			// Load the game content.
 	camera = Camera(*this, glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::ortho(0.0f, windowDimensions.x, windowDimensions.y, 0.0f));
-	
+
 	// Game Loop
 	std::cout << ">> Game runtime started" << std::endl;
 	while (isRunning) {
@@ -46,7 +45,7 @@ void Engine::Run(void) {
 		oldFrameTime = currentFrameTime;
 	}
 	std::cout << ">> Game runtime finished" << std::endl;
-	
+
 	CleanupSDL();					// Cleans up after SDL.
 	SDL_Quit();							// Quits the program.
 }
@@ -309,6 +308,13 @@ void Engine::LoadTextures(void) {
 	for (size_t i = 0; i < listOfTextures.size(); i++) {
 		ImportTexture(listOfTextures[i].c_str());
 	}
+
+	// Find the default texture for when textures are failed to be found.
+	for (size_t i = 0; i < textureRegister.size(); i++) {
+		if (textureRegister[i].name.find("default.png") != std::string::npos) {
+			indexOfDefaultTexture = i;
+		}
+	}
 }
 void Engine::LoadModels(void) {
 
@@ -324,16 +330,33 @@ void Engine::LoadModels(void) {
 void Engine::LoadTiles(void) {
 	LuaScript tileConfigScript = LuaScript(contentDirectory + "tile_config.lua");
 	int numberOfTiles = tileConfigScript.Get<int>("tiles.number_of_tiles");
+
+	// Find the Texture for this Tileset.
+	int indexOfTileSetTexture = -1;
+	std::string tilesetTextureName = tileConfigScript.Get<std::string>("tiles.texture");
+	for (size_t i = 0; i < textureRegister.size(); i++) {
+		if (textureRegister[i].name.find(tilesetTextureName) != std::string::npos) {
+			indexOfTileSetTexture = i;
+		}
+	}
+
+	// Load each of the Tiles from the current Tileset script.
 	for (int i = 0; i < numberOfTiles; i++) {
 		std::string tileType = tileConfigScript.Get<std::string>("tiles.tile_" + std::to_string(i) + ".type");
 		int sourceFrameX = tileConfigScript.Get<int>("tiles.tile_" + std::to_string(i) + ".source_frame_position.x");
 		int sourceFrameY = tileConfigScript.Get<int>("tiles.tile_" + std::to_string(i) + ".source_frame_position.y");
 		glm::vec2 sourceFramePosition = glm::vec2(sourceFrameX, sourceFrameY);
 
-		tileRegister.push_back(new Tile(*this, modelRegister[0], textureRegister[1], "", sourceFramePosition));
+		if (indexOfTileSetTexture != -1) {
+			tileRegister.push_back(new Tile(*this, modelRegister[0], textureRegister[indexOfTileSetTexture], "", sourceFramePosition));
+		}
+		else {
+			tileRegister.push_back(new Tile(*this, modelRegister[0], textureRegister[indexOfDefaultTexture], "", sourceFramePosition));
+		}
 	}
 }
 void Engine::LoadLevels(void) {
+	// Load each of the Level scripts.
 	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList(contentDirectory + "levels");
 	for (size_t i = 0; i < listOfLevelFiles.size(); i++) {
 		levelRegister.push_back(new Level(*this, listOfLevelFiles[i]));
@@ -342,11 +365,33 @@ void Engine::LoadLevels(void) {
 void Engine::LoadItems(void) {
 
 }
+void Engine::LoadPlayer(void) {
+	// Load the Player
+	LuaScript playerScript = LuaScript(contentDirectory + "scripts/entities/player.lua");
+	glm::vec3 playerPosition = glm::vec3(playerScript.Get<float>("player.position.x"), playerScript.Get<float>("player.position.y"), playerScript.Get<float>("player.position.z"));
+
+	// Find the Texture for the Player.
+	int indexOfPlayerTexture = -1;
+	std::string playerTextureName = playerScript.Get<std::string>("player.texture");
+	for (size_t i = 0; i < textureRegister.size(); i++) {
+		if (textureRegister[i].name.find(playerTextureName) != std::string::npos) {
+			indexOfPlayerTexture = i;
+		}
+	}
+
+	// Initialise the Player and use the appropriate texture depending on if the declared texture was found.
+	if (indexOfPlayerTexture != -1) {
+		player = new Player(*this, modelRegister[0], textureRegister[indexOfPlayerTexture], playerPosition);
+	}
+	else {
+		player = new Player(*this, modelRegister[0], textureRegister[indexOfDefaultTexture], playerPosition);
+	}
+}
 void Engine::LoadEntities(void) {
-	player = new Player(*this, modelRegister[0], textureRegister[0], glm::vec3(16.0f, 32.0f, 0.0f));
+	// Load the Entities
 	std::vector<std::string> listOfEntityFiles = FileSystemUtilities::GetFileList(contentDirectory + "scripts/entities");
 	for (size_t i = 0; i < listOfEntityFiles.size(); i++) {
-		
+
 	}
 }
 void Engine::LoadContent(void) {
@@ -356,6 +401,7 @@ void Engine::LoadContent(void) {
 	LoadTiles();
 	LoadLevels();
 	LoadItems();
+	LoadPlayer();
 	LoadEntities();
 }
 void Engine::InitialiseEngine(void) {

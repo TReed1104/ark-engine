@@ -19,7 +19,6 @@
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 // Engine Source
-//#include "EngineConfig.h"
 #include "ShaderPointers.hpp"
 #include "Shader.h"
 #include "Camera.h"
@@ -55,6 +54,7 @@ public:
 
 	// Indexers
 	int indexCurrentLevel = 0;
+	int indexOfDefaultTexture = -1;
 
 	// Constructors
 	Engine(char* gameName);
@@ -91,6 +91,7 @@ private:
 	void LoadTiles(void);
 	void LoadLevels(void);
 	void LoadItems(void);
+	void LoadPlayer(void);
 	void LoadEntities(void);
 	void LoadContent(void);
 	void InitialiseEngine(void);
