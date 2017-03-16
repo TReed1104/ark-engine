@@ -268,7 +268,7 @@ Model Engine::LoadModel(const std::string& modelPath) {
 		return currentModel;
 	}
 }
-void Engine::LoadTexture(const char * texturePath) {
+void Engine::ImportTexture(const char * texturePath) {
 	// This function loads a texture into memory to be used with a source rectangle to depict what part of it to render.
 	if (texturePath != "EMPTY") {
 		//int init = IMG_Init(IMG_INIT_PNG);
@@ -304,13 +304,13 @@ void Engine::LoadTexture(const char * texturePath) {
 		SDL_FreeSurface(image);
 	}
 }
-void Engine::LoadTextureRegister(void) {
-	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList("content/textures");
+void Engine::LoadTextures(void) {
+	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
 	for (size_t i = 0; i < listOfTextures.size(); i++) {
-		LoadTexture(listOfTextures[i].c_str());
+		ImportTexture(listOfTextures[i].c_str());
 	}
 }
-void Engine::LoadModelRegister(void) {
+void Engine::LoadModels(void) {
 
 
 
@@ -321,7 +321,7 @@ void Engine::LoadModelRegister(void) {
 		modelRegister[i].SetVertexObjects();
 	}
 }
-void Engine::LoadTileRegister(void) {
+void Engine::LoadTiles(void) {
 	LuaScript tileConfigScript = LuaScript(contentDirectory + "tile_config.lua");
 	int numberOfTiles = tileConfigScript.Get<int>("tiles.number_of_tiles");
 	for (int i = 0; i < numberOfTiles; i++) {
@@ -333,27 +333,30 @@ void Engine::LoadTileRegister(void) {
 		tileRegister.push_back(new Tile(*this, modelRegister[0], textureRegister[1], "", sourceFramePosition));
 	}
 }
-void Engine::LoadLevelRegister(void) {
-	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList("content/levels");
+void Engine::LoadLevels(void) {
+	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList(contentDirectory + "levels");
 	for (size_t i = 0; i < listOfLevelFiles.size(); i++) {
 		levelRegister.push_back(new Level(*this, listOfLevelFiles[i]));
 	}
 }
-void Engine::LoadItemRegister(void) {
+void Engine::LoadItems(void) {
 
 }
-void Engine::LoadEntityRegister(void) {
-
+void Engine::LoadEntities(void) {
+	player = new Player(*this, modelRegister[0], textureRegister[0], glm::vec3(16.0f, 32.0f, 0.0f));
+	std::vector<std::string> listOfEntityFiles = FileSystemUtilities::GetFileList(contentDirectory + "scripts/entities");
+	for (size_t i = 0; i < listOfEntityFiles.size(); i++) {
+		
+	}
 }
 void Engine::LoadContent(void) {
-	// Load the Registers
-	LoadTextureRegister();
-	LoadModelRegister();
-	LoadTileRegister();
-	LoadLevelRegister();
-	LoadItemRegister();
-	player = new Player(*this, modelRegister[0], textureRegister[0], glm::vec3(16.0f, 32.0f, 0.0f));
-	LoadEntityRegister();
+	// Load all the game Content
+	LoadTextures();
+	LoadModels();
+	LoadTiles();
+	LoadLevels();
+	LoadItems();
+	LoadEntities();
 }
 void Engine::InitialiseEngine(void) {
 	std::cout << ">> Setting up Environment..." << std::endl;
