@@ -1,5 +1,6 @@
 tiles = {
 	number_of_tiles = 10,
+	texture = "tileset.png",
 	tile_0 = { type = "0", source_frame_position = { x = 0, y = 0, }, },
 	tile_1 = { type = "0", source_frame_position = { x = 1, y = 0, }, },
 	tile_2 = { type = "0", source_frame_position = { x = 2, y = 0, }, },
