@@ -2,8 +2,9 @@
 #include "Engine.h"
 #include "LuaScript.h"
 
-Tileset::Tileset(const Engine& engine) {
-	this->engine = &engine;
+Engine* Tileset::engine;
+
+Tileset::Tileset() {
 
 }
 
@@ -34,10 +35,10 @@ void Tileset::Load(const std::string & tilesetScript) {
 			glm::vec2 sourceFramePosition = glm::vec2(sourceFrameX, sourceFrameY);
 
 			if (indexOfTileSetTexture != -1) {
-				tileList.push_back(Tile(*engine, engine->modelRegister[0], engine->textureRegister[indexOfTileSetTexture], "", sourceFramePosition));
+				tileList.push_back(Tile(engine->modelRegister[0], engine->textureRegister[indexOfTileSetTexture], "", sourceFramePosition));
 			}
 			else {
-				tileList.push_back(Tile(*engine, engine->modelRegister[0], engine->textureRegister[engine->indexOfDefaultTexture], "", sourceFramePosition));
+				tileList.push_back(Tile(engine->modelRegister[0], engine->textureRegister[engine->indexOfDefaultTexture], "", sourceFramePosition));
 			}
 		}
 	}

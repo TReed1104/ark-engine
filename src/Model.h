@@ -52,12 +52,11 @@ public:
 		glm::mat4 rotationMatrix;
 		glm::mat4 scaleMatrix;
 	};
-
+	static Engine* engine;
 	std::string name;
 	std::vector<Mesh> meshes;
 
-	Model() {}
-	Model(const Engine& engine, const std::string& name = "");
+	Model(const std::string& name = "");
 	~Model();
 
 	void SetVertexObjects();
@@ -70,7 +69,6 @@ public:
 	void SetMeshScale(const int& indexOfMesh, const glm::vec3& scale = glm::vec3(0.0f));
 
 private:
-	const Engine* engine;
 	glm::mat4 modelTranslationMatrix;
 	glm::mat4 modelRotationMatrix;
 	glm::mat4 modelScaleMatrix;

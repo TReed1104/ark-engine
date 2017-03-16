@@ -59,6 +59,7 @@ void Engine::LoadEngineConfig() {
 		SDL_Quit();
 		exit(1);
 	}
+	SetEngineReferences();
 }
 void Engine::InitialiseSDL(void) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -220,13 +221,19 @@ void Engine::InitialiseProgram(void) {
 		glDeleteShader(shaderList[iLoop].shaderID);
 	}
 }
+void Engine::SetEngineReferences(void) {
+	Model::engine = this;
+	GameObject::engine = this;
+	Tileset::engine = this;
+	Level::engine = this;
+}
 Model Engine::LoadModel(const std::string& modelPath) {
 	// Load in a Model.
 	if (modelPath != "") {
 		Assimp::Importer importer;	// An importer for importing the model data.
 		const aiScene* scene = importer.ReadFile(modelPath, aiProcess_Triangulate | aiProcess_GenNormals);		// Read the Model file.
 
-		Model currentModel = Model(*this, modelPath);
+		Model currentModel = Model(modelPath);
 
 		// Loop through each mesh in the loaded model.
 		for (int i = 0; i < scene->mNumMeshes; i++) {
@@ -328,7 +335,7 @@ void Engine::LoadTilesets(void) {
 	// Load the Tilesets
 	std::vector<std::string> listOfTilesets = FileSystemUtilities::GetFileList(contentDirectory + "tilesets");
 	for (size_t i = 0; i < listOfTilesets.size(); i++) {
-		Tileset tileSet = Tileset(*this);
+		Tileset tileSet = Tileset();
 		tileSet.Load(listOfTilesets[i]);
 		tilesetRegister.push_back(tileSet);
 	}
@@ -337,7 +344,7 @@ void Engine::LoadLevels(void) {
 	// Load each of the Level scripts.
 	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList(contentDirectory + "levels");
 	for (size_t i = 0; i < listOfLevelFiles.size(); i++) {
-		levelRegister.push_back(new Level(*this, listOfLevelFiles[i]));
+		levelRegister.push_back(new Level(listOfLevelFiles[i]));
 	}
 }
 void Engine::LoadItems(void) {
@@ -360,10 +367,10 @@ void Engine::LoadPlayer(void) {
 
 		// Initialise the Player and use the appropriate texture depending on if the declared texture was found.
 		if (indexOfPlayerTexture != -1) {
-			player = new Player(*this, modelRegister[0], textureRegister[indexOfPlayerTexture], playerPosition);
+			player = new Player(modelRegister[0], textureRegister[indexOfPlayerTexture], playerPosition);
 		}
 		else {
-			player = new Player(*this, modelRegister[0], textureRegister[indexOfDefaultTexture], playerPosition);
+			player = new Player(modelRegister[0], textureRegister[indexOfDefaultTexture], playerPosition);
 		}
 	}
 }

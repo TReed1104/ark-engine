@@ -19,6 +19,7 @@ class Engine;
 
 class GameObject {
 public:
+	static Engine* engine;
 	Model model;
 	const Texture* texture;
 	glm::vec2 sourceFrameSize;
@@ -29,14 +30,13 @@ public:
 	glm::vec3 scale;
 	glm::vec3 velocity;
 
-	GameObject(const Engine& engine, const Model& model, const Texture& texture = Texture("Empty"), const glm::vec3& position = glm::vec3(0.0f), const glm::vec2& sourceFrameSize = glm::vec2(16, 16));
+	GameObject(const Model& model, const Texture& texture = Texture("Empty"), const glm::vec3& position = glm::vec3(0.0f), const glm::vec2& sourceFrameSize = glm::vec2(16, 16));
 	~GameObject();
 
 	void Update(float deltaTime);
 	void Draw();
 
 private:
-	const Engine* engine;
 
 	void Translate(const int& indexOfMesh, const glm::vec3 &translation);
 	void Rotate(const int& indexOfMesh, const float &rotationAngle, const glm::vec3 &rotationAxis);

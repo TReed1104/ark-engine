@@ -2,8 +2,9 @@
 #include "Engine.h"
 
 // Model definitions
-Model::Model(const Engine &engine, const std::string& name) {
-	this->engine = &engine;
+Engine* Model::engine;
+
+Model::Model(const std::string& name) {
 	this->name = name;
 }
 Model::~Model() {

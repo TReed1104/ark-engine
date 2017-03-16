@@ -10,20 +10,20 @@ class Engine;
 class Level
 {
 public:
+	static Engine* engine;
 	std::string nameOfTilest;
 	int indexOfTileset;
 	glm::vec2 tileGridSize;
 	glm::vec2 playerStartPosition;
 	std::vector<Tile*> tileMap;
 
-	Level(const Engine& engine, const std::string& filePath);
+	Level(const std::string& filePath);
 	~Level();
 
 	void Update(float deltaTime);
 	void Draw();
 
 private:
-	const Engine* engine;
 	LuaScript* script;
 
 	void Load(const std::string& filePath);

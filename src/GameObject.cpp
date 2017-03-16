@@ -1,8 +1,9 @@
 #include "GameObject.h"
 #include "Engine.h"
 
-GameObject::GameObject(const Engine& engine, const Model &model, const Texture& texture, const glm::vec3& position, const glm::vec2& sourceFrameSize) {
-	this->engine = &engine;
+Engine* GameObject::engine;
+
+GameObject::GameObject(const Model& model, const Texture& texture, const glm::vec3& position, const glm::vec2& sourceFrameSize) {
 	this->model = model;
 	this->model.SetMeshParents();
 	this->position = position;

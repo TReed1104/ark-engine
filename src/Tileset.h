@@ -7,16 +7,16 @@ class Engine;
 class Tileset
 {
 public:
+	static Engine* engine;
 	std::string name;
 	std::vector<Tile> tileList;
 
-	Tileset(const Engine& engine);
+	Tileset();
 	~Tileset();
 
 	void Load(const std::string& tilesetScript);
 
 private:
-	const Engine* engine;
 };
 
 #endif
