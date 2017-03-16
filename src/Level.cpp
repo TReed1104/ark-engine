@@ -8,14 +8,16 @@ Level::Level(const Engine& engine, const std::string & filePath) {
 
 Level::~Level() {
 	delete script;
-	delete[] tileMap;
+	for (int i = 0; i < tileMap.size(); i++) {
+		delete tileMap[i];
+	}
 }
 
 void Level::Update(float deltaTime) {
 	for (int y = 0; y < tileGridSize.y; y++) {
 		for (int x = 0; x < tileGridSize.x; x++) {
 			int index = y * tileGridSize.x + x;
-			tileMap[index].Update(deltaTime);
+			tileMap[index]->Update(deltaTime);
 		}
 	}
 }
@@ -24,7 +26,7 @@ void Level::Draw() {
 	for (int y = 0; y < tileGridSize.y; y++) {
 		for (int x = 0; x < tileGridSize.x; x++) {
 			int index = y * tileGridSize.x + x;
-			tileMap[index].Draw();
+			tileMap[index]->Draw();
 		}
 	}
 }
@@ -36,15 +38,12 @@ void Level::Load(const std::string & filePath) {
 		playerStartPosition = glm::vec2(script->Get<int>("map.player_start_grid_position.x"), script->Get<int>("map.player_start_grid_position.y"));
 		std::vector<int> rawMapData = script->GetVector<int>("map.map_data");
 
-		tileMap = new Tile[tileGridSize.x * tileGridSize.y];
-
 		for (int y = 0; y < tileGridSize.y; y++) {
 			for (int x = 0; x < tileGridSize.x; x++) {
 				int index = y * tileGridSize.x + x;
-				tileMap[index] = *(engine->tileRegister[1]);
-				tileMap[index].position = glm::vec3(x * engine->tileSize.x, y * engine->tileSize.y, 0.0f);
-				tileMap[index].drawPosition = glm::vec3(x * engine->tileSize.x, y * engine->tileSize.y, 0.0f);
+				tileMap.push_back(new Tile(*engine, engine->modelRegister[0], "content/textures/tileset.png", "", (engine->tileRegister[rawMapData[index]])->sourceFramePosition, glm::vec3(x * engine->tileSize.x, y * engine->tileSize.y, -0.01f), (engine->tileRegister[3])->sourceFrameSize));
 			}
 		}
+
 	}
 }
