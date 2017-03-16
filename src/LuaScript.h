@@ -14,6 +14,8 @@ extern "C" {
 class LuaScript
 {
 public:
+	bool isScriptLoaded = false;
+
 	LuaScript(const std::string& scriptName);
 	~LuaScript();
 
@@ -36,7 +38,7 @@ private:
 template<typename T> T LuaScript::Get(const std::string& variableName) {
 	// Check the script is loaded and accessible.
 	if (!L) {
-		OutputError(variableName, "Could not load lua script");
+		OutputError(variableName, "Script was not loaded, .Get() failed");
 		return GetDefaultValue<T>();
 	}
 
@@ -53,6 +55,12 @@ template<typename T> T LuaScript::Get(const std::string& variableName) {
 }
 template<typename T> inline std::vector<T> LuaScript::GetVector(const std::string & arrayName) {
 	std::vector<T> arrayFromLua;
+
+	if (!L) {
+		OutputError(arrayName, "Script was not loaded, .GetVector() failed");
+		return std::vector<T>();
+	}
+
 	HandleLuaStack(arrayName.c_str());
 
 	// Check we can find the array.

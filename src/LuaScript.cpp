@@ -9,13 +9,13 @@ LuaScript::LuaScript(const std::string& scriptName) {
 		L = 0;
 	}
 	if (L) {
+		isScriptLoaded = true;
 		luaL_openlibs(L);
 	}
 }
 LuaScript::~LuaScript() {
 	if (L) {
 		lua_close(L);
-		
 	}
 }
 
