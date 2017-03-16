@@ -1,5 +1,4 @@
 tileset = {
-	name = "default",
 	number_of_tiles = 10,
 	texture = "tileset.png",
 	tile_0 = { type = "0", source_frame_position = { x = 0, y = 0, }, },
