@@ -2,18 +2,21 @@
 #define ARKENGINE_TILESET_H_
 #include <vector>
 #include "Tile.h"
+class Engine;
 
 class Tileset
 {
 public:
 	std::string name;
-	std::vector<Tile> tileList;
+	std::vector<Tile*> tileList;
 
-	Tileset(const std::string& name);
+	Tileset(const Engine& engine, const std::string& name);
 	~Tileset();
 
-private:
+	void Load(const std::string& tilesetScript);
 
+private:
+	const Engine* engine;
 };
 
 #endif
