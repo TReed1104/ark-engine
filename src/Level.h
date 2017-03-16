@@ -10,7 +10,7 @@ class Engine;
 class Level
 {
 public:
-	static Engine* engineReference;
+	static Engine* s_EnginePointer;
 	std::string nameOfTilest;
 	int indexOfTileset;
 	glm::vec2 tileGridSize;

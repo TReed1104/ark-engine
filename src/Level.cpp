@@ -1,7 +1,7 @@
 #include "Level.h"
 #include "Engine.h"
 
-Engine* Level::engineReference;
+Engine* Level::s_EnginePointer;
 
 Level::Level(const std::string & filePath) {
 	Load(filePath);
@@ -44,8 +44,8 @@ void Level::Load(const std::string & filePath) {
 
 		// Find the index of tileset to use for this level in the Engines tileset register.
 		indexOfTileset = -1;
-		for (size_t i = 0; i < engineReference->tilesetRegister.size(); i++) {
-			if (engineReference->tilesetRegister[i].name == nameOfTilest) {
+		for (size_t i = 0; i < s_EnginePointer->tilesetRegister.size(); i++) {
+			if (s_EnginePointer->tilesetRegister[i].name == nameOfTilest) {
 				indexOfTileset = i;
 			}
 		}
@@ -58,7 +58,7 @@ void Level::Load(const std::string & filePath) {
 		for (int y = 0; y < tileGridSize.y; y++) {
 			for (int x = 0; x < tileGridSize.x; x++) {
 				int index = y * tileGridSize.x + x;
-				tileMap.push_back(new Tile(engineReference->modelRegister[0], *engineReference->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].texture, "", (engineReference->tilesetRegister[indexOfTileset].tileList[rawMapData[index]]).sourceFramePosition, glm::vec3(x * engineReference->tileSize.x, y * engineReference->tileSize.y, -0.01f), (engineReference->tilesetRegister[indexOfTileset].tileList[3]).sourceFrameSize));
+				tileMap.push_back(new Tile(s_EnginePointer->modelRegister[0], *s_EnginePointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].texture, "", (s_EnginePointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]]).sourceFramePosition, glm::vec3(x * s_EnginePointer->tileSize.x, y * s_EnginePointer->tileSize.y, -0.01f), (s_EnginePointer->tilesetRegister[indexOfTileset].tileList[3]).sourceFrameSize));
 			}
 		}
 
