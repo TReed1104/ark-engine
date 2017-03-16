@@ -59,7 +59,7 @@ void Engine::LoadEngineConfig() {
 		SDL_Quit();
 		exit(1);
 	}
-	SetEngineReferences();
+	SetEnginePointers();
 }
 void Engine::InitialiseSDL(void) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -221,7 +221,7 @@ void Engine::InitialiseProgram(void) {
 		glDeleteShader(shaderList[iLoop].shaderID);
 	}
 }
-void Engine::SetEngineReferences(void) {
+void Engine::SetEnginePointers(void) {
 	Model::s_EnginePointer = this;
 	GameObject::s_EnginePointer = this;
 	Tileset::s_EnginePointer = this;
