@@ -449,6 +449,13 @@ void Engine::EventHandler(void) {
 			case SDL_KEYUP:				// Key up handling.
 				Event_KeyUp(event.key);
 				break;
+			case SDL_CONTROLLERAXISMOTION:
+				Event_GameControllerLeftThumbStick();
+				Event_GameControllerRightThumbStick();
+				break;
+			case SDL_CONTROLLERBUTTONDOWN:
+				Event_GameControllerButtons();
+				break;
 		}
 	}
 }
@@ -483,6 +490,9 @@ void Engine::Event_KeyUp(const SDL_KeyboardEvent& keyboardEvent) {
 	}
 }
 void Engine::Event_GameControllerLeftThumbStick(void) {
+
+}
+void Engine::Event_GameControllerRightThumbStick(void) {
 
 }
 void Engine::Event_GameControllerButtons(void) {

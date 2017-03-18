@@ -105,6 +105,7 @@ private:
 	void Event_KeyDown(const SDL_KeyboardEvent& keyboardEvent);
 	void Event_KeyUp(const SDL_KeyboardEvent& keyboardEvent);
 	void Event_GameControllerLeftThumbStick(void);
+	void Event_GameControllerRightThumbStick(void);
 	void Event_GameControllerButtons(void);
 	void Update(float deltaTime);
 	void Draw(void);
