@@ -482,6 +482,12 @@ void Engine::Event_KeyUp(const SDL_KeyboardEvent& keyboardEvent) {
 		}
 	}
 }
+void Engine::Event_GameControllerLeftThumbStick(void) {
+
+}
+void Engine::Event_GameControllerButtons(void) {
+
+}
 void Engine::Update(float deltaTime) {
 	if (levelRegister[indexCurrentLevel] != nullptr) {
 		levelRegister[indexCurrentLevel]->Update(deltaTime);
