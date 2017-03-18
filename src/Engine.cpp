@@ -221,6 +221,21 @@ void Engine::InitialiseProgram(void) {
 		glDeleteShader(shaderList[iLoop].shaderID);
 	}
 }
+void Engine::InitialiseGameControllers(void) {
+	if (SDL_NumJoysticks() < 1) {
+		std::cout << "No Controllers are connected!" << std::endl;
+	}
+	else {
+		// Active the first game controller.
+		gameController = SDL_GameControllerOpen(0);
+		if (gameController != NULL) {
+			std::cout << "Game controller 0 has been opened for use" << std::endl;
+		}
+		else {
+			std::cout << "Unable to Open game controller 0 for use! SDL Error: " << SDL_GetError() << std::endl;
+		}
+	}
+}
 void Engine::SetEnginePointers(void) {
 	Model::s_EnginePointer = this;
 	GameObject::s_EnginePointer = this;
@@ -401,6 +416,7 @@ void Engine::InitialiseEngine(void) {
 	glViewport(0, 0, windowDimensions.x, windowDimensions.y);
 	SDL_GL_SwapWindow(sdlWindow);
 	InitialiseProgram();
+	InitialiseGameControllers();
 	std::cout << ">> Setup Complete" << std::endl;
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
@@ -409,6 +425,9 @@ void Engine::InitialiseEngine(void) {
 }
 void Engine::CleanupSDL(void) {
 	std::cout << ">> Starting Cleanup..." << std::endl;
+	if (SDL_NumJoysticks() > 0)	{
+		SDL_GameControllerClose(gameController);	// Close the controller.
+	}
 	SDL_GL_DeleteContext(glContext);
 	SDL_DestroyWindow(sdlWindow);
 	std::cout << ">> Cleanup Successful" << std::endl;

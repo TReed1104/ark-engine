@@ -76,6 +76,7 @@ private:
 	glm::vec2 windowDimensions;
 	float oldFrameTime;
 	float currentFrameTime;
+	SDL_GameController* gameController;
 
 	// Functions
 	void LoadEngineConfig();
@@ -85,6 +86,7 @@ private:
 	void InitialiseGlew(void);
 	GLuint CreateGLProgram(const std::vector<Shader>& shaderList);
 	void InitialiseProgram(void);
+	void InitialiseGameControllers(void);
 	void SetEnginePointers(void);
 	Model LoadModel(const std::string& modelPath);
 	void ImportTexture(const char* texturePath);
