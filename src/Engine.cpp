@@ -6,6 +6,7 @@ Engine::Engine(char* gameName) {
 	currentFrameTime = 0.0f;
 }
 Engine::~Engine() {
+	delete gameController;
 	delete player;
 
 	// Delete all the entries in the registers.
@@ -227,8 +228,8 @@ void Engine::InitialiseGameControllers(void) {
 	}
 	else {
 		// Active the first game controller.
-		gameController = SDL_GameControllerOpen(0);
-		if (gameController != NULL) {
+		gameController = new GameController(SDL_GameControllerOpen(0));
+		if (gameController->GetSDLHook() != NULL) {
 			std::cout << "Game controller 0 has been opened for use" << std::endl;
 		}
 		else {
@@ -426,7 +427,7 @@ void Engine::InitialiseEngine(void) {
 void Engine::CleanupSDL(void) {
 	std::cout << ">> Starting Cleanup..." << std::endl;
 	if (SDL_NumJoysticks() > 0)	{
-		SDL_GameControllerClose(gameController);	// Close the controller.
+		SDL_GameControllerClose(gameController->GetSDLHook());	// Close the controller.
 	}
 	SDL_GL_DeleteContext(glContext);
 	SDL_DestroyWindow(sdlWindow);

@@ -21,6 +21,7 @@
 // Engine Source
 #include "ShaderPointers.hpp"
 #include "Shader.h"
+#include "GameController.h"
 #include "Camera.h"
 #include "GameObject.h"
 #include "Tileset.h"
@@ -76,7 +77,8 @@ private:
 	glm::vec2 windowDimensions;
 	float oldFrameTime;
 	float currentFrameTime;
-	SDL_GameController* gameController;
+	GameController* gameController;
+
 
 	// Functions
 	void LoadEngineConfig();

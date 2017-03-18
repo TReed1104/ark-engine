@@ -1,5 +1,5 @@
-#ifndef ARKENGINE_ENGINE_H_
-#define ARKENGINE_ENGINE_H_
+#ifndef ARKENGINE_GAMECONTROLLER_H_
+#define ARKENGINE_GAMECONTROLLER_H_
 
 #include "SDL.h"
 
@@ -8,7 +8,7 @@ class GameController
 public:
 
 
-	GameController();
+	GameController(SDL_GameController* sdlHook);
 	~GameController();
 
 	SDL_GameController* GetSDLHook(void);
