@@ -24,3 +24,7 @@ set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "ArkEngine")
 FILE(COPY content/ DESTINATION content)
 # Copy the content folder to the /build/bin so the exe can find them.
 FILE(COPY content/ DESTINATION bin/content)
+# Copy the content copy script into the /build folder, this is used by VS to copy the content across on build.
+FILE(COPY "post_build_Script.bat" DESTINATION .)
+
+add_custom_command(TARGET ArkEngine PRE_BUILD COMMAND "post_build_Script.bat")
