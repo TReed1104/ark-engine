@@ -6,7 +6,6 @@
 #include <algorithm>
 #include <vector>
 #include <string>
-#include <vector>
 // Graphics dependencies
 #include "GL/glew.h"
 #include "SDL.h"
@@ -77,7 +76,7 @@ private:
 	glm::vec2 windowDimensions;
 	float oldFrameTime;
 	float currentFrameTime;
-	GameController* gameController;
+	GameController* playerController;
 
 
 	// Functions
