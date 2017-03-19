@@ -5,10 +5,14 @@
 #include "SDL.h"
 #include "glm/glm.hpp"
 
+class Engine;
+
 class GameController
 {
 public:
-	enum Buttons { A, B, X, Y, Start, Back, LeftShoulder, RightShoulder, DPadUp, DPadDown, DPadLeft, DPadRight, };
+	static Engine* s_EnginePointer;
+
+	enum Buttons { A, B, X, Y, Start, Back, ShoulderLeft, ShoulderRight, DPadUp, DPadDown, DPadLeft, DPadRight, };
 	enum ThumbSticks { ThumbStickLeft, ThumbStickRight, };
 	enum Triggers { TriggerLeft, TriggerRight, };
 

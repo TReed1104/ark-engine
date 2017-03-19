@@ -1,4 +1,7 @@
 #include "GameController.h"
+#include "Engine.h"
+
+Engine* GameController::s_EnginePointer;
 
 GameController::GameController(SDL_GameController* sdlHook) {
 	// Set the SDL Hook, this is what SDL actually puts the data into
@@ -49,9 +52,9 @@ bool GameController::GetButtonState(Buttons controllerButton) {
 			return butttonStates["Start"];
 		case Buttons::Back:
 			return butttonStates["Back"];
-		case Buttons::LeftShoulder:
+		case Buttons::ShoulderLeft:
 			return butttonStates["Left Shoulder"];
-		case Buttons::RightShoulder:
+		case Buttons::ShoulderRight:
 			return butttonStates["Right Shoulder"];
 		case Buttons::DPadUp:
 			return butttonStates["DPad Up"];
@@ -86,8 +89,6 @@ bool GameController::GetTriggerState(Triggers trigger) {
 	}
 }
 void GameController::UpdateButtonStates(void) {
-	const int PRESSED_STATE = 1;
-
 	// Standard Buttons
 	int a = SDL_GameControllerGetButton(gameController, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_A);
 	int b = SDL_GameControllerGetButton(gameController, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_B);
@@ -105,63 +106,63 @@ void GameController::UpdateButtonStates(void) {
 	int rightBumper = SDL_GameControllerGetButton(gameController, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSHOULDER);
 
 	// Main Button inputs
-	if (a == PRESSED_STATE) {
+	if (a == s_EnginePointer->pressedStateFlag) {
 		butttonStates["A"] = true;
 	}
 	else {
 		butttonStates["A"] = false;
 	}
-	if (b == PRESSED_STATE) {
+	if (b == s_EnginePointer->pressedStateFlag) {
 		butttonStates["B"] = true;
 	}
 	else {
 		butttonStates["B"] = false;
 	}
-	if (x == PRESSED_STATE) {
+	if (x == s_EnginePointer->pressedStateFlag) {
 		butttonStates["X"] = true;
 	}
 	else {
 		butttonStates["X"] = false;
 	}
-	if (y == PRESSED_STATE) {
+	if (y == s_EnginePointer->pressedStateFlag) {
 		butttonStates["Y"] = true;
 	}
 	else {
 		butttonStates["Y"] = false;
 	}
 	// Center Buttons
-	if (start == PRESSED_STATE) {
+	if (start == s_EnginePointer->pressedStateFlag) {
 		butttonStates["Start"] = true;
 	}
 	else {
 		butttonStates["Start"] = false;
 	}
-	if (back == PRESSED_STATE) {
+	if (back == s_EnginePointer->pressedStateFlag) {
 		butttonStates["Back"] = true;
 	}
 	else {
 		butttonStates["Back"] = false;
 	}
 	// DPad Buttons
-	if (dPadUp == PRESSED_STATE) {
+	if (dPadUp == s_EnginePointer->pressedStateFlag) {
 		butttonStates["DPad Up"] = true;
 	}
 	else {
 		butttonStates["DPad Up"] = false;
 	}
-	if (dPadDown == PRESSED_STATE) {
+	if (dPadDown == s_EnginePointer->pressedStateFlag) {
 		butttonStates["DPad Down"] = true;
 	}
 	else {
 		butttonStates["DPad Down"] = false;
 	}
-	if (dPadLeft == PRESSED_STATE) {
+	if (dPadLeft == s_EnginePointer->pressedStateFlag) {
 		butttonStates["DPad Left"] = true;
 	}
 	else {
 		butttonStates["DPad Left"] = false;
 	}
-	if (dPadRight == PRESSED_STATE) {
+	if (dPadRight == s_EnginePointer->pressedStateFlag) {
 		butttonStates["DPad Right"] = true;
 	}
 	else {
@@ -169,9 +170,6 @@ void GameController::UpdateButtonStates(void) {
 	}
 }
 void GameController::UpdateThumbSticks(void) {
-	// Set the dead zone values
-	const int THUMB_STICK_DEAD_ZONE = 12000;
-	const int TRIGGER_DEAD_ZONE = 12000;
 
 	// Left Thumb Stick
 	int leftThumbX = SDL_GameControllerGetAxis(gameController, SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_LEFTX);
@@ -184,10 +182,10 @@ void GameController::UpdateThumbSticks(void) {
 	int rightTrigger = SDL_GameControllerGetAxis(gameController, SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
 
 	// Check the Left Thumb X
-	if (leftThumbX < -THUMB_STICK_DEAD_ZONE) {
+	if (leftThumbX < -s_EnginePointer->thumbStickDeadZone) {
 		thumbStickStates["Left Thumb X"] = leftThumbX;
 	}
-	else if (leftThumbX > THUMB_STICK_DEAD_ZONE) {
+	else if (leftThumbX > s_EnginePointer->thumbStickDeadZone) {
 		thumbStickStates["Left Thumb X"] = leftThumbX;
 	}
 	else {
@@ -195,10 +193,10 @@ void GameController::UpdateThumbSticks(void) {
 	}
 
 	// Check the Left Thumb Y
-	if (leftThumbY < -THUMB_STICK_DEAD_ZONE) {
+	if (leftThumbY < -s_EnginePointer->thumbStickDeadZone) {
 		thumbStickStates["Left Thumb Y"] = leftThumbY;
 	}
-	else if (leftThumbY > THUMB_STICK_DEAD_ZONE) {
+	else if (leftThumbY > s_EnginePointer->thumbStickDeadZone) {
 		thumbStickStates["Left Thumb Y"] = leftThumbY;
 	}
 	else {
@@ -206,10 +204,10 @@ void GameController::UpdateThumbSticks(void) {
 	}
 
 	// Check the Right Thumb X
-	if (rightThumbX < -THUMB_STICK_DEAD_ZONE) {
+	if (rightThumbX < -s_EnginePointer->thumbStickDeadZone) {
 		thumbStickStates["Right Thumb X"] = rightThumbX;
 	} 
-	else if(rightThumbX > THUMB_STICK_DEAD_ZONE) {
+	else if(rightThumbX > s_EnginePointer->thumbStickDeadZone) {
 		thumbStickStates["Right Thumb X"] = rightThumbX;
 	}
 	else {
@@ -217,24 +215,24 @@ void GameController::UpdateThumbSticks(void) {
 	}
 
 	// Check the Right Thumb Y
-	if (rightThumbY < -THUMB_STICK_DEAD_ZONE) {
-		thumbStickStates["Right Thumb Y"] = rightThumbX;
+	if (rightThumbY < -s_EnginePointer->thumbStickDeadZone) {
+		thumbStickStates["Right Thumb Y"] = rightThumbY;
 	}
-	else if (rightThumbY > THUMB_STICK_DEAD_ZONE) {
-		thumbStickStates["Right Thumb Y"] = rightThumbX;
+	else if (rightThumbY > s_EnginePointer->thumbStickDeadZone) {
+		thumbStickStates["Right Thumb Y"] = rightThumbY;
 	}
 	else {
 		thumbStickStates["Right Thumb Y"] = 0.0f;
 	}
 
 	// Check the Triggers
-	if (leftTrigger < TRIGGER_DEAD_ZONE) {
+	if (leftTrigger > s_EnginePointer->triggerDeadZone) {
 		triggerStates["Left"] = true;
 	}
 	else {
 		triggerStates["Left"] = false;
 	}
-	if (rightTrigger < TRIGGER_DEAD_ZONE) {
+	if (rightTrigger > s_EnginePointer->triggerDeadZone) {
 		triggerStates["Right"] = true;
 	}
 	else {
