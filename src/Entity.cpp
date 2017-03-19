@@ -14,11 +14,3 @@ void Entity::Update(float deltaTime) {
 	// Calls the base class update.
 	GameObject::Update(deltaTime);
 }
-
-void Entity::HandleMovement(void) {
-
-}
-
-void Entity::HandleCollisions(void) {
-
-}

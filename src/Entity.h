@@ -12,8 +12,8 @@ public:
 	~Entity();
 
 	void Update(float deltaTime);
-	void HandleMovement(void);
-	void HandleCollisions(void);
+	virtual void HandleMovement(void) {}
+	virtual void HandleCollisions(void) {}
 
 private:
 
