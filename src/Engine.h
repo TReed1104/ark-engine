@@ -37,6 +37,13 @@ public:
 	glm::vec2 tileSize;
 	glm::vec2 windowGridSize;
 	glm::vec2 windowScaler;
+	int thumbStickDeadZone = 10000;
+	int triggerDeadZone = 10000;
+	int pressedStateFlag = 1;
+
+
+	// Input Interfaces
+	GameController* playerController;
 
 	// Shader Locations
 	ShaderPointers shaderPointers;
@@ -76,7 +83,6 @@ private:
 	glm::vec2 windowDimensions;
 	float oldFrameTime;
 	float currentFrameTime;
-	GameController* playerController;
 
 
 	// Functions
