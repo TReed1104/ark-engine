@@ -458,6 +458,7 @@ void Engine::EventHandler(void) {
 				playerController->UpdateButtonStates();
 				break;
 			case SDL_CONTROLLERBUTTONUP:
+				playerController->UpdateButtonStates();
 				break;
 		}
 	}
