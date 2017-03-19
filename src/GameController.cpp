@@ -182,10 +182,7 @@ void GameController::UpdateThumbSticks(void) {
 	int rightTrigger = SDL_GameControllerGetAxis(gameController, SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
 
 	// Check the Left Thumb X
-	if (leftThumbX < -s_EnginePointer->thumbStickDeadZone) {
-		thumbStickStates["Left Thumb X"] = leftThumbX;
-	}
-	else if (leftThumbX > s_EnginePointer->thumbStickDeadZone) {
+	if (leftThumbX < -s_EnginePointer->thumbStickDeadZone || leftThumbX > s_EnginePointer->thumbStickDeadZone) {
 		thumbStickStates["Left Thumb X"] = leftThumbX;
 	}
 	else {
@@ -193,10 +190,7 @@ void GameController::UpdateThumbSticks(void) {
 	}
 
 	// Check the Left Thumb Y
-	if (leftThumbY < -s_EnginePointer->thumbStickDeadZone) {
-		thumbStickStates["Left Thumb Y"] = leftThumbY;
-	}
-	else if (leftThumbY > s_EnginePointer->thumbStickDeadZone) {
+	if (leftThumbY < -s_EnginePointer->thumbStickDeadZone || leftThumbY > s_EnginePointer->thumbStickDeadZone) {
 		thumbStickStates["Left Thumb Y"] = leftThumbY;
 	}
 	else {
@@ -204,10 +198,7 @@ void GameController::UpdateThumbSticks(void) {
 	}
 
 	// Check the Right Thumb X
-	if (rightThumbX < -s_EnginePointer->thumbStickDeadZone) {
-		thumbStickStates["Right Thumb X"] = rightThumbX;
-	} 
-	else if(rightThumbX > s_EnginePointer->thumbStickDeadZone) {
+	if (rightThumbX < -s_EnginePointer->thumbStickDeadZone || rightThumbX > s_EnginePointer->thumbStickDeadZone) {
 		thumbStickStates["Right Thumb X"] = rightThumbX;
 	}
 	else {
@@ -215,10 +206,7 @@ void GameController::UpdateThumbSticks(void) {
 	}
 
 	// Check the Right Thumb Y
-	if (rightThumbY < -s_EnginePointer->thumbStickDeadZone) {
-		thumbStickStates["Right Thumb Y"] = rightThumbY;
-	}
-	else if (rightThumbY > s_EnginePointer->thumbStickDeadZone) {
+	if (rightThumbY < -s_EnginePointer->thumbStickDeadZone || rightThumbY > s_EnginePointer->thumbStickDeadZone) {
 		thumbStickStates["Right Thumb Y"] = rightThumbY;
 	}
 	else {
