@@ -12,6 +12,8 @@ public:
 	~Entity();
 
 	void Update(float deltaTime);
+	void HandleMovement(void);
+	void HandleCollision(void);
 
 private:
 

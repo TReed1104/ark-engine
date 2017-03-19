@@ -8,8 +8,17 @@ Entity::~Entity() {
 }
 
 void Entity::Update(float deltaTime) {
-
+	HandleMovement();
+	HandleCollisions();
 
 	// Calls the base class update.
 	GameObject::Update(deltaTime);
+}
+
+void Entity::HandleMovement(void) {
+
+}
+
+void Entity::HandleCollisions(void) {
+
 }
