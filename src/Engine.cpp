@@ -238,10 +238,10 @@ void Engine::InitialiseGameControllers(void) {
 	}
 }
 void Engine::SetEnginePointers(void) {
-	Model::s_EnginePointer = this;
-	GameController::s_EnginePointer = this;
-	GameObject::s_EnginePointer = this;
-	Tileset::s_EnginePointer = this;
+	Model::Engine_Pointer = this;
+	GameController::Engine_Pointer = this;
+	GameObject::Engine_Pointer = this;
+	Tileset::Engine_Pointer = this;
 	Level::s_EnginePointer = this;
 }
 Model Engine::LoadModel(const std::string& modelPath) {

@@ -37,8 +37,8 @@ public:
 	glm::vec2 tileSize;
 	glm::vec2 windowGridSize;
 	glm::vec2 windowScaler;
-	int thumbStickDeadZone = 10000;
-	int triggerDeadZone = 10000;
+	int thumbStickDeadZone = 8000;
+	int triggerDeadZone = 8000;
 	int pressedStateFlag = 1;
 
 

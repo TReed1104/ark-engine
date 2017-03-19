@@ -26,9 +26,6 @@ GameObject::~GameObject() {
 
 // Game Run Time.
 void GameObject::Update(float deltaTime) {
-	// Derived logic will be called here.
-
-
 	// Set the transforms for the overall model.
 	model.Translate(drawPosition);
 	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));

@@ -5,7 +5,7 @@
 class Entity : public GameObject
 {
 public:
-	enum MovementDirection {Up, Down, Left, Right, UpLeft, UpRight, DownLeft, DownRight};
+	enum MovementDirection {NotSet, Up, Down, Left, Right, UpLeft, UpRight, DownLeft, DownRight};
 	MovementDirection movementDirection;
 
 	Entity(const Model& model, const Texture& texture, const glm::vec3& position = glm::vec3(0.0f), const glm::vec2& sourceFrameSize = glm::vec2(16, 16));

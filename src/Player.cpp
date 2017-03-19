@@ -77,25 +77,88 @@ void Player::HandleMovement(void) {
 
 	}
 
+	// Store the old direction and check the new direction
+	MovementDirection oldDirection = movementDirection;
+	movementDirection = Player::NotSet;
+
 	// Thumbsticks
 	glm::vec2 leftThumbAxis = s_EnginePointer->playerController->GetThumbStickState(GameController::ThumbStickLeft);
 	glm::vec2 rightThumbAxis = s_EnginePointer->playerController->GetThumbStickState(GameController::ThumbStickRight);
+	
+	// Left Thumbstick
 	if (leftThumbAxis.x < -s_EnginePointer->thumbStickDeadZone) {
 		// Left Thumb Left
-		std::cout << "Left Thumb Left" << std::endl;
+		movementDirection = Player::Left;
 	}
 	else if (leftThumbAxis.x > s_EnginePointer->thumbStickDeadZone) {
 		// Left Thumb Right
-		std::cout << "Left Thumb Right" << std::endl;
+		movementDirection = Player::Right;
 	}
 	if (leftThumbAxis.y < -s_EnginePointer->thumbStickDeadZone) {
 		// Left Thumb Up
-		std::cout << "Left Thumb Up" << std::endl;
+		if (movementDirection == Player::Left) {
+			movementDirection = Player::UpLeft;
+		}
+		else if (movementDirection == Player::Right) {
+			movementDirection = Player::UpRight;
+		}
+		else {
+			movementDirection = Player::Up;
+		}
 	}
 	else if (leftThumbAxis.y > s_EnginePointer->thumbStickDeadZone) {
 		// Left Thumb Down
-		std::cout << "Left Thumb Down" << std::endl;
+		if (movementDirection == Player::Left) {
+			movementDirection = Player::DownLeft;
+		}
+		else if (movementDirection == Player::Right) {
+			movementDirection = Player::DownRight;
+		}
+		else {
+			movementDirection = Player::Down;
+		}
 	}
+
+	// If the direction was not changed, use the oldDirection
+	if (movementDirection == Player::NotSet) {
+		movementDirection = oldDirection;
+	}
+
+	std::string directionToPrint = "";
+	switch (movementDirection) {
+		case Entity::NotSet:
+			directionToPrint = "Not Set";
+			break;
+		case Entity::Up:
+			directionToPrint = "Up";
+			break;
+		case Entity::Down:
+			directionToPrint = "Down";
+			break;
+		case Entity::Left:
+			directionToPrint = "Left";
+			break;
+		case Entity::Right:
+			directionToPrint = "Right";
+			break;
+		case Entity::UpLeft:
+			directionToPrint = "Up Left";
+			break;
+		case Entity::UpRight:
+			directionToPrint = "Up Right";
+			break;
+		case Entity::DownLeft:
+			directionToPrint = "Down Left";
+			break;
+		case Entity::DownRight:
+			directionToPrint = "Down Right";
+			break;
+		default:
+			break;
+	}
+	std::cout << directionToPrint << std::endl;
+
+	// Right Thumbstick
 	if (rightThumbAxis.x < -s_EnginePointer->thumbStickDeadZone) {
 		// Right Thumb Left
 		std::cout << "Right Thumb Left" << std::endl;
