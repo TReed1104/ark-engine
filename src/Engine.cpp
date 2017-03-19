@@ -451,11 +451,12 @@ void Engine::EventHandler(void) {
 				Event_KeyUp(event.key);
 				break;
 			case SDL_CONTROLLERAXISMOTION:
-				Event_GameControllerLeftThumbStick();
-				Event_GameControllerRightThumbStick();
+				playerController->UpdateThumbSticks();
 				break;
 			case SDL_CONTROLLERBUTTONDOWN:
-				Event_GameControllerButtons();
+				playerController->UpdateButtonStates();
+				break;
+			case SDL_CONTROLLERBUTTONUP:
 				break;
 		}
 	}
@@ -489,15 +490,6 @@ void Engine::Event_KeyUp(const SDL_KeyboardEvent& keyboardEvent) {
 				break;
 		}
 	}
-}
-void Engine::Event_GameControllerLeftThumbStick(void) {
-
-}
-void Engine::Event_GameControllerRightThumbStick(void) {
-
-}
-void Engine::Event_GameControllerButtons(void) {
-
 }
 void Engine::Update(float deltaTime) {
 	if (levelRegister[indexCurrentLevel] != nullptr) {
