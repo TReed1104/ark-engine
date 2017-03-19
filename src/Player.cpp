@@ -12,25 +12,25 @@ void Player::HandleMovement(void) {
 	// Handle the Controller button inputs
 
 	// Main Buttons
-	if (s_EnginePointer->playerController->GetButtonState(GameController::A)) {
+	if (Engine_Pointer->playerController->GetButtonState(GameController::A)) {
 
 	}
 	else {
 
 	}
-	if (s_EnginePointer->playerController->GetButtonState(GameController::B)) {
+	if (Engine_Pointer->playerController->GetButtonState(GameController::B)) {
 
 	}
 	else {
 
 	}
-	if (s_EnginePointer->playerController->GetButtonState(GameController::X)) {
+	if (Engine_Pointer->playerController->GetButtonState(GameController::X)) {
 
 	}
 	else {
 
 	}
-	if (s_EnginePointer->playerController->GetButtonState(GameController::Y)) {
+	if (Engine_Pointer->playerController->GetButtonState(GameController::Y)) {
 
 	}
 	else {
@@ -38,25 +38,25 @@ void Player::HandleMovement(void) {
 	}
 
 	// D=Pad
-	if (s_EnginePointer->playerController->GetButtonState(GameController::DPadLeft)) {
+	if (Engine_Pointer->playerController->GetButtonState(GameController::DPadLeft)) {
 
 	}
 	else {
 
 	}
-	if (s_EnginePointer->playerController->GetButtonState(GameController::DPadRight)) {
+	if (Engine_Pointer->playerController->GetButtonState(GameController::DPadRight)) {
 
 	}
 	else {
 
 	}
-	if (s_EnginePointer->playerController->GetButtonState(GameController::DPadUp)) {
+	if (Engine_Pointer->playerController->GetButtonState(GameController::DPadUp)) {
 
 	}
 	else {
 
 	}
-	if (s_EnginePointer->playerController->GetButtonState(GameController::DPadDown)) {
+	if (Engine_Pointer->playerController->GetButtonState(GameController::DPadDown)) {
 
 	}
 	else {
@@ -64,13 +64,13 @@ void Player::HandleMovement(void) {
 	}
 
 	// Triggers
-	if (s_EnginePointer->playerController->GetTriggerState(GameController::TriggerLeft)) {
+	if (Engine_Pointer->playerController->GetTriggerState(GameController::TriggerLeft)) {
 
 	}
 	else {
 
 	}
-	if (s_EnginePointer->playerController->GetTriggerState(GameController::TriggerRight)) {
+	if (Engine_Pointer->playerController->GetTriggerState(GameController::TriggerRight)) {
 
 	}
 	else {
@@ -82,19 +82,19 @@ void Player::HandleMovement(void) {
 	movementDirection = Player::NotSet;
 
 	// Thumbsticks
-	glm::vec2 leftThumbAxis = s_EnginePointer->playerController->GetThumbStickState(GameController::ThumbStickLeft);
-	glm::vec2 rightThumbAxis = s_EnginePointer->playerController->GetThumbStickState(GameController::ThumbStickRight);
+	glm::vec2 leftThumbAxis = Engine_Pointer->playerController->GetThumbStickState(GameController::ThumbStickLeft);
+	glm::vec2 rightThumbAxis = Engine_Pointer->playerController->GetThumbStickState(GameController::ThumbStickRight);
 	
 	// Left Thumbstick
-	if (leftThumbAxis.x < -s_EnginePointer->thumbStickDeadZone) {
+	if (leftThumbAxis.x < -Engine_Pointer->thumbStickDeadZone) {
 		// Left Thumb Left
 		movementDirection = Player::Left;
 	}
-	else if (leftThumbAxis.x > s_EnginePointer->thumbStickDeadZone) {
+	else if (leftThumbAxis.x > Engine_Pointer->thumbStickDeadZone) {
 		// Left Thumb Right
 		movementDirection = Player::Right;
 	}
-	if (leftThumbAxis.y < -s_EnginePointer->thumbStickDeadZone) {
+	if (leftThumbAxis.y < -Engine_Pointer->thumbStickDeadZone) {
 		// Left Thumb Up
 		if (movementDirection == Player::Left) {
 			movementDirection = Player::UpLeft;
@@ -106,7 +106,7 @@ void Player::HandleMovement(void) {
 			movementDirection = Player::Up;
 		}
 	}
-	else if (leftThumbAxis.y > s_EnginePointer->thumbStickDeadZone) {
+	else if (leftThumbAxis.y > Engine_Pointer->thumbStickDeadZone) {
 		// Left Thumb Down
 		if (movementDirection == Player::Left) {
 			movementDirection = Player::DownLeft;
@@ -159,19 +159,19 @@ void Player::HandleMovement(void) {
 	std::cout << directionToPrint << std::endl;
 
 	// Right Thumbstick
-	if (rightThumbAxis.x < -s_EnginePointer->thumbStickDeadZone) {
+	if (rightThumbAxis.x < -Engine_Pointer->thumbStickDeadZone) {
 		// Right Thumb Left
 		std::cout << "Right Thumb Left" << std::endl;
 	}
-	else if (rightThumbAxis.x > s_EnginePointer->thumbStickDeadZone) {
+	else if (rightThumbAxis.x > Engine_Pointer->thumbStickDeadZone) {
 		// Right Thumb Right
 		std::cout << "Right Thumb Right" << std::endl;
 	}
-	if (rightThumbAxis.y < -s_EnginePointer->thumbStickDeadZone) {
+	if (rightThumbAxis.y < -Engine_Pointer->thumbStickDeadZone) {
 		// Right Thumb Up
 		std::cout << "Right Thumb Up" << std::endl;
 	}
-	else if (rightThumbAxis.y > s_EnginePointer->thumbStickDeadZone) {
+	else if (rightThumbAxis.y > Engine_Pointer->thumbStickDeadZone) {
 		// Right Thumb Down
 		std::cout << "Right Thumb Down" << std::endl;
 	}

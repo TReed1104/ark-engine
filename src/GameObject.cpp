@@ -1,7 +1,7 @@
 #include "GameObject.h"
 #include "Engine.h"
 
-Engine* GameObject::s_EnginePointer;
+Engine* GameObject::Engine_Pointer;
 
 GameObject::GameObject(const Model& model, const Texture& texture, const glm::vec3& position, const glm::vec2& sourceFrameSize) {
 	this->model = model;
@@ -41,24 +41,24 @@ void GameObject::Draw() {
 		glBindVertexArray(currentMesh.vertexArrayObject);
 
 		// Passes the Model Matrix of the Object to the shader.
-		glUniformMatrix4fv(s_EnginePointer->shaderPointers.modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
+		glUniformMatrix4fv(Engine_Pointer->shaderPointers.modelMatrixUniform, 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 
 		bool useTextures = (texture->id != -1 && currentMesh.isSetupForTextures);
 		if (useTextures) {
 			// Textures are setup correctly, tell the shader to use the texture and setup the source frame.
-			glUniform1i(s_EnginePointer->shaderPointers.hasTextureUniform, useTextures);
-			glUniform2fv(s_EnginePointer->shaderPointers.textureDimensionsUniform, 1, glm::value_ptr(texture->dimensions));
-			glUniform2fv(s_EnginePointer->shaderPointers.sourceFrameSizeUniform, 1, glm::value_ptr(sourceFrameSize));
-			glUniform2fv(s_EnginePointer->shaderPointers.sourceFramePositionUniform, 1, glm::value_ptr(sourceFramePosition));
+			glUniform1i(Engine_Pointer->shaderPointers.hasTextureUniform, useTextures);
+			glUniform2fv(Engine_Pointer->shaderPointers.textureDimensionsUniform, 1, glm::value_ptr(texture->dimensions));
+			glUniform2fv(Engine_Pointer->shaderPointers.sourceFrameSizeUniform, 1, glm::value_ptr(sourceFrameSize));
+			glUniform2fv(Engine_Pointer->shaderPointers.sourceFramePositionUniform, 1, glm::value_ptr(sourceFramePosition));
 
 			// Activate the correct texture.
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture->id);
-			glUniform1i(s_EnginePointer->shaderPointers.textureSamplerUniform, 0);
+			glUniform1i(Engine_Pointer->shaderPointers.textureSamplerUniform, 0);
 		}
 		else {
 			// Textures are not setup, use the colour buffer.
-			glUniform1i(s_EnginePointer->shaderPointers.hasTextureUniform, false);
+			glUniform1i(Engine_Pointer->shaderPointers.hasTextureUniform, false);
 		}
 
 		// Tell the shader how to draw between each point.

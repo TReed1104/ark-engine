@@ -1,7 +1,7 @@
 #include "GameController.h"
 #include "Engine.h"
 
-Engine* GameController::s_EnginePointer;
+Engine* GameController::Engine_Pointer;
 
 GameController::GameController(SDL_GameController* sdlHook) {
 	// Set the SDL Hook, this is what SDL actually puts the data into
@@ -106,63 +106,63 @@ void GameController::UpdateButtonStates(void) {
 	int rightBumper = SDL_GameControllerGetButton(gameController, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSHOULDER);
 
 	// Main Button inputs
-	if (a == s_EnginePointer->pressedStateFlag) {
+	if (a == Engine_Pointer->pressedStateFlag) {
 		butttonStates["A"] = true;
 	}
 	else {
 		butttonStates["A"] = false;
 	}
-	if (b == s_EnginePointer->pressedStateFlag) {
+	if (b == Engine_Pointer->pressedStateFlag) {
 		butttonStates["B"] = true;
 	}
 	else {
 		butttonStates["B"] = false;
 	}
-	if (x == s_EnginePointer->pressedStateFlag) {
+	if (x == Engine_Pointer->pressedStateFlag) {
 		butttonStates["X"] = true;
 	}
 	else {
 		butttonStates["X"] = false;
 	}
-	if (y == s_EnginePointer->pressedStateFlag) {
+	if (y == Engine_Pointer->pressedStateFlag) {
 		butttonStates["Y"] = true;
 	}
 	else {
 		butttonStates["Y"] = false;
 	}
 	// Center Buttons
-	if (start == s_EnginePointer->pressedStateFlag) {
+	if (start == Engine_Pointer->pressedStateFlag) {
 		butttonStates["Start"] = true;
 	}
 	else {
 		butttonStates["Start"] = false;
 	}
-	if (back == s_EnginePointer->pressedStateFlag) {
+	if (back == Engine_Pointer->pressedStateFlag) {
 		butttonStates["Back"] = true;
 	}
 	else {
 		butttonStates["Back"] = false;
 	}
 	// DPad Buttons
-	if (dPadUp == s_EnginePointer->pressedStateFlag) {
+	if (dPadUp == Engine_Pointer->pressedStateFlag) {
 		butttonStates["DPad Up"] = true;
 	}
 	else {
 		butttonStates["DPad Up"] = false;
 	}
-	if (dPadDown == s_EnginePointer->pressedStateFlag) {
+	if (dPadDown == Engine_Pointer->pressedStateFlag) {
 		butttonStates["DPad Down"] = true;
 	}
 	else {
 		butttonStates["DPad Down"] = false;
 	}
-	if (dPadLeft == s_EnginePointer->pressedStateFlag) {
+	if (dPadLeft == Engine_Pointer->pressedStateFlag) {
 		butttonStates["DPad Left"] = true;
 	}
 	else {
 		butttonStates["DPad Left"] = false;
 	}
-	if (dPadRight == s_EnginePointer->pressedStateFlag) {
+	if (dPadRight == Engine_Pointer->pressedStateFlag) {
 		butttonStates["DPad Right"] = true;
 	}
 	else {
@@ -182,7 +182,7 @@ void GameController::UpdateThumbSticks(void) {
 	int rightTrigger = SDL_GameControllerGetAxis(gameController, SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
 
 	// Check the Left Thumb X
-	if (leftThumbX < -s_EnginePointer->thumbStickDeadZone || leftThumbX > s_EnginePointer->thumbStickDeadZone) {
+	if (leftThumbX < -Engine_Pointer->thumbStickDeadZone || leftThumbX > Engine_Pointer->thumbStickDeadZone) {
 		thumbStickStates["Left Thumb X"] = leftThumbX;
 	}
 	else {
@@ -190,7 +190,7 @@ void GameController::UpdateThumbSticks(void) {
 	}
 
 	// Check the Left Thumb Y
-	if (leftThumbY < -s_EnginePointer->thumbStickDeadZone || leftThumbY > s_EnginePointer->thumbStickDeadZone) {
+	if (leftThumbY < -Engine_Pointer->thumbStickDeadZone || leftThumbY > Engine_Pointer->thumbStickDeadZone) {
 		thumbStickStates["Left Thumb Y"] = leftThumbY;
 	}
 	else {
@@ -198,7 +198,7 @@ void GameController::UpdateThumbSticks(void) {
 	}
 
 	// Check the Right Thumb X
-	if (rightThumbX < -s_EnginePointer->thumbStickDeadZone || rightThumbX > s_EnginePointer->thumbStickDeadZone) {
+	if (rightThumbX < -Engine_Pointer->thumbStickDeadZone || rightThumbX > Engine_Pointer->thumbStickDeadZone) {
 		thumbStickStates["Right Thumb X"] = rightThumbX;
 	}
 	else {
@@ -206,7 +206,7 @@ void GameController::UpdateThumbSticks(void) {
 	}
 
 	// Check the Right Thumb Y
-	if (rightThumbY < -s_EnginePointer->thumbStickDeadZone || rightThumbY > s_EnginePointer->thumbStickDeadZone) {
+	if (rightThumbY < -Engine_Pointer->thumbStickDeadZone || rightThumbY > Engine_Pointer->thumbStickDeadZone) {
 		thumbStickStates["Right Thumb Y"] = rightThumbY;
 	}
 	else {
@@ -214,13 +214,13 @@ void GameController::UpdateThumbSticks(void) {
 	}
 
 	// Check the Triggers
-	if (leftTrigger > s_EnginePointer->triggerDeadZone) {
+	if (leftTrigger > Engine_Pointer->triggerDeadZone) {
 		triggerStates["Left"] = true;
 	}
 	else {
 		triggerStates["Left"] = false;
 	}
-	if (rightTrigger > s_EnginePointer->triggerDeadZone) {
+	if (rightTrigger > Engine_Pointer->triggerDeadZone) {
 		triggerStates["Right"] = true;
 	}
 	else {

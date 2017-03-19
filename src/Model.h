@@ -52,7 +52,7 @@ public:
 		glm::mat4 rotationMatrix;
 		glm::mat4 scaleMatrix;
 	};
-	static Engine* s_EnginePointer;
+	static Engine* Engine_Pointer;
 	std::string name;
 	std::vector<Mesh> meshes;
 

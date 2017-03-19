@@ -242,7 +242,7 @@ void Engine::SetEnginePointers(void) {
 	GameController::Engine_Pointer = this;
 	GameObject::Engine_Pointer = this;
 	Tileset::Engine_Pointer = this;
-	Level::s_EnginePointer = this;
+	Level::Engine_Pointer = this;
 }
 Model Engine::LoadModel(const std::string& modelPath) {
 	// Load in a Model.

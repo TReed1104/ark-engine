@@ -7,7 +7,7 @@ class Engine;
 class Tileset
 {
 public:
-	static Engine* s_EnginePointer;
+	static Engine* Engine_Pointer;
 	std::string name;
 	std::vector<Tile> tileList;
 

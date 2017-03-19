@@ -10,7 +10,7 @@ class Engine;
 class GameController
 {
 public:
-	static Engine* s_EnginePointer;
+	static Engine* Engine_Pointer;
 
 	enum Buttons { A, B, X, Y, Start, Back, ShoulderLeft, ShoulderRight, DPadUp, DPadDown, DPadLeft, DPadRight, };
 	enum ThumbSticks { ThumbStickLeft, ThumbStickRight, };
