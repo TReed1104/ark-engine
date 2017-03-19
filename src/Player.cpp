@@ -77,8 +77,7 @@ void Player::HandleMovement(void) {
 
 	}
 
-	// Store the old direction and check the new direction
-	MovementDirection oldDirection = movementDirection;
+	// Reset the movement direction
 	movementDirection = Player::NotSet;
 
 	// Thumbsticks
@@ -89,74 +88,75 @@ void Player::HandleMovement(void) {
 	if (leftThumbAxis.x < -Engine_Pointer->thumbStickDeadZone) {
 		// Left Thumb Left
 		movementDirection = Player::Left;
+		spriteDirection = Player::Left;
 	}
 	else if (leftThumbAxis.x > Engine_Pointer->thumbStickDeadZone) {
 		// Left Thumb Right
 		movementDirection = Player::Right;
+		spriteDirection = Player::Right;
 	}
 	if (leftThumbAxis.y < -Engine_Pointer->thumbStickDeadZone) {
 		// Left Thumb Up
 		if (movementDirection == Player::Left) {
 			movementDirection = Player::UpLeft;
+			spriteDirection = Player::UpLeft;
 		}
 		else if (movementDirection == Player::Right) {
 			movementDirection = Player::UpRight;
+			spriteDirection = Player::UpRight;
 		}
 		else {
 			movementDirection = Player::Up;
+			spriteDirection = Player::Up;
 		}
 	}
 	else if (leftThumbAxis.y > Engine_Pointer->thumbStickDeadZone) {
 		// Left Thumb Down
 		if (movementDirection == Player::Left) {
 			movementDirection = Player::DownLeft;
+			spriteDirection = Player::DownLeft;
 		}
 		else if (movementDirection == Player::Right) {
 			movementDirection = Player::DownRight;
+			spriteDirection = Player::DownRight;
 		}
 		else {
 			movementDirection = Player::Down;
+			spriteDirection = Player::Down;
 		}
 	}
 
-	// If the direction was not changed, use the oldDirection
-	if (movementDirection == Player::NotSet) {
-		movementDirection = oldDirection;
-	}
-
-	std::string directionToPrint = "";
 	switch (movementDirection) {
 		case Entity::NotSet:
-			directionToPrint = "Not Set";
+			velocity = glm::vec2(0, 0);
 			break;
 		case Entity::Up:
-			directionToPrint = "Up";
+			velocity = glm::vec2(0, -movementSpeed);
 			break;
 		case Entity::Down:
-			directionToPrint = "Down";
+			velocity = glm::vec2(0, movementSpeed);
 			break;
 		case Entity::Left:
-			directionToPrint = "Left";
+			velocity = glm::vec2(-movementSpeed, 0);
 			break;
 		case Entity::Right:
-			directionToPrint = "Right";
+			velocity = glm::vec2(movementSpeed, 0);
 			break;
 		case Entity::UpLeft:
-			directionToPrint = "Up Left";
+			velocity = glm::vec2(-movementSpeed, -movementSpeed);
 			break;
 		case Entity::UpRight:
-			directionToPrint = "Up Right";
+			velocity = glm::vec2(movementSpeed, -movementSpeed);
 			break;
 		case Entity::DownLeft:
-			directionToPrint = "Down Left";
+			velocity = glm::vec2(-movementSpeed, movementSpeed);
 			break;
 		case Entity::DownRight:
-			directionToPrint = "Down Right";
+			velocity = glm::vec2(movementSpeed, movementSpeed);
 			break;
 		default:
 			break;
 	}
-	std::cout << directionToPrint << std::endl;
 
 	// Right Thumbstick
 	if (rightThumbAxis.x < -Engine_Pointer->thumbStickDeadZone) {

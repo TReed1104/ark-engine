@@ -29,6 +29,7 @@ public:
 	float rotation;
 	glm::vec3 scale;
 	glm::vec2 velocity;
+	float movementSpeed;
 
 	GameObject(const Model& model, const Texture& texture = Texture("Empty"), const glm::vec3& position = glm::vec3(0.0f), const glm::vec2& sourceFrameSize = glm::vec2(16, 16));
 	~GameObject();

@@ -10,7 +10,7 @@ GameObject::GameObject(const Model& model, const Texture& texture, const glm::ve
 	this->drawPosition = position;
 	rotation = 0.0f;
 	scale = glm::vec3(1.0f);
-	velocity = glm::vec3(0.0f);
+	velocity = glm::vec2(0.0f, 0.0f);
 	this->model.Translate(drawPosition);
 	this->model.Rotate();
 	this->model.Scale();
@@ -30,6 +30,7 @@ void GameObject::Update(float deltaTime) {
 	model.Translate(drawPosition);
 	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 	model.Scale(scale);
+	velocity = glm::vec2(0, 0);
 }
 void GameObject::Draw() {
 	glEnable(GL_BLEND);
