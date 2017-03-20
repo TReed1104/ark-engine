@@ -5,7 +5,7 @@
 class Entity : public GameObject
 {
 public:
-	enum Directions {NotSet, Up, Down, Left, Right, UpLeft, UpRight, DownLeft, DownRight};
+	enum Directions { NotSet, Up, Down, Left, Right, UpLeft, UpRight, DownLeft, DownRight};
 	Directions movementDirection;
 	Directions spriteDirection;
 
@@ -14,7 +14,7 @@ public:
 
 	void Update(float deltaTime);
 	virtual void HandleMovement(void) {}
-	virtual void HandleCollisions(void) {}
+	void HandleCollisions(void);
 
 private:
 

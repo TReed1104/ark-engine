@@ -9,6 +9,8 @@ public:
 	~Player();
 	
 	void HandleMovement(void);
+	void HandleGameController(void);
+	void HandleKeyboard(void);
 
 private:
 

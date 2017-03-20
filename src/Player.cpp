@@ -9,6 +9,11 @@ Player::~Player() {
 }
 
 void Player::HandleMovement(void) {
+	HandleKeyboard();
+	HandleGameController();
+}
+
+void Player::HandleGameController(void) {
 	// Handle the Controller button inputs
 
 	// Main Buttons
@@ -37,7 +42,7 @@ void Player::HandleMovement(void) {
 
 	}
 
-	// D=Pad
+	// D-Pad
 	if (Engine_Pointer->playerController->GetButtonState(GameController::DPadLeft)) {
 
 	}
@@ -83,7 +88,7 @@ void Player::HandleMovement(void) {
 	// Thumbsticks
 	glm::vec2 leftThumbAxis = Engine_Pointer->playerController->GetThumbStickState(GameController::ThumbStickLeft);
 	glm::vec2 rightThumbAxis = Engine_Pointer->playerController->GetThumbStickState(GameController::ThumbStickRight);
-	
+
 	// Left Thumbstick
 	if (leftThumbAxis.x < -Engine_Pointer->thumbStickDeadZone) {
 		// Left Thumb Left
@@ -126,38 +131,6 @@ void Player::HandleMovement(void) {
 		}
 	}
 
-	switch (movementDirection) {
-		case Entity::NotSet:
-			velocity = glm::vec2(0, 0);
-			break;
-		case Entity::Up:
-			velocity = glm::vec2(0, -movementSpeed);
-			break;
-		case Entity::Down:
-			velocity = glm::vec2(0, movementSpeed);
-			break;
-		case Entity::Left:
-			velocity = glm::vec2(-movementSpeed, 0);
-			break;
-		case Entity::Right:
-			velocity = glm::vec2(movementSpeed, 0);
-			break;
-		case Entity::UpLeft:
-			velocity = glm::vec2(-movementSpeed, -movementSpeed);
-			break;
-		case Entity::UpRight:
-			velocity = glm::vec2(movementSpeed, -movementSpeed);
-			break;
-		case Entity::DownLeft:
-			velocity = glm::vec2(-movementSpeed, movementSpeed);
-			break;
-		case Entity::DownRight:
-			velocity = glm::vec2(movementSpeed, movementSpeed);
-			break;
-		default:
-			break;
-	}
-
 	// Right Thumbstick
 	if (rightThumbAxis.x < -Engine_Pointer->thumbStickDeadZone) {
 		// Right Thumb Left
@@ -175,4 +148,8 @@ void Player::HandleMovement(void) {
 		// Right Thumb Down
 		std::cout << "Right Thumb Down" << std::endl;
 	}
+}
+
+void Player::HandleKeyboard(void) {
+	
 }
