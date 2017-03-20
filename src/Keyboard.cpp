@@ -75,6 +75,9 @@ Keyboard::Keyboard() {
 	// Initialise the dictionary of the symbol keys
 	specialKeyStates["Escape"] = false;
 	specialKeyStates["Space"] = false;
+	specialKeyStates["Ctrl"] = false;
+	specialKeyStates["Shift"] = false;
+	specialKeyStates["Alt"] = false;
 }
 Keyboard::~Keyboard() {
 
@@ -228,6 +231,12 @@ bool Keyboard::GetKeyState(const SpecialKeys& key) {
 			return specialKeyStates["Escape"];
 		case Keyboard::Space:
 			return specialKeyStates["Space"];
+		case Keyboard::Ctrl:
+			return specialKeyStates["Ctrl"];
+		case Keyboard::Shift:
+			return specialKeyStates["Shift"];
+		case Keyboard::Alt:
+			return specialKeyStates["Alt"];
 		default:
 			return false;
 	}
@@ -354,12 +363,29 @@ void Keyboard::UpdateKeyStates_Up(const SDL_KeyboardEvent & keyboardEvent) {
 			case SDLK_SPACE:
 				specialKeyStates["Space"] = false;
 				break;
+			case SDLK_LCTRL:
+				specialKeyStates["Ctrl"] = false;
+				break;
+			case SDLK_RCTRL:
+				specialKeyStates["Ctrl"] = false;
+				break;
+			case SDLK_LSHIFT:
+				specialKeyStates["Shift"] = false;
+				break;
+			case SDLK_RSHIFT:
+				specialKeyStates["Shift"] = false;
+				break;
+			case SDLK_LALT:
+				specialKeyStates["Alt"] = false;
+				break;
+			case SDLK_RALT:
+				specialKeyStates["Alt"] = false;
+				break;
 			default:
 				break;
 		}
 	}
 }
-
 void Keyboard::UpdateKeyStates_Down(const SDL_KeyboardEvent & keyboardEvent) {
 	if (!keyboardEvent.repeat) {
 		switch (keyboardEvent.keysym.sym) {
@@ -482,6 +508,25 @@ void Keyboard::UpdateKeyStates_Down(const SDL_KeyboardEvent & keyboardEvent) {
 			case SDLK_SPACE:
 				specialKeyStates["Space"] = true;
 				break;
+			case SDLK_LCTRL:
+				specialKeyStates["Ctrl"] = true;
+				break;
+			case SDLK_RCTRL:
+				specialKeyStates["Ctrl"] = true;
+				break;
+			case SDLK_LSHIFT:
+				specialKeyStates["Shift"] = true;
+				break;
+			case SDLK_RSHIFT:
+				specialKeyStates["Shift"] = true;
+				break;
+			case SDLK_LALT:
+				specialKeyStates["Alt"] = true;
+				break;
+			case SDLK_RALT:
+				specialKeyStates["Alt"] = true;
+				break;
+
 			default:
 				break;
 		}
