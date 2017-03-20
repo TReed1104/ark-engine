@@ -7,7 +7,7 @@ Engine::Engine(char* gameName) {
 }
 Engine::~Engine() {
 	delete deviceKeyboard;
-	delete deviceController;
+	delete deviceGameController;
 	delete player;
 
 	// Delete all the entries in the registers.
@@ -229,13 +229,13 @@ void Engine::CheckForInputDevices(void) {
 
 	// Search for any Keyboards.
 	if (SDL_NumJoysticks() < 1) {
-		deviceController = nullptr;
+		deviceGameController = nullptr;
 		std::cout << "No Controllers are connected!" << std::endl;
 	}
 	else {
 		// Active the first game controller.
-		deviceController = new GameController(SDL_GameControllerOpen(0));
-		if (deviceController->GetSDLHook() != NULL) {
+		deviceGameController = new GameController(SDL_GameControllerOpen(0));
+		if (deviceGameController->GetSDLHook() != NULL) {
 			std::cout << "Game controller 0 has been opened for use" << std::endl;
 		}
 		else {
@@ -435,7 +435,7 @@ void Engine::InitialiseEngine(void) {
 void Engine::CleanupSDL(void) {
 	std::cout << ">> Starting Cleanup..." << std::endl;
 	if (SDL_NumJoysticks() > 0)	{
-		SDL_GameControllerClose(deviceController->GetSDLHook());	// Close the controller.
+		SDL_GameControllerClose(deviceGameController->GetSDLHook());	// Close the controller.
 	}
 	SDL_GL_DeleteContext(glContext);
 	SDL_DestroyWindow(sdlWindow);
@@ -459,13 +459,13 @@ void Engine::EventHandler(void) {
 				Event_KeyUp(event.key);
 				break;
 			case SDL_CONTROLLERAXISMOTION:
-				deviceController->UpdateThumbSticks();
+				deviceGameController->UpdateThumbSticks();
 				break;
 			case SDL_CONTROLLERBUTTONDOWN:
-				deviceController->UpdateButtonStates();
+				deviceGameController->UpdateButtonStates();
 				break;
 			case SDL_CONTROLLERBUTTONUP:
-				deviceController->UpdateButtonStates();
+				deviceGameController->UpdateButtonStates();
 				break;
 		}
 	}

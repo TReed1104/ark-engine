@@ -9,7 +9,7 @@ Player::~Player() {
 }
 
 void Player::HandleMovement(void) {
-	if (Engine_Pointer->deviceController != nullptr) {
+	if (Engine_Pointer->deviceGameController != nullptr) {
 		HandleInput_WithController();
 	}
 	else {
@@ -21,25 +21,25 @@ void Player::HandleInput_WithController(void) {
 	// Handle the Controller button inputs
 
 	// Main Buttons
-	if (Engine_Pointer->deviceController->GetButtonState(GameController::A)) {
+	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::A)) {
 
 	}
 	else {
 
 	}
-	if (Engine_Pointer->deviceController->GetButtonState(GameController::B)) {
+	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::B)) {
 
 	}
 	else {
 
 	}
-	if (Engine_Pointer->deviceController->GetButtonState(GameController::X)) {
+	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::X)) {
 
 	}
 	else {
 
 	}
-	if (Engine_Pointer->deviceController->GetButtonState(GameController::Y)) {
+	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::Y)) {
 
 	}
 	else {
@@ -47,25 +47,25 @@ void Player::HandleInput_WithController(void) {
 	}
 
 	// D-Pad
-	if (Engine_Pointer->deviceController->GetButtonState(GameController::DPadLeft)) {
+	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::DPadLeft)) {
 
 	}
 	else {
 
 	}
-	if (Engine_Pointer->deviceController->GetButtonState(GameController::DPadRight)) {
+	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::DPadRight)) {
 
 	}
 	else {
 
 	}
-	if (Engine_Pointer->deviceController->GetButtonState(GameController::DPadUp)) {
+	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::DPadUp)) {
 
 	}
 	else {
 
 	}
-	if (Engine_Pointer->deviceController->GetButtonState(GameController::DPadDown)) {
+	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::DPadDown)) {
 
 	}
 	else {
@@ -73,13 +73,13 @@ void Player::HandleInput_WithController(void) {
 	}
 
 	// Triggers
-	if (Engine_Pointer->deviceController->GetTriggerState(GameController::TriggerLeft)) {
+	if (Engine_Pointer->deviceGameController->GetTriggerState(GameController::TriggerLeft)) {
 
 	}
 	else {
 
 	}
-	if (Engine_Pointer->deviceController->GetTriggerState(GameController::TriggerRight)) {
+	if (Engine_Pointer->deviceGameController->GetTriggerState(GameController::TriggerRight)) {
 
 	}
 	else {
@@ -90,7 +90,7 @@ void Player::HandleInput_WithController(void) {
 	movementDirection = Player::NotSet;
 
 	// Thumbsticks
-	glm::vec2 leftThumbAxis = Engine_Pointer->deviceController->GetThumbStickState(GameController::ThumbStickLeft);
+	glm::vec2 leftThumbAxis = Engine_Pointer->deviceGameController->GetThumbStickState(GameController::ThumbStickLeft);
 
 	// Left Thumbstick
 	if (leftThumbAxis.x < -Engine_Pointer->thumbStickDeadZone) {
@@ -135,7 +135,7 @@ void Player::HandleInput_WithController(void) {
 	}
 
 	// Right Thumbstick
-	glm::vec2 rightThumbAxis = Engine_Pointer->deviceController->GetThumbStickState(GameController::ThumbStickRight);
+	glm::vec2 rightThumbAxis = Engine_Pointer->deviceGameController->GetThumbStickState(GameController::ThumbStickRight);
 	if (rightThumbAxis.x < -Engine_Pointer->thumbStickDeadZone) {
 		// Right Thumb Left
 
