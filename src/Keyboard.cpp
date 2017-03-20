@@ -80,57 +80,59 @@ Keyboard::~Keyboard() {
 bool Keyboard::GetKeyState(const LowerKeys& key) {
 	switch (key) {
 		case Keyboard::a:
-			break;
+			return lowerKeyStates["a"];
 		case Keyboard::b:
-			break;
+			return lowerKeyStates["b"];
 		case Keyboard::c:
-			break;
+			return lowerKeyStates["c"];
 		case Keyboard::d:
-			break;
+			return lowerKeyStates["d"];
 		case Keyboard::e:
-			break;
+			return lowerKeyStates["e"];
 		case Keyboard::f:
-			break;
+			return lowerKeyStates["f"];
 		case Keyboard::g:
-			break;
+			return lowerKeyStates["g"];
 		case Keyboard::h:
-			break;
+			return lowerKeyStates["h"];
 		case Keyboard::i:
-			break;
+			return lowerKeyStates["i"];
 		case Keyboard::j:
-			break;
+			return lowerKeyStates["j"];
 		case Keyboard::k:
-			break;
+			return lowerKeyStates["k"];
 		case Keyboard::l:
-			break;
+			return lowerKeyStates["l"];
 		case Keyboard::m:
-			break;
+			return lowerKeyStates["m"];
 		case Keyboard::n:
-			break;
+			return lowerKeyStates["n"];
 		case Keyboard::o:
-			break;
+			return lowerKeyStates["o"];
 		case Keyboard::p:
-			break;
+			return lowerKeyStates["p"];
 		case Keyboard::q:
-			break;
+			return lowerKeyStates["q"];
 		case Keyboard::r:
-			break;
+			return lowerKeyStates["r"];
 		case Keyboard::s:
-			break;
+			return lowerKeyStates["s"];
 		case Keyboard::t:
-			break;
+			return lowerKeyStates["t"];
 		case Keyboard::u:
-			break;
+			return lowerKeyStates["u"];
 		case Keyboard::v:
-			break;
+			return lowerKeyStates["v"];
+		case Keyboard::w:
+			return lowerKeyStates["w"];
 		case Keyboard::x:
-			break;
+			return lowerKeyStates["x"];
 		case Keyboard::y:
-			break;
+			return lowerKeyStates["y"];
 		case Keyboard::z:
-			break;
+			return lowerKeyStates["z"];
 		default:
-			break;
+			return false;
 	}
 }
 
