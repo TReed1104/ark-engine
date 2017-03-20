@@ -111,8 +111,6 @@ private:
 	void CleanupSDL(void);
 	void EventHandler(void);
 	void Event_Window(const SDL_WindowEvent& windowEvent);
-	void Event_KeyDown(const SDL_KeyboardEvent& keyboardEvent);
-	void Event_KeyUp(const SDL_KeyboardEvent& keyboardEvent);
 	void Update(float deltaTime);
 	void Draw(void);
 	void Renderer(void);

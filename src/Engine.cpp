@@ -480,26 +480,6 @@ void Engine::Event_Window(const SDL_WindowEvent& windowEvent) {
 			break;
 	}
 }
-void Engine::Event_KeyDown(const SDL_KeyboardEvent& keyboardEvent) {
-	if (!keyboardEvent.repeat) {
-		switch (keyboardEvent.keysym.sym) {
-			case SDLK_ESCAPE:
-				isRunning = false;
-				break;
-			default:
-				break;
-		}
-	}
-}
-void Engine::Event_KeyUp(const SDL_KeyboardEvent& keyboardEvent) {
-	if (!keyboardEvent.repeat) {
-		switch (keyboardEvent.keysym.sym) {
-
-			default:
-				break;
-		}
-	}
-}
 void Engine::Update(float deltaTime) {
 	if (levelRegister[indexCurrentLevel] != nullptr) {
 		levelRegister[indexCurrentLevel]->Update(deltaTime);
