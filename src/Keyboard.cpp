@@ -139,55 +139,57 @@ bool Keyboard::GetKeyState(const LowerKeys& key) {
 bool Keyboard::GetKeyState(const CapitalKeys& key) {
 	switch (key) {
 		case Keyboard::A:
-			break;
+			return capitalKeyStates["A"];
 		case Keyboard::B:
-			break;
+			return capitalKeyStates["B"];
 		case Keyboard::C:
-			break;
+			return capitalKeyStates["C"];
 		case Keyboard::D:
-			break;
+			return capitalKeyStates["D"];
 		case Keyboard::E:
-			break;
+			return capitalKeyStates["E"];
 		case Keyboard::F:
-			break;
+			return capitalKeyStates["F"];
 		case Keyboard::G:
-			break;
+			return capitalKeyStates["G"];
 		case Keyboard::H:
-			break;
+			return capitalKeyStates["H"];
 		case Keyboard::I:
-			break;
+			return capitalKeyStates["I"];
 		case Keyboard::J:
-			break;
+			return capitalKeyStates["J"];
 		case Keyboard::K:
-			break;
+			return capitalKeyStates["K"];
 		case Keyboard::L:
-			break;
+			return capitalKeyStates["L"];
 		case Keyboard::M:
-			break;
+			return capitalKeyStates["M"];
 		case Keyboard::N:
-			break;
+			return capitalKeyStates["N"];
 		case Keyboard::O:
-			break;
+			return capitalKeyStates["O"];
 		case Keyboard::P:
-			break;
+			return capitalKeyStates["P"];
 		case Keyboard::Q:
-			break;
+			return capitalKeyStates["Q"];
 		case Keyboard::R:
-			break;
+			return capitalKeyStates["R"];
 		case Keyboard::S:
-			break;
+			return capitalKeyStates["S"];
 		case Keyboard::T:
-			break;
+			return capitalKeyStates["T"];
 		case Keyboard::U:
-			break;
+			return capitalKeyStates["U"];
 		case Keyboard::V:
-			break;
+			return capitalKeyStates["V"];
+		case Keyboard::W:
+			return capitalKeyStates["W"];
 		case Keyboard::X:
-			break;
+			return capitalKeyStates["X"];
 		case Keyboard::Y:
-			break;
+			return capitalKeyStates["Y"];
 		case Keyboard::Z:
-			break;
+			return capitalKeyStates["Z"];
 		default:
 			break;
 	}
