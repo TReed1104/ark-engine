@@ -75,9 +75,12 @@ Keyboard::Keyboard() {
 	// Initialise the dictionary of the symbol keys
 	specialKeyStates["Escape"] = false;
 	specialKeyStates["Space"] = false;
-	specialKeyStates["Ctrl"] = false;
-	specialKeyStates["Shift"] = false;
-	specialKeyStates["Alt"] = false;
+	specialKeyStates["Left Ctrl"] = false;
+	specialKeyStates["Left Shift"] = false;
+	specialKeyStates["Left Alt"] = false;
+	specialKeyStates["Right Ctrl"] = false;
+	specialKeyStates["Right Shift"] = false;
+	specialKeyStates["Right Alt"] = false;
 }
 Keyboard::~Keyboard() {
 
@@ -231,12 +234,18 @@ bool Keyboard::GetKeyState(const SpecialKeys& key) {
 			return specialKeyStates["Escape"];
 		case Keyboard::Space:
 			return specialKeyStates["Space"];
-		case Keyboard::Ctrl:
-			return specialKeyStates["Ctrl"];
-		case Keyboard::Shift:
-			return specialKeyStates["Shift"];
-		case Keyboard::Alt:
-			return specialKeyStates["Alt"];
+		case Keyboard::LeftCtrl:
+			return specialKeyStates["Left Ctrl"];
+		case Keyboard::LeftShift:
+			return specialKeyStates["Left Shift"];
+		case Keyboard::LeftAlt:
+			return specialKeyStates["Left Alt"];
+		case Keyboard::RightCtrl:
+			return specialKeyStates["Right Ctrl"];
+		case Keyboard::RightShift:
+			return specialKeyStates["Right Shift"];
+		case Keyboard::RightAlt:
+			return specialKeyStates["Right Alt"];
 		default:
 			return false;
 	}
@@ -324,7 +333,7 @@ void Keyboard::UpdateKeyStates_Up(const SDL_KeyboardEvent & keyboardEvent) {
 				lowerCaseKeyStates["z"] = false;
 				break;
 
-			// Number Keys
+				// Number Keys
 			case SDLK_0:
 				numberKeyStates["0"] = false;
 				break;
@@ -356,7 +365,7 @@ void Keyboard::UpdateKeyStates_Up(const SDL_KeyboardEvent & keyboardEvent) {
 				numberKeyStates["9"] = false;
 				break;
 
-			// Special Keys
+				// Special Keys
 			case SDLK_ESCAPE:
 				specialKeyStates["Escape"] = false;
 				break;
@@ -364,22 +373,22 @@ void Keyboard::UpdateKeyStates_Up(const SDL_KeyboardEvent & keyboardEvent) {
 				specialKeyStates["Space"] = false;
 				break;
 			case SDLK_LCTRL:
-				specialKeyStates["Ctrl"] = false;
-				break;
-			case SDLK_RCTRL:
-				specialKeyStates["Ctrl"] = false;
+				specialKeyStates["Left Ctrl"] = false;
 				break;
 			case SDLK_LSHIFT:
-				specialKeyStates["Shift"] = false;
-				break;
-			case SDLK_RSHIFT:
-				specialKeyStates["Shift"] = false;
+				specialKeyStates["Left Shift"] = false;
 				break;
 			case SDLK_LALT:
-				specialKeyStates["Alt"] = false;
+				specialKeyStates["Left Alt"] = false;
+				break;
+			case SDLK_RCTRL:
+				specialKeyStates["Right Ctrl"] = false;
+				break;
+			case SDLK_RSHIFT:
+				specialKeyStates["Right Shift"] = false;
 				break;
 			case SDLK_RALT:
-				specialKeyStates["Alt"] = false;
+				specialKeyStates["Right Alt"] = false;
 				break;
 			default:
 				break;
@@ -469,7 +478,7 @@ void Keyboard::UpdateKeyStates_Down(const SDL_KeyboardEvent & keyboardEvent) {
 				lowerCaseKeyStates["z"] = true;
 				break;
 
-			// Number Keys
+				// Number Keys
 			case SDLK_0:
 				numberKeyStates["0"] = true;
 				break;
@@ -501,7 +510,7 @@ void Keyboard::UpdateKeyStates_Down(const SDL_KeyboardEvent & keyboardEvent) {
 				numberKeyStates["9"] = true;
 				break;
 
-			// Special Keys
+				// Special Keys
 			case SDLK_ESCAPE:
 				specialKeyStates["Escape"] = true;
 				break;
@@ -509,22 +518,22 @@ void Keyboard::UpdateKeyStates_Down(const SDL_KeyboardEvent & keyboardEvent) {
 				specialKeyStates["Space"] = true;
 				break;
 			case SDLK_LCTRL:
-				specialKeyStates["Ctrl"] = true;
-				break;
-			case SDLK_RCTRL:
-				specialKeyStates["Ctrl"] = true;
+				specialKeyStates["Left Ctrl"] = true;
 				break;
 			case SDLK_LSHIFT:
-				specialKeyStates["Shift"] = true;
-				break;
-			case SDLK_RSHIFT:
-				specialKeyStates["Shift"] = true;
+				specialKeyStates["Left Shift"] = true;
 				break;
 			case SDLK_LALT:
-				specialKeyStates["Alt"] = true;
+				specialKeyStates["Left Alt"] = true;
+				break;
+			case SDLK_RCTRL:
+				specialKeyStates["Right Ctrl"] = true;
+				break;
+			case SDLK_RSHIFT:
+				specialKeyStates["Right Shift"] = true;
 				break;
 			case SDLK_RALT:
-				specialKeyStates["Alt"] = true;
+				specialKeyStates["Right Alt"] = true;
 				break;
 
 			default:

@@ -10,10 +10,10 @@ class Keyboard
 {
 public:
 	static Engine* Engine_Pointer;
-	enum NumberKeys { num0, num1, num2, num3, num4, num5, num6, num7, num8, num9};
-	enum LowerCaseKeys { a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z};
-	enum UpperCaseKeys { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z};
-	enum SpecialKeys {Escape, Space, Ctrl, Alt, Shift };
+	enum NumberKeys { num0, num1, num2, num3, num4, num5, num6, num7, num8, num9 };
+	enum LowerCaseKeys { a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z };
+	enum UpperCaseKeys { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z };
+	enum SpecialKeys { Escape, Space, LeftCtrl, LeftAlt, LeftShift, RightCtrl, RightAlt, RightShift };
 
 	Keyboard();
 	~Keyboard();
