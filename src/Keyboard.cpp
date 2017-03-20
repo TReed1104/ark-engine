@@ -80,7 +80,7 @@ Keyboard::~Keyboard() {
 
 }
 
-bool Keyboard::GetKeyState(const LowerKeys& key) {
+bool Keyboard::GetKeyState(const LowerCaseKeys& key) {
 	switch (key) {
 		case Keyboard::a:
 			return lowerKeyStates["a"];
@@ -138,7 +138,7 @@ bool Keyboard::GetKeyState(const LowerKeys& key) {
 			return false;
 	}
 }
-bool Keyboard::GetKeyState(const CapitalKeys& key) {
+bool Keyboard::GetKeyState(const UpperCaseKeys& key) {
 	switch (key) {
 		case Keyboard::A:
 			return capitalKeyStates["A"];
@@ -236,7 +236,58 @@ void Keyboard::UpdateKeyStates_Up(const SDL_KeyboardEvent & keyboardEvent) {
 	if (!keyboardEvent.repeat) {
 		switch (keyboardEvent.keysym.sym) {
 			// Lower case Keys
-
+			case SDLK_a:
+				break;
+			case SDLK_b:
+				break;
+			case SDLK_c:
+				break;
+			case SDLK_d:
+				break;
+			case SDLK_e:
+				break;
+			case SDLK_f:
+				break;
+			case SDLK_g:
+				break;
+			case SDLK_h:
+				break;
+			case SDLK_i:
+				break;
+			case SDLK_j:
+				break;
+			case SDLK_k:
+				break;
+			case SDLK_l:
+				break;
+			case SDLK_m:
+				break;
+			case SDLK_n:
+				break;
+			case SDLK_o:
+				break;
+			case SDLK_p:
+				break;
+			case SDLK_q:
+				break;
+			case SDLK_r:
+				break;
+			case SDLK_s:
+				break;
+			case SDLK_t:
+				break;
+			case SDLK_u:
+				break;
+			case SDLK_v:
+				break;
+			case SDLK_w:
+				break;
+			case SDLK_x:
+				break;
+			case SDLK_y:
+				break;
+			case SDLK_z:
+				break;
 			// Upper Case Keys
 
 			// Special Keys
@@ -256,7 +307,58 @@ void Keyboard::UpdateKeyStates_Down(const SDL_KeyboardEvent & keyboardEvent) {
 	if (!keyboardEvent.repeat) {
 		switch (keyboardEvent.keysym.sym) {
 			// Lower Case Keys
-
+			case SDLK_a:
+				break;
+			case SDLK_b:
+				break;
+			case SDLK_c:
+				break;
+			case SDLK_d:
+				break;
+			case SDLK_e:
+				break;
+			case SDLK_f:
+				break;
+			case SDLK_g:
+				break;
+			case SDLK_h:
+				break;
+			case SDLK_i:
+				break;
+			case SDLK_j:
+				break;
+			case SDLK_k:
+				break;
+			case SDLK_l:
+				break;
+			case SDLK_m:
+				break;
+			case SDLK_n:
+				break;
+			case SDLK_o:
+				break;
+			case SDLK_p:
+				break;
+			case SDLK_q:
+				break;
+			case SDLK_r:
+				break;
+			case SDLK_s:
+				break;
+			case SDLK_t:
+				break;
+			case SDLK_u:
+				break;
+			case SDLK_v:
+				break;
+			case SDLK_w:
+				break;
+			case SDLK_x:
+				break;
+			case SDLK_y:
+				break;
+			case SDLK_z:
+				break;
 			// Upper Case Keys
 
 			// Special Keys
