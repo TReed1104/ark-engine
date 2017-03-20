@@ -4,6 +4,13 @@ Engine::Engine(char* gameName) {
 	exeName = gameName;
 	oldFrameTime = 0.0f;
 	currentFrameTime = 0.0f;
+
+	contentDirectory = "content/";
+	thumbStickDeadZone = 8000;
+	triggerDeadZone = 8000;
+	pressedStateFlag = 1;
+	indexCurrentLevel = 0;
+	indexOfDefaultTexture = -1;
 }
 Engine::~Engine() {
 	delete deviceKeyboard;
@@ -27,8 +34,8 @@ Engine::~Engine() {
 }
 
 void Engine::Run(void) {
-	InitialiseEngine();		// Setup the OpenGL environment.
-	LoadContent();			// Load the game content.
+	InitialiseEngine();		// Setup the Engine
+	LoadContent();			// Load the game content
 	camera = Camera(*this, glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::ortho(0.0f, windowDimensions.x, windowDimensions.y, 0.0f));
 
 	// Game Loop
@@ -45,8 +52,8 @@ void Engine::Run(void) {
 	}
 	std::cout << ">> Game runtime finished" << std::endl;
 
-	CleanupSDL();					// Cleans up after SDL.
-	SDL_Quit();							// Quits the program.
+	CleanupSDL();					// Cleans up after SDL
+	SDL_Quit();						// Quits the program
 }
 void Engine::LoadEngineConfig() {
 	LuaScript configScript = LuaScript(contentDirectory + "engine_config.lua");
@@ -431,6 +438,9 @@ void Engine::InitialiseEngine(void) {
 	glDepthFunc(GL_LESS);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBlendEquation(GL_FUNC_ADD);
+	
+	// Successfully initialised the engine, allow the game loop to run
+	isRunning = true;
 }
 void Engine::CleanupSDL(void) {
 	std::cout << ">> Starting Cleanup..." << std::endl;

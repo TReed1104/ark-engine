@@ -34,13 +34,13 @@
 class Engine {
 public:
 	// Core Engine Variables
-	std::string contentDirectory = "content/";
+	std::string contentDirectory;
 	glm::vec2 tileSize;
 	glm::vec2 windowGridSize;
 	glm::vec2 windowScaler;
-	int thumbStickDeadZone = 8000;
-	int triggerDeadZone = 8000;
-	int pressedStateFlag = 1;
+	int thumbStickDeadZone;
+	int triggerDeadZone;
+	int pressedStateFlag;
 
 
 	// Input Interfaces
@@ -63,8 +63,8 @@ public:
 	Player* player;
 
 	// Indexers
-	int indexCurrentLevel = 0;
-	int indexOfDefaultTexture = -1;
+	int indexCurrentLevel;
+	int indexOfDefaultTexture;
 
 	// Constructors
 	Engine(char* gameName);
@@ -78,7 +78,7 @@ private:
 	SDL_Window* sdlWindow;
 	SDL_GLContext glContext;
 	GLuint glProgram;
-	bool isRunning = true;
+	bool isRunning;
 
 	// Program variables
 	std::string exeName;
