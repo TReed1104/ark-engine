@@ -44,6 +44,7 @@ public:
 
 
 	// Input Interfaces
+	Keyboard* gameKeyboard;
 	GameController* gameController;
 
 	// Shader Locations
