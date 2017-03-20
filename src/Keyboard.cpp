@@ -233,14 +233,37 @@ bool Keyboard::GetKeyState(const SpecialKeys& key) {
 	}
 }
 void Keyboard::UpdateKeyStates_Lower(const SDL_KeyboardEvent& keyboardEvent) {
-
+	if (!keyboardEvent.repeat) {
+		switch (keyboardEvent.keysym.sym) {
+			default:
+				break;
+		}
+	}
 }
 
 void Keyboard::UpdateKeyStates_Upper(const SDL_KeyboardEvent & keyboardEvent) {
+	if (!keyboardEvent.repeat) {
+		switch (keyboardEvent.keysym.sym) {
+			default:
+				break;
+		}
+	}
 }
 
 void Keyboard::UpdateKeyStates_Number(const SDL_KeyboardEvent & keyboardEvent) {
+	if (!keyboardEvent.repeat) {
+		switch (keyboardEvent.keysym.sym) {
+			default:
+				break;
+		}
+	}
 }
 
 void Keyboard::UpdateKeyStates_Special(const SDL_KeyboardEvent & keyboardEvent) {
+	if (!keyboardEvent.repeat) {
+		switch (keyboardEvent.keysym.sym) {
+			default:
+				break;
+		}
+	}
 }
