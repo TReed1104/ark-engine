@@ -198,25 +198,25 @@ bool Keyboard::GetKeyState(const CapitalKeys& key) {
 bool Keyboard::GetKeyState(const NumberKeys& key) {
 	switch (key) {
 		case Keyboard::num0:
-			break;
+			return numberKeyStates["0"];
 		case Keyboard::num1:
-			break;
+			return numberKeyStates["1"];
 		case Keyboard::num2:
-			break;
+			return numberKeyStates["2"];
 		case Keyboard::num3:
-			break;
+			return numberKeyStates["3"];
 		case Keyboard::num4:
-			break;
+			return numberKeyStates["4"];
 		case Keyboard::num5:
-			break;
+			return numberKeyStates["5"];
 		case Keyboard::num6:
-			break;
+			return numberKeyStates["6"];
 		case Keyboard::num7:
-			break;
+			return numberKeyStates["7"];
 		case Keyboard::num8:
-			break;
+			return numberKeyStates["8"];
 		case Keyboard::num9:
-			break;
+			return numberKeyStates["9"];
 		default:
 			break;
 	}
