@@ -10,12 +10,14 @@ Player::~Player() {
 
 void Player::HandleMovement(void) {
 	if (Engine_Pointer->playerController != nullptr) {
-		HandleGameController();
+		HandleInput_WithController();
 	}
-	HandleKeyboard();
+	else {
+		HandleInput_WithoutController();
+	}
 }
 
-void Player::HandleGameController(void) {
+void Player::HandleInput_WithController(void) {
 	// Handle the Controller button inputs
 
 	// Main Buttons
@@ -89,7 +91,6 @@ void Player::HandleGameController(void) {
 
 	// Thumbsticks
 	glm::vec2 leftThumbAxis = Engine_Pointer->playerController->GetThumbStickState(GameController::ThumbStickLeft);
-	glm::vec2 rightThumbAxis = Engine_Pointer->playerController->GetThumbStickState(GameController::ThumbStickRight);
 
 	// Left Thumbstick
 	if (leftThumbAxis.x < -Engine_Pointer->thumbStickDeadZone) {
@@ -134,24 +135,25 @@ void Player::HandleGameController(void) {
 	}
 
 	// Right Thumbstick
+	glm::vec2 rightThumbAxis = Engine_Pointer->playerController->GetThumbStickState(GameController::ThumbStickRight);
 	if (rightThumbAxis.x < -Engine_Pointer->thumbStickDeadZone) {
 		// Right Thumb Left
-		std::cout << "Right Thumb Left" << std::endl;
+
 	}
 	else if (rightThumbAxis.x > Engine_Pointer->thumbStickDeadZone) {
 		// Right Thumb Right
-		std::cout << "Right Thumb Right" << std::endl;
+
 	}
 	if (rightThumbAxis.y < -Engine_Pointer->thumbStickDeadZone) {
 		// Right Thumb Up
-		std::cout << "Right Thumb Up" << std::endl;
+
 	}
 	else if (rightThumbAxis.y > Engine_Pointer->thumbStickDeadZone) {
 		// Right Thumb Down
-		std::cout << "Right Thumb Down" << std::endl;
+
 	}
 }
 
-void Player::HandleKeyboard(void) {
+void Player::HandleInput_WithoutController(void) {
 	
 }
