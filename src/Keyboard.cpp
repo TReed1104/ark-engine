@@ -235,7 +235,7 @@ bool Keyboard::GetKeyState(const SpecialKeys& key) {
 void Keyboard::UpdateKeyStates_Up(const SDL_KeyboardEvent & keyboardEvent) {
 	if (!keyboardEvent.repeat) {
 		switch (keyboardEvent.keysym.sym) {
-			// Lower case Keys
+			// Character Keys
 			case SDLK_a:
 				lowerCaseKeyStates["a"] = false;
 				break;
@@ -315,7 +315,37 @@ void Keyboard::UpdateKeyStates_Up(const SDL_KeyboardEvent & keyboardEvent) {
 				lowerCaseKeyStates["z"] = false;
 				break;
 
-			// Upper Case Keys
+			// Number Keys
+			case SDLK_0:
+				numberKeyStates["0"] = false;
+				break;
+			case SDLK_1:
+				numberKeyStates["1"] = false;
+				break;
+			case SDLK_2:
+				numberKeyStates["2"] = false;
+				break;
+			case SDLK_3:
+				numberKeyStates["3"] = false;
+				break;
+			case SDLK_4:
+				numberKeyStates["4"] = false;
+				break;
+			case SDLK_5:
+				numberKeyStates["5"] = false;
+				break;
+			case SDLK_6:
+				numberKeyStates["6"] = false;
+				break;
+			case SDLK_7:
+				numberKeyStates["7"] = false;
+				break;
+			case SDLK_8:
+				numberKeyStates["8"] = false;
+				break;
+			case SDLK_9:
+				numberKeyStates["9"] = false;
+				break;
 
 			// Special Keys
 			case SDLK_ESCAPE:
@@ -333,7 +363,7 @@ void Keyboard::UpdateKeyStates_Up(const SDL_KeyboardEvent & keyboardEvent) {
 void Keyboard::UpdateKeyStates_Down(const SDL_KeyboardEvent & keyboardEvent) {
 	if (!keyboardEvent.repeat) {
 		switch (keyboardEvent.keysym.sym) {
-			// Lower Case Keys
+			// Character Keys
 			case SDLK_a:
 				lowerCaseKeyStates["a"] = true;
 				break;
@@ -413,7 +443,37 @@ void Keyboard::UpdateKeyStates_Down(const SDL_KeyboardEvent & keyboardEvent) {
 				lowerCaseKeyStates["z"] = true;
 				break;
 
-			// Upper Case Keys
+			// Number Keys
+			case SDLK_0:
+				numberKeyStates["0"] = true;
+				break;
+			case SDLK_1:
+				numberKeyStates["1"] = true;
+				break;
+			case SDLK_2:
+				numberKeyStates["2"] = true;
+				break;
+			case SDLK_3:
+				numberKeyStates["3"] = true;
+				break;
+			case SDLK_4:
+				numberKeyStates["4"] = true;
+				break;
+			case SDLK_5:
+				numberKeyStates["5"] = true;
+				break;
+			case SDLK_6:
+				numberKeyStates["6"] = true;
+				break;
+			case SDLK_7:
+				numberKeyStates["7"] = true;
+				break;
+			case SDLK_8:
+				numberKeyStates["8"] = true;
+				break;
+			case SDLK_9:
+				numberKeyStates["9"] = true;
+				break;
 
 			// Special Keys
 			case SDLK_ESCAPE:
