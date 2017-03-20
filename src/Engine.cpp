@@ -6,7 +6,7 @@ Engine::Engine(char* gameName) {
 	currentFrameTime = 0.0f;
 }
 Engine::~Engine() {
-	delete gameKeyboard;
+	delete deviceKeyboard;
 	delete gameController;
 	delete player;
 
@@ -225,7 +225,7 @@ void Engine::InitialiseProgram(void) {
 }
 void Engine::CheckForInputDevices(void) {
 	// Initialise the keyboard instance
-	gameKeyboard = new Keyboard();
+	deviceKeyboard = new Keyboard();
 
 	// Search for any Keyboards.
 	if (SDL_NumJoysticks() < 1) {
