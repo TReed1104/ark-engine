@@ -72,7 +72,6 @@ Keyboard::Keyboard() {
 	numberKeyStates["8"] = false;
 	numberKeyStates["9"] = false;
 }
-
 Keyboard::~Keyboard() {
 
 }
@@ -135,7 +134,6 @@ bool Keyboard::GetKeyState(const LowerKeys& key) {
 			return false;
 	}
 }
-
 bool Keyboard::GetKeyState(const CapitalKeys& key) {
 	switch (key) {
 		case Keyboard::A:
@@ -194,7 +192,6 @@ bool Keyboard::GetKeyState(const CapitalKeys& key) {
 			break;
 	}
 }
-
 bool Keyboard::GetKeyState(const NumberKeys& key) {
 	switch (key) {
 		case Keyboard::num0:
@@ -221,8 +218,6 @@ bool Keyboard::GetKeyState(const NumberKeys& key) {
 			break;
 	}
 }
-
-
-void Keyboard::UpdateKetStates(const SDL_KeyboardEvent & keyboardEvent) {
+void Keyboard::UpdateKetStates(const SDL_KeyboardEvent& keyboardEvent) {
 
 }
