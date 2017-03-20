@@ -45,7 +45,7 @@ public:
 
 	// Input Interfaces
 	Keyboard* deviceKeyboard;
-	GameController* gameController;
+	GameController* deviceController;
 
 	// Shader Locations
 	ShaderPointers shaderPointers;
