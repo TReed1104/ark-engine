@@ -256,81 +256,107 @@ void Keyboard::UpdateKeyStates_Up(const SDL_KeyboardEvent & keyboardEvent) {
 			// Character Keys
 			case SDLK_a:
 				lowerCaseKeyStates["a"] = false;
+				upperCaseKeyStates["A"] = false;
 				break;
 			case SDLK_b:
 				lowerCaseKeyStates["b"] = false;
+				upperCaseKeyStates["B"] = false;
 				break;
 			case SDLK_c:
 				lowerCaseKeyStates["c"] = false;
+				upperCaseKeyStates["C"] = false;
 				break;
 			case SDLK_d:
 				lowerCaseKeyStates["d"] = false;
+				upperCaseKeyStates["D"] = false;
 				break;
 			case SDLK_e:
 				lowerCaseKeyStates["e"] = false;
+				upperCaseKeyStates["E"] = false;
 				break;
 			case SDLK_f:
 				lowerCaseKeyStates["f"] = false;
+				upperCaseKeyStates["F"] = false;
 				break;
 			case SDLK_g:
 				lowerCaseKeyStates["g"] = false;
+				upperCaseKeyStates["G"] = false;
 				break;
 			case SDLK_h:
 				lowerCaseKeyStates["h"] = false;
+				upperCaseKeyStates["H"] = false;
 				break;
 			case SDLK_i:
 				lowerCaseKeyStates["i"] = false;
+				upperCaseKeyStates["I"] = false;
 				break;
 			case SDLK_j:
 				lowerCaseKeyStates["j"] = false;
+				upperCaseKeyStates["J"] = false;
 				break;
 			case SDLK_k:
 				lowerCaseKeyStates["k"] = false;
+				upperCaseKeyStates["K"] = false;
 				break;
 			case SDLK_l:
 				lowerCaseKeyStates["l"] = false;
+				upperCaseKeyStates["L"] = false;
 				break;
 			case SDLK_m:
 				lowerCaseKeyStates["m"] = false;
+				upperCaseKeyStates["M"] = false;
 				break;
 			case SDLK_n:
 				lowerCaseKeyStates["n"] = false;
+				upperCaseKeyStates["N"] = false;
 				break;
 			case SDLK_o:
 				lowerCaseKeyStates["o"] = false;
+				upperCaseKeyStates["O"] = false;
 				break;
 			case SDLK_p:
 				lowerCaseKeyStates["p"] = false;
+				upperCaseKeyStates["P"] = false;
 				break;
 			case SDLK_q:
 				lowerCaseKeyStates["q"] = false;
+				upperCaseKeyStates["Q"] = false;
 				break;
 			case SDLK_r:
 				lowerCaseKeyStates["r"] = false;
+				upperCaseKeyStates["R"] = false;
 				break;
 			case SDLK_s:
 				lowerCaseKeyStates["s"] = false;
+				upperCaseKeyStates["S"] = false;
 				break;
 			case SDLK_t:
 				lowerCaseKeyStates["t"] = false;
+				upperCaseKeyStates["T"] = false;
 				break;
 			case SDLK_u:
 				lowerCaseKeyStates["u"] = false;
+				upperCaseKeyStates["U"] = false;
 				break;
 			case SDLK_v:
 				lowerCaseKeyStates["v"] = false;
+				upperCaseKeyStates["V"] = false;
 				break;
 			case SDLK_w:
 				lowerCaseKeyStates["w"] = false;
+				upperCaseKeyStates["W"] = false;
 				break;
 			case SDLK_x:
 				lowerCaseKeyStates["x"] = false;
+				upperCaseKeyStates["X"] = false;
 				break;
 			case SDLK_y:
 				lowerCaseKeyStates["y"] = false;
+				upperCaseKeyStates["Y"] = false;
 				break;
 			case SDLK_z:
 				lowerCaseKeyStates["z"] = false;
+				upperCaseKeyStates["Z"] = false;
 				break;
 
 				// Number Keys
@@ -404,82 +430,264 @@ void Keyboard::UpdateKeyStates_Down(const SDL_KeyboardEvent & keyboardEvent) {
 		switch (keyboardEvent.keysym.sym) {
 			// Character Keys
 			case SDLK_a:
-				lowerCaseKeyStates["a"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["a"] = false;
+					upperCaseKeyStates["A"] = true;
+				}
+				else {
+					lowerCaseKeyStates["a"] = true;
+					upperCaseKeyStates["A"] = false;
+				}
 				break;
 			case SDLK_b:
-				lowerCaseKeyStates["b"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["b"] = false;
+					upperCaseKeyStates["B"] = true;
+				}
+				else {
+					lowerCaseKeyStates["b"] = true;
+					upperCaseKeyStates["B"] = false;
+				}
 				break;
 			case SDLK_c:
-				lowerCaseKeyStates["c"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["c"] = false;
+					upperCaseKeyStates["C"] = true;
+				}
+				else {
+					lowerCaseKeyStates["c"] = true;
+					upperCaseKeyStates["C"] = false;
+				}
 				break;
 			case SDLK_d:
-				lowerCaseKeyStates["d"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["d"] = false;
+					upperCaseKeyStates["D"] = true;
+				}
+				else {
+					lowerCaseKeyStates["d"] = true;
+					upperCaseKeyStates["D"] = false;
+				}
 				break;
 			case SDLK_e:
-				lowerCaseKeyStates["e"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["e"] = false;
+					upperCaseKeyStates["E"] = true;
+				}
+				else {
+					lowerCaseKeyStates["e"] = true;
+					upperCaseKeyStates["E"] = false;
+				}
 				break;
 			case SDLK_f:
-				lowerCaseKeyStates["f"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["f"] = false;
+					upperCaseKeyStates["F"] = true;
+				}
+				else {
+					lowerCaseKeyStates["f"] = true;
+					upperCaseKeyStates["F"] = false;
+				}
 				break;
 			case SDLK_g:
-				lowerCaseKeyStates["g"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["g"] = false;
+					upperCaseKeyStates["G"] = true;
+				}
+				else {
+					lowerCaseKeyStates["g"] = true;
+					upperCaseKeyStates["G"] = false;
+				}
 				break;
 			case SDLK_h:
-				lowerCaseKeyStates["h"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["h"] = false;
+					upperCaseKeyStates["H"] = true;
+				}
+				else {
+					lowerCaseKeyStates["h"] = true;
+					upperCaseKeyStates["H"] = false;
+				}
 				break;
 			case SDLK_i:
-				lowerCaseKeyStates["i"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["i"] = false;
+					upperCaseKeyStates["I"] = true;
+				}
+				else {
+					lowerCaseKeyStates["i"] = true;
+					upperCaseKeyStates["I"] = false;
+				}
 				break;
 			case SDLK_j:
-				lowerCaseKeyStates["j"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["j"] = false;
+					upperCaseKeyStates["J"] = true;
+				}
+				else {
+					lowerCaseKeyStates["j"] = true;
+					upperCaseKeyStates["J"] = false;
+				}
 				break;
 			case SDLK_k:
-				lowerCaseKeyStates["k"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["k"] = false;
+					upperCaseKeyStates["K"] = true;
+				}
+				else {
+					lowerCaseKeyStates["k"] = true;
+					upperCaseKeyStates["K"] = false;
+				}
 				break;
 			case SDLK_l:
-				lowerCaseKeyStates["l"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["l"] = false;
+					upperCaseKeyStates["L"] = true;
+				}
+				else {
+					lowerCaseKeyStates["l"] = true;
+					upperCaseKeyStates["L"] = false;
+				}
 				break;
 			case SDLK_m:
-				lowerCaseKeyStates["m"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["m"] = false;
+					upperCaseKeyStates["M"] = true;
+				}
+				else {
+					lowerCaseKeyStates["m"] = true;
+					upperCaseKeyStates["M"] = false;
+				}
 				break;
 			case SDLK_n:
-				lowerCaseKeyStates["n"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["n"] = false;
+					upperCaseKeyStates["N"] = true;
+				}
+				else {
+					lowerCaseKeyStates["n"] = true;
+					upperCaseKeyStates["N"] = false;
+				}
 				break;
 			case SDLK_o:
-				lowerCaseKeyStates["o"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["o"] = false;
+					upperCaseKeyStates["O"] = true;
+				}
+				else {
+					lowerCaseKeyStates["o"] = true;
+					upperCaseKeyStates["O"] = false;
+				}
 				break;
 			case SDLK_p:
-				lowerCaseKeyStates["p"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["p"] = false;
+					upperCaseKeyStates["P"] = true;
+				}
+				else {
+					lowerCaseKeyStates["p"] = true;
+					upperCaseKeyStates["P"] = false;
+				}
 				break;
 			case SDLK_q:
-				lowerCaseKeyStates["q"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["q"] = false;
+					upperCaseKeyStates["Q"] = true;
+				}
+				else {
+					lowerCaseKeyStates["q"] = true;
+					upperCaseKeyStates["Q"] = false;
+				}
 				break;
 			case SDLK_r:
-				lowerCaseKeyStates["r"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["r"] = false;
+					upperCaseKeyStates["R"] = true;
+				}
+				else {
+					lowerCaseKeyStates["r"] = true;
+					upperCaseKeyStates["R"] = false;
+				}
 				break;
 			case SDLK_s:
-				lowerCaseKeyStates["s"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["s"] = false;
+					upperCaseKeyStates["S"] = true;
+				}
+				else {
+					lowerCaseKeyStates["s"] = true;
+					upperCaseKeyStates["S"] = false;
+				}
 				break;
 			case SDLK_t:
-				lowerCaseKeyStates["t"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["t"] = false;
+					upperCaseKeyStates["T"] = true;
+				}
+				else {
+					lowerCaseKeyStates["t"] = true;
+					upperCaseKeyStates["T"] = false;
+				}
 				break;
 			case SDLK_u:
-				lowerCaseKeyStates["u"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["u"] = false;
+					upperCaseKeyStates["U"] = true;
+				}
+				else {
+					lowerCaseKeyStates["u"] = true;
+					upperCaseKeyStates["U"] = false;
+				}
 				break;
 			case SDLK_v:
-				lowerCaseKeyStates["v"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["v"] = false;
+					upperCaseKeyStates["V"] = true;
+				}
+				else {
+					lowerCaseKeyStates["v"] = true;
+					upperCaseKeyStates["V"] = false;
+				}
 				break;
 			case SDLK_w:
-				lowerCaseKeyStates["w"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["w"] = false;
+					upperCaseKeyStates["W"] = true;
+				}
+				else {
+					lowerCaseKeyStates["w"] = true;
+					upperCaseKeyStates["W"] = false;
+				}
 				break;
 			case SDLK_x:
-				lowerCaseKeyStates["x"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["x"] = false;
+					upperCaseKeyStates["X"] = true;
+				}
+				else {
+					lowerCaseKeyStates["x"] = true;
+					upperCaseKeyStates["X"] = false;
+				}
 				break;
 			case SDLK_y:
-				lowerCaseKeyStates["y"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["y"] = false;
+					upperCaseKeyStates["Y"] = true;
+				}
+				else {
+					lowerCaseKeyStates["y"] = true;
+					upperCaseKeyStates["Y"] = false;
+				}
 				break;
 			case SDLK_z:
-				lowerCaseKeyStates["z"] = true;
+				if (shiftModifier) {
+					lowerCaseKeyStates["z"] = false;
+					upperCaseKeyStates["Z"] = true;
+				}
+				else {
+					lowerCaseKeyStates["z"] = true;
+					upperCaseKeyStates["Z"] = false;
+				}
 				break;
 
 				// Number Keys
