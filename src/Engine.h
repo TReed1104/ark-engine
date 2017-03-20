@@ -44,7 +44,7 @@ public:
 
 
 	// Input Interfaces
-	GameController* playerController;
+	GameController* gameController;
 
 	// Shader Locations
 	ShaderPointers shaderPointers;
