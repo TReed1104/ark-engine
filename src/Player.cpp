@@ -9,8 +9,10 @@ Player::~Player() {
 }
 
 void Player::HandleMovement(void) {
+	if (Engine_Pointer->playerController != nullptr) {
+		HandleGameController();
+	}
 	HandleKeyboard();
-	HandleGameController();
 }
 
 void Player::HandleGameController(void) {

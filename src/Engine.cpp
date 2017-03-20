@@ -224,6 +224,7 @@ void Engine::InitialiseProgram(void) {
 }
 void Engine::InitialiseGameControllers(void) {
 	if (SDL_NumJoysticks() < 1) {
+		playerController = nullptr;
 		std::cout << "No Controllers are connected!" << std::endl;
 	}
 	else {
