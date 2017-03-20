@@ -28,6 +28,7 @@ private:
 	std::map<std::string, bool> capitalKeyStates;
 	std::map<std::string, bool> lowerKeyStates;
 	std::map<std::string, bool> numberKeyStates;
+	std::map<std::string, bool> symbolKeyStates;
 
 };
 

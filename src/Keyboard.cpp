@@ -71,6 +71,10 @@ Keyboard::Keyboard() {
 	numberKeyStates["7"] = false;
 	numberKeyStates["8"] = false;
 	numberKeyStates["9"] = false;
+
+	// Initialise the dictionary of the symbol keys
+	symbolKeyStates["Escape"] = false;
+	symbolKeyStates["Space"] = false;
 }
 Keyboard::~Keyboard() {
 
@@ -218,8 +222,15 @@ bool Keyboard::GetKeyState(const NumberKeys& key) {
 			break;
 	}
 }
-bool Keyboard::GetKeyState(const SymbolKeys & key) {
-	return false;
+bool Keyboard::GetKeyState(const SymbolKeys& key) {
+	switch (key) {
+		case Keyboard::Escape:
+			return symbolKeyStates["Escape"];
+		case Keyboard::Space:
+			return symbolKeyStates["Space"];
+		default:
+			return false;
+	}
 }
 void Keyboard::UpdateKetStates(const SDL_KeyboardEvent& keyboardEvent) {
 
