@@ -4,7 +4,73 @@
 Engine* Keyboard::Engine_Pointer;
 
 Keyboard::Keyboard() {
+	// Initialise the dictionary of the lower case keys
+	lowerKeyStates["a"] = false;
+	lowerKeyStates["b"] = false;
+	lowerKeyStates["c"] = false;
+	lowerKeyStates["d"] = false;
+	lowerKeyStates["e"] = false;
+	lowerKeyStates["f"] = false;
+	lowerKeyStates["g"] = false;
+	lowerKeyStates["h"] = false;
+	lowerKeyStates["i"] = false;
+	lowerKeyStates["j"] = false;
+	lowerKeyStates["k"] = false;
+	lowerKeyStates["l"] = false;
+	lowerKeyStates["m"] = false;
+	lowerKeyStates["n"] = false;
+	lowerKeyStates["o"] = false;
+	lowerKeyStates["p"] = false;
+	lowerKeyStates["q"] = false;
+	lowerKeyStates["r"] = false;
+	lowerKeyStates["s"] = false;
+	lowerKeyStates["t"] = false;
+	lowerKeyStates["u"] = false;
+	lowerKeyStates["v"] = false;
+	lowerKeyStates["w"] = false;
+	lowerKeyStates["x"] = false;
+	lowerKeyStates["y"] = false;
+	lowerKeyStates["z"] = false;
 
+	// Initialise the dictionary of the upper case keys
+	capitalKeyStates["A"] = false;
+	capitalKeyStates["B"] = false;
+	capitalKeyStates["C"] = false;
+	capitalKeyStates["D"] = false;
+	capitalKeyStates["E"] = false;
+	capitalKeyStates["F"] = false;
+	capitalKeyStates["G"] = false;
+	capitalKeyStates["H"] = false;
+	capitalKeyStates["I"] = false;
+	capitalKeyStates["J"] = false;
+	capitalKeyStates["K"] = false;
+	capitalKeyStates["L"] = false;
+	capitalKeyStates["M"] = false;
+	capitalKeyStates["N"] = false;
+	capitalKeyStates["O"] = false;
+	capitalKeyStates["P"] = false;
+	capitalKeyStates["Q"] = false;
+	capitalKeyStates["R"] = false;
+	capitalKeyStates["S"] = false;
+	capitalKeyStates["T"] = false;
+	capitalKeyStates["U"] = false;
+	capitalKeyStates["V"] = false;
+	capitalKeyStates["W"] = false;
+	capitalKeyStates["X"] = false;
+	capitalKeyStates["Y"] = false;
+	capitalKeyStates["Z"] = false;
+
+	// Initialise the dictionary of the number keys
+	numberKeyStates["0"] = false;
+	numberKeyStates["1"] = false;
+	numberKeyStates["2"] = false;
+	numberKeyStates["3"] = false;
+	numberKeyStates["4"] = false;
+	numberKeyStates["5"] = false;
+	numberKeyStates["6"] = false;
+	numberKeyStates["7"] = false;
+	numberKeyStates["8"] = false;
+	numberKeyStates["9"] = false;
 }
 
 Keyboard::~Keyboard() {
