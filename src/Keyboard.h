@@ -26,8 +26,8 @@ public:
 	void UpdateKeyStates_Down(const SDL_KeyboardEvent& keyboardEvent);
 
 private:
-	std::map<std::string, bool> capitalKeyStates;
-	std::map<std::string, bool> lowerKeyStates;
+	std::map<std::string, bool> upperCaseKeyStates;
+	std::map<std::string, bool> lowerCaseKeyStates;
 	std::map<std::string, bool> numberKeyStates;
 	std::map<std::string, bool> specialKeyStates;
 
