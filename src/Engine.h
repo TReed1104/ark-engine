@@ -94,7 +94,7 @@ private:
 	void InitialiseGlew(void);
 	GLuint CreateGLProgram(const std::vector<Shader>& shaderList);
 	void InitialiseProgram(void);
-	void InitialiseGameControllers(void);
+	void CheckForInputDevices(void);
 	void SetEnginePointers(void);
 	Model LoadModel(const std::string& modelPath);
 	void ImportTexture(const char* texturePath);

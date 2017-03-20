@@ -222,7 +222,7 @@ void Engine::InitialiseProgram(void) {
 		glDeleteShader(shaderList[iLoop].shaderID);
 	}
 }
-void Engine::InitialiseGameControllers(void) {
+void Engine::CheckForInputDevices(void) {
 	if (SDL_NumJoysticks() < 1) {
 		gameController = nullptr;
 		std::cout << "No Controllers are connected!" << std::endl;
@@ -420,7 +420,7 @@ void Engine::InitialiseEngine(void) {
 	glViewport(0, 0, windowDimensions.x, windowDimensions.y);
 	SDL_GL_SwapWindow(sdlWindow);
 	InitialiseProgram();
-	InitialiseGameControllers();
+	CheckForInputDevices();
 	std::cout << ">> Setup Complete" << std::endl;
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
