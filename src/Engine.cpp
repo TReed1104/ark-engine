@@ -453,10 +453,16 @@ void Engine::EventHandler(void) {
 				isRunning = false;
 				break;
 			case SDL_KEYDOWN:			// Key down handling.
-				deviceKeyboard->UpdateKetStates(event.key);
+				deviceKeyboard->UpdateKeyStates_Lower(event.key);
+				deviceKeyboard->UpdateKeyStates_Upper(event.key);
+				deviceKeyboard->UpdateKeyStates_Number(event.key);
+				deviceKeyboard->UpdateKeyStates_Special(event.key);
 				break;
 			case SDL_KEYUP:				// Key up handling.
-				deviceKeyboard->UpdateKetStates(event.key);
+				deviceKeyboard->UpdateKeyStates_Lower(event.key);
+				deviceKeyboard->UpdateKeyStates_Upper(event.key);
+				deviceKeyboard->UpdateKeyStates_Number(event.key);
+				deviceKeyboard->UpdateKeyStates_Special(event.key);
 				break;
 			case SDL_CONTROLLERAXISMOTION:
 				deviceGameController->UpdateThumbSticks();
