@@ -5,60 +5,60 @@ Engine* Keyboard::Engine_Pointer;
 
 Keyboard::Keyboard() {
 	// Initialise the dictionary of the lower case keys
-	lowerKeyStates["a"] = false;
-	lowerKeyStates["b"] = false;
-	lowerKeyStates["c"] = false;
-	lowerKeyStates["d"] = false;
-	lowerKeyStates["e"] = false;
-	lowerKeyStates["f"] = false;
-	lowerKeyStates["g"] = false;
-	lowerKeyStates["h"] = false;
-	lowerKeyStates["i"] = false;
-	lowerKeyStates["j"] = false;
-	lowerKeyStates["k"] = false;
-	lowerKeyStates["l"] = false;
-	lowerKeyStates["m"] = false;
-	lowerKeyStates["n"] = false;
-	lowerKeyStates["o"] = false;
-	lowerKeyStates["p"] = false;
-	lowerKeyStates["q"] = false;
-	lowerKeyStates["r"] = false;
-	lowerKeyStates["s"] = false;
-	lowerKeyStates["t"] = false;
-	lowerKeyStates["u"] = false;
-	lowerKeyStates["v"] = false;
-	lowerKeyStates["w"] = false;
-	lowerKeyStates["x"] = false;
-	lowerKeyStates["y"] = false;
-	lowerKeyStates["z"] = false;
+	lowerCaseKeyStates["a"] = false;
+	lowerCaseKeyStates["b"] = false;
+	lowerCaseKeyStates["c"] = false;
+	lowerCaseKeyStates["d"] = false;
+	lowerCaseKeyStates["e"] = false;
+	lowerCaseKeyStates["f"] = false;
+	lowerCaseKeyStates["g"] = false;
+	lowerCaseKeyStates["h"] = false;
+	lowerCaseKeyStates["i"] = false;
+	lowerCaseKeyStates["j"] = false;
+	lowerCaseKeyStates["k"] = false;
+	lowerCaseKeyStates["l"] = false;
+	lowerCaseKeyStates["m"] = false;
+	lowerCaseKeyStates["n"] = false;
+	lowerCaseKeyStates["o"] = false;
+	lowerCaseKeyStates["p"] = false;
+	lowerCaseKeyStates["q"] = false;
+	lowerCaseKeyStates["r"] = false;
+	lowerCaseKeyStates["s"] = false;
+	lowerCaseKeyStates["t"] = false;
+	lowerCaseKeyStates["u"] = false;
+	lowerCaseKeyStates["v"] = false;
+	lowerCaseKeyStates["w"] = false;
+	lowerCaseKeyStates["x"] = false;
+	lowerCaseKeyStates["y"] = false;
+	lowerCaseKeyStates["z"] = false;
 
 	// Initialise the dictionary of the upper case keys
-	capitalKeyStates["A"] = false;
-	capitalKeyStates["B"] = false;
-	capitalKeyStates["C"] = false;
-	capitalKeyStates["D"] = false;
-	capitalKeyStates["E"] = false;
-	capitalKeyStates["F"] = false;
-	capitalKeyStates["G"] = false;
-	capitalKeyStates["H"] = false;
-	capitalKeyStates["I"] = false;
-	capitalKeyStates["J"] = false;
-	capitalKeyStates["K"] = false;
-	capitalKeyStates["L"] = false;
-	capitalKeyStates["M"] = false;
-	capitalKeyStates["N"] = false;
-	capitalKeyStates["O"] = false;
-	capitalKeyStates["P"] = false;
-	capitalKeyStates["Q"] = false;
-	capitalKeyStates["R"] = false;
-	capitalKeyStates["S"] = false;
-	capitalKeyStates["T"] = false;
-	capitalKeyStates["U"] = false;
-	capitalKeyStates["V"] = false;
-	capitalKeyStates["W"] = false;
-	capitalKeyStates["X"] = false;
-	capitalKeyStates["Y"] = false;
-	capitalKeyStates["Z"] = false;
+	upperCaseKeyStates["A"] = false;
+	upperCaseKeyStates["B"] = false;
+	upperCaseKeyStates["C"] = false;
+	upperCaseKeyStates["D"] = false;
+	upperCaseKeyStates["E"] = false;
+	upperCaseKeyStates["F"] = false;
+	upperCaseKeyStates["G"] = false;
+	upperCaseKeyStates["H"] = false;
+	upperCaseKeyStates["I"] = false;
+	upperCaseKeyStates["J"] = false;
+	upperCaseKeyStates["K"] = false;
+	upperCaseKeyStates["L"] = false;
+	upperCaseKeyStates["M"] = false;
+	upperCaseKeyStates["N"] = false;
+	upperCaseKeyStates["O"] = false;
+	upperCaseKeyStates["P"] = false;
+	upperCaseKeyStates["Q"] = false;
+	upperCaseKeyStates["R"] = false;
+	upperCaseKeyStates["S"] = false;
+	upperCaseKeyStates["T"] = false;
+	upperCaseKeyStates["U"] = false;
+	upperCaseKeyStates["V"] = false;
+	upperCaseKeyStates["W"] = false;
+	upperCaseKeyStates["X"] = false;
+	upperCaseKeyStates["Y"] = false;
+	upperCaseKeyStates["Z"] = false;
 
 	// Initialise the dictionary of the number keys
 	numberKeyStates["0"] = false;
@@ -83,57 +83,57 @@ Keyboard::~Keyboard() {
 bool Keyboard::GetKeyState(const LowerCaseKeys& key) {
 	switch (key) {
 		case Keyboard::a:
-			return lowerKeyStates["a"];
+			return lowerCaseKeyStates["a"];
 		case Keyboard::b:
-			return lowerKeyStates["b"];
+			return lowerCaseKeyStates["b"];
 		case Keyboard::c:
-			return lowerKeyStates["c"];
+			return lowerCaseKeyStates["c"];
 		case Keyboard::d:
-			return lowerKeyStates["d"];
+			return lowerCaseKeyStates["d"];
 		case Keyboard::e:
-			return lowerKeyStates["e"];
+			return lowerCaseKeyStates["e"];
 		case Keyboard::f:
-			return lowerKeyStates["f"];
+			return lowerCaseKeyStates["f"];
 		case Keyboard::g:
-			return lowerKeyStates["g"];
+			return lowerCaseKeyStates["g"];
 		case Keyboard::h:
-			return lowerKeyStates["h"];
+			return lowerCaseKeyStates["h"];
 		case Keyboard::i:
-			return lowerKeyStates["i"];
+			return lowerCaseKeyStates["i"];
 		case Keyboard::j:
-			return lowerKeyStates["j"];
+			return lowerCaseKeyStates["j"];
 		case Keyboard::k:
-			return lowerKeyStates["k"];
+			return lowerCaseKeyStates["k"];
 		case Keyboard::l:
-			return lowerKeyStates["l"];
+			return lowerCaseKeyStates["l"];
 		case Keyboard::m:
-			return lowerKeyStates["m"];
+			return lowerCaseKeyStates["m"];
 		case Keyboard::n:
-			return lowerKeyStates["n"];
+			return lowerCaseKeyStates["n"];
 		case Keyboard::o:
-			return lowerKeyStates["o"];
+			return lowerCaseKeyStates["o"];
 		case Keyboard::p:
-			return lowerKeyStates["p"];
+			return lowerCaseKeyStates["p"];
 		case Keyboard::q:
-			return lowerKeyStates["q"];
+			return lowerCaseKeyStates["q"];
 		case Keyboard::r:
-			return lowerKeyStates["r"];
+			return lowerCaseKeyStates["r"];
 		case Keyboard::s:
-			return lowerKeyStates["s"];
+			return lowerCaseKeyStates["s"];
 		case Keyboard::t:
-			return lowerKeyStates["t"];
+			return lowerCaseKeyStates["t"];
 		case Keyboard::u:
-			return lowerKeyStates["u"];
+			return lowerCaseKeyStates["u"];
 		case Keyboard::v:
-			return lowerKeyStates["v"];
+			return lowerCaseKeyStates["v"];
 		case Keyboard::w:
-			return lowerKeyStates["w"];
+			return lowerCaseKeyStates["w"];
 		case Keyboard::x:
-			return lowerKeyStates["x"];
+			return lowerCaseKeyStates["x"];
 		case Keyboard::y:
-			return lowerKeyStates["y"];
+			return lowerCaseKeyStates["y"];
 		case Keyboard::z:
-			return lowerKeyStates["z"];
+			return lowerCaseKeyStates["z"];
 		default:
 			return false;
 	}
@@ -141,57 +141,57 @@ bool Keyboard::GetKeyState(const LowerCaseKeys& key) {
 bool Keyboard::GetKeyState(const UpperCaseKeys& key) {
 	switch (key) {
 		case Keyboard::A:
-			return capitalKeyStates["A"];
+			return upperCaseKeyStates["A"];
 		case Keyboard::B:
-			return capitalKeyStates["B"];
+			return upperCaseKeyStates["B"];
 		case Keyboard::C:
-			return capitalKeyStates["C"];
+			return upperCaseKeyStates["C"];
 		case Keyboard::D:
-			return capitalKeyStates["D"];
+			return upperCaseKeyStates["D"];
 		case Keyboard::E:
-			return capitalKeyStates["E"];
+			return upperCaseKeyStates["E"];
 		case Keyboard::F:
-			return capitalKeyStates["F"];
+			return upperCaseKeyStates["F"];
 		case Keyboard::G:
-			return capitalKeyStates["G"];
+			return upperCaseKeyStates["G"];
 		case Keyboard::H:
-			return capitalKeyStates["H"];
+			return upperCaseKeyStates["H"];
 		case Keyboard::I:
-			return capitalKeyStates["I"];
+			return upperCaseKeyStates["I"];
 		case Keyboard::J:
-			return capitalKeyStates["J"];
+			return upperCaseKeyStates["J"];
 		case Keyboard::K:
-			return capitalKeyStates["K"];
+			return upperCaseKeyStates["K"];
 		case Keyboard::L:
-			return capitalKeyStates["L"];
+			return upperCaseKeyStates["L"];
 		case Keyboard::M:
-			return capitalKeyStates["M"];
+			return upperCaseKeyStates["M"];
 		case Keyboard::N:
-			return capitalKeyStates["N"];
+			return upperCaseKeyStates["N"];
 		case Keyboard::O:
-			return capitalKeyStates["O"];
+			return upperCaseKeyStates["O"];
 		case Keyboard::P:
-			return capitalKeyStates["P"];
+			return upperCaseKeyStates["P"];
 		case Keyboard::Q:
-			return capitalKeyStates["Q"];
+			return upperCaseKeyStates["Q"];
 		case Keyboard::R:
-			return capitalKeyStates["R"];
+			return upperCaseKeyStates["R"];
 		case Keyboard::S:
-			return capitalKeyStates["S"];
+			return upperCaseKeyStates["S"];
 		case Keyboard::T:
-			return capitalKeyStates["T"];
+			return upperCaseKeyStates["T"];
 		case Keyboard::U:
-			return capitalKeyStates["U"];
+			return upperCaseKeyStates["U"];
 		case Keyboard::V:
-			return capitalKeyStates["V"];
+			return upperCaseKeyStates["V"];
 		case Keyboard::W:
-			return capitalKeyStates["W"];
+			return upperCaseKeyStates["W"];
 		case Keyboard::X:
-			return capitalKeyStates["X"];
+			return upperCaseKeyStates["X"];
 		case Keyboard::Y:
-			return capitalKeyStates["Y"];
+			return upperCaseKeyStates["Y"];
 		case Keyboard::Z:
-			return capitalKeyStates["Z"];
+			return upperCaseKeyStates["Z"];
 		default:
 			break;
 	}
@@ -237,57 +237,84 @@ void Keyboard::UpdateKeyStates_Up(const SDL_KeyboardEvent & keyboardEvent) {
 		switch (keyboardEvent.keysym.sym) {
 			// Lower case Keys
 			case SDLK_a:
+				lowerCaseKeyStates["a"] = false;
 				break;
 			case SDLK_b:
+				lowerCaseKeyStates["b"] = false;
 				break;
 			case SDLK_c:
+				lowerCaseKeyStates["c"] = false;
 				break;
 			case SDLK_d:
+				lowerCaseKeyStates["d"] = false;
 				break;
 			case SDLK_e:
+				lowerCaseKeyStates["e"] = false;
 				break;
 			case SDLK_f:
+				lowerCaseKeyStates["f"] = false;
 				break;
 			case SDLK_g:
+				lowerCaseKeyStates["g"] = false;
 				break;
 			case SDLK_h:
+				lowerCaseKeyStates["h"] = false;
 				break;
 			case SDLK_i:
+				lowerCaseKeyStates["i"] = false;
 				break;
 			case SDLK_j:
+				lowerCaseKeyStates["j"] = false;
 				break;
 			case SDLK_k:
+				lowerCaseKeyStates["k"] = false;
 				break;
 			case SDLK_l:
+				lowerCaseKeyStates["l"] = false;
 				break;
 			case SDLK_m:
+				lowerCaseKeyStates["m"] = false;
 				break;
 			case SDLK_n:
+				lowerCaseKeyStates["n"] = false;
 				break;
 			case SDLK_o:
+				lowerCaseKeyStates["o"] = false;
 				break;
 			case SDLK_p:
+				lowerCaseKeyStates["p"] = false;
 				break;
 			case SDLK_q:
+				lowerCaseKeyStates["q"] = false;
 				break;
 			case SDLK_r:
+				lowerCaseKeyStates["r"] = false;
 				break;
 			case SDLK_s:
+				lowerCaseKeyStates["s"] = false;
 				break;
 			case SDLK_t:
+				lowerCaseKeyStates["t"] = false;
 				break;
 			case SDLK_u:
+				lowerCaseKeyStates["u"] = false;
 				break;
 			case SDLK_v:
+				lowerCaseKeyStates["v"] = false;
 				break;
 			case SDLK_w:
+				lowerCaseKeyStates["w"] = false;
 				break;
 			case SDLK_x:
+				lowerCaseKeyStates["x"] = false;
 				break;
 			case SDLK_y:
+				lowerCaseKeyStates["y"] = false;
 				break;
 			case SDLK_z:
+				lowerCaseKeyStates["z"] = false;
 				break;
+
 			// Upper Case Keys
 
 			// Special Keys
@@ -308,57 +335,84 @@ void Keyboard::UpdateKeyStates_Down(const SDL_KeyboardEvent & keyboardEvent) {
 		switch (keyboardEvent.keysym.sym) {
 			// Lower Case Keys
 			case SDLK_a:
+				lowerCaseKeyStates["a"] = false;
 				break;
 			case SDLK_b:
+				lowerCaseKeyStates["b"] = false;
 				break;
 			case SDLK_c:
+				lowerCaseKeyStates["c"] = false;
 				break;
 			case SDLK_d:
+				lowerCaseKeyStates["d"] = false;
 				break;
 			case SDLK_e:
+				lowerCaseKeyStates["e"] = false;
 				break;
 			case SDLK_f:
+				lowerCaseKeyStates["f"] = false;
 				break;
 			case SDLK_g:
+				lowerCaseKeyStates["g"] = false;
 				break;
 			case SDLK_h:
+				lowerCaseKeyStates["h"] = false;
 				break;
 			case SDLK_i:
+				lowerCaseKeyStates["i"] = false;
 				break;
 			case SDLK_j:
+				lowerCaseKeyStates["j"] = false;
 				break;
 			case SDLK_k:
+				lowerCaseKeyStates["k"] = false;
 				break;
 			case SDLK_l:
+				lowerCaseKeyStates["l"] = false;
 				break;
 			case SDLK_m:
+				lowerCaseKeyStates["m"] = false;
 				break;
 			case SDLK_n:
+				lowerCaseKeyStates["n"] = false;
 				break;
 			case SDLK_o:
+				lowerCaseKeyStates["o"] = false;
 				break;
 			case SDLK_p:
+				lowerCaseKeyStates["p"] = false;
 				break;
 			case SDLK_q:
+				lowerCaseKeyStates["q"] = false;
 				break;
 			case SDLK_r:
+				lowerCaseKeyStates["r"] = false;
 				break;
 			case SDLK_s:
+				lowerCaseKeyStates["s"] = false;
 				break;
 			case SDLK_t:
+				lowerCaseKeyStates["t"] = false;
 				break;
 			case SDLK_u:
+				lowerCaseKeyStates["u"] = false;
 				break;
 			case SDLK_v:
+				lowerCaseKeyStates["v"] = false;
 				break;
 			case SDLK_w:
+				lowerCaseKeyStates["w"] = false;
 				break;
 			case SDLK_x:
+				lowerCaseKeyStates["x"] = false;
 				break;
 			case SDLK_y:
+				lowerCaseKeyStates["y"] = false;
 				break;
 			case SDLK_z:
+				lowerCaseKeyStates["z"] = false;
 				break;
+
 			// Upper Case Keys
 
 			// Special Keys
