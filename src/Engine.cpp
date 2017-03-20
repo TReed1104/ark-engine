@@ -6,6 +6,7 @@ Engine::Engine(char* gameName) {
 	currentFrameTime = 0.0f;
 }
 Engine::~Engine() {
+	delete gameKeyboard;
 	delete gameController;
 	delete player;
 
@@ -223,6 +224,10 @@ void Engine::InitialiseProgram(void) {
 	}
 }
 void Engine::CheckForInputDevices(void) {
+	// Initialise the keyboard instance
+	gameKeyboard = new Keyboard();
+
+	// Search for any Keyboards.
 	if (SDL_NumJoysticks() < 1) {
 		gameController = nullptr;
 		std::cout << "No Controllers are connected!" << std::endl;
