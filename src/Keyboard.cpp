@@ -218,6 +218,9 @@ bool Keyboard::GetKeyState(const NumberKeys& key) {
 			break;
 	}
 }
+bool Keyboard::GetKeyState(const SymbolKeys & key) {
+	return false;
+}
 void Keyboard::UpdateKetStates(const SDL_KeyboardEvent& keyboardEvent) {
 
 }
