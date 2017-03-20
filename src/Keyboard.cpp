@@ -396,6 +396,10 @@ void Keyboard::UpdateKeyStates_Up(const SDL_KeyboardEvent & keyboardEvent) {
 	}
 }
 void Keyboard::UpdateKeyStates_Down(const SDL_KeyboardEvent & keyboardEvent) {
+	bool ctrlModifier = specialKeyStates["Left Ctrl"] || specialKeyStates["Right Ctrl"];
+	bool shiftModifier = specialKeyStates["Left Shift"] || specialKeyStates["Right Shift"];
+	bool altModifier = specialKeyStates["Left alt"] || specialKeyStates["Right alt"];
+
 	if (!keyboardEvent.repeat) {
 		switch (keyboardEvent.keysym.sym) {
 			// Character Keys
