@@ -20,6 +20,7 @@
 // Engine Source
 #include "ShaderPointers.hpp"
 #include "Shader.h"
+#include "Keyboard.h"
 #include "GameController.h"
 #include "Camera.h"
 #include "GameObject.h"

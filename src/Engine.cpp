@@ -240,6 +240,7 @@ void Engine::InitialiseGameControllers(void) {
 }
 void Engine::SetEnginePointers(void) {
 	Model::Engine_Pointer = this;
+	Keyboard::Engine_Pointer = this;
 	GameController::Engine_Pointer = this;
 	GameObject::Engine_Pointer = this;
 	Tileset::Engine_Pointer = this;
