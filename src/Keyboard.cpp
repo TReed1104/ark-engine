@@ -235,6 +235,11 @@ bool Keyboard::GetKeyState(const SpecialKeys& key) {
 void Keyboard::UpdateKeyStates_Up(const SDL_KeyboardEvent & keyboardEvent) {
 	if (!keyboardEvent.repeat) {
 		switch (keyboardEvent.keysym.sym) {
+			// Lower case Keys
+
+			// Upper Case Keys
+
+			// Special Keys
 			case SDLK_ESCAPE:
 				specialKeyStates["Escape"] = false;
 				break;
@@ -250,6 +255,11 @@ void Keyboard::UpdateKeyStates_Up(const SDL_KeyboardEvent & keyboardEvent) {
 void Keyboard::UpdateKeyStates_Down(const SDL_KeyboardEvent & keyboardEvent) {
 	if (!keyboardEvent.repeat) {
 		switch (keyboardEvent.keysym.sym) {
+			// Lower Case Keys
+
+			// Upper Case Keys
+
+			// Special Keys
 			case SDLK_ESCAPE:
 				specialKeyStates["Escape"] = true;
 				break;
