@@ -232,10 +232,32 @@ bool Keyboard::GetKeyState(const SpecialKeys& key) {
 			return false;
 	}
 }
-
 void Keyboard::UpdateKeyStates_Up(const SDL_KeyboardEvent & keyboardEvent) {
+	if (!keyboardEvent.repeat) {
+		switch (keyboardEvent.keysym.sym) {
+			case SDLK_ESCAPE:
+				specialKeyStates["Escape"] = false;
+				break;
+			case SDLK_SPACE:
+				specialKeyStates["Space"] = false;
+				break;
+			default:
+				break;
+		}
+	}
 }
 
 void Keyboard::UpdateKeyStates_Down(const SDL_KeyboardEvent & keyboardEvent) {
+	if (!keyboardEvent.repeat) {
+		switch (keyboardEvent.keysym.sym) {
+			case SDLK_ESCAPE:
+				specialKeyStates["Escape"] = true;
+				break;
+			case SDLK_SPACE:
+				specialKeyStates["Space"] = true;
+				break;
+			default:
+				break;
+		}
+	}
 }
-
