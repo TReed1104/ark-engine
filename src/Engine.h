@@ -110,7 +110,6 @@ private:
 	void InitialiseEngine(void);
 	void CleanupSDL(void);
 	void EventHandler(void);
-	void Event_Window(const SDL_WindowEvent& windowEvent);
 	void Update(float deltaTime);
 	void Draw(void);
 	void Renderer(void);

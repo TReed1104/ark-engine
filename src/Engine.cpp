@@ -446,9 +446,6 @@ void Engine::EventHandler(void) {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
-			case SDL_WINDOWEVENT:
-				Event_Window(event.window);
-				break;
 			case SDL_QUIT:
 				isRunning = false;
 				break;
@@ -468,16 +465,6 @@ void Engine::EventHandler(void) {
 				deviceGameController->UpdateButtonStates();
 				break;
 		}
-	}
-}
-void Engine::Event_Window(const SDL_WindowEvent& windowEvent) {
-	switch (windowEvent.event) {
-		case SDL_WINDOWEVENT_RESIZED:
-			// Resize logic.
-			windowDimensions = glm::vec2(windowEvent.data1, windowEvent.data2);
-			break;
-		default:
-			break;
 	}
 }
 void Engine::Update(float deltaTime) {
