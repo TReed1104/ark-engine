@@ -22,10 +22,8 @@ public:
 	bool GetKeyState(const CapitalKeys& key);
 	bool GetKeyState(const NumberKeys& key);
 	bool GetKeyState(const SpecialKeys& key);
-	void UpdateKeyStates_Lower(const SDL_KeyboardEvent& keyboardEvent);
-	void UpdateKeyStates_Upper(const SDL_KeyboardEvent& keyboardEvent);
-	void UpdateKeyStates_Number(const SDL_KeyboardEvent& keyboardEvent);
-	void UpdateKeyStates_Special(const SDL_KeyboardEvent& keyboardEvent);
+	void UpdateKeyStates_Up(const SDL_KeyboardEvent& keyboardEvent);
+	void UpdateKeyStates_Down(const SDL_KeyboardEvent& keyboardEvent);
 
 private:
 	std::map<std::string, bool> capitalKeyStates;
