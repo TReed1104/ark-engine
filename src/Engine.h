@@ -86,29 +86,32 @@ private:
 	float oldFrameTime;
 	float currentFrameTime;
 
-
-	// Functions
+	// Engine config related functions
 	void LoadEngineConfig();
+	void SetEnginePointers(void);
+	// OpenGL and SDL related functions
 	void InitialiseSDL(void);
 	void CreateSDLWindow(void);
 	void CreateSDLContext(void);
+	void CheckForInputDevices(void);
 	void InitialiseGlew(void);
 	GLuint CreateGLProgram(const std::vector<Shader>& shaderList);
 	void InitialiseProgram(void);
-	void CheckForInputDevices(void);
-	void SetEnginePointers(void);
-	Model LoadModel(const std::string& modelPath);
+	void SetupEnvironment(void);
+	void CleanUp(void);
+	// Content loading related functions
 	void ImportTexture(const char* texturePath);
 	void LoadTextures(void);
+	Model LoadModel(const std::string& modelPath);
 	void LoadModels(void);
 	void LoadTilesets(void);
 	void LoadLevels(void);
 	void LoadItems(void);
 	void LoadPlayer(void);
 	void LoadEntities(void);
-	void LoadContent(void);
-	void InitialiseEngine(void);
-	void CleanupSDL(void);
+	void LoadCameras(void);
+	void Load(void);
+	// Game loop related functions
 	void EventHandler(void);
 	void Update(float deltaTime);
 	void Draw(void);

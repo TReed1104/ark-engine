@@ -37,7 +37,7 @@ void Model::Mesh::GenerateVertexBuffers() {
 		glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
-	std::cout << "Buffers OK! VBO GLuint: " << vertexBufferObject << ", IBO GLuint: " << indicesBufferObject << ", UBO GLuint: " << uvBufferObject << std::endl;
+	std::cout << ">> Buffers OK! VBO GLuint: " << vertexBufferObject << ", IBO GLuint: " << indicesBufferObject << ", UBO GLuint: " << uvBufferObject << std::endl;
 }
 void Model::Mesh::GenerateVertexArrayObject(const ShaderPointers &shaderPointers) {
 	// Generate and bind a Vertex Array Object.

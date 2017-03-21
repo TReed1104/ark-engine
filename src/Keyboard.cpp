@@ -199,7 +199,7 @@ bool Keyboard::GetKeyState(const UpperCaseKeys& key) {
 		case Keyboard::Z:
 			return upperCaseKeyStates["Z"];
 		default:
-			break;
+			return false;
 	}
 }
 bool Keyboard::GetKeyState(const NumberKeys& key) {
@@ -225,7 +225,7 @@ bool Keyboard::GetKeyState(const NumberKeys& key) {
 		case Keyboard::num9:
 			return numberKeyStates["9"];
 		default:
-			break;
+			return false;
 	}
 }
 bool Keyboard::GetKeyState(const SpecialKeys& key) {
