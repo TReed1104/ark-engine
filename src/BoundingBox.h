@@ -1,0 +1,4 @@
+#ifndef ARKENGINE_BOUNDINGBOX_H_
+#define ARKENGINE_BOUNDINGBOX_H_
+
+#endif
