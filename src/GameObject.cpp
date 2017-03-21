@@ -6,19 +6,21 @@ Engine* GameObject::Engine_Pointer;
 GameObject::GameObject(const Model& model, const Texture& texture, const glm::vec3& position, const glm::vec2& sourceFrameSize) {
 	this->model = model;
 	this->model.SetMeshParents();
+	this->texture = &texture;
+	this->sourceFrameSize = sourceFrameSize;
+	this->sourceFramePosition = glm::vec2(0, 0);
 	this->position = position;
 	this->drawPosition = position;
 	rotation = 0.0f;
 	scale = glm::vec3(1.0f);
-	velocity = glm::vec2(0.0f, 0.0f);
 	this->model.Translate(drawPosition);
 	this->model.Rotate();
 	this->model.Scale();
 
-	// Textures
-	this->texture = &texture;
-	this->sourceFrameSize = sourceFrameSize;
-	this->sourceFramePosition = glm::vec2(0, 0);
+
+	velocity = glm::vec2(0.0f, 0.0f);
+	movementSpeed = 0.0f;
+	boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y), Engine_Pointer->tileSize);
 }
 GameObject::~GameObject() {
 

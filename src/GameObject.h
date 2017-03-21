@@ -14,20 +14,27 @@
 #include <SDL_image.h>
 #include "Model.h"
 #include "Texture.hpp"
+#include "BoundingBox.h"
 
 class Engine;
 
 class GameObject {
 public:
 	static Engine* Engine_Pointer;
+
+	// Model and texture variables
 	Model model;
 	const Texture* texture;
 	glm::vec2 sourceFrameSize;
 	glm::vec2 sourceFramePosition;
-	glm::vec3 position;
-	glm::vec3 drawPosition;
+	// Transformations
+	glm::vec3 position;			// The world position of the object
+	glm::vec3 drawPosition;		// Position to draw to the screen, this takes into account the offset of the object to its texture
+	glm::vec3 drawOffset;
 	float rotation;
 	glm::vec3 scale;
+	// Physics
+	BoundingBox boundingBox;
 	glm::vec2 velocity;
 	float movementSpeed;
 
