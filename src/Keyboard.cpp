@@ -86,8 +86,9 @@ Keyboard::~Keyboard() {
 
 }
 
-bool Keyboard::GetKeyState(const LowerCaseKeys& key) {
+bool Keyboard::GetKeyState(const Keys& key) {
 	switch (key) {
+		// Lower Case Keys
 		case Keyboard::a:
 			return lowerCaseKeyStates["a"];
 		case Keyboard::b:
@@ -140,12 +141,8 @@ bool Keyboard::GetKeyState(const LowerCaseKeys& key) {
 			return lowerCaseKeyStates["y"];
 		case Keyboard::z:
 			return lowerCaseKeyStates["z"];
-		default:
-			return false;
-	}
-}
-bool Keyboard::GetKeyState(const UpperCaseKeys& key) {
-	switch (key) {
+			
+			// Upper Case Keys
 		case Keyboard::A:
 			return upperCaseKeyStates["A"];
 		case Keyboard::B:
@@ -198,12 +195,8 @@ bool Keyboard::GetKeyState(const UpperCaseKeys& key) {
 			return upperCaseKeyStates["Y"];
 		case Keyboard::Z:
 			return upperCaseKeyStates["Z"];
-		default:
-			return false;
-	}
-}
-bool Keyboard::GetKeyState(const NumberKeys& key) {
-	switch (key) {
+
+			// Number Keys
 		case Keyboard::num0:
 			return numberKeyStates["0"];
 		case Keyboard::num1:
@@ -224,12 +217,8 @@ bool Keyboard::GetKeyState(const NumberKeys& key) {
 			return numberKeyStates["8"];
 		case Keyboard::num9:
 			return numberKeyStates["9"];
-		default:
-			return false;
-	}
-}
-bool Keyboard::GetKeyState(const SpecialKeys& key) {
-	switch (key) {
+
+			// Special Keys
 		case Keyboard::Escape:
 			return specialKeyStates["Escape"];
 		case Keyboard::Space:
