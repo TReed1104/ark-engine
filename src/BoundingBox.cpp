@@ -20,3 +20,8 @@ BoundingBox::BoundingBox(glm::vec2 position, glm::vec2 dimensions) {
 BoundingBox::~BoundingBox() {
 
 }
+
+bool BoundingBox::Intersect(BoundingBox otherBB) {
+	bool isColliding = ((x < otherBB.x + otherBB.width) && (x + otherBB.width > otherBB.x) && (y < otherBB.y + otherBB.height) && (y + height > otherBB.y));
+	return isColliding;
+}

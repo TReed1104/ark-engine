@@ -18,6 +18,8 @@ public:
 	BoundingBox(glm::vec2 position = glm::vec2(0.0f, 0.0f), glm::vec2 dimensions = glm::vec2(0.0f, 0.0f));
 	~BoundingBox();
 
+	bool Intersect(BoundingBox otherBB);
+
 private:
 
 };
