@@ -18,73 +18,6 @@ void Player::HandleMovement(void) {
 }
 
 void Player::HandleInput_WithController(void) {
-	// Handle the Controller button inputs
-
-	// Main Buttons
-	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::A)) {
-
-	}
-	else {
-
-	}
-	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::B)) {
-
-	}
-	else {
-
-	}
-	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::X)) {
-
-	}
-	else {
-
-	}
-	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::Y)) {
-
-	}
-	else {
-
-	}
-
-	// D-Pad
-	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::DPadLeft)) {
-
-	}
-	else {
-
-	}
-	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::DPadRight)) {
-
-	}
-	else {
-
-	}
-	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::DPadUp)) {
-
-	}
-	else {
-
-	}
-	if (Engine_Pointer->deviceGameController->GetButtonState(GameController::DPadDown)) {
-
-	}
-	else {
-
-	}
-
-	// Triggers
-	if (Engine_Pointer->deviceGameController->GetTriggerState(GameController::TriggerLeft)) {
-
-	}
-	else {
-
-	}
-	if (Engine_Pointer->deviceGameController->GetTriggerState(GameController::TriggerRight)) {
-
-	}
-	else {
-
-	}
 
 	// Reset the movement direction
 	movementDirection = Player::NotSet;
@@ -132,25 +65,6 @@ void Player::HandleInput_WithController(void) {
 			movementDirection = Player::Down;
 			spriteDirection = Player::Down;
 		}
-	}
-
-	// Right Thumbstick
-	glm::vec2 rightThumbAxis = Engine_Pointer->deviceGameController->GetThumbStickState(GameController::ThumbStickRight);
-	if (rightThumbAxis.x < -Engine_Pointer->thumbStickDeadZone) {
-		// Right Thumb Left
-
-	}
-	else if (rightThumbAxis.x > Engine_Pointer->thumbStickDeadZone) {
-		// Right Thumb Right
-
-	}
-	if (rightThumbAxis.y < -Engine_Pointer->thumbStickDeadZone) {
-		// Right Thumb Up
-
-	}
-	else if (rightThumbAxis.y > Engine_Pointer->thumbStickDeadZone) {
-		// Right Thumb Down
-
 	}
 }
 
