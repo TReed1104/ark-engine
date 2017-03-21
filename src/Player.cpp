@@ -2,7 +2,10 @@
 #include "Engine.h"
 
 Player::Player(const Model& model, const Texture& texture, const glm::vec3& position, const glm::vec2& sourceFrameSize) : Entity(model, texture, position, sourceFrameSize) {
-
+	keybindMovementUp = Keyboard::w;
+	keybindMovementDown = Keyboard::s;
+	keybindMovementLeft = Keyboard::a;
+	keybindMovementRight = Keyboard::d;
 }
 Player::~Player() {
 
@@ -24,17 +27,17 @@ void Player::HandleInput_WithController(void) {
 	// Get the Thumbstick
 	glm::vec2 leftThumbAxis = Engine_Pointer->deviceGameController->GetThumbStickState(GameController::ThumbStickLeft);
 
-	if ((leftThumbAxis.x < -Engine_Pointer->thumbStickDeadZone) || Engine_Pointer->deviceKeyboard->GetKeyState(leftMovement)) {
+	if ((leftThumbAxis.x < -Engine_Pointer->thumbStickDeadZone) || Engine_Pointer->deviceKeyboard->GetKeyState(keybindMovementLeft)) {
 		// Left movement
 		movementDirection = Player::Left;
 		spriteDirection = Player::Left;
 	}
-	else if ((leftThumbAxis.x > Engine_Pointer->thumbStickDeadZone) || Engine_Pointer->deviceKeyboard->GetKeyState(rightMovement)) {
+	else if ((leftThumbAxis.x > Engine_Pointer->thumbStickDeadZone) || Engine_Pointer->deviceKeyboard->GetKeyState(keybindMovementRight)) {
 		// Right movement
 		movementDirection = Player::Right;
 		spriteDirection = Player::Right;
 	}
-	if ((leftThumbAxis.y < -Engine_Pointer->thumbStickDeadZone) || Engine_Pointer->deviceKeyboard->GetKeyState(upMovement)) {
+	if ((leftThumbAxis.y < -Engine_Pointer->thumbStickDeadZone) || Engine_Pointer->deviceKeyboard->GetKeyState(keybindMovementUp)) {
 		// Up movement
 		if (movementDirection == Player::Left) {
 			movementDirection = Player::UpLeft;
@@ -49,7 +52,7 @@ void Player::HandleInput_WithController(void) {
 			spriteDirection = Player::Up;
 		}
 	}
-	else if ((leftThumbAxis.y > Engine_Pointer->thumbStickDeadZone) || Engine_Pointer->deviceKeyboard->GetKeyState(downMovement)) {
+	else if ((leftThumbAxis.y > Engine_Pointer->thumbStickDeadZone) || Engine_Pointer->deviceKeyboard->GetKeyState(keybindMovementDown)) {
 		// Down movement
 		if (movementDirection == Player::Left) {
 			movementDirection = Player::DownLeft;
@@ -70,17 +73,17 @@ void Player::HandleInput_WithoutController(void) {
 	// Reset the movement direction
 	movementDirection = Player::NotSet;
 
-	if (Engine_Pointer->deviceKeyboard->GetKeyState(leftMovement)) {
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(keybindMovementLeft)) {
 		// Left movement
 		movementDirection = Player::Left;
 		spriteDirection = Player::Left;
 	}
-	else if (Engine_Pointer->deviceKeyboard->GetKeyState(rightMovement)) {
+	else if (Engine_Pointer->deviceKeyboard->GetKeyState(keybindMovementRight)) {
 		// Right movement
 		movementDirection = Player::Right;
 		spriteDirection = Player::Right;
 	}
-	if (Engine_Pointer->deviceKeyboard->GetKeyState(upMovement)) {
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(keybindMovementUp)) {
 		// Up movement
 		if (movementDirection == Player::Left) {
 			movementDirection = Player::UpLeft;
@@ -95,7 +98,7 @@ void Player::HandleInput_WithoutController(void) {
 			spriteDirection = Player::Up;
 		}
 	}
-	else if (Engine_Pointer->deviceKeyboard->GetKeyState(downMovement)) {
+	else if (Engine_Pointer->deviceKeyboard->GetKeyState(keybindMovementDown)) {
 		// Down movement
 		if (movementDirection == Player::Left) {
 			movementDirection = Player::DownLeft;
