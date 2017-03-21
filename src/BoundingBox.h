@@ -15,7 +15,7 @@ public:
 	float height;
 
 	BoundingBox(float x = 0.0f, float y = 0.0f, float width = 0.0f, float height = 0.0f);
-	BoundingBox(glm::vec2 position = glm::vec2(0.0f, 0.0f), glm::vec2 dimensions = glm::vec2(0.0f, 0.0f));
+	BoundingBox(glm::vec2 position, glm::vec2 dimensions);
 	~BoundingBox();
 
 	bool Intersect(BoundingBox otherBB);
