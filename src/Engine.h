@@ -22,6 +22,7 @@
 #include "Shader.h"
 #include "Keyboard.h"
 #include "GameController.h"
+#include "BoundingBox.h"
 #include "Camera.h"
 #include "GameObject.h"
 #include "Tileset.h"

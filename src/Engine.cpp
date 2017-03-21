@@ -52,6 +52,7 @@ void Engine::SetEnginePointers(void) {
 	Model::Engine_Pointer = this;
 	Keyboard::Engine_Pointer = this;
 	GameController::Engine_Pointer = this;
+	BoundingBox::Engine_Pointer = this;
 	GameObject::Engine_Pointer = this;
 	Tileset::Engine_Pointer = this;
 	Level::Engine_Pointer = this;
