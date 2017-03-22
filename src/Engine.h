@@ -67,6 +67,12 @@ public:
 	int indexCurrentLevel;
 	int indexOfDefaultTexture;
 
+	// Keybinding stores
+	Keyboard::Keys keybindMovementUp;
+	Keyboard::Keys keybindMovementDown;
+	Keyboard::Keys keybindMovementLeft;
+	Keyboard::Keys keybindMovementRight;
+
 	// Constructors
 	Engine(char* gameName);
 	~Engine(void);
@@ -89,6 +95,7 @@ private:
 
 	// Engine config related functions
 	void LoadEngineConfig();
+	void LoadKeyBindings();
 	void SetEnginePointers(void);
 	// OpenGL and SDL related functions
 	void InitialiseSDL(void);

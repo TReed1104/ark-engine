@@ -47,6 +47,20 @@ void Engine::LoadEngineConfig() {
 		exit(1);
 	}
 }
+void Engine::LoadKeyBindings() {
+	LuaScript keybindScript = LuaScript(contentDirectory + "config/key_bindings.lua");
+	if (keybindScript.isScriptLoaded) {
+		keybindMovementUp = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_up");
+		keybindMovementDown = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_down");
+		keybindMovementLeft = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_left");
+		keybindMovementRight = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_right");
+	}
+	else {
+		// Config failed to load.
+		SDL_Quit();
+		exit(1);
+	}
+}
 void Engine::SetEnginePointers(void) {
 	std::cout << ">> Setting static pointers - Begun" << std::endl;
 	Model::Engine_Pointer = this;
@@ -448,6 +462,7 @@ void Engine::LoadCameras(void) {
 void Engine::Load(void) {
 	std::cout << "Engine Loading - Begun" << std::endl;
 	LoadEngineConfig();			// Loads the main config file for the engine
+	LoadKeyBindings();			// Loads the Keybinding config file
 	SetEnginePointers();		// Sets the Engine_Pointer static of each of the Engines classes.
 	SetupEnvironment();			// Setup the Engine environment (E.g. OpenGL, SDL, etc.)
 
