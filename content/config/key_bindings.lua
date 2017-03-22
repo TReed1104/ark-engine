@@ -1,6 +1,6 @@
 keybindings = {
-	up = 32,
-	down = 28,
-	left = 10,
-	right = 13,
+	movement_up = 32,
+	movement_down = 28,
+	movement_left = 10,
+	movement_right = 13,
 }
