@@ -67,7 +67,12 @@ void Entity::HandleCollisions(float deltaTime) {
 
 		// Create a pointer to the current level
 		Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel];
-		
+		// Grab the bounding boxes of the locations of each of the four corners of the newBounding
+		BoundingBox topLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
+		BoundingBox topRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
+		BoundingBox bottomLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
+		BoundingBox bottomRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
+
 		velocity = newVelocity;
 
 	}
