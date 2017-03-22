@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <filesystem>
+#include "glm/glm.hpp"
 
 namespace FileSystem = std::experimental::filesystem;
 
