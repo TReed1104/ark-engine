@@ -59,5 +59,12 @@ public:
 	}
 };
 
+class EngineUtilities {
+public:
+	static glm::vec2 ConvertToGridPosition(const glm::vec2& tileSize, const glm::vec2& position) {
+		glm::vec2 gridPosition = glm::vec2((int)(position.x / tileSize.x), (int)(position.y / tileSize.y));
+		return gridPosition;
+	}
+};
 
 #endif
