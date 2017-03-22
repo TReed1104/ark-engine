@@ -1,7 +1,8 @@
 #include "Tile.h"
 
-Tile::Tile(const Model& model, const Texture& texture, const std::string& tileType, const glm::vec2& sourceFramePosition, const glm::vec3& position, const glm::vec2& sourceFrameSize) : GameObject(model, texture, position, sourceFrameSize) {
+Tile::Tile(const Model& model, const Texture& texture, const int& tileType, const glm::vec2& sourceFramePosition, const glm::vec3& position, const glm::vec2& sourceFrameSize) : GameObject(model, texture, position, sourceFrameSize) {
 	this->sourceFramePosition = sourceFramePosition;
+	this->type = (Type)tileType;
 }
 Tile::~Tile() {
 
