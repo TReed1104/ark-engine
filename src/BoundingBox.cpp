@@ -32,8 +32,37 @@ bool BoundingBox::Intersect(BoundingBox otherBB) {
 	bool isColliding = ((x < otherBB.x + otherBB.width) && (x + otherBB.width > otherBB.x) && (y < otherBB.y + otherBB.height) && (y + height > otherBB.y));
 	return isColliding;
 }
-
 void BoundingBox::UpdatePosition(glm::vec2 newPosition) {
 	this->x = newPosition.x;
 	this->y = newPosition.y;
+}
+glm::vec2 BoundingBox::GetPosition() {
+	return glm::vec2(x, y);
+}
+glm::vec2 BoundingBox::GetDimensions() {
+	return glm::vec2(width, height);
+}
+glm::vec2 BoundingBox::TopLeftPosition() {
+	return glm::vec2(x, y);
+}
+glm::vec2 BoundingBox::TopRightPosition() {
+	return (glm::vec2(x, y) + glm::vec2(width, 0));
+}
+glm::vec2 BoundingBox::BottomLeftPosition() {
+	return (glm::vec2(x, y) + glm::vec2(0, height));
+}
+glm::vec2 BoundingBox::BottomRightPosition() {
+	return (glm::vec2(x, y) + glm::vec2(width, height));
+}
+glm::vec2 BoundingBox::TopLeftGridPosition() {
+	return Engine_Pointer->ConvertToGridPosition(glm::vec2(x, y));
+}
+glm::vec2 BoundingBox::TopRightGridPosition() {
+	return Engine_Pointer->ConvertToGridPosition((glm::vec2(x, y) + glm::vec2(width, 0)));
+}
+glm::vec2 BoundingBox::BottomLeftGridPosition() {
+	return Engine_Pointer->ConvertToGridPosition((glm::vec2(x, y) + glm::vec2(0, height)));
+}
+glm::vec2 BoundingBox::BottomRightGridPosition() {
+	return Engine_Pointer->ConvertToGridPosition((glm::vec2(x, y) + glm::vec2(width, height)));
 }
