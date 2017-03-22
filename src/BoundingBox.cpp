@@ -25,3 +25,8 @@ bool BoundingBox::Intersect(BoundingBox otherBB) {
 	bool isColliding = ((x < otherBB.x + otherBB.width) && (x + otherBB.width > otherBB.x) && (y < otherBB.y + otherBB.height) && (y + height > otherBB.y));
 	return isColliding;
 }
+
+void BoundingBox::UpdatePosition(glm::vec2 newPosition) {
+	this->x = newPosition.x;
+	this->y = newPosition.y;
+}

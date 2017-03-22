@@ -19,6 +19,7 @@ public:
 	~BoundingBox();
 
 	bool Intersect(BoundingBox otherBB);
+	void UpdatePosition(glm::vec2 newPosition);
 
 private:
 
