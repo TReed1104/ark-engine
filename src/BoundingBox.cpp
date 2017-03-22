@@ -10,6 +10,13 @@ BoundingBox::BoundingBox(float x, float y, float width, float height) {
 	this->height = height;
 }
 
+BoundingBox::BoundingBox(glm::vec2 position) {
+	this->x = position.x;
+	this->y = position.y;
+	this->width = Engine_Pointer->tileSize.x;
+	this->height = Engine_Pointer->tileSize.y;
+}
+
 BoundingBox::BoundingBox(glm::vec2 position, glm::vec2 dimensions) {
 	this->x = position.x;
 	this->y = position.y;
