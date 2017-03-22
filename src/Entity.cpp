@@ -11,15 +11,17 @@ Entity::~Entity() {
 
 void Entity::Update(float deltaTime) {
 	HandleMovement();
-	HandleCollisions();
+	HandleCollisions(deltaTime);
 
-	drawPosition += glm::vec3(velocity * deltaTime, 0.0f);
+	position += glm::vec3(velocity, 0.0f);
+	boundingBox.UpdatePosition(glm::vec2(position.x, position.y));
+	drawPosition = (position + glm::vec3(drawOffset, 0.0f));
 
 	// Calls the base class update.
 	GameObject::Update(deltaTime);
 }
 
-void Entity::HandleCollisions(void) {
+void Entity::HandleCollisions(float deltaTime) {
 
 	glm::vec2 newVelocity = glm::vec2(0, 0);
 	switch (movementDirection) {
@@ -27,28 +29,28 @@ void Entity::HandleCollisions(void) {
 			newVelocity = glm::vec2(0, 0);
 			break;
 		case Entity::Up:
-			newVelocity = glm::vec2(0, -movementSpeed);
+			newVelocity = glm::vec2(0, -movementSpeed * deltaTime);
 			break;
 		case Entity::Down:
-			newVelocity = glm::vec2(0, movementSpeed);
+			newVelocity = glm::vec2(0, movementSpeed * deltaTime);
 			break;
 		case Entity::Left:
-			newVelocity = glm::vec2(-movementSpeed, 0);
+			newVelocity = glm::vec2(-movementSpeed * deltaTime, 0);
 			break;
 		case Entity::Right:
-			newVelocity = glm::vec2(movementSpeed, 0);
+			newVelocity = glm::vec2(movementSpeed * deltaTime, 0);
 			break;
 		case Entity::UpLeft:
-			newVelocity = glm::vec2(-movementSpeed, -movementSpeed);
+			newVelocity = glm::vec2(-movementSpeed * deltaTime, -movementSpeed * deltaTime);
 			break;
 		case Entity::UpRight:
-			newVelocity = glm::vec2(movementSpeed, -movementSpeed);
+			newVelocity = glm::vec2(movementSpeed * deltaTime, -movementSpeed * deltaTime);
 			break;
 		case Entity::DownLeft:
-			newVelocity = glm::vec2(-movementSpeed, movementSpeed);
+			newVelocity = glm::vec2(-movementSpeed * deltaTime, movementSpeed * deltaTime);
 			break;
 		case Entity::DownRight:
-			newVelocity = glm::vec2(movementSpeed, movementSpeed);
+			newVelocity = glm::vec2(movementSpeed * deltaTime, movementSpeed * deltaTime);
 			break;
 		default:
 			break;

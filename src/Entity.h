@@ -14,7 +14,7 @@ public:
 
 	void Update(float deltaTime);
 	virtual void HandleMovement(void) {}
-	void HandleCollisions(void);
+	void HandleCollisions(float deltaTime);
 
 private:
 
