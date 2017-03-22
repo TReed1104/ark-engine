@@ -34,7 +34,7 @@ Engine::~Engine() {
 
 // Engine config related functions
 void Engine::LoadEngineConfig() {
-	LuaScript configScript = LuaScript(contentDirectory + "engine_config.lua");
+	LuaScript configScript = LuaScript(contentDirectory + "config/engine_config.lua");
 	if (configScript.isScriptLoaded) {
 		tileSize = glm::vec2(configScript.Get<int>("config.tile_size.x"), configScript.Get<int>("config.tile_size.y"));
 		windowGridSize = glm::vec2(configScript.Get<int>("config.window_grid.x"), configScript.Get<int>("config.window_grid.y"));
