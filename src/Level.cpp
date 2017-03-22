@@ -14,7 +14,7 @@ Level::~Level() {
 	}
 }
 
-void Level::Update(float deltaTime) {
+void Level::Update(const float& deltaTime) {
 	for (int y = 0; y < tileGridSize.y; y++) {
 		for (int x = 0; x < tileGridSize.x; x++) {
 			int index = y * tileGridSize.x + x;

@@ -121,7 +121,7 @@ private:
 	void Load(void);
 	// Game loop related functions
 	void EventHandler(void);
-	void Update(float deltaTime);
+	void Update(const float& deltaTime);
 	void Draw(void);
 	void Renderer(void);
 };

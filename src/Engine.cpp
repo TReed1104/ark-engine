@@ -505,7 +505,7 @@ void Engine::EventHandler(void) {
 		}
 	}
 }
-void Engine::Update(float deltaTime) {
+void Engine::Update(const float& deltaTime) {
 	if (levelRegister[indexCurrentLevel] != nullptr) {
 		levelRegister[indexCurrentLevel]->Update(deltaTime);
 	}

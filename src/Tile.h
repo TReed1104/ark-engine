@@ -11,7 +11,7 @@ public:
 	Tile(const Model& model, const Texture& texture, const int& tileType, const glm::vec2& sourceFramePosition = glm::vec2(0.0f), const glm::vec3& position = glm::vec3(0.0f), const glm::vec2& sourceFrameSize = glm::vec2(16, 16));
 	~Tile();
 
-	void Update(float deltaTime);
+	void Update(const float& deltaTime);
 
 private:
 

@@ -10,7 +10,7 @@ Entity::~Entity() {
 
 }
 
-void Entity::Update(float deltaTime) {
+void Entity::Update(const float& deltaTime) {
 	HandleMovement();
 	HandleCollisions(deltaTime);
 

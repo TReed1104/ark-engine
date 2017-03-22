@@ -29,7 +29,7 @@ GameObject::~GameObject() {
 }
 
 // Game Run Time.
-void GameObject::Update(float deltaTime) {
+void GameObject::Update(const float& deltaTime) {
 	// Set the transforms for the overall model.
 	model.Translate(drawPosition);
 	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));

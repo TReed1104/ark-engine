@@ -20,7 +20,7 @@ public:
 	Level(const std::string& filePath);
 	~Level();
 
-	void Update(float deltaTime);
+	void Update(const float& deltaTime);
 	void Draw();
 	void IsTileSolid(const glm::vec2& position);
 
