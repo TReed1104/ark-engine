@@ -80,7 +80,9 @@ void Entity::HandleCollisions(float deltaTime) {
 		// See if any of the intersect checks were true.
 		bool isColliding = (isTopLeftIntersecting || isTopRightIntersecting || isBottomLeftIntersecting || isBottomRightIntersecting);
 
-		velocity = newVelocity;
+		if (!isColliding) {
+			velocity = newVelocity;
+		}
 
 	}
 
