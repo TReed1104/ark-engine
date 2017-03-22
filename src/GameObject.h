@@ -31,6 +31,7 @@ public:
 	glm::vec3 position;			// The world position of the object
 	glm::vec2 drawOffset;
 	glm::vec3 drawPosition;		// Position to draw to the screen, this takes into account the offset of the object to its texture
+	glm::vec2 gridPosition;
 	float rotation;
 	glm::vec3 scale;
 	// Physics

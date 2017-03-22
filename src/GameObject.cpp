@@ -10,6 +10,7 @@ GameObject::GameObject(const Model& model, const Texture& texture, const glm::ve
 	this->sourceFrameSize = sourceFrameSize;
 	this->sourceFramePosition = glm::vec2(0, 0);
 	this->position = position;
+	this->gridPosition = EngineUtilities::ConvertToGridPosition(Engine_Pointer->tileSize, glm::vec2(this->position.x, this->position.y));
 	this->drawOffset = glm::vec2(0.0f, 0.0f);
 	this->drawPosition = position;
 	rotation = 0.0f;
@@ -34,6 +35,7 @@ void GameObject::Update(float deltaTime) {
 	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 	model.Scale(scale);
 	velocity = glm::vec2(0, 0);
+	this->gridPosition = EngineUtilities::ConvertToGridPosition(Engine_Pointer->tileSize, glm::vec2(this->position.x, this->position.y));
 }
 void GameObject::Draw() {
 	glEnable(GL_BLEND);
