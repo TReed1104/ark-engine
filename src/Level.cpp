@@ -32,6 +32,10 @@ void Level::Draw() {
 }
 bool Level::IsTileSolid(const glm::vec2 & gridPosition) {
 	int index = gridPosition.y * tileGridSize.x + gridPosition.x;
+	if (gridPosition.x < 0) return true;
+	if (gridPosition.x >= tileGridSize.x) return true;
+	if (gridPosition.y < 0) return true;
+	if (gridPosition.y >= tileGridSize.y) return true;
 	return tileMap[index]->type == Tile::Type::Solid;
 }
 BoundingBox Level::GetTileBoundingBox(const glm::vec2 & gridPosition) {
@@ -45,6 +49,7 @@ void Level::Load(const std::string & filePath) {
 		// Grab the data from the script.
 		nameOfTilest = script->Get<std::string>("map.tileset_name");
 		tileGridSize = glm::vec2(script->Get<int>("map.tile_grid_size.x"), script->Get<int>("map.tile_grid_size.y"));
+		pixelGridSize = tileGridSize * Engine_Pointer->tileSize;
 		playerStartPosition = glm::vec2(script->Get<int>("map.player_start_grid_position.x"), script->Get<int>("map.player_start_grid_position.y"));
 		std::vector<int> rawMapData = script->GetVector<int>("map.map_data");
 
