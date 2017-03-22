@@ -60,5 +60,7 @@ void Entity::HandleCollisions(float deltaTime) {
 	glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
 	BoundingBox newBoundingBox = BoundingBox(newPosition);
 
+	bool isNewTileSolid = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->IsTileSolid(newGridPosition);
+
 	velocity = newVelocity;
 }
