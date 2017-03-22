@@ -72,6 +72,13 @@ void Entity::HandleCollisions(float deltaTime) {
 		BoundingBox topRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
 		BoundingBox bottomLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
 		BoundingBox bottomRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
+		// Check if the new bounding box is intersecting with the four bounding boxes
+		bool isTopLeftIntersecting = newBoundingBox.Intersect(topLeftOverlap);
+		bool isTopRightIntersecting = newBoundingBox.Intersect(topRightOverlap);
+		bool isBottomLeftIntersecting = newBoundingBox.Intersect(bottomLeftOverlap);
+		bool isBottomRightIntersecting = newBoundingBox.Intersect(bottomRightOverlap);
+		// See if any of the intersect checks were true.
+		bool isColliding = (isTopLeftIntersecting || isTopRightIntersecting || isBottomLeftIntersecting || isBottomRightIntersecting);
 
 		velocity = newVelocity;
 
