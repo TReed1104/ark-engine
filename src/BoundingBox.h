@@ -18,6 +18,7 @@ public:
 	void UpdatePosition(glm::vec2 newPosition);
 	
 	glm::vec2 GetPosition();
+	glm::vec2 GetGridPosition();
 	glm::vec2 GetDimensions();
 	glm::vec2 TopLeftPosition();
 	glm::vec2 TopRightPosition();

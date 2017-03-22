@@ -29,8 +29,12 @@ BoundingBox::~BoundingBox() {
 }
 
 bool BoundingBox::Intersect(BoundingBox otherBB) {
-	bool isColliding = ((x < otherBB.x + otherBB.width) && (x + otherBB.width > otherBB.x) && (y < otherBB.y + otherBB.height) && (y + height > otherBB.y));
-	return isColliding;
+	if (!Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->IsTileSolid(otherBB.GetGridPosition())) {
+		return false;
+	}
+	else {
+		return ((x < otherBB.x + otherBB.width) && (x + otherBB.width > otherBB.x) && (y < otherBB.y + otherBB.height) && (y + height > otherBB.y));
+	}
 }
 void BoundingBox::UpdatePosition(glm::vec2 newPosition) {
 	this->x = newPosition.x;
@@ -38,6 +42,9 @@ void BoundingBox::UpdatePosition(glm::vec2 newPosition) {
 }
 glm::vec2 BoundingBox::GetPosition() {
 	return glm::vec2(x, y);
+}
+glm::vec2 BoundingBox::GetGridPosition() {
+	return Engine_Pointer->ConvertToGridPosition(glm::vec2(x, y));
 }
 glm::vec2 BoundingBox::GetDimensions() {
 	return glm::vec2(width, height);
