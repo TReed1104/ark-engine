@@ -58,7 +58,15 @@ void Level::Load(const std::string & filePath) {
 		for (int y = 0; y < tileGridSize.y; y++) {
 			for (int x = 0; x < tileGridSize.x; x++) {
 				int index = y * tileGridSize.x + x;
-				tileMap.push_back(new Tile(Engine_Pointer->modelRegister[0], *Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].texture, "", (Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]]).sourceFramePosition, glm::vec3(x * Engine_Pointer->tileSize.x, y * Engine_Pointer->tileSize.y, -0.01f), (Engine_Pointer->tilesetRegister[indexOfTileset].tileList[3]).sourceFrameSize));
+
+				Model model = Engine_Pointer->modelRegister[0];
+				const Texture* texture = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].texture;
+				Tile::Type type = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].type;
+				glm::vec2 sourceFramePosition = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].sourceFramePosition;
+				glm::vec3 position = glm::vec3(x * Engine_Pointer->tileSize.x, y * Engine_Pointer->tileSize.y, -0.01f);
+				glm::vec2 sourceFrameSize = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].sourceFrameSize;
+
+				tileMap.push_back(new Tile(model, *texture, type, sourceFramePosition, position, sourceFrameSize));
 			}
 		}
 
