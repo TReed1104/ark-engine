@@ -558,3 +558,7 @@ void Engine::Run(void) {
 	CleanUp();					// Cleans up after SDL
 	SDL_Quit();						// Quits the program
 }
+// Engine Utilities
+glm::vec2 Engine::ConvertToGridPosition(const glm::vec2 & position) {
+	return glm::vec2((int)(position.x / this->tileSize.x), (int)(position.y / this->tileSize.y));
+}

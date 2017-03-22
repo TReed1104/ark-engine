@@ -79,6 +79,7 @@ public:
 
 	// Functions
 	void Run(void);
+	glm::vec2 ConvertToGridPosition(const glm::vec2& position);
 
 private:
 	// GL variables
