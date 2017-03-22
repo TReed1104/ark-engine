@@ -1,6 +1,9 @@
 #ifndef ARKENGINE_ENTITY_H_
 #define ARKENGINE_ENTITY_H_
 #include "GameObject.h"
+#include "Utilities.hpp"
+
+class Engine;
 
 class Entity : public GameObject
 {
