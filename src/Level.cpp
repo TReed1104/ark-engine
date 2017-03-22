@@ -32,6 +32,9 @@ void Level::Draw() {
 	}
 }
 
+void Level::IsTileSolid(const glm::vec2 & position) {
+}
+
 void Level::Load(const std::string & filePath) {
 	// Load the information from the script
 	script = new LuaScript(filePath);

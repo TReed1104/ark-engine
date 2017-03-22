@@ -22,6 +22,7 @@ public:
 
 	void Update(float deltaTime);
 	void Draw();
+	void IsTileSolid(const glm::vec2& position);
 
 private:
 	LuaScript* script;
