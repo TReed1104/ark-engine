@@ -6,6 +6,7 @@ Player::Player(const Model& model, const Texture& texture, const glm::vec3& posi
 	keybindMovementDown = Keyboard::s;
 	keybindMovementLeft = Keyboard::a;
 	keybindMovementRight = Keyboard::d;
+	//drawOffset = glm::vec2(-16, -16);
 }
 Player::~Player() {
 
@@ -19,7 +20,6 @@ void Player::HandleMovement(void) {
 		HandleInput_WithoutController();
 	}
 }
-
 void Player::HandleInput_WithController(void) {
 	// Reset the movement direction
 	movementDirection = Player::NotSet;
@@ -68,7 +68,6 @@ void Player::HandleInput_WithController(void) {
 		}
 	}
 }
-
 void Player::HandleInput_WithoutController(void) {
 	// Reset the movement direction
 	movementDirection = Player::NotSet;
