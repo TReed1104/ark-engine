@@ -22,7 +22,7 @@ GameObject::GameObject(const Model& model, const Texture& texture, const glm::ve
 
 	velocity = glm::vec2(0.0f, 0.0f);
 	movementSpeed = 0.0f;
-	boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y), Engine_Pointer->tileSize);
+	boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y));
 }
 GameObject::~GameObject() {
 
