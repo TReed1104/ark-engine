@@ -65,6 +65,9 @@ void Entity::HandleCollisions(float deltaTime) {
 	if ((newPosition.x >= 0) && (newBoundingBox.TopRightPosition().x < Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.x) &&
 		(newPosition.y >= 0) && (newBoundingBox.BottomRightPosition().y < Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.y)) {
 
+		// Create a pointer to the current level
+		Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel];
+		
 		velocity = newVelocity;
 
 	}
