@@ -23,7 +23,6 @@ void Entity::Update(const float& deltaTime) {
 }
 
 void Entity::HandleCollisions(float deltaTime) {
-
 	glm::vec2 newVelocity = glm::vec2(0, 0);
 	switch (movementDirection) {
 		case Entity::NotSet:
@@ -56,6 +55,10 @@ void Entity::HandleCollisions(float deltaTime) {
 		default:
 			break;
 	}
+
+	glm::vec2 newPosition = glm::vec2(position.x, position.y) + newVelocity;
+	glm::vec2 newGridPosition = EngineUtilities::ConvertToGridPosition(Engine_Pointer->tileSize, glm::vec2(position.x, position.y));
+	BoundingBox newBoundingBox = BoundingBox(newPosition);
 
 	velocity = newVelocity;
 }
