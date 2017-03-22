@@ -56,11 +56,17 @@ void Entity::HandleCollisions(float deltaTime) {
 			break;
 	}
 
+	// Calculate the new position and grid position
 	glm::vec2 newPosition = glm::vec2(position.x, position.y) + newVelocity;
 	glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
 	BoundingBox newBoundingBox = BoundingBox(newPosition);
 
-	bool isNewTileSolid = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->IsTileSolid(newGridPosition);
+	// Check it is within the world bounds.
+	if ((newPosition.x >= 0) && (newBoundingBox.TopRightPosition().x < Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.x) &&
+		(newPosition.y >= 0) && (newBoundingBox.BottomRightPosition().y < Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.y)) {
 
-	velocity = newVelocity;
+		velocity = newVelocity;
+
+	}
+
 }
