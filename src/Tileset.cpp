@@ -29,16 +29,16 @@ void Tileset::Load(const std::string & tilesetScript) {
 
 		// Load each of the Tiles from the current Tileset script.
 		for (int i = 0; i < numberOfTiles; i++) {
-			std::string tileType = tileConfigScript.Get<std::string>("tileset.tile_" + std::to_string(i) + ".type");
+			int tileType = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".type");
 			int sourceFrameX = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.x");
 			int sourceFrameY = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.y");
 			glm::vec2 sourceFramePosition = glm::vec2(sourceFrameX, sourceFrameY);
 
 			if (indexOfTileSetTexture != -1) {
-				tileList.push_back(Tile(Engine_Pointer->modelRegister[0], Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)0, sourceFramePosition));
+				tileList.push_back(Tile(Engine_Pointer->modelRegister[0], Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, sourceFramePosition));
 			}
 			else {
-				tileList.push_back(Tile(Engine_Pointer->modelRegister[0], Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture], (Tile::Type)0, sourceFramePosition));
+				tileList.push_back(Tile(Engine_Pointer->modelRegister[0], Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture], (Tile::Type)tileType, sourceFramePosition));
 			}
 		}
 	}
