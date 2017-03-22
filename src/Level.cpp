@@ -1,12 +1,12 @@
 #include "Level.h"
 #include "Engine.h"
+#include "BoundingBox.h"
 
 Engine* Level::Engine_Pointer;
 
 Level::Level(const std::string & filePath) {
 	Load(filePath);
 }
-
 Level::~Level() {
 	delete script;
 	for (int i = 0; i < tileMap.size(); i++) {
@@ -22,7 +22,6 @@ void Level::Update(const float& deltaTime) {
 		}
 	}
 }
-
 void Level::Draw() {
 	for (int y = 0; y < tileGridSize.y; y++) {
 		for (int x = 0; x < tileGridSize.x; x++) {
@@ -31,10 +30,14 @@ void Level::Draw() {
 		}
 	}
 }
-
-void Level::IsTileSolid(const glm::vec2 & position) {
+bool Level::IsTileSolid(const glm::vec2 & gridPosition) {
+	int index = gridPosition.y * tileGridSize.x + gridPosition.x;
+	return tileMap[index]->type == Tile::Type::Solid;
 }
-
+BoundingBox Level::GetTileBoundingBox(const glm::vec2 & gridPosition) {
+	int index = gridPosition.y * tileGridSize.x + gridPosition.x;
+	return tileMap[index]->boundingBox;
+}
 void Level::Load(const std::string & filePath) {
 	// Load the information from the script
 	script = new LuaScript(filePath);

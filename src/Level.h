@@ -6,6 +6,7 @@
 #include "Tile.h"
 
 class Engine;
+class BoundingBox;
 
 class Level
 {
@@ -22,7 +23,8 @@ public:
 
 	void Update(const float& deltaTime);
 	void Draw();
-	void IsTileSolid(const glm::vec2& position);
+	bool IsTileSolid(const glm::vec2& gridPosition);
+	BoundingBox GetTileBoundingBox(const glm::vec2& gridPosition);
 
 private:
 	LuaScript* script;
