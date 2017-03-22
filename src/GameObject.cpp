@@ -10,6 +10,7 @@ GameObject::GameObject(const Model& model, const Texture& texture, const glm::ve
 	this->sourceFrameSize = sourceFrameSize;
 	this->sourceFramePosition = glm::vec2(0, 0);
 	this->position = position;
+	this->drawOffset = glm::vec2(0.0f, 0.0f);
 	this->drawPosition = position;
 	rotation = 0.0f;
 	scale = glm::vec3(1.0f);
