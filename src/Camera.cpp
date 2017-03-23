@@ -25,6 +25,7 @@ void Camera::Update(const float& deltaTime, const GameObject& object) {
 	else if (controlMode == CameraMode::Manual) {
 		ManualControl();
 	}
+	ClampCameraToWorld();
 	viewMatrix = glm::lookAt(position, lookAt, upVector);	// Update the ViewMatrix.
 }
 void Camera::FollowObject(const GameObject& object) {
@@ -40,7 +41,7 @@ void Camera::FollowObject(const GameObject& object) {
 		position = glm::vec3(boundingBoxOfObject.GetPosition().x - viewPortOffset.x, boundingBoxOfObject.GetPosition().y - viewPortOffset.y, position.z);
 		lookAt = glm::vec3(position.x, position.y, lookAt.z);
 	}
-	ClampCameraToWorld();
+	
 }
 void Camera::ManualControl(void) {
 
@@ -50,5 +51,17 @@ void Camera::SetControlMode(const CameraMode& newMode) {
 }
 
 void Camera::ClampCameraToWorld(void) {
-
+	if (position.x < 0) { 
+		position.x = 0; 
+	}
+	if (position.y < 0) { 
+		position.y = 0; 
+	}
+	if (position.x > (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.x - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).x)) {
+		position.x = (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.x - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).x);
+	}
+	if (position.y >(Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.y - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).y)) {
+		position.y = (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.y - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).y);
+	}
+	lookAt = glm::vec3(position.x, position.y, lookAt.z);
 }
