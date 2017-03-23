@@ -33,5 +33,6 @@ public:
 	void FollowObject(const GameObject& object);
 	void ManualControl(void);
 	void SetControlMode(const CameraMode& newMode);
+	void ClampCameraToWorld(void);
 };
 #endif

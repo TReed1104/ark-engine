@@ -40,10 +40,15 @@ void Camera::FollowObject(const GameObject& object) {
 		position = glm::vec3(boundingBoxOfObject.GetPosition().x - viewPortOffset.x, boundingBoxOfObject.GetPosition().y - viewPortOffset.y, position.z);
 		lookAt = glm::vec3(position.x, position.y, lookAt.z);
 	}
+	ClampCameraToWorld();
 }
 void Camera::ManualControl(void) {
 
 }
 void Camera::SetControlMode(const CameraMode& newMode) {
+
+}
+
+void Camera::ClampCameraToWorld(void) {
 
 }
