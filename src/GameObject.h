@@ -35,6 +35,7 @@ public:
 	float rotation;
 	glm::vec3 scale;
 	// Physics
+	glm::vec2 boundingBoxOffset;
 	BoundingBox boundingBox;
 	glm::vec2 velocity;
 	glm::vec2 velocityForTileSnap;
