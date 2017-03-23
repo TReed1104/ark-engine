@@ -21,6 +21,7 @@ GameObject::GameObject(const Model& model, const Texture& texture, const glm::ve
 
 
 	velocity = glm::vec2(0.0f, 0.0f);
+	velocityForTileSnap = glm::vec2(0.0f, 0.0f);
 	movementSpeed = 0.0f;
 	boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y));
 }
@@ -35,6 +36,7 @@ void GameObject::Update(const float& deltaTime) {
 	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 	model.Scale(scale);
 	velocity = glm::vec2(0, 0);
+	velocityForTileSnap = glm::vec2(0.0f, 0.0f);
 	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
 }
 void GameObject::Draw() {

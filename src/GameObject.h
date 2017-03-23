@@ -37,6 +37,7 @@ public:
 	// Physics
 	BoundingBox boundingBox;
 	glm::vec2 velocity;
+	glm::vec2 velocityForTileSnap;
 	float movementSpeed;
 
 	GameObject(const Model& model, const Texture& texture = Texture("Empty"), const glm::vec3& position = glm::vec3(0.0f), const glm::vec2& sourceFrameSize = glm::vec2(16, 16));
