@@ -13,9 +13,10 @@ class GameObject;
 class Camera
 {
 public:
+	static Engine* Engine_Pointer;
+
 	// Public Member Variables.
-	enum CameraMode {FreeFollow, LockedFollow, Manual,};
-	Engine* engine;
+	enum CameraMode { Follow, Manual, };
 	CameraMode controlMode;
 	glm::vec3 position;
 	glm::vec3 lookAt;
@@ -24,8 +25,7 @@ public:
 	glm::mat4 projectionMatrix;
 
 	// Constructors and Deconstructors
-	Camera() {}
-	Camera(Engine &engine, const glm::vec3& cameraPosition = glm::vec3(0.0f), const glm::vec3& cameraLookAt = glm::vec3(0.0f), const glm::vec3& upVector = glm::vec3(0.0f, 1.0f, 0.0f), const glm::mat4& projectionMatrix = glm::mat4());
+	Camera(const glm::vec3& cameraPosition = glm::vec3(0.0f), const glm::vec3& cameraLookAt = glm::vec3(0.0f), const glm::vec3& upVector = glm::vec3(0.0f, 1.0f, 0.0f), const glm::mat4& projectionMatrix = glm::mat4(), const CameraMode& cameraMode = CameraMode::Follow);
 	~Camera();
 
 	// Public Member Function Declarations
