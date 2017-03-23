@@ -47,7 +47,7 @@ void Camera::ManualControl(void) {
 
 }
 void Camera::SetControlMode(const CameraMode& newMode) {
-
+	this->controlMode = newMode;
 }
 
 void Camera::ClampCameraToWorld(void) {
