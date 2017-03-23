@@ -126,6 +126,123 @@ void Entity::HandleCollisions(float deltaTime) {
 						else { deltaX = -offsetBottomRight - 0.001f; }
 						break;
 					}
+					case Entity::UpLeft:
+					{
+						bool isCollidingLeft = isTopLeftIntersecting && isBottomLeftIntersecting;
+						bool isCollidingUp = isTopLeftIntersecting && isTopRightIntersecting;
+
+						if (isCollidingLeft) {
+							// Calculate the Left snap
+							float offsetTopLeft = position.x - (topLeftOverlap.GetPosition().x + topLeftOverlap.GetDimensions().x);
+							float offsetBottomLeft = position.x - (bottomLeftOverlap.GetPosition().x + bottomLeftOverlap.GetDimensions().x);
+							if (offsetTopLeft < offsetBottomLeft) { deltaX = -offsetTopLeft; }
+							else { deltaX = -offsetBottomLeft; }
+						}
+						else {
+							movementDirection = Entity::Left;
+							HandleCollisions(deltaTime);
+						}
+						if (isCollidingUp) {
+							// Calculate the Up Snap
+							float offsetTopLeft = position.y - (topLeftOverlap.GetPosition().y + topLeftOverlap.GetDimensions().y);
+							float offsetTopRight = position.y - (topRightOverlap.GetPosition().y + bottomLeftOverlap.GetDimensions().y);
+							if (offsetTopLeft < offsetTopRight) { deltaY = -offsetTopLeft; }
+							else { deltaY = -offsetTopRight; }
+						}
+						else {
+							movementDirection = Entity::Up;
+							HandleCollisions(deltaTime);
+						}
+						break;
+					}
+					case Entity::UpRight:
+					{
+						bool isCollidingRight = isTopRightIntersecting && isBottomRightIntersecting;
+						bool isCollidingUp = isTopLeftIntersecting && isTopRightIntersecting;
+
+						if (isCollidingRight) {
+							// Calculate the Right snap
+							float offsetTopRight = (position.x + boundingBox.GetDimensions().x) - topRightOverlap.GetPosition().x;
+							float offsetBottomRight = (position.x + boundingBox.GetDimensions().x) - bottomRightOverlap.GetPosition().x;
+							if (offsetTopRight > offsetBottomRight) { deltaX = -offsetTopRight - 0.001f; }
+							else { deltaX = -offsetBottomRight - 0.001f; }
+						}
+						else {
+							movementDirection = Entity::Right;
+							HandleCollisions(deltaTime);
+						}
+						if (isCollidingUp) {
+							// Calculate the Up Snap
+							float offsetTopLeft = position.y - (topLeftOverlap.GetPosition().y + topLeftOverlap.GetDimensions().y);
+							float offsetTopRight = position.y - (topRightOverlap.GetPosition().y + bottomLeftOverlap.GetDimensions().y);
+							if (offsetTopLeft < offsetTopRight) { deltaY = -offsetTopLeft; }
+							else { deltaY = -offsetTopRight; }
+						}
+						else {
+							movementDirection = Entity::Up;
+							HandleCollisions(deltaTime);
+						}
+
+						break;
+					}
+					case Entity::DownLeft:
+					{
+						bool isCollidingLeft = isTopLeftIntersecting && isBottomLeftIntersecting;
+						bool isCollidingDown = isBottomLeftIntersecting && isBottomRightIntersecting;
+
+						if (isCollidingLeft) {
+							// Calculate the Left snap
+							float offsetTopLeft = position.x - (topLeftOverlap.GetPosition().x + topLeftOverlap.GetDimensions().x);
+							float offsetBottomLeft = position.x - (bottomLeftOverlap.GetPosition().x + bottomLeftOverlap.GetDimensions().x);
+							if (offsetTopLeft < offsetBottomLeft) { deltaX = -offsetTopLeft; }
+							else { deltaX = -offsetBottomLeft; }
+						}
+						else {
+							movementDirection = Entity::Left;
+							HandleCollisions(deltaTime);
+						}
+						if (isCollidingDown) {
+							// Calculate the Down snap
+							float offsetBottomLeft = (position.y + boundingBox.GetDimensions().y) - bottomLeftOverlap.GetPosition().y;
+							float offsetBottomRight = (position.y + boundingBox.GetDimensions().y) - bottomRightOverlap.GetPosition().y;
+							if (offsetBottomLeft > offsetBottomRight) { deltaY = -offsetBottomLeft - 0.001f; }
+							else { deltaY = -offsetBottomRight - 0.001f; }
+						}
+						else {
+							movementDirection = Entity::Down;
+							HandleCollisions(deltaTime);
+						}
+						break;
+					}
+					case Entity::DownRight:
+					{
+						bool isCollidingRight = isTopRightIntersecting && isBottomRightIntersecting;
+						bool isCollidingDown = isBottomLeftIntersecting && isBottomRightIntersecting;
+
+						if (isCollidingRight) {
+							// Calculate the Right snap
+							float offsetTopRight = (position.x + boundingBox.GetDimensions().x) - topRightOverlap.GetPosition().x;
+							float offsetBottomRight = (position.x + boundingBox.GetDimensions().x) - bottomRightOverlap.GetPosition().x;
+							if (offsetTopRight > offsetBottomRight) { deltaX = -offsetTopRight - 0.001f; }
+							else { deltaX = -offsetBottomRight - 0.001f; }
+						}
+						else {
+							movementDirection = Entity::Right;
+							HandleCollisions(deltaTime);
+						}
+						if (isCollidingDown) {
+							// Calculate the Down snap
+							float offsetBottomLeft = (position.y + boundingBox.GetDimensions().y) - bottomLeftOverlap.GetPosition().y;
+							float offsetBottomRight = (position.y + boundingBox.GetDimensions().y) - bottomRightOverlap.GetPosition().y;
+							if (offsetBottomLeft > offsetBottomRight) { deltaY = -offsetBottomLeft - 0.001f; }
+							else { deltaY = -offsetBottomRight - 0.001f; }
+						}
+						else {
+							movementDirection = Entity::Down;
+							HandleCollisions(deltaTime);
+						}
+						break;
+					}
 					default:
 					{
 						break;
