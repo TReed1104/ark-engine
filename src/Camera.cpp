@@ -29,7 +29,15 @@ void Camera::Update(const float& deltaTime, const GameObject& object) {
 }
 void Camera::FollowObject(const GameObject& object) {
 	if (Engine_Pointer->player != nullptr) {
-		position = glm::vec3(object.position.x, object.position.y, position.z);
+
+		glm::vec2 viewPort = Engine_Pointer->windowGridSize * Engine_Pointer->tileSize;
+		glm::vec2 viewPortOffset = viewPort / 2.0f;
+		BoundingBox boundingBoxOfObject = object.boundingBox;
+		glm::vec2 boundingBoxOffset = (boundingBoxOfObject.GetDimensions() / 2.0f) + object.boundingBoxOffset;
+		viewPortOffset -= boundingBoxOffset;
+
+
+		position = glm::vec3(object.position.x - viewPortOffset.x, object.position.y - viewPortOffset.y, position.z);
 		lookAt = glm::vec3(position.x, position.y, lookAt.z);
 	}
 }
