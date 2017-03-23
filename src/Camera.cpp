@@ -28,16 +28,16 @@ void Camera::Update(const float& deltaTime, const GameObject& object) {
 	viewMatrix = glm::lookAt(position, lookAt, upVector);	// Update the ViewMatrix.
 }
 void Camera::FollowObject(const GameObject& object) {
-	if (Engine_Pointer->player != nullptr) {
+	if (&object != nullptr) {
 
 		glm::vec2 viewPort = Engine_Pointer->windowGridSize * Engine_Pointer->tileSize;
 		glm::vec2 viewPortOffset = viewPort / 2.0f;
 		BoundingBox boundingBoxOfObject = object.boundingBox;
-		glm::vec2 boundingBoxOffset = (boundingBoxOfObject.GetDimensions() / 2.0f) + object.boundingBoxOffset;
-		viewPortOffset -= boundingBoxOffset;
+		glm::vec2 objectCenterOffset = (boundingBoxOfObject.GetDimensions() / 2.0f);
+		viewPortOffset -= objectCenterOffset;
 
 
-		position = glm::vec3(object.position.x - viewPortOffset.x, object.position.y - viewPortOffset.y, position.z);
+		position = glm::vec3(boundingBoxOfObject.GetPosition().x - viewPortOffset.x, boundingBoxOfObject.GetPosition().y - viewPortOffset.y, position.z);
 		lookAt = glm::vec3(position.x, position.y, lookAt.z);
 	}
 }
