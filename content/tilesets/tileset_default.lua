@@ -30,7 +30,7 @@ tileset = {
 	tile_20 = { type = 1, source_frame_position = { x = 0, y = 2, }, },
 	tile_21 = { type = 1, source_frame_position = { x = 1, y = 2, }, },
 	tile_22 = { type = 1, source_frame_position = { x = 2, y = 2, }, },
-	tile_23 = { type = 1, source_frame_position = { x = 3, y = 2, }, },
+	tile_23 = { type = 0, source_frame_position = { x = 3, y = 2, }, },
 	tile_24 = { type = 1, source_frame_position = { x = 4, y = 2, }, },
 	tile_25 = { type = 1, source_frame_position = { x = 5, y = 2, }, },
 	tile_26 = { type = 1, source_frame_position = { x = 6, y = 2, }, },
