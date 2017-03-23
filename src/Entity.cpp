@@ -182,7 +182,6 @@ void Entity::HandleCollisions(float deltaTime) {
 							movementDirection = Entity::Up;
 							HandleCollisions(deltaTime);
 						}
-
 						break;
 					}
 					case Entity::DownLeft:
