@@ -526,7 +526,7 @@ void Engine::Draw(void) {
 void Engine::Renderer(void) {
 	// Pre-render
 	glViewport(0, 0, windowDimensions.x, windowDimensions.y);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(100 / 255.0f, 149 / 255.0f, 237 / 255.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Main Render
