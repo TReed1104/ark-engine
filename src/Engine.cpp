@@ -6,16 +6,17 @@ Engine::Engine(char* gameName) {
 	currentFrameTime = 0.0f;
 
 	contentDirectory = "content/";
-	thumbStickDeadZone = 8000;
-	triggerDeadZone = 8000;
-	pressedStateFlag = 1;
 	indexCurrentLevel = -1;
 	indexOfDefaultTexture = -1;
 }
 Engine::~Engine() {
 	delete deviceKeyboard;
-	delete deviceGameController;
 	delete player;
+
+	// Clear all the controllers.
+	for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+		delete deviceGameControllerRegister[i];
+	}
 
 	// Delete all the entries in the registers.
 	for (int i = 0; i < itemRegister.size(); i++) {
@@ -40,6 +41,12 @@ void Engine::LoadEngineConfig() {
 		windowGridSize = glm::vec2(configScript.Get<int>("config.window_grid.x"), configScript.Get<int>("config.window_grid.y"));
 		windowScaler = glm::vec2(configScript.Get<int>("config.window_scale.x"), configScript.Get<int>("config.window_scale.y"));
 		windowDimensions = (tileSize * windowGridSize) * windowScaler;
+
+		maxNumberOfControllers = configScript.Get<int>("config.game_controller.max_number_of_controllers");
+		indexOfPlayerController = configScript.Get<int>("config.game_controller.index_of_player_controller");
+		thumbStickDeadZone = configScript.Get<int>("config.game_controller.thumb_stick_dead_zone");
+		triggerDeadZone = configScript.Get<int>("config.game_controller.trigger_dead_zone");
+		pressedStateFlag = configScript.Get<int>("config.game_controller.press_state_flag");
 	}
 	else {
 		// Config failed to load.
@@ -130,19 +137,24 @@ void Engine::CheckForInputDevices(void) {
 	deviceKeyboard = new Keyboard();
 
 	// Search for any Keyboards.
-	if (SDL_NumJoysticks() < 1) {
-		deviceGameController = nullptr;
+	int numberOfConnectedControllers = SDL_NumJoysticks();
+	if (numberOfConnectedControllers < 1) {
+		//deviceGameController = nullptr;
 		std::cout << ">> No Controllers were found..." << std::endl;
 	}
 	else {
-		// Active the first game controller.
-		deviceGameController = new GameController(SDL_GameControllerOpen(0));
-		if (deviceGameController->GetSDLHook() != NULL) {
-			std::cout << ">> Game controller found: Controller 0 has been opened for input" << std::endl;
+		for (int i = 0; i < numberOfConnectedControllers; i++) {
+			if (i < maxNumberOfControllers) {
+				deviceGameControllerRegister.push_back(new GameController(SDL_GameControllerOpen(i)));
+				if (deviceGameControllerRegister[i]->GetSDLHook() != NULL) {
+					std::cout << ">> Game controller found: Controller 0 has been opened for input" << std::endl;
+				}
+				else {
+					std::cout << ">> ERROR: Unable to Open game controller for use! SDL Error: " << SDL_GetError() << std::endl;
+				}
+			}
 		}
-		else {
-			std::cout << ">> ERROR: Unable to Open game controller for use! SDL Error: " << SDL_GetError() << std::endl;
-		}
+		
 	}
 	std::cout << ">> Checking for Input Devices - Complete" << std::endl;
 }
@@ -278,7 +290,9 @@ void Engine::SetupEnvironment(void) {
 void Engine::CleanUp(void) {
 	std::cout << "Cleanup - Begun" << std::endl;
 	if (SDL_NumJoysticks() > 0)	{
-		SDL_GameControllerClose(deviceGameController->GetSDLHook());	// Close the controller.
+		for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+			SDL_GameControllerClose(deviceGameControllerRegister[i]->GetSDLHook());	// Close the controller.
+		}
 	}
 	SDL_GL_DeleteContext(glContext);
 	SDL_DestroyWindow(sdlWindow);
@@ -494,13 +508,19 @@ void Engine::EventHandler(void) {
 				deviceKeyboard->UpdateKeyStates_Up(event.key);
 				break;
 			case SDL_CONTROLLERAXISMOTION:
-				deviceGameController->UpdateThumbSticks();
+				for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+					deviceGameControllerRegister[i]->UpdateThumbSticks();
+				}
 				break;
 			case SDL_CONTROLLERBUTTONDOWN:
-				deviceGameController->UpdateButtonStates();
+				for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+					deviceGameControllerRegister[i]->UpdateButtonStates();
+				}
 				break;
 			case SDL_CONTROLLERBUTTONUP:
-				deviceGameController->UpdateButtonStates();
+				for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+					deviceGameControllerRegister[i]->UpdateButtonStates();
+				}
 				break;
 		}
 	}

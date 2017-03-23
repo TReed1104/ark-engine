@@ -39,6 +39,7 @@ public:
 	glm::vec2 tileSize;
 	glm::vec2 windowGridSize;
 	glm::vec2 windowScaler;
+	int maxNumberOfControllers;
 	int thumbStickDeadZone;
 	int triggerDeadZone;
 	int pressedStateFlag;
@@ -46,7 +47,7 @@ public:
 
 	// Input Interfaces
 	Keyboard* deviceKeyboard;
-	GameController* deviceGameController;
+	std::vector<GameController*> deviceGameControllerRegister;
 
 	// Shader Locations
 	ShaderPointers shaderPointers;
@@ -64,6 +65,7 @@ public:
 	Player* player;
 
 	// Indexers
+	int indexOfPlayerController;
 	int indexCurrentLevel;
 	int indexOfDefaultTexture;
 

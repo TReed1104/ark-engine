@@ -14,4 +14,13 @@ config = {
 	models_directory = "models",
 	textures_directory = "textures",
 	scripts_directory = "scripts",
+	
+	-- Controller Setup
+	game_controller = {
+		max_number_of_controllers = 4,
+		index_of_player_controller = 0,
+		thumb_stick_dead_zone = 8000,
+		trigger_dead_zone = 8000,
+		press_state_flag = 1,
+	},
 }
