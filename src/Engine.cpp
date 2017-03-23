@@ -73,6 +73,7 @@ void Engine::SetEnginePointers(void) {
 	Model::Engine_Pointer = this;
 	Keyboard::Engine_Pointer = this;
 	GameController::Engine_Pointer = this;
+	Camera::Engine_Pointer = this;
 	BoundingBox::Engine_Pointer = this;
 	GameObject::Engine_Pointer = this;
 	Tileset::Engine_Pointer = this;
@@ -470,7 +471,7 @@ void Engine::LoadEntities(void) {
 }
 void Engine::LoadCameras(void) {
 	std::cout << ">> Loading Camera - Begun" << std::endl;
-	camera = Camera(*this, glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::ortho(0.0f, windowDimensions.x, windowDimensions.y, 0.0f));
+	camera = Camera(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::ortho(0.0f, windowDimensions.x, windowDimensions.y, 0.0f));
 	std::cout << ">> Loading Camera - Complete" << std::endl;
 }
 void Engine::Load(void) {
@@ -531,6 +532,7 @@ void Engine::Update(const float& deltaTime) {
 	}
 	if (player != nullptr) {
 		player->Update(deltaTime);
+		camera.Update(deltaTime, *player);
 	}
 }
 void Engine::Draw(void) {
