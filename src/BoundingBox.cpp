@@ -4,22 +4,22 @@
 Engine* BoundingBox::Engine_Pointer;
 
 BoundingBox::BoundingBox(float x, float y, float width, float height) {
-	this->x = x;
-	this->y = y;
+	this->x = roundf(x);
+	this->y = roundf(y);
 	this->width = width;
 	this->height = height;
 }
 
 BoundingBox::BoundingBox(glm::vec2 position) {
-	this->x = position.x;
-	this->y = position.y;
+	this->x = roundf(position.x);
+	this->y = roundf(position.y);
 	this->width = Engine_Pointer->tileSize.x;
 	this->height = Engine_Pointer->tileSize.y;
 }
 
 BoundingBox::BoundingBox(glm::vec2 position, glm::vec2 dimensions) {
-	this->x = position.x;
-	this->y = position.y;
+	this->x = roundf(position.x);
+	this->y = roundf(position.y);
 	this->width = dimensions.x;
 	this->height = dimensions.y;
 }
@@ -33,12 +33,12 @@ bool BoundingBox::Intersect(BoundingBox otherBB) {
 		return false;
 	}
 	else {
-		return ((x < otherBB.x + otherBB.width) && (x + otherBB.width > otherBB.x) && (y < otherBB.y + otherBB.height) && (y + height > otherBB.y));
+		return ((x < otherBB.x + otherBB.width) && (x + width > otherBB.x) && (y < otherBB.y + otherBB.height) && (y + height > otherBB.y));
 	}
 }
 void BoundingBox::UpdatePosition(glm::vec2 newPosition) {
-	this->x = newPosition.x;
-	this->y = newPosition.y;
+	this->x = roundf(newPosition.x);
+	this->y = roundf(newPosition.y);
 }
 glm::vec2 BoundingBox::GetPosition() {
 	return glm::vec2(x, y);
