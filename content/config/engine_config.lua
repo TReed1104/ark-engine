@@ -3,7 +3,7 @@ config = {
 	tile_size = { x = 16, y = 16, },
 
 	-- Window Size in Tiles
-	window_grid = { x = 16, y = 14, },
+	window_grid = { x = 20, y = 15, },
 
 	-- Window Scaler
 	window_scale = { x = 1.0, y = 1.0, },
