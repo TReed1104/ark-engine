@@ -44,7 +44,6 @@ public:
 	int triggerDeadZone;
 	int pressedStateFlag;
 
-
 	// Input Interfaces
 	Keyboard* deviceKeyboard;
 	std::vector<GameController*> deviceGameControllerRegister;
@@ -67,6 +66,12 @@ public:
 	// Indexers
 	int indexOfPlayerController;
 	int indexCurrentLevel;
+
+	std::string nameOfTileModel;
+	std::string nameOfSpriteModel;
+	std::string nameOfDefaultTexture;
+	int indexOfTileModel;
+	int indexOfSpriteModel;
 	int indexOfDefaultTexture;
 
 	// Keybinding stores

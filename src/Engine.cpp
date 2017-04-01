@@ -7,7 +7,13 @@ Engine::Engine(char* gameName) {
 
 	contentDirectory = "content/";
 	indexCurrentLevel = -1;
+
+	nameOfTileModel = "";
+	nameOfSpriteModel = "";
+	nameOfDefaultTexture = "";
+	indexOfTileModel = -1;
 	indexOfDefaultTexture = -1;
+	indexOfSpriteModel = -1;
 }
 Engine::~Engine() {
 	delete deviceKeyboard;
@@ -38,11 +44,18 @@ void Engine::LoadEngineConfig() {
 	// Loads the main config file for the engine
 	LuaScript configScript = LuaScript(contentDirectory + "config/engine_config.lua");
 	if (configScript.isScriptLoaded) {
+		// Core setup
 		tileSize = glm::vec2(configScript.Get<int>("config.tile_size.x"), configScript.Get<int>("config.tile_size.y"));
 		windowGridSize = glm::vec2(configScript.Get<int>("config.window_grid.x"), configScript.Get<int>("config.window_grid.y"));
 		windowScaler = glm::vec2(configScript.Get<int>("config.window_scale.x"), configScript.Get<int>("config.window_scale.y"));
 		windowDimensions = (tileSize * windowGridSize) * windowScaler;
 
+		// Default content setup
+		nameOfTileModel = configScript.Get<std::string>("config.default_content.tile");
+		nameOfSpriteModel = configScript.Get<std::string>("config.default_content.sprite");
+		nameOfDefaultTexture = configScript.Get<std::string>("config.default_content.texture");
+
+		// Controller setup
 		maxNumberOfControllers = configScript.Get<int>("config.game_controller.max_number_of_controllers");
 		indexOfPlayerController = configScript.Get<int>("config.game_controller.index_of_player_controller");
 		thumbStickDeadZone = configScript.Get<int>("config.game_controller.thumb_stick_dead_zone");
@@ -349,10 +362,15 @@ void Engine::LoadTextures(void) {
 
 	// Find the default texture for when textures are failed to be found.
 	for (size_t i = 0; i < textureRegister.size(); i++) {
-		if (textureRegister[i].name.find("default.png") != std::string::npos) {
+		if (textureRegister[i].name.find(nameOfDefaultTexture) != std::string::npos) {
 			indexOfDefaultTexture = i;
 		}
 	}
+	if (indexOfDefaultTexture == -1) {
+		SDL_Quit();
+		exit(1);
+	}
+
 	std::cout << ">> Loading Textures - Complete" << std::endl;
 }
 Model Engine::LoadModel(const std::string& modelPath) {
@@ -410,6 +428,25 @@ void Engine::LoadModels(void) {
 	for (int i = 0; i < modelRegister.size(); i++) {
 		modelRegister[i].SetVertexObjects();
 	}
+	
+	// Find the default model
+	for (int i = 0; i < modelRegister.size(); i++) {
+		if (modelRegister[i].name.find(nameOfTileModel) != std::string::npos) {
+			indexOfTileModel = i;
+		}
+
+		if (modelRegister[i].name.find(nameOfSpriteModel) != std::string::npos) {
+			indexOfSpriteModel = i;
+		}
+	}
+	if (indexOfTileModel == -1) {
+		SDL_Quit();
+		exit(1);
+	}
+	if (indexOfSpriteModel == -1) {
+		indexOfSpriteModel = indexOfTileModel;
+	}
+
 	std::cout << ">> Loading Models - Complete" << std::endl;
 }
 void Engine::LoadTilesets(void) {
@@ -467,8 +504,8 @@ void Engine::Load(void) {
 	LoadGraphicsEnvironment();
 
 	// Load Game Content
-	LoadTextures();
 	LoadModels();
+	LoadTextures();
 	LoadTilesets();
 	LoadLevels();
 	LoadItems();
