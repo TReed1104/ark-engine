@@ -269,7 +269,7 @@ void Engine::InitialiseProgram(void) {
 		glDeleteShader(shaderList[i].shaderID);
 	}
 }
-void Engine::SetupEnvironment(void) {
+void Engine::LoadGraphicsEnvironment(void) {
 	std::cout << ">> Environment Setup - Begun" << std::endl;
 	// SDL setup
 	InitialiseSDL();
@@ -456,10 +456,10 @@ void Engine::LoadCameras(void) {
 }
 void Engine::Load(void) {
 	std::cout << "Engine Loading - Begun" << std::endl;
-	LoadEngineConfig();			// Loads the main config file for the engine
-	LoadKeyBindings();			// Loads the Keybinding config file
-	LoadEnginePointers();		// Sets the Engine_Pointer static of each of the Engines classes.
-	SetupEnvironment();			// Setup the Engine environment (E.g. OpenGL, SDL, etc.)
+	LoadEngineConfig();				// Loads the main config file for the engine
+	LoadKeyBindings();				// Loads the Keybinding config file
+	LoadEnginePointers();			// Sets the Engine_Pointer static of each of the Engines classes.
+	LoadGraphicsEnvironment();		// Setup the Engine environment (E.g. OpenGL, SDL, etc.)
 
 	// Load all the game Content
 	LoadTextures();
