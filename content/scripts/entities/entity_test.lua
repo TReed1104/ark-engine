@@ -4,7 +4,7 @@ entity = {
 	-- Texture
 	texture = "Test.png",
 	-- Source rectangle
-	source_rectangle_dimensions = { x = 16, y = 16, },
+	source_rectangle_dimensions = { width = 48, height = 48, },
 	-- Position
 	position = { x = 0, y = 0, z = 0, },
 	-- Draw Offset

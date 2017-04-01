@@ -4,7 +4,7 @@ entity = {
 	-- Texture
 	texture = "player.png",
 	-- Source rectangle
-	source_rectangle_dimensions = { x = 48, y = 48, },
+	source_rectangle_dimensions = { width = 48, height = 48, },
 	-- Position
 	position = { x = 48, y = 64, z = 0, },
 	-- Draw Offset
