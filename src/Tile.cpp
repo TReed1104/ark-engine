@@ -11,6 +11,13 @@ Tile::Tile(const Texture& texture, const int& tileType, const glm::vec2& sourceF
 	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
 	this->boundingBoxOffset = glm::vec2(0.0f);
 	this->boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset);
+
+	// Model Setup
+	this->model = Engine_Pointer->modelRegister[Engine_Pointer->indexOfTileModel];
+	this->model.SetMeshParents();
+	this->model.Translate(drawPosition);
+	this->model.Rotate();
+	this->model.Scale();
 }
 Tile::~Tile() {
 
