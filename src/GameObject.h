@@ -15,6 +15,7 @@
 #include "Model.h"
 #include "Texture.hpp"
 #include "BoundingBox.h"
+#include "LuaScript.h"
 
 class Engine;
 
@@ -23,6 +24,7 @@ public:
 	static Engine* Engine_Pointer;
 
 	// Model and texture variables
+	LuaScript* script;
 	Model model;
 	const Texture* texture;
 	glm::vec2 sourceFrameSize;
@@ -41,7 +43,7 @@ public:
 	glm::vec2 velocityForTileSnap;
 	float movementSpeed;
 
-	GameObject(const Model& model, const Texture& texture = Texture("Empty"), const glm::vec3& position = glm::vec3(0.0f), const glm::vec2& sourceFrameSize = glm::vec2(16, 16));
+	GameObject(const std::string& scriptPath = "NO SCRIPT");
 	~GameObject();
 
 	void Update(const float& deltaTime);

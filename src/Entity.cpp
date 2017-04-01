@@ -1,7 +1,8 @@
 #include "Entity.h"
 #include "Engine.h"
 
-Entity::Entity(const Model& model, const Texture& texture, const glm::vec3& position, const glm::vec2& sourceFrameSize) : GameObject(model, texture, position, sourceFrameSize) {
+Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
+
 	movementDirection = Entity::NotSet;
 	spriteDirection = Entity::Down;
 	movementSpeed = 60.0f;

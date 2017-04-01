@@ -300,7 +300,7 @@ void Engine::CleanUp(void) {
 	std::cout << "Cleanup - Complete" << std::endl;
 }
 // Content loading related functions
-void Engine::ImportTexture(const char * texturePath) {
+void Engine::ImportTexture(const char* texturePath) {
 	// This function loads a texture into memory to be used with a source rectangle to depict what part of it to render.
 	if (texturePath != "EMPTY") {
 		//int init = IMG_Init(IMG_INIT_PNG);
@@ -437,27 +437,7 @@ void Engine::LoadItems(void) {
 void Engine::LoadPlayer(void) {
 	// Load the Player
 	std::cout << ">> Loading Player - Begun" << std::endl;
-	LuaScript playerScript = LuaScript(contentDirectory + "scripts/entities/entity_player.lua");
-	if (playerScript.isScriptLoaded) {
-		glm::vec3 playerPosition = glm::vec3(playerScript.Get<float>("player.position.x"), playerScript.Get<float>("player.position.y"), playerScript.Get<float>("player.position.z"));
-
-		// Find the Texture for the Player.
-		int indexOfPlayerTexture = -1;
-		std::string playerTextureName = playerScript.Get<std::string>("player.texture");
-		for (size_t i = 0; i < textureRegister.size(); i++) {
-			if (textureRegister[i].name.find(playerTextureName) != std::string::npos) {
-				indexOfPlayerTexture = i;
-			}
-		}
-
-		// Initialise the Player and use the appropriate texture depending on if the declared texture was found.
-		if (indexOfPlayerTexture != -1) {
-			player = new Player(modelRegister[0], textureRegister[indexOfPlayerTexture], playerPosition);
-		}
-		else {
-			player = new Player(modelRegister[0], textureRegister[indexOfDefaultTexture], playerPosition);
-		}
-	}
+	player = new Player(contentDirectory + "scripts/entities/entity_player.lua");
 	std::cout << ">> Loading Player - Complete" << std::endl;
 }
 void Engine::LoadEntities(void) {

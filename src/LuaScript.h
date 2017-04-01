@@ -15,6 +15,7 @@ class LuaScript
 {
 public:
 	bool isScriptLoaded = false;
+	std::string name = "";
 
 	LuaScript(const std::string& scriptName);
 	~LuaScript();

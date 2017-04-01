@@ -12,7 +12,7 @@ public:
 	Directions movementDirection;
 	Directions spriteDirection;
 
-	Entity(const Model& model, const Texture& texture, const glm::vec3& position = glm::vec3(0.0f), const glm::vec2& sourceFrameSize = glm::vec2(16, 16));
+	Entity(const std::string& scriptPath);
 	~Entity();
 
 	void Update(const float& deltaTime);

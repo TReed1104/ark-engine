@@ -1,8 +1,30 @@
 #include "Player.h"
 #include "Engine.h"
 
-Player::Player(const Model& model, const Texture& texture, const glm::vec3& position, const glm::vec2& sourceFrameSize) : Entity(model, texture, position, sourceFrameSize) {
-	//drawOffset = glm::vec2(-16, -16);
+Player::Player(const std::string & scriptPath) : Entity(scriptPath) {
+	if (script->isScriptLoaded) {
+		// Find the Texture for the Player.
+		int indexOfPlayerTexture = -1;
+		std::string playerTextureName = script->Get<std::string>("player.texture");
+		for (size_t i = 0; i < Engine_Pointer->textureRegister.size(); i++) {
+			if (Engine_Pointer->textureRegister[i].name.find(playerTextureName) != std::string::npos) {
+				indexOfPlayerTexture = i;
+			}
+		}
+
+		// Initialise the Player and use the appropriate texture depending on if the declared texture was found.
+		if (indexOfPlayerTexture != -1) {
+			texture = &Engine_Pointer->textureRegister[indexOfPlayerTexture];
+		}
+		else {
+			texture = &Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture];
+		}
+
+		position = glm::vec3(script->Get<float>("player.position.x"), script->Get<float>("player.position.y"), script->Get<float>("player.position.z"));
+		this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
+		this->drawOffset = glm::vec2(script->Get<float>("player.draw_offset.x"), script->Get<float>("player.draw_offset.y"));
+		this->drawPosition = this->position + glm::vec3(this->drawOffset, 0);
+	}
 }
 Player::~Player() {
 

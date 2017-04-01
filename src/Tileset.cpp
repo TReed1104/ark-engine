@@ -35,10 +35,10 @@ void Tileset::Load(const std::string & tilesetScript) {
 			glm::vec2 sourceFramePosition = glm::vec2(sourceFrameX, sourceFrameY);
 
 			if (indexOfTileSetTexture != -1) {
-				tileList.push_back(Tile(Engine_Pointer->modelRegister[0], Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, sourceFramePosition));
+				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, sourceFramePosition));
 			}
 			else {
-				tileList.push_back(Tile(Engine_Pointer->modelRegister[0], Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture], (Tile::Type)tileType, sourceFramePosition));
+				tileList.push_back(Tile(Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture], (Tile::Type)tileType, sourceFramePosition));
 			}
 		}
 	}

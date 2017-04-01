@@ -2,6 +2,7 @@
 
 
 LuaScript::LuaScript(const std::string& scriptName) {
+	name = scriptName;
 	L = luaL_newstate();
 	// Makes sure the file is loaded.
 	if (luaL_loadfile(L, scriptName.c_str()) || lua_pcall(L, 0, 0, 0)) {

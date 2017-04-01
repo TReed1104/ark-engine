@@ -3,31 +3,42 @@
 
 Engine* GameObject::Engine_Pointer;
 
-GameObject::GameObject(const Model& model, const Texture& texture, const glm::vec3& position, const glm::vec2& sourceFrameSize) {
-	this->model = model;
-	this->model.SetMeshParents();
-	this->texture = &texture;
-	this->sourceFrameSize = sourceFrameSize;
-	this->sourceFramePosition = glm::vec2(0, 0);
-	this->position = position;
+GameObject::GameObject(const std::string & scriptPath) {
+	if (scriptPath != "NO SCRIPT") {
+		this->script = new LuaScript(scriptPath);
+	}
+	else {
+		this->script = nullptr;
+	}
+
+	// Texture Setup
+	this->texture = nullptr;
+	this->sourceFrameSize = glm::vec2(Engine_Pointer->tileSize);
+	this->sourceFramePosition = glm::vec2(0.0f);
+	// Position Setup
+	this->position = glm::vec3(0.0f);
 	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
-	this->drawOffset = glm::vec2(0.0f, 0.0f);
-	this->drawPosition = position;
-	rotation = 0.0f;
-	scale = glm::vec3(1.0f);
+	this->drawOffset = glm::vec2(0.0f);
+	this->drawPosition = this->position + glm::vec3(this->drawOffset, 0);
+	this->rotation = 0.0f;
+	this->scale = glm::vec3(1.0f);
+	// Model Setup
+	this->model = Engine_Pointer->modelRegister[0];
+	this->model.SetMeshParents();
 	this->model.Translate(drawPosition);
 	this->model.Rotate();
 	this->model.Scale();
-
-
-	velocity = glm::vec2(0.0f, 0.0f);
-	velocityForTileSnap = glm::vec2(0.0f, 0.0f);
-	movementSpeed = 0.0f;
-	boundingBoxOffset = glm::vec2(0, 0);
-	boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset);
+	// Physics Setup
+	this->velocity = glm::vec2(0.0f);
+	this->velocityForTileSnap = glm::vec2(0.0f);
+	this->movementSpeed = 0.0f;
+	this->boundingBoxOffset = glm::vec2(0.0f);
+	this->boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset);
 }
 GameObject::~GameObject() {
-
+	if (script != nullptr) {
+		delete script;
+	}
 }
 
 // Game Run Time.

@@ -1,8 +1,16 @@
 #include "Tile.h"
+#include "Engine.h"
 
-Tile::Tile(const Model& model, const Texture& texture, const int& tileType, const glm::vec2& sourceFramePosition, const glm::vec3& position, const glm::vec2& sourceFrameSize) : GameObject(model, texture, position, sourceFrameSize) {
-	this->sourceFramePosition = sourceFramePosition;
+Tile::Tile(const Texture& texture, const int& tileType, const glm::vec2& sourceFramePosition, const glm::vec3& position) : GameObject() {
 	this->type = (Type)tileType;
+	this->texture = &texture;
+	this->sourceFramePosition = sourceFramePosition;
+	this->position = position;
+	this->drawOffset = glm::vec2(0.0f);
+	this->drawPosition = this->position + glm::vec3(this->drawOffset, 0);
+	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
+	this->boundingBoxOffset = glm::vec2(0.0f);
+	this->boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset);
 }
 Tile::~Tile() {
 
