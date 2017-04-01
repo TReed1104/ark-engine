@@ -15,6 +15,12 @@ config = {
 	textures_directory = "textures",
 	scripts_directory = "scripts",
 	
+	default_content = {
+		tile = "tile.obj",
+		sprite = "sprite.obj",
+		texture = "default.png",
+	},
+	
 	-- Controller Setup
 	game_controller = {
 		max_number_of_controllers = 4,
