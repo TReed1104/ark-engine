@@ -17,7 +17,6 @@ Tile::~Tile() {
 }
 
 void Tile::Update(const float& deltaTime) {
-
 	velocity = glm::vec2(0.0f, 0.0f);
 	// Class the base GameObject Update
 	GameObject::Update(deltaTime);
