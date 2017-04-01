@@ -4,6 +4,7 @@
 Engine* GameObject::Engine_Pointer;
 
 GameObject::GameObject(const std::string & scriptPath) {
+	// Load the script if given
 	if (scriptPath != "NO SCRIPT") {
 		this->script = new LuaScript(scriptPath);
 	}
@@ -22,12 +23,7 @@ GameObject::GameObject(const std::string & scriptPath) {
 	this->drawPosition = this->position + glm::vec3(this->drawOffset, 0);
 	this->rotation = 0.0f;
 	this->scale = glm::vec3(1.0f);
-	// Model Setup
-	this->model = Engine_Pointer->modelRegister[0];
-	this->model.SetMeshParents();
-	this->model.Translate(drawPosition);
-	this->model.Rotate();
-	this->model.Scale();
+	
 	// Physics Setup
 	this->velocity = glm::vec2(0.0f);
 	this->velocityForTileSnap = glm::vec2(0.0f);
