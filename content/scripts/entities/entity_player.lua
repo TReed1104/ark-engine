@@ -4,11 +4,11 @@ entity = {
 	-- Texture
 	texture = "player.png",
 	-- Source rectangle
-	source_rectangle_dimensions = { x = 16, y = 16, },
+	source_rectangle_dimensions = { x = 48, y = 48, },
 	-- Position
 	position = { x = 48, y = 64, z = 0, },
 	-- Draw Offset
-	draw_offset = { x = 0, y = 0, },
+	draw_offset = { x = -16, y = -16, },
 	-- Bounding box Dimensions
 	bounding_box_dimensions = { width = 10, height = 10, },
 	-- Bounding box offset
