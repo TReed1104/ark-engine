@@ -99,7 +99,7 @@ private:
 	// Engine config related functions
 	void LoadEngineConfig();
 	void LoadKeyBindings();
-	void SetEnginePointers(void);
+	void LoadEnginePointers(void);
 	// OpenGL and SDL related functions
 	void InitialiseSDL(void);
 	void CreateSDLWindow(void);
@@ -108,7 +108,7 @@ private:
 	void InitialiseGlew(void);
 	GLuint CreateGLProgram(const std::vector<Shader>& shaderList);
 	void InitialiseProgram(void);
-	void SetupEnvironment(void);
+	void LoadGraphicsEnvironment(void);
 	void CleanUp(void);
 	// Content loading related functions
 	void ImportTexture(const char* texturePath);
