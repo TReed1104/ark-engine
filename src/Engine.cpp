@@ -35,6 +35,7 @@ Engine::~Engine() {
 
 // Engine config related functions
 void Engine::LoadEngineConfig() {
+	// Loads the main config file for the engine
 	LuaScript configScript = LuaScript(contentDirectory + "config/engine_config.lua");
 	if (configScript.isScriptLoaded) {
 		tileSize = glm::vec2(configScript.Get<int>("config.tile_size.x"), configScript.Get<int>("config.tile_size.y"));
@@ -55,6 +56,7 @@ void Engine::LoadEngineConfig() {
 	}
 }
 void Engine::LoadKeyBindings() {
+	// Loads the Keybinding config file
 	LuaScript keybindScript = LuaScript(contentDirectory + "config/key_bindings.lua");
 	if (keybindScript.isScriptLoaded) {
 		keybindMovementUp = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_up");
@@ -69,6 +71,7 @@ void Engine::LoadKeyBindings() {
 	}
 }
 void Engine::LoadEnginePointers(void) {
+	// Sets the Engine_Pointer static of each of the Engines classes.
 	std::cout << ">> Setting static pointers - Begun" << std::endl;
 	Model::Engine_Pointer = this;
 	Keyboard::Engine_Pointer = this;
@@ -270,6 +273,7 @@ void Engine::InitialiseProgram(void) {
 	}
 }
 void Engine::LoadGraphicsEnvironment(void) {
+	// Setup the Engine environment (E.g. OpenGL, SDL, etc.)
 	std::cout << ">> Environment Setup - Begun" << std::endl;
 	// SDL setup
 	InitialiseSDL();
@@ -456,12 +460,13 @@ void Engine::LoadCameras(void) {
 }
 void Engine::Load(void) {
 	std::cout << "Engine Loading - Begun" << std::endl;
-	LoadEngineConfig();				// Loads the main config file for the engine
-	LoadKeyBindings();				// Loads the Keybinding config file
-	LoadEnginePointers();			// Sets the Engine_Pointer static of each of the Engines classes.
-	LoadGraphicsEnvironment();		// Setup the Engine environment (E.g. OpenGL, SDL, etc.)
+	// Load Engine Core
+	LoadEngineConfig();
+	LoadKeyBindings();
+	LoadEnginePointers();
+	LoadGraphicsEnvironment();
 
-	// Load all the game Content
+	// Load Game Content
 	LoadTextures();
 	LoadModels();
 	LoadTilesets();
@@ -471,7 +476,8 @@ void Engine::Load(void) {
 	LoadEntities();
 	LoadCameras();
 
-	isRunning = true;	// Successfully loaded the engine, allow the game loop to run
+	// Load complete
+	isRunning = true;	// Allows the game loop to run
 	std::cout << "Engine Loading - Complete" << std::endl;
 }
 // Game loop related functions
