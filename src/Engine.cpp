@@ -68,7 +68,7 @@ void Engine::LoadKeyBindings() {
 		exit(1);
 	}
 }
-void Engine::SetEnginePointers(void) {
+void Engine::LoadEnginePointers(void) {
 	std::cout << ">> Setting static pointers - Begun" << std::endl;
 	Model::Engine_Pointer = this;
 	Keyboard::Engine_Pointer = this;
@@ -458,7 +458,7 @@ void Engine::Load(void) {
 	std::cout << "Engine Loading - Begun" << std::endl;
 	LoadEngineConfig();			// Loads the main config file for the engine
 	LoadKeyBindings();			// Loads the Keybinding config file
-	SetEnginePointers();		// Sets the Engine_Pointer static of each of the Engines classes.
+	LoadEnginePointers();		// Sets the Engine_Pointer static of each of the Engines classes.
 	SetupEnvironment();			// Setup the Engine environment (E.g. OpenGL, SDL, etc.)
 
 	// Load all the game Content
