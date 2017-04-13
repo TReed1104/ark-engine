@@ -17,17 +17,17 @@ public:
 	bool Intersect(BoundingBox otherBB);
 	void UpdatePosition(glm::vec2 newPosition);
 	
-	glm::vec2 GetPosition();
-	glm::vec2 GetGridPosition();
-	glm::vec2 GetDimensions();
-	glm::vec2 TopLeftPosition();
-	glm::vec2 TopRightPosition();
-	glm::vec2 BottomLeftPosition();
-	glm::vec2 BottomRightPosition();
-	glm::vec2 TopLeftGridPosition();
-	glm::vec2 TopRightGridPosition();
-	glm::vec2 BottomLeftGridPosition();
-	glm::vec2 BottomRightGridPosition();
+	glm::vec2 GetPosition(void);
+	glm::vec2 GetGridPosition(void);
+	glm::vec2 GetDimensions(void);
+	glm::vec2 TopLeftPosition(void);
+	glm::vec2 TopRightPosition(void);
+	glm::vec2 BottomLeftPosition(void);
+	glm::vec2 BottomRightPosition(void);
+	glm::vec2 TopLeftGridPosition(void);
+	glm::vec2 TopRightGridPosition(void);
+	glm::vec2 BottomLeftGridPosition(void);
+	glm::vec2 BottomRightGridPosition(void);
 
 private:
 	float x;

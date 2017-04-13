@@ -37,36 +37,36 @@ void BoundingBox::UpdatePosition(glm::vec2 newPosition) {
 	this->x = roundf(newPosition.x);
 	this->y = roundf(newPosition.y);
 }
-glm::vec2 BoundingBox::GetPosition() {
+glm::vec2 BoundingBox::GetPosition(void) {
 	return glm::vec2(x, y);
 }
-glm::vec2 BoundingBox::GetGridPosition() {
+glm::vec2 BoundingBox::GetGridPosition(void) {
 	return Engine_Pointer->ConvertToGridPosition(glm::vec2(x, y));
 }
-glm::vec2 BoundingBox::GetDimensions() {
+glm::vec2 BoundingBox::GetDimensions(void) {
 	return glm::vec2(width, height);
 }
-glm::vec2 BoundingBox::TopLeftPosition() {
+glm::vec2 BoundingBox::TopLeftPosition(void) {
 	return glm::vec2(x, y);
 }
-glm::vec2 BoundingBox::TopRightPosition() {
+glm::vec2 BoundingBox::TopRightPosition(void) {
 	return (glm::vec2(x, y) + glm::vec2(width, 0));
 }
-glm::vec2 BoundingBox::BottomLeftPosition() {
+glm::vec2 BoundingBox::BottomLeftPosition(void) {
 	return (glm::vec2(x, y) + glm::vec2(0, height));
 }
-glm::vec2 BoundingBox::BottomRightPosition() {
+glm::vec2 BoundingBox::BottomRightPosition(void) {
 	return (glm::vec2(x, y) + glm::vec2(width, height));
 }
-glm::vec2 BoundingBox::TopLeftGridPosition() {
+glm::vec2 BoundingBox::TopLeftGridPosition(void) {
 	return Engine_Pointer->ConvertToGridPosition(glm::vec2(x, y));
 }
-glm::vec2 BoundingBox::TopRightGridPosition() {
+glm::vec2 BoundingBox::TopRightGridPosition(void) {
 	return Engine_Pointer->ConvertToGridPosition((glm::vec2(x, y) + glm::vec2(width, 0)));
 }
-glm::vec2 BoundingBox::BottomLeftGridPosition() {
+glm::vec2 BoundingBox::BottomLeftGridPosition(void) {
 	return Engine_Pointer->ConvertToGridPosition((glm::vec2(x, y) + glm::vec2(0, height)));
 }
-glm::vec2 BoundingBox::BottomRightGridPosition() {
+glm::vec2 BoundingBox::BottomRightGridPosition(void) {
 	return Engine_Pointer->ConvertToGridPosition((glm::vec2(x, y) + glm::vec2(width, height)));
 }
