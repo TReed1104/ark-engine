@@ -50,7 +50,6 @@ public:
 
 	void Update(const float& deltaTime);
 	void Draw(void);
-	
 	void UpdatePositions(const glm::vec2& newPosition);
 
 private:
