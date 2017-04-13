@@ -3,7 +3,7 @@
 
 Player::Player(const std::string & scriptPath) : Entity(scriptPath) {
 }
-Player::~Player() {
+Player::~Player(void) {
 
 }
 

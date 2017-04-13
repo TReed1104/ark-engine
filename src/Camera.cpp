@@ -14,7 +14,7 @@ Camera::Camera(const glm::vec3& cameraPosition, const glm::vec3& cameraLookAt, c
 	this->projectionMatrix = projectionMatrix;
 	this->controlMode = cameraMode;
 }
-Camera::~Camera() {
+Camera::~Camera(void) {
 
 }
 

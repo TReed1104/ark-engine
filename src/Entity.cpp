@@ -40,7 +40,7 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 		this->model.Scale();
 	}
 }
-Entity::~Entity() {
+Entity::~Entity(void) {
 
 }
 
@@ -56,7 +56,6 @@ void Entity::Update(const float& deltaTime) {
 	// Calls the base class update.
 	GameObject::Update(deltaTime);
 }
-
 void Entity::HandleCollisions(float deltaTime) {
 	glm::vec2 newVelocity = glm::vec2(0, 0);
 	switch (movementDirection) {

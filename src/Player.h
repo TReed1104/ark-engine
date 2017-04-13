@@ -10,7 +10,7 @@ class Player : public Entity
 public:
 	
 	Player(const std::string& scriptPath);
-	~Player();
+	~Player(void);
 	
 	void HandleMovement(void);
 	void HandleInput_WithController(void);

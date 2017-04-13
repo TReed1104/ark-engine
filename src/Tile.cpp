@@ -19,7 +19,7 @@ Tile::Tile(const Texture& texture, const int& tileType, const glm::vec2& sourceF
 	this->model.Rotate();
 	this->model.Scale();
 }
-Tile::~Tile() {
+Tile::~Tile(void) {
 
 }
 

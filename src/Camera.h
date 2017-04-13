@@ -26,7 +26,7 @@ public:
 
 	// Constructors and Deconstructors
 	Camera(const glm::vec3& cameraPosition = glm::vec3(0.0f), const glm::vec3& cameraLookAt = glm::vec3(0.0f), const glm::vec3& upVector = glm::vec3(0.0f, 1.0f, 0.0f), const glm::mat4& projectionMatrix = glm::mat4(), const CameraMode& cameraMode = CameraMode::Follow);
-	~Camera();
+	~Camera(void);
 
 	// Public Member Function Declarations
 	void Update(const float& deltaTime, const GameObject& object);

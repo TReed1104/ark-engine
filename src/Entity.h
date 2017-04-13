@@ -13,7 +13,7 @@ public:
 	Directions spriteDirection;
 
 	Entity(const std::string& scriptPath);
-	~Entity();
+	~Entity(void);
 
 	void Update(const float& deltaTime);
 	virtual void HandleMovement(void) {}
