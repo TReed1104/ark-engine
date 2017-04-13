@@ -37,7 +37,6 @@ void Camera::FollowObject(const GameObject& object) {
 		glm::vec2 objectCenterOffset = (boundingBoxOfObject.GetDimensions() / 2.0f);
 		viewPortOffset -= objectCenterOffset;
 
-
 		position = glm::vec3(boundingBoxOfObject.GetPosition().x - viewPortOffset.x, boundingBoxOfObject.GetPosition().y - viewPortOffset.y, position.z);
 		lookAt = glm::vec3(position.x, position.y, lookAt.z);
 	}
@@ -49,7 +48,6 @@ void Camera::ManualControl(void) {
 void Camera::SetControlMode(const CameraMode& newMode) {
 	this->controlMode = newMode;
 }
-
 void Camera::ClampCameraToWorld(void) {
 	if (position.x < 0) { 
 		position.x = 0; 
