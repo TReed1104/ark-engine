@@ -102,8 +102,8 @@ private:
 	float currentFrameTime;
 
 	// Engine config related functions
-	void LoadEngineConfig();
-	void LoadKeyBindings();
+	void LoadEngineConfig(void);
+	void LoadKeyBindings(void);
 	void LoadEnginePointers(void);
 	// OpenGL and SDL related functions
 	void InitialiseSDL(void);

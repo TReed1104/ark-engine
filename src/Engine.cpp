@@ -40,7 +40,7 @@ Engine::~Engine() {
 }
 
 // Engine config related functions
-void Engine::LoadEngineConfig() {
+void Engine::LoadEngineConfig(void) {
 	// Loads the main config file for the engine
 	LuaScript configScript = LuaScript(contentDirectory + "config/engine_config.lua");
 	if (configScript.isScriptLoaded) {
@@ -68,7 +68,7 @@ void Engine::LoadEngineConfig() {
 		exit(1);
 	}
 }
-void Engine::LoadKeyBindings() {
+void Engine::LoadKeyBindings(void) {
 	// Loads the Keybinding config file
 	LuaScript keybindScript = LuaScript(contentDirectory + "config/key_bindings.lua");
 	if (keybindScript.isScriptLoaded) {
