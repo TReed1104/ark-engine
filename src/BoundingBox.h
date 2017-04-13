@@ -12,7 +12,7 @@ public:
 	BoundingBox(float x = 0.0f, float y = 0.0f, float width = 0.0f, float height = 0.0f);
 	BoundingBox(glm::vec2 position);
 	BoundingBox(glm::vec2 position, glm::vec2 dimensions);
-	~BoundingBox();
+	~BoundingBox(void);
 
 	bool Intersect(BoundingBox otherBB);
 	void UpdatePosition(glm::vec2 newPosition);

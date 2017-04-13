@@ -46,10 +46,10 @@ public:
 	float movementSpeed;
 	
 	GameObject(const std::string& scriptPath = "NO SCRIPT");
-	~GameObject();
+	~GameObject(void);
 
 	void Update(const float& deltaTime);
-	void Draw();
+	void Draw(void);
 	
 	void UpdatePositions(const glm::vec2& newPosition);
 

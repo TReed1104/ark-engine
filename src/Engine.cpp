@@ -15,7 +15,7 @@ Engine::Engine(char* gameName) {
 	indexOfDefaultTexture = -1;
 	indexOfSpriteModel = -1;
 }
-Engine::~Engine() {
+Engine::~Engine(void) {
 	delete deviceKeyboard;
 	delete player;
 

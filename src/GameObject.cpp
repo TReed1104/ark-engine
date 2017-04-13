@@ -31,7 +31,7 @@ GameObject::GameObject(const std::string & scriptPath) {
 	this->boundingBoxOffset = glm::vec2(0.0f);
 	this->boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset);
 }
-GameObject::~GameObject() {
+GameObject::~GameObject(void) {
 	if (script != nullptr) {
 		delete script;
 	}
@@ -47,7 +47,7 @@ void GameObject::Update(const float& deltaTime) {
 	velocityForTileSnap = glm::vec2(0.0f, 0.0f);
 	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
 }
-void GameObject::Draw() {
+void GameObject::Draw(void) {
 	glEnable(GL_BLEND);
 	// Loop through each mesh of the model
 	for (int i = 0; i < model.meshes.size(); i++) {

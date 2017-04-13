@@ -21,7 +21,7 @@ BoundingBox::BoundingBox(glm::vec2 position, glm::vec2 dimensions) {
 	this->width = dimensions.x;
 	this->height = dimensions.y;
 }
-BoundingBox::~BoundingBox() {
+BoundingBox::~BoundingBox(void) {
 
 }
 
