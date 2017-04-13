@@ -9,21 +9,18 @@ BoundingBox::BoundingBox(float x, float y, float width, float height) {
 	this->width = width;
 	this->height = height;
 }
-
 BoundingBox::BoundingBox(glm::vec2 position) {
 	this->x = roundf(position.x);
 	this->y = roundf(position.y);
 	this->width = Engine_Pointer->tileSize.x;
 	this->height = Engine_Pointer->tileSize.y;
 }
-
 BoundingBox::BoundingBox(glm::vec2 position, glm::vec2 dimensions) {
 	this->x = roundf(position.x);
 	this->y = roundf(position.y);
 	this->width = dimensions.x;
 	this->height = dimensions.y;
 }
-
 BoundingBox::~BoundingBox() {
 
 }

@@ -108,3 +108,14 @@ void GameObject::Scale(const int& indexOfMesh, const glm::vec3& scale) {
 	model.SetMeshScale(indexOfMesh, scale);
 }
 
+// Position control functions
+glm::vec2 GameObject::GetPosition() {
+	return glm::vec2(this->position.x, this->position.y);
+}
+void GameObject::SetPosition(glm::vec2 newPosition) {
+	position = glm::vec3(newPosition.x, newPosition.y, position.z);
+	gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(position.x, position.y));
+	drawPosition = (position + glm::vec3(drawOffset, 0.0f));
+	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
+
+}
