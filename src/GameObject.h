@@ -23,39 +23,13 @@ class GameObject {
 public:
 	static Engine* Engine_Pointer;
 
-
-	GameObject(const std::string& scriptPath = "NO SCRIPT");
-	~GameObject();
 	// Model and texture variables
 	LuaScript* script;
 	Model model;
 	const Texture* texture;
 	glm::vec2 sourceFrameSize;
 	glm::vec2 sourceFramePosition;
-	
-	// Physics
-	glm::vec2 boundingBoxOffset;
-	BoundingBox boundingBox;
-	glm::vec2 velocity;
-	glm::vec2 velocityForTileSnap;
-	float movementSpeed;
 
-	void Update(const float& deltaTime);
-	void Draw();
-	
-	glm::vec2 GetPosition();
-	void SetPosition(const glm::vec2& newPosition);
-	float GetRotation();
-	void SetRotation(const float& newRotation);
-	glm::vec3 GetScale();
-	void SetScale(const glm::vec3& newScale);
-
-private:
-	void Translate(const int& indexOfMesh, const glm::vec3 &translation);
-	void Rotate(const int& indexOfMesh, const float &rotationAngle, const glm::vec3 &rotationAxis);
-	void Scale(const int& indexOfMesh, const glm::vec3 &scale);
-
-protected:
 	// Transformations
 	glm::vec3 position;			// The world position of the object
 	glm::vec2 drawOffset;
@@ -63,6 +37,29 @@ protected:
 	glm::vec2 gridPosition;
 	float rotation;
 	glm::vec3 scale;
+
+	// Physics
+	BoundingBox boundingBox;
+	glm::vec2 boundingBoxOffset;
+	glm::vec2 velocity;
+	glm::vec2 velocityForTileSnap;
+	float movementSpeed;
+	
+	GameObject(const std::string& scriptPath = "NO SCRIPT");
+	~GameObject();
+
+	void Update(const float& deltaTime);
+	void Draw();
+	
+	void UpdatePositions(const glm::vec2& newPosition);
+
+private:
+	void Translate(const int& indexOfMesh, const glm::vec3 &translation);
+	void Rotate(const int& indexOfMesh, const float &rotationAngle, const glm::vec3 &rotationAxis);
+	void Scale(const int& indexOfMesh, const glm::vec3 &scale);
+
+protected:
+
 };
 
 #endif

@@ -109,24 +109,9 @@ void GameObject::Scale(const int& indexOfMesh, const glm::vec3& scale) {
 }
 
 // Position control functions
-glm::vec2 GameObject::GetPosition() {
-	return glm::vec2(this->position.x, this->position.y);
-}
-void GameObject::SetPosition(const glm::vec2& newPosition) {
+void GameObject::UpdatePositions(const glm::vec2& newPosition) {
 	position = glm::vec3(newPosition.x, newPosition.y, position.z);
 	gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(position.x, position.y));
 	drawPosition = (position + glm::vec3(drawOffset, 0.0f));
 	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
-}
-float GameObject::GetRotation() {
-	return rotation;
-}
-void GameObject::SetRotation(const float& newRotation) {
-	rotation = newRotation;
-}
-glm::vec3 GameObject::GetScale() {
-	return scale;
-}
-void GameObject::SetScale(const glm::vec3& newScale) {
-	scale = newScale;
 }
