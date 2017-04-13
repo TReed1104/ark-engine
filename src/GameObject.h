@@ -44,8 +44,11 @@ public:
 	void Draw();
 	
 	glm::vec2 GetPosition();
-	void SetPosition(glm::vec2 newPosition);
-
+	void SetPosition(const glm::vec2& newPosition);
+	float GetRotation();
+	void SetRotation(const float& newRotation);
+	glm::vec3 GetScale();
+	void SetScale(const glm::vec3& newScale);
 
 private:
 	void Translate(const int& indexOfMesh, const glm::vec3 &translation);
