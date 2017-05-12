@@ -41,8 +41,8 @@ public:
 	// Physics
 	BoundingBox boundingBox;
 	glm::vec2 boundingBoxOffset;
-	glm::vec2 velocity;
-	glm::vec2 velocityForTileSnap;
+	glm::vec2 movementVelocity;
+	glm::vec2 movementVelocitySnap;
 	float movementSpeed;
 	
 	GameObject(const std::string& scriptPath = "NO SCRIPT");
