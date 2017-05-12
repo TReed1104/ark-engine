@@ -51,7 +51,6 @@ void Entity::Update(const float& deltaTime) {
 	position += glm::vec3(velocityForTileSnap, 0.0f);
 	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
 	drawPosition = (position + glm::vec3(drawOffset, 0.0f));
-	model.Translate(drawPosition);
 
 	// Calls the base class update.
 	GameObject::Update(deltaTime);

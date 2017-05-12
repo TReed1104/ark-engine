@@ -43,7 +43,11 @@ GameObject::~GameObject(void) {
 
 // Game Run Time.
 void GameObject::Update(const float& deltaTime) {
-	// Set the transforms for the overall model.
+	// If the velocity of the object has been changed, update the translation matrix of the object.
+	if (velocity != glm::vec2(0.0f, 0.0f) || velocityForTileSnap != glm::vec2(0.0f, 0.0f)) {
+		model.Translate(drawPosition);
+	}
+
 	velocity = glm::vec2(0, 0);
 	velocityForTileSnap = glm::vec2(0.0f, 0.0f);
 	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
