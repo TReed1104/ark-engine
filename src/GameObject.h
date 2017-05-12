@@ -38,11 +38,13 @@ public:
 	float rotation;
 	glm::vec3 scale;
 
-	// Physics
+	// Bounding Boxes
 	BoundingBox boundingBox;
 	glm::vec2 boundingBoxOffset;
-	glm::vec2 movementVelocity;
-	glm::vec2 movementVelocitySnap;
+
+	// Movement Physics
+	glm::vec2 velocity;
+	glm::vec2 velocitySnap;
 	float movementSpeed;
 	
 	GameObject(const std::string& scriptPath = "NO SCRIPT");

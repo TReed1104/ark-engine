@@ -47,8 +47,8 @@ void Entity::Update(const float& deltaTime) {
 	HandleMovement();
 	HandleCollisions(deltaTime);
 
-	position += glm::vec3(movementVelocity, 0.0f);
-	position += glm::vec3(movementVelocitySnap, 0.0f);
+	position += glm::vec3(velocity, 0.0f);
+	position += glm::vec3(velocitySnap, 0.0f);
 	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
 	drawPosition = (position + glm::vec3(drawOffset, 0.0f));
 
@@ -114,7 +114,7 @@ void Entity::HandleCollisions(float deltaTime) {
 			bool isColliding = (isTopLeftIntersecting || isTopRightIntersecting || isBottomLeftIntersecting || isBottomRightIntersecting);
 
 			if (!isColliding) {
-				movementVelocity = newVelocity;
+				velocity = newVelocity;
 			}
 			else {
 				// If a collision was detected, we will snap the entity to the next available free position
@@ -279,7 +279,7 @@ void Entity::HandleCollisions(float deltaTime) {
 						break;
 					}
 				}
-				movementVelocitySnap = glm::vec2(deltaX, deltaY);
+				velocitySnap = glm::vec2(deltaX, deltaY);
 			}
 		}
 	}
