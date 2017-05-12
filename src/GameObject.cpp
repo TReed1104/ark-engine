@@ -102,17 +102,6 @@ void GameObject::Draw(void) {
 	glDisable(GL_BLEND);
 }
 
-// Transformation
-void GameObject::Translate(const int& indexOfMesh, const glm::vec3& translation) {
-	model.SetMeshTranslation(indexOfMesh, translation);
-}
-void GameObject::Rotate(const int& indexOfMesh, const float& rotationAngle, const glm::vec3& rotationAxis) {
-	model.SetMeshRotation(indexOfMesh, rotationAngle, rotationAxis);
-}
-void GameObject::Scale(const int& indexOfMesh, const glm::vec3& scale) {
-	model.SetMeshScale(indexOfMesh, scale);
-}
-
 // Position control functions
 void GameObject::UpdatePositions(const glm::vec2& newPosition) {
 	position = glm::vec3(newPosition.x, newPosition.y, position.z);

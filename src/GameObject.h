@@ -55,9 +55,7 @@ public:
 	void UpdatePositions(const glm::vec2& newPosition);
 
 private:
-	void Translate(const int& indexOfMesh, const glm::vec3 &translation);
-	void Rotate(const int& indexOfMesh, const float &rotationAngle, const glm::vec3 &rotationAxis);
-	void Scale(const int& indexOfMesh, const glm::vec3 &scale);
+	
 
 protected:
 
