@@ -52,10 +52,10 @@ public:
 
 	void Update(const float& deltaTime);
 	void Draw(void);
-	void UpdatePositions(const glm::vec2& newPosition);
+	void Reposition(const glm::vec2& newPosition);
 
 private:
-	
+	void UpdatePosition(bool doTransform = true);
 
 protected:
 

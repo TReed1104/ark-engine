@@ -43,14 +43,11 @@ GameObject::~GameObject(void) {
 
 // Game Run Time.
 void GameObject::Update(const float& deltaTime) {
-	// If the velocity of the object has been changed, update the translation matrix of the object.
-	if (velocity != glm::vec2(0.0f, 0.0f) || velocitySnap != glm::vec2(0.0f, 0.0f)) {
-		model.Translate(drawPosition);
-	}
+	UpdatePosition((velocity != glm::vec2(0.0f, 0.0f) || velocitySnap != glm::vec2(0.0f, 0.0f)));
 
+	// Reset the velocities.
 	velocity = glm::vec2(0, 0);
 	velocitySnap = glm::vec2(0.0f, 0.0f);
-	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
 }
 void GameObject::Draw(void) {
 	glEnable(GL_BLEND);
@@ -103,9 +100,21 @@ void GameObject::Draw(void) {
 }
 
 // Position control functions
-void GameObject::UpdatePositions(const glm::vec2& newPosition) {
+void GameObject::Reposition(const glm::vec2& newPosition) {
 	position = glm::vec3(newPosition.x, newPosition.y, position.z);
 	gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(position.x, position.y));
 	drawPosition = (position + glm::vec3(drawOffset, 0.0f));
 	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
+	model.Translate(drawPosition);
+}
+
+void GameObject::UpdatePosition(bool doTransform) {
+	if (doTransform) {
+		position += glm::vec3(velocity, 0.0f);
+		position += glm::vec3(velocitySnap, 0.0f);
+		gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(position.x, position.y));
+		drawPosition = (position + glm::vec3(drawOffset, 0.0f));
+		boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
+		model.Translate(drawPosition);
+	}
 }

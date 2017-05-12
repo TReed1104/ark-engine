@@ -47,11 +47,6 @@ void Entity::Update(const float& deltaTime) {
 	HandleMovement();
 	HandleCollisions(deltaTime);
 
-	position += glm::vec3(velocity, 0.0f);
-	position += glm::vec3(velocitySnap, 0.0f);
-	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
-	drawPosition = (position + glm::vec3(drawOffset, 0.0f));
-
 	// Calls the base class update.
 	GameObject::Update(deltaTime);
 }
