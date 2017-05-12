@@ -31,13 +31,12 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 		glm::vec2 boundingBoxDimensions = glm::vec2(script->Get<float>("entity.bounding_box_dimensions.width"), script->Get<float>("entity.bounding_box_dimensions.height"));
 		boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset, boundingBoxDimensions);
 
-
 		// Model Setup
-		this->model = Engine_Pointer->modelRegister[Engine_Pointer->indexOfSpriteModel];
-		this->model.SetMeshParents();
-		this->model.Translate(drawPosition);
-		this->model.Rotate();
-		this->model.Scale();
+		model = Engine_Pointer->modelRegister[Engine_Pointer->indexOfSpriteModel];
+		model.SetMeshParents();
+		model.Translate(drawPosition);
+		model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+		model.Scale(scale);
 	}
 }
 Entity::~Entity(void) {
@@ -52,6 +51,7 @@ void Entity::Update(const float& deltaTime) {
 	position += glm::vec3(velocityForTileSnap, 0.0f);
 	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
 	drawPosition = (position + glm::vec3(drawOffset, 0.0f));
+	model.Translate(drawPosition);
 
 	// Calls the base class update.
 	GameObject::Update(deltaTime);

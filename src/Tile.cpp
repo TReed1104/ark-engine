@@ -16,8 +16,8 @@ Tile::Tile(const Texture& texture, const int& tileType, const glm::vec2& sourceF
 	this->model = Engine_Pointer->modelRegister[Engine_Pointer->indexOfTileModel];
 	this->model.SetMeshParents();
 	this->model.Translate(drawPosition);
-	this->model.Rotate();
-	this->model.Scale();
+	this->model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+	this->model.Scale(scale);
 }
 Tile::~Tile(void) {
 

@@ -30,6 +30,10 @@ GameObject::GameObject(const std::string & scriptPath) {
 	this->movementSpeed = 0.0f;
 	this->boundingBoxOffset = glm::vec2(0.0f);
 	this->boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset);
+
+	model.Translate(drawPosition);
+	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+	model.Scale(scale);
 }
 GameObject::~GameObject(void) {
 	if (script != nullptr) {
@@ -40,9 +44,6 @@ GameObject::~GameObject(void) {
 // Game Run Time.
 void GameObject::Update(const float& deltaTime) {
 	// Set the transforms for the overall model.
-	model.Translate(drawPosition);
-	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-	model.Scale(scale);
 	velocity = glm::vec2(0, 0);
 	velocityForTileSnap = glm::vec2(0.0f, 0.0f);
 	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
