@@ -25,8 +25,8 @@ GameObject::GameObject(const std::string & scriptPath) {
 	this->scale = glm::vec3(1.0f);
 	
 	// Physics Setup
-	this->velocity = glm::vec2(0.0f);
-	this->velocityForTileSnap = glm::vec2(0.0f);
+	this->movementVelocity = glm::vec2(0.0f);
+	this->movementVelocitySnap = glm::vec2(0.0f);
 	this->movementSpeed = 0.0f;
 	this->boundingBoxOffset = glm::vec2(0.0f);
 	this->boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset);
@@ -44,12 +44,12 @@ GameObject::~GameObject(void) {
 // Game Run Time.
 void GameObject::Update(const float& deltaTime) {
 	// If the velocity of the object has been changed, update the translation matrix of the object.
-	if (velocity != glm::vec2(0.0f, 0.0f) || velocityForTileSnap != glm::vec2(0.0f, 0.0f)) {
+	if (movementVelocity != glm::vec2(0.0f, 0.0f) || movementVelocitySnap != glm::vec2(0.0f, 0.0f)) {
 		model.Translate(drawPosition);
 	}
 
-	velocity = glm::vec2(0, 0);
-	velocityForTileSnap = glm::vec2(0.0f, 0.0f);
+	movementVelocity = glm::vec2(0, 0);
+	movementVelocitySnap = glm::vec2(0.0f, 0.0f);
 	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
 }
 void GameObject::Draw(void) {
