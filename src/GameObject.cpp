@@ -112,7 +112,6 @@ void GameObject::Reposition(const glm::vec2& newPosition) {
 	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
 	model.Translate(drawPosition);
 }
-
 void GameObject::UpdatePosition(bool doTransform) {
 	if (doTransform) {
 		position += glm::vec3(velocity, 0.0f);
@@ -123,13 +122,11 @@ void GameObject::UpdatePosition(bool doTransform) {
 		model.Translate(drawPosition);
 	}
 }
-
 void GameObject::UpdateRotation() {
 	if (doRotation) {
 		model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 	}
 }
-
 void GameObject::UpdateScale() {
 	if (doScalar) {
 		model.Scale(scale);
