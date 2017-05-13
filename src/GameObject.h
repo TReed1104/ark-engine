@@ -59,7 +59,9 @@ public:
 	void Reposition(const glm::vec2& newPosition);
 
 private:
-	void UpdatePosition(bool doTransform = true);
+	void UpdatePosition(bool doTransform = false);
+	void UpdateRotation();
+	void UpdateScale();
 
 protected:
 

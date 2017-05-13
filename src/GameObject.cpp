@@ -47,6 +47,8 @@ GameObject::~GameObject(void) {
 // Game Run Time.
 void GameObject::Update(const float& deltaTime) {
 	UpdatePosition((velocity != glm::vec2(0.0f, 0.0f) || velocitySnap != glm::vec2(0.0f, 0.0f)));
+	UpdateRotation();
+	UpdateScale();
 
 	// Reset the velocities.
 	velocity = glm::vec2(0, 0);
@@ -119,5 +121,17 @@ void GameObject::UpdatePosition(bool doTransform) {
 		drawPosition = (position + glm::vec3(drawOffset, 0.0f));
 		boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
 		model.Translate(drawPosition);
+	}
+}
+
+void GameObject::UpdateRotation() {
+	if (doRotation) {
+		model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+	}
+}
+
+void GameObject::UpdateScale() {
+	if (doScalar) {
+		model.Scale(scale);
 	}
 }
