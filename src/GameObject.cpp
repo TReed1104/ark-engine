@@ -34,6 +34,9 @@ GameObject::GameObject(const std::string & scriptPath) {
 	model.Translate(drawPosition);
 	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 	model.Scale(scale);
+
+	doRotation = false;
+	doScalar = false;
 }
 GameObject::~GameObject(void) {
 	if (script != nullptr) {

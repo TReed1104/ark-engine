@@ -30,13 +30,11 @@ public:
 	glm::vec2 sourceFrameSize;
 	glm::vec2 sourceFramePosition;
 
-	// Transformations
+	// Positions
 	glm::vec3 position;			// The world position of the object
-	glm::vec2 drawOffset;
+	glm::vec2 gridPosition;		// The current grid cell the object is counted as being within.
+	glm::vec2 drawOffset;		// The offset the sprite is to be drawn in relation to the world position.
 	glm::vec3 drawPosition;		// Position to draw to the screen, this takes into account the offset of the object to its texture
-	glm::vec2 gridPosition;
-	float rotation;
-	glm::vec3 scale;
 
 	// Bounding Boxes
 	BoundingBox boundingBox;
@@ -46,6 +44,12 @@ public:
 	glm::vec2 velocity;
 	glm::vec2 velocitySnap;
 	float movementSpeed;
+	
+	// Transformations
+	float rotation;
+	glm::vec3 scale;
+	bool doRotation;		// Flag controlling if the Object needs rotating
+	bool doScalar;			// Flag controlling if the Object needs scaling
 	
 	GameObject(const std::string& scriptPath = "NO SCRIPT");
 	~GameObject(void);
