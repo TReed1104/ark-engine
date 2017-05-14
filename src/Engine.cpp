@@ -588,9 +588,25 @@ void Engine::Renderer(void) {
 void Engine::Run(void) {
 	Load();		// Loads all the configs, the game content and initialises everything needed by the engine to run.
 	std::cout << "Game Runtime - Begun" << std::endl;
+
+	// FPS variables
+	int fpsCounter = 0;
+	int currentFPS = 0;
+	float secondCounter = 0;
+
 	while (isRunning) {
+		// DeltaTime math
 		currentFrameTime = SDL_GetTicks();
 		float deltaTime = ((currentFrameTime - oldFrameTime) / 1000);
+		
+		// FPS math
+		fpsCounter++;
+		secondCounter += deltaTime;
+		if (secondCounter >= 1) {
+			std::cout << fpsCounter << std::endl;
+			fpsCounter = 0;
+			secondCounter = 0;
+		}
 
 		// Main Game loop
 		EventHandler();			// Handle any events
