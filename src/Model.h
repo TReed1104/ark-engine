@@ -35,7 +35,7 @@ public:
 
 		void SetParent(const Model& parentModel);
 		void GenerateVertexBuffers();
-		void GenerateVertexArrayObject(const ShaderPointers& shaderPointers);
+		void GenerateVertexArrayObject();
 		void SetTranslation(bool isModelUpdate = false, const glm::vec3& translation = glm::vec3(0.0f));
 		void SetRotation(bool isModelUpdate = false, const float& rotationAngle = 0.0f, const glm::vec3& rotationAxis = glm::vec3(0.0f, 0.0f, 1.0f));
 		void SetScale(bool isModelUpdate = false, const glm::vec3& scale = glm::vec3(1.0f));

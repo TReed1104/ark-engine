@@ -13,7 +13,7 @@ Model::~Model() {
 void Model::SetVertexObjects() {
 	for (int i = 0; i < meshes.size(); i++) {
 		meshes[i].GenerateVertexBuffers();
-		meshes[i].GenerateVertexArrayObject(Engine_Pointer->shaderPointers);
+		meshes[i].GenerateVertexArrayObject();
 	}
 }
 void Model::SetMeshParents() {

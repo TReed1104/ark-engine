@@ -39,34 +39,34 @@ void Model::Mesh::GenerateVertexBuffers() {
 	}
 	std::cout << ">> Buffers OK! VBO GLuint: " << vertexBufferObject << ", IBO GLuint: " << indicesBufferObject << ", UBO GLuint: " << uvBufferObject << std::endl;
 }
-void Model::Mesh::GenerateVertexArrayObject(const ShaderPointers &shaderPointers) {
+void Model::Mesh::GenerateVertexArrayObject() {
 	// Generate and bind a Vertex Array Object.
 	glGenVertexArrays(1, &vertexArrayObject);
 	glBindVertexArray(vertexArrayObject);
 
 	// Bind the Buffers to the Vertex Array Object.
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
-	glVertexAttribPointer(shaderPointers.vertexPositionAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(Engine_Pointer->shaderPointers.vertexPositionAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, colourBufferObject);
-	glVertexAttribPointer(shaderPointers.colourAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(Engine_Pointer->shaderPointers.colourAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	if (isSetupForTextures) {
 		glBindBuffer(GL_ARRAY_BUFFER, uvBufferObject);
-		glVertexAttribPointer(shaderPointers.uvAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+		glVertexAttribPointer(Engine_Pointer->shaderPointers.uvAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	}
 
-	glEnableVertexAttribArray(shaderPointers.vertexPositionAttrib);
-	glEnableVertexAttribArray(shaderPointers.colourAttrib);
+	glEnableVertexAttribArray(Engine_Pointer->shaderPointers.vertexPositionAttrib);
+	glEnableVertexAttribArray(Engine_Pointer->shaderPointers.colourAttrib);
 	if (isSetupForTextures) {
-		glEnableVertexAttribArray(shaderPointers.uvAttrib);
+		glEnableVertexAttribArray(Engine_Pointer->shaderPointers.uvAttrib);
 	}
 
 	glBindVertexArray(0);
-	glDisableVertexAttribArray(shaderPointers.vertexPositionAttrib);
-	glDisableVertexAttribArray(shaderPointers.colourAttrib);
+	glDisableVertexAttribArray(Engine_Pointer->shaderPointers.vertexPositionAttrib);
+	glDisableVertexAttribArray(Engine_Pointer->shaderPointers.colourAttrib);
 	if (isSetupForTextures) {
-		(shaderPointers.uvAttrib);
+		glDisableVertexAttribArray(Engine_Pointer->shaderPointers.uvAttrib);
 	}
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //unbind array buffer.
 }
