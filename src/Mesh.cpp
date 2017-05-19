@@ -29,6 +29,7 @@ void Model::Mesh::GenerateVertexBuffers() {
 		glGenBuffers(1, &colourBufferObject);
 		glBindBuffer(GL_ARRAY_BUFFER, colourBufferObject);
 		glBufferData(GL_ARRAY_BUFFER, colourData.size() * sizeof(glm::vec3), &colourData[0], GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
 	if (uvs.size() > 0) {
