@@ -96,7 +96,7 @@ private:
 	bool isRunning;
 
 	// Program variables
-	std::string exeName;
+	std::string windowTitle;
 	glm::vec2 windowDimensions;
 	float oldFrameTime;
 	float currentFrameTime;

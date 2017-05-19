@@ -1,7 +1,7 @@
 #include "Engine.h"
 
 Engine::Engine(char* gameName) {
-	exeName = gameName;
+	windowTitle = gameName;
 	oldFrameTime = 0.0f;
 	currentFrameTime = 0.0f;
 
@@ -45,9 +45,10 @@ void Engine::LoadEngineConfig(void) {
 	LuaScript configScript = LuaScript(contentDirectory + "config/engine_config.lua");
 	if (configScript.isScriptLoaded) {
 		// Core setup
-		tileSize = glm::vec2(configScript.Get<int>("config.tile_size.x"), configScript.Get<int>("config.tile_size.y"));
-		windowGridSize = glm::vec2(configScript.Get<int>("config.window_grid.x"), configScript.Get<int>("config.window_grid.y"));
-		windowScaler = glm::vec2(configScript.Get<int>("config.window_scale.x"), configScript.Get<int>("config.window_scale.y"));
+		windowTitle = configScript.Get<std::string>("config.window.title");
+		tileSize = glm::vec2(configScript.Get<int>("config.window.tile_size.x"), configScript.Get<int>("config.window.tile_size.y"));
+		windowGridSize = glm::vec2(configScript.Get<int>("config.window.grid_size.x"), configScript.Get<int>("config.window.grid_size.y"));
+		windowScaler = glm::vec2(configScript.Get<int>("config.window.scale.x"), configScript.Get<int>("config.window.scale.y"));
 		windowDimensions = (tileSize * windowGridSize) * windowScaler;
 
 		// Default content setup
@@ -106,14 +107,8 @@ void Engine::InitialiseSDL(void) {
 	std::cout << ">> SDL initialised Successfully!" << std::endl;
 }
 void Engine::CreateSDLWindow(void) {
-	int beginIdxWindows = exeName.rfind("\\");		// Find last occurrence of a backslash
-	int beginIdxLinux = exeName.rfind("/");			// Find last occurrence of a forward slash
-	int beginIdx = std::max(beginIdxWindows, beginIdxLinux);
-	std::string exeNameEnd = exeName.substr(beginIdx + 1);
-	const char *exeNameCStr = exeNameEnd.c_str();
-
 	// Create window
-	sdlWindow = SDL_CreateWindow(exeNameCStr, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowDimensions.x, windowDimensions.y, SDL_WINDOW_OPENGL);
+	sdlWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowDimensions.x, windowDimensions.y, SDL_WINDOW_OPENGL);
 
 	// Error handling for the SDL Window.
 	if (sdlWindow == nullptr) {
@@ -608,7 +603,8 @@ void Engine::Run(void) {
 		secondCounter += deltaTime;		// Counts up to the next second
 		if (secondCounter >= 1) {
 			// If it has been a second since the last FPS count, reset the counter and print.
-			std::cout << fpsCounter << std::endl;
+			std::string fpsDisplay = windowTitle + " - FPS: " + std::to_string(fpsCounter);
+			SDL_SetWindowTitle(sdlWindow, fpsDisplay.c_str());
 			fpsCounter = 0;
 			secondCounter = 0;
 		}
