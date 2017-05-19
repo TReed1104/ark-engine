@@ -47,27 +47,27 @@ void Model::Mesh::GenerateVertexArrayObject() {
 
 	// Bind the Buffers to the Vertex Array Object.
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
-	glVertexAttribPointer(Engine_Pointer->shaderPointers.vertexPositionAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (GLvoid*)0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, colourBufferObject);
-	glVertexAttribPointer(Engine_Pointer->shaderPointers.colourAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (GLvoid*)0);
 
 	if (isSetupForTextures) {
 		glBindBuffer(GL_ARRAY_BUFFER, uvBufferObject);
-		glVertexAttribPointer(Engine_Pointer->shaderPointers.uvAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (GLvoid*)0);
 	}
 
-	glEnableVertexAttribArray(Engine_Pointer->shaderPointers.vertexPositionAttrib);
-	glEnableVertexAttribArray(Engine_Pointer->shaderPointers.colourAttrib);
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
 	if (isSetupForTextures) {
-		glEnableVertexAttribArray(Engine_Pointer->shaderPointers.uvAttrib);
+		glEnableVertexAttribArray(2);
 	}
 
 	glBindVertexArray(0);
-	glDisableVertexAttribArray(Engine_Pointer->shaderPointers.vertexPositionAttrib);
-	glDisableVertexAttribArray(Engine_Pointer->shaderPointers.colourAttrib);
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 	if (isSetupForTextures) {
-		glDisableVertexAttribArray(Engine_Pointer->shaderPointers.uvAttrib);
+		glDisableVertexAttribArray(2);
 	}
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //unbind array buffer.
 }
