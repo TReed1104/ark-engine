@@ -1,27 +1,31 @@
+-- Config for the engine
 config = {
-	-- Tile Size
-	tile_size = { x = 16, y = 16, },
-
-	-- Window Size in Tiles
-	window_grid = { x = 20, y = 15, },
-
-	-- Window Scaler
-	window_scale = { x = 1.0, y = 1.0, },
-
-	-- Content Directory names
-	shaders_directory = "shaders",
-	levels_directory = "levels",
-	models_directory = "models",
-	textures_directory = "textures",
-	scripts_directory = "scripts",
-	
+	-- Window Settings
+	window = {
+		-- Title
+		title = "ArkEngine",
+		-- Tile Size
+		tile_size = { x = 16, y = 16, },
+		-- Window Size in Tiles
+		grid_size = { x = 20, y = 15, },
+		-- Window Scaler
+		scale = { x = 1.0, y = 1.0, },
+	},
+	-- Engine Directory Settings
+	directories = {
+		shaders = "shaders",
+		levels = "levels",
+		models = "models",
+		textures = "textures",
+		scripts = "scripts",
+	},
+	-- Setup the default content, for when things are missing or fail to load.
 	default_content = {
 		tile = "tile.obj",
 		sprite = "sprite.obj",
 		texture = "default.png",
 	},
-	
-	-- Controller Setup
+	-- Controller Settings
 	game_controller = {
 		max_number_of_controllers = 4,
 		index_of_player_controller = 0,
