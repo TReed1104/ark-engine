@@ -591,7 +591,6 @@ void Engine::Run(void) {
 
 	// FPS variables
 	int fpsCounter = 0;
-	int currentFPS = 0;
 	float secondCounter = 0;
 
 	while (isRunning) {
@@ -599,19 +598,20 @@ void Engine::Run(void) {
 		currentFrameTime = SDL_GetTicks();
 		float deltaTime = ((currentFrameTime - oldFrameTime) / 1000);
 		
-		// FPS math
-		fpsCounter++;
-		secondCounter += deltaTime;
-		if (secondCounter >= 1) {
-			std::cout << fpsCounter << std::endl;
-			fpsCounter = 0;
-			secondCounter = 0;
-		}
-
 		// Main Game loop
 		EventHandler();			// Handle any events
 		Update(deltaTime);		// Update the game
 		Renderer();				// Render the game
+
+		// FPS math, called after the engine has finished its render function.
+		fpsCounter++;					// Counts the number of frames as they've been rendered.
+		secondCounter += deltaTime;		// Counts up to the next second
+		if (secondCounter >= 1) {
+			// If it has been a second since the last FPS count, reset the counter and print.
+			std::cout << fpsCounter << std::endl;
+			fpsCounter = 0;
+			secondCounter = 0;
+		}
 
 		oldFrameTime = currentFrameTime;
 	}
