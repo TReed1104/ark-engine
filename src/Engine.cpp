@@ -113,7 +113,7 @@ void Engine::CreateSDLWindow(void) {
 	const char *exeNameCStr = exeNameEnd.c_str();
 
 	// Create window
-	sdlWindow = SDL_CreateWindow(exeNameCStr, 500, 500, windowDimensions.x, windowDimensions.y, SDL_WINDOW_OPENGL);
+	sdlWindow = SDL_CreateWindow(exeNameCStr, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowDimensions.x, windowDimensions.y, SDL_WINDOW_OPENGL);
 
 	// Error handling for the SDL Window.
 	if (sdlWindow == nullptr) {
