@@ -27,7 +27,9 @@ private:
 	std::string rawVertexString;
 	std::string rawFragmentString;
 
-	bool ReadShaderFiles(const std::string & vertexShaderPath, const std::string & fragmentShaderPath);
+	bool ReadFile(std::string& rawString, const std::string& strShaderFile);
+	bool ImportShaderFiles();
+	bool CreateShader(GLuint& shaderID, const GLenum& eShaderType, const std::string& strShaderFile);
 	bool CompileShader();
 };
 
