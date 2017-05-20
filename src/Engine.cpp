@@ -166,7 +166,7 @@ void Engine::CheckForInputDevices(void) {
 				}
 			}
 		}
-		
+
 	}
 	std::cout << ">> Checking for Input Devices - Complete" << std::endl;
 }
@@ -218,13 +218,8 @@ GLuint Engine::CreateGLProgram(const std::vector<Shader>& shaderList) {
 }
 void Engine::InitialiseProgram(void) {
 	std::vector<Shader> shaderList;
-	int openGLMajorVersion;
-	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &openGLMajorVersion);
-	if (openGLMajorVersion == 3) {
-		// Need to convert this later to use a script to dynamically load shaders.
-		shaderList.push_back(Shader("content/shaders/default.vert", GL_VERTEX_SHADER));
-		shaderList.push_back(Shader("content/shaders/default.frag", GL_FRAGMENT_SHADER));
-	}
+	shaderList.push_back(Shader("content/shaders/default.vert", GL_VERTEX_SHADER));
+	shaderList.push_back(Shader("content/shaders/default.frag", GL_FRAGMENT_SHADER));
 
 	glProgram = CreateGLProgram(shaderList);	// Create the Program.
 	if (glProgram == 0) {
@@ -265,7 +260,7 @@ void Engine::LoadGraphicsEnvironment(void) {
 }
 void Engine::CleanUp(void) {
 	std::cout << "Cleanup - Begun" << std::endl;
-	if (SDL_NumJoysticks() > 0)	{
+	if (SDL_NumJoysticks() > 0) {
 		for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
 			SDL_GameControllerClose(deviceGameControllerRegister[i]->GetSDLHook());	// Close the controller.
 		}
@@ -381,7 +376,7 @@ void Engine::LoadModels(void) {
 	for (size_t i = 0; i < listOfModels.size(); i++) {
 		modelRegister.push_back(LoadModel(listOfModels[i]));
 	}
-	
+
 	// Find the default model
 	for (int i = 0; i < modelRegister.size(); i++) {
 		if (modelRegister[i].name.find(nameOfTileModel) != std::string::npos) {
@@ -475,30 +470,30 @@ void Engine::EventHandler(void) {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
-			case SDL_QUIT:
-				isRunning = false;
-				break;
-			case SDL_KEYDOWN:			// Key down handling.
-				deviceKeyboard->UpdateKeyStates_Down(event.key);
-				break;
-			case SDL_KEYUP:				// Key up handling.
-				deviceKeyboard->UpdateKeyStates_Up(event.key);
-				break;
-			case SDL_CONTROLLERAXISMOTION:
-				for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
-					deviceGameControllerRegister[i]->UpdateThumbSticks();
-				}
-				break;
-			case SDL_CONTROLLERBUTTONDOWN:
-				for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
-					deviceGameControllerRegister[i]->UpdateButtonStates();
-				}
-				break;
-			case SDL_CONTROLLERBUTTONUP:
-				for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
-					deviceGameControllerRegister[i]->UpdateButtonStates();
-				}
-				break;
+		case SDL_QUIT:
+			isRunning = false;
+			break;
+		case SDL_KEYDOWN:			// Key down handling.
+			deviceKeyboard->UpdateKeyStates_Down(event.key);
+			break;
+		case SDL_KEYUP:				// Key up handling.
+			deviceKeyboard->UpdateKeyStates_Up(event.key);
+			break;
+		case SDL_CONTROLLERAXISMOTION:
+			for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+				deviceGameControllerRegister[i]->UpdateThumbSticks();
+			}
+			break;
+		case SDL_CONTROLLERBUTTONDOWN:
+			for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+				deviceGameControllerRegister[i]->UpdateButtonStates();
+			}
+			break;
+		case SDL_CONTROLLERBUTTONUP:
+			for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+				deviceGameControllerRegister[i]->UpdateButtonStates();
+			}
+			break;
 		}
 	}
 }
@@ -551,7 +546,7 @@ void Engine::Run(void) {
 		// DeltaTime math
 		currentFrameTime = SDL_GetTicks();
 		float deltaTime = ((currentFrameTime - oldFrameTime) / 1000);
-		
+
 		// Main Game loop
 		EventHandler();			// Handle any events
 		Update(deltaTime);		// Update the game
