@@ -6,6 +6,8 @@ Engine::Engine(char* gameName) {
 	currentFrameTime = 0.0f;
 
 	contentDirectory = "content/";
+
+	indexOfDefaultShader = 0;
 	indexCurrentLevel = -1;
 
 	nameOfTileModel = "";
@@ -171,8 +173,9 @@ void Engine::LoadShaders(void) {
 		if (currentShaderConfig.isScriptLoaded) {
 			std::string vertexShaderName = contentDirectory + "/shaders/" + currentShaderConfig.Get<std::string>("shader_config.vertex");
 			std::string fragmentShaderName = contentDirectory + "/shaders/" + currentShaderConfig.Get<std::string>("shader_config.fragment");
+			std::string shaderName = currentShaderConfig.Get<std::string>("shader_config.name");
 
-			Shader* newShader = new Shader(vertexShaderName, fragmentShaderName);
+			Shader* newShader = new Shader(shaderName, vertexShaderName, fragmentShaderName);
 			if (newShader->Load()) {
 				shaderRegister.push_back(newShader);
 			}
@@ -498,7 +501,12 @@ void Engine::Update(const float& deltaTime) {
 		camera.Update(deltaTime, *player);
 	}
 }
-void Engine::Draw(void) {
+void Engine::Render(void) {
+	// Pre-render
+	glViewport(0, 0, windowDimensions.x, windowDimensions.y);
+	glClearColor(100 / 255.0f, 149 / 255.0f, 237 / 255.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	// Draw the level
 	if (levelRegister[indexCurrentLevel] != nullptr) {
 		levelRegister[indexCurrentLevel]->Draw();
@@ -507,20 +515,6 @@ void Engine::Draw(void) {
 	if (player != nullptr) {
 		player->Draw();
 	}
-}
-void Engine::Renderer(void) {
-	// Pre-render
-	glViewport(0, 0, windowDimensions.x, windowDimensions.y);
-	glClearColor(100 / 255.0f, 149 / 255.0f, 237 / 255.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	// Main Render
-	shaderRegister[0]->Activate();
-	// Pass the view matrix and projection matrix to the Shader.
-	glUniformMatrix4fv(glGetUniformLocation(shaderRegister[0]->program, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(camera.viewMatrix));
-	glUniformMatrix4fv(glGetUniformLocation(shaderRegister[0]->program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(camera.projectionMatrix));
-	Draw();	// Does the actual drawing of the GameObjects, this is seperated to make it easier to read.
-	glUseProgram(0);
 
 	// Post-Render
 	SDL_GL_SwapWindow(sdlWindow);	// Gives the frame buffer to the display (swapBuffers).
@@ -542,7 +536,7 @@ void Engine::Run(void) {
 		// Main Game loop
 		EventHandler();			// Handle any events
 		Update(deltaTime);		// Update the game
-		Renderer();				// Render the game
+		Render();				// Render the game
 
 		// FPS math, called after the engine has finished its render function.
 		fpsCounter++;					// Counts the number of frames as they've been rendered.

@@ -62,6 +62,7 @@ public:
 
 	// Indexers
 	int indexOfPlayerController;
+	int indexOfDefaultShader;
 	int indexCurrentLevel;
 
 	std::string nameOfTileModel;
@@ -126,7 +127,6 @@ private:
 	// Game loop related functions
 	void EventHandler(void);
 	void Update(const float& deltaTime);
-	void Draw(void);
-	void Renderer(void);
+	void Render(void);
 };
 #endif
