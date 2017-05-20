@@ -12,8 +12,7 @@ Model::~Model() {
 }
 void Model::SetVertexObjects() {
 	for (int i = 0; i < meshes.size(); i++) {
-		meshes[i].GenerateVertexBuffers();
-		meshes[i].GenerateVertexArrayObject();
+		meshes[i].BindBuffers();
 	}
 }
 void Model::SetMeshParents() {
