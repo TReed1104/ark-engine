@@ -86,7 +86,6 @@ void Engine::InitialiseSDL(void) {
 		std::cout << ">> SDL_Init Error: " << SDL_GetError() << std::endl;
 		exit(1);
 	}
-	SDL_GL_SetSwapInterval(-1);
 	std::cout << ">> SDL initialised Successfully!" << std::endl;
 }
 void Engine::CreateSDLWindow(void) {
