@@ -10,10 +10,10 @@
 class Shader
 {
 public:
-	std::string ID;
+	std::string name;
 	GLuint program;
 
-	Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
+	Shader(const std::string& name, const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
 	~Shader();
 
 	void Activate(void);
