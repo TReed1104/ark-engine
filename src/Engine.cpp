@@ -565,9 +565,10 @@ void Engine::Renderer(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Main Render
-	glUseProgram(glProgram);
-	glUniformMatrix4fv(shaderPointers.viewMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.viewMatrix));				// Pass the view matrix and projection matrix to the Shader.
-	glUniformMatrix4fv(shaderPointers.projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(camera.projectionMatrix));
+	glUseProgram(glProgram);	// Tell the engine what shader to use.
+	// Pass the view matrix and projection matrix to the Shader.
+	glUniformMatrix4fv(glGetUniformLocation(glProgram, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(camera.viewMatrix));
+	glUniformMatrix4fv(glGetUniformLocation(glProgram, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(camera.projectionMatrix));
 	Draw();	// Does the actual drawing of the GameObjects, this is seperated to make it easier to read.
 	glUseProgram(0);
 

@@ -88,11 +88,11 @@ public:
 	void Run(void);
 	glm::vec2 ConvertToGridPosition(const glm::vec2& position);
 
+	GLuint glProgram;
 private:
 	// GL variables
 	SDL_Window* sdlWindow;
 	SDL_GLContext glContext;
-	GLuint glProgram;
 	bool isRunning;
 
 	// Program variables
