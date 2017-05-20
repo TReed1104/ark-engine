@@ -19,7 +19,6 @@
 #include <assimp/postprocess.h>
 // Engine Source
 #include "Shader.h"
-#include "OldShader.h"
 #include "Keyboard.h"
 #include "GameController.h"
 #include "BoundingBox.h"
@@ -86,7 +85,6 @@ public:
 	void Run(void);
 	glm::vec2 ConvertToGridPosition(const glm::vec2& position);
 
-	GLuint glProgram;
 private:
 	// GL variables
 	SDL_Window* sdlWindow;
@@ -109,8 +107,6 @@ private:
 	void CreateSDLContext(void);
 	void CheckForInputDevices(void);
 	void InitialiseGlew(void);
-	GLuint CreateGLProgram(const std::vector<OldShader>& shaderList);
-	void InitialiseProgram(void);
 	void LoadShaders(void);
 	void LoadGraphicsEnvironment(void);
 	void CleanUp(void);

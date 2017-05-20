@@ -162,59 +162,6 @@ void Engine::InitialiseGlew(void) {
 		std::cout << ">> GLEW Initialisation Successfully!" << std::endl;
 	}
 }
-GLuint Engine::CreateGLProgram(const std::vector<OldShader>& shaderList) {
-	// Create the OpenGL program and attach the shaders.
-	GLuint program = glCreateProgram();
-
-	// Loop through the Shader List and attach each one to the program.
-	for (size_t iLoop = 0; iLoop < shaderList.size(); iLoop++) {
-		glAttachShader(program, shaderList[iLoop].shaderID);
-	}
-
-	glLinkProgram(program);	// Link the program object to the specific program.
-
-	GLint status;
-	glGetProgramiv(program, GL_LINK_STATUS, &status);
-
-	if (status == GL_FALSE) {
-		// If the program or shaders fail, print the errors.
-		GLint infoLogLength;
-		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLength);
-
-		GLchar *strInfoLog = new GLchar[infoLogLength + 1];
-		glGetProgramInfoLog(program, infoLogLength, NULL, strInfoLog);
-		fprintf(stderr, "Linker failure: %s\n", strInfoLog);
-		delete[] strInfoLog;
-	}
-
-	// Loop through the Shader list and detach each one.
-	for (size_t iLoop = 0; iLoop < shaderList.size(); iLoop++) {
-		glDetachShader(program, shaderList[iLoop].shaderID);
-	}
-
-	return program;
-}
-void Engine::InitialiseProgram(void) {
-	std::vector<OldShader> shaderList;
-	shaderList.push_back(OldShader("content/shaders/default.vert", GL_VERTEX_SHADER));
-	shaderList.push_back(OldShader("content/shaders/default.frag", GL_FRAGMENT_SHADER));
-
-	glProgram = CreateGLProgram(shaderList);	// Create the Program.
-	if (glProgram == 0) {
-		// If the program failed to be created, print the error and close the program.
-		std::cout << ">> GLSL program creation error." << std::endl;
-		this->Close();
-	}
-	else {
-		// If the program was created successfully.
-		std::cout << ">> GLSL program created Successfully! The GLUint is: " << glProgram << std::endl;
-	}
-
-	// Clean up shaders, they aren't needed anymore as they are loaded into the program.
-	for (size_t i = 0; i < shaderList.size(); i++) {
-		glDeleteShader(shaderList[i].shaderID);
-	}
-}
 void Engine::LoadShaders(void) {
 	// Load the Shaders
 	std::cout << ">> Loading Shaders - Begun" << std::endl;
@@ -248,10 +195,9 @@ void Engine::LoadGraphicsEnvironment(void) {
 
 	// OpenGL setup
 	InitialiseGlew();
+	LoadShaders();
 	glViewport(0, 0, windowDimensions.x, windowDimensions.y);
 	SDL_GL_SwapWindow(sdlWindow);
-	InitialiseProgram();
-	//LoadShaders();
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -569,10 +515,10 @@ void Engine::Renderer(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Main Render
-	glUseProgram(glProgram);	// Tell the engine what shader to use.
+	shaderRegister[0]->Activate();
 	// Pass the view matrix and projection matrix to the Shader.
-	glUniformMatrix4fv(glGetUniformLocation(glProgram, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(camera.viewMatrix));
-	glUniformMatrix4fv(glGetUniformLocation(glProgram, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(camera.projectionMatrix));
+	glUniformMatrix4fv(glGetUniformLocation(shaderRegister[0]->program, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(camera.viewMatrix));
+	glUniformMatrix4fv(glGetUniformLocation(shaderRegister[0]->program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(camera.projectionMatrix));
 	Draw();	// Does the actual drawing of the GameObjects, this is seperated to make it easier to read.
 	glUseProgram(0);
 

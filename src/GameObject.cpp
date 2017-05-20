@@ -64,24 +64,24 @@ void GameObject::Draw(void) {
 		glBindVertexArray(currentMesh.vertexArrayObject);
 
 		// Passes the Model Matrix of the Object to the shader.
-		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->glProgram, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
+		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[0]->program, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 
 		bool useTextures = (texture->id != -1 && currentMesh.isSetupForTextures);
 		if (useTextures) {
 			// Textures are setup correctly, tell the shader to use the texture and setup the source frame.
-			glUniform1i(glGetUniformLocation(Engine_Pointer->glProgram, "hasTexture"), useTextures);
-			glUniform2fv(glGetUniformLocation(Engine_Pointer->glProgram, "textureDimensions"), 1, glm::value_ptr(texture->dimensions));
-			glUniform2fv(glGetUniformLocation(Engine_Pointer->glProgram, "sourceFrameSize"), 1, glm::value_ptr(sourceFrameSize));
-			glUniform2fv(glGetUniformLocation(Engine_Pointer->glProgram, "sourceFramePosition"), 1, glm::value_ptr(sourceFramePosition));
+			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[0]->program, "hasTexture"), useTextures);
+			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[0]->program, "textureDimensions"), 1, glm::value_ptr(texture->dimensions));
+			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[0]->program, "sourceFrameSize"), 1, glm::value_ptr(sourceFrameSize));
+			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[0]->program, "sourceFramePosition"), 1, glm::value_ptr(sourceFramePosition));
 
 			// Activate the correct texture.
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture->id);
-			glUniform1i(glGetUniformLocation(Engine_Pointer->glProgram, "textureSampler"), 0);
+			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[0]->program, "textureSampler"), 0);
 		}
 		else {
 			// Textures are not setup, use the colour buffer.
-			glUniform1i(glGetUniformLocation(Engine_Pointer->glProgram, "hasTexture"), false);
+			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[0]->program, "hasTexture"), false);
 		}
 
 		// Tell the shader how to draw between each point.
