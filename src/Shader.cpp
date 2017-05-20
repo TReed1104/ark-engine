@@ -22,8 +22,12 @@ bool Shader::ReadFile(std::string& rawString, const std::string& strShaderFile) 
 		rawString += line + "\n";
 	}
 	fileReader.close();
+
+	std::cout << "Shader file " << strShaderFile << " was loaded into memory" << std::endl;
+	return true;
 }
 bool Shader::ImportShaderFiles() {
+	std::cout << "" << std::endl;
 	if (ReadFile(rawVertexString, vertexFilePath)) {
 		if (ReadFile(rawFragmentString, fragmentFilePath)) {
 			// As both the shader files were parsed correctly into memory, return true.
@@ -74,8 +78,10 @@ bool Shader::CompileShader() {
 
 	// Create the Vertex Shader
 	if (CreateShader(vertexShaderID, GL_VERTEX_SHADER, rawVertexString)) {
+		std::cout << "Shader - " << name << " - has had its vertex shader was compiled" << std::endl;
 		// Create the Fragment Shader
 		if (CreateShader(fragmentShaderID, GL_FRAGMENT_SHADER, rawFragmentString)) {
+			std::cout << "Shader - " << name << " - has had its fragment shader was compiled" << std::endl;
 			// Both Shaders were created, attach them to the program.
 			this->program = glCreateProgram();
 			glAttachShader(this->program, vertexShaderID);
@@ -99,6 +105,7 @@ bool Shader::CompileShader() {
 			}
 			glDeleteShader(vertexShaderID);
 			glDeleteShader(fragmentShaderID);
+			std::cout << "GLprogram " << name << " - has been compiled successfully" << std::endl;
 			return true;
 		}
 		else {

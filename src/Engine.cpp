@@ -180,12 +180,12 @@ void Engine::LoadShaders(void) {
 				shaderRegister.push_back(newShader);
 			}
 			else {
-				std::cout << ">> Shader Load failed." << std::endl;
+				std::cout << ">> Shader " << shaderName << " failed to load." << std::endl;
 				this->Close();
 			}
 		}
 	}
-	std::cout << ">> Loading Shaders - Complete" << std::endl;
+	std::cout << "\n>> Loading Shaders - Complete" << std::endl;
 }
 void Engine::LoadGraphicsEnvironment(void) {
 	// Setup the Engine environment (E.g. OpenGL, SDL, etc.)
