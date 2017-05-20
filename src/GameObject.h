@@ -23,6 +23,9 @@ class GameObject {
 public:
 	static Engine* Engine_Pointer;
 
+	// Shader indexer
+	int indexOfShader;
+
 	// Model and texture variables
 	LuaScript* script;
 	Model model;
