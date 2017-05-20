@@ -47,9 +47,6 @@ public:
 	Keyboard* deviceKeyboard;
 	std::vector<GameController*> deviceGameControllerRegister;
 
-	// Shader Locations
-	//ShaderPointers shaderPointers;
-
 	// Cameras
 	Camera camera;
 
