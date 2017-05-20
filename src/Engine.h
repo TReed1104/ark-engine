@@ -18,7 +18,6 @@
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 // Engine Source
-#include "ShaderPointers.hpp"
 #include "Shader.h"
 #include "Keyboard.h"
 #include "GameController.h"
@@ -49,7 +48,7 @@ public:
 	std::vector<GameController*> deviceGameControllerRegister;
 
 	// Shader Locations
-	ShaderPointers shaderPointers;
+	//ShaderPointers shaderPointers;
 
 	// Cameras
 	Camera camera;
