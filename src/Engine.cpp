@@ -171,12 +171,15 @@ void Engine::LoadShaders(void) {
 	for (size_t i = 0; i < listOfShaders.size(); i++) {
 		LuaScript currentShaderConfig = LuaScript(listOfShaders[i]);
 		if (currentShaderConfig.isScriptLoaded) {
+			// Grab the variables from the config script
 			std::string vertexShaderName = contentDirectory + "shaders/" + currentShaderConfig.Get<std::string>("shader_config.vertex");
 			std::string fragmentShaderName = contentDirectory + "shaders/" + currentShaderConfig.Get<std::string>("shader_config.fragment");
 			std::string shaderName = currentShaderConfig.Get<std::string>("shader_config.name");
 
+			// Create and Load the shader
 			Shader* newShader = new Shader(shaderName, vertexShaderName, fragmentShaderName);
 			if (newShader->Load()) {
+				// Loaded successfully, storing it for use
 				shaderRegister.push_back(newShader);
 			}
 			else {
