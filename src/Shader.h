@@ -1,22 +1,34 @@
 #ifndef ARKENGINE_SHADER_H_
 #define ARKENGINE_SHADER_H_
 
-#include <GL/glew.h>
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <stdexcept>
+#include <GL/glew.h>
 
-class Shader {
+class Shader
+{
 public:
-	GLuint shaderID;
-	std::string strShader;
+	std::string ID;
+	GLuint program;
 
-	Shader(const std::string& shaderLocation, const GLenum& eShaderType);
+	Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
 	~Shader();
 
-	void Load(const std::string& ShaderLocation);
-	void Create(const GLenum& eShaderType, const std::string& strShaderFile);
+	void Activate(void);
+	bool Load(void);
+
+private:
+	// Path of Shader files
+	std::string vertexFilePath;
+	std::string fragmentFilePath;
+	// Raw Shader text
+	std::string rawVertexString;
+	std::string rawFragmentString;
+
+	bool ReadShaderFiles(const std::string & vertexShaderPath, const std::string & fragmentShaderPath);
+	bool CompileShader();
 };
+
 #endif

@@ -14,29 +14,12 @@ Engine::Engine(char* gameName) {
 	indexOfTileModel = -1;
 	indexOfDefaultTexture = -1;
 	indexOfSpriteModel = -1;
+
+	player = nullptr;
+	deviceKeyboard = nullptr;
 }
 Engine::~Engine(void) {
-	delete deviceKeyboard;
-	delete player;
 
-	// Clear all the controllers.
-	for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
-		delete deviceGameControllerRegister[i];
-	}
-
-	// Delete all the entries in the registers.
-	for (int i = 0; i < itemRegister.size(); i++) {
-		delete itemRegister[i];
-	}
-
-	for (int i = 0; i < entityRegister.size(); i++) {
-		delete entityRegister[i];
-	}
-
-	for (int i = 0; i < levelRegister.size(); i++) {
-		delete levelRegister[i];
-	}
-	std::cout << "Game Class Deconstructor Successful!" << std::endl;
 }
 
 // Engine config related functions
@@ -65,6 +48,7 @@ void Engine::LoadEngineConfig(void) {
 	}
 	else {
 		// Config failed to load.
+		CleanUp();
 		SDL_Quit();
 		exit(1);
 	}
@@ -80,6 +64,7 @@ void Engine::LoadKeyBindings(void) {
 	}
 	else {
 		// Config failed to load.
+		CleanUp();
 		SDL_Quit();
 		exit(1);
 	}
@@ -113,6 +98,7 @@ void Engine::CreateSDLWindow(void) {
 	// Error handling for the SDL Window.
 	if (sdlWindow == nullptr) {
 		std::cout << ">> SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
+		CleanUp();
 		SDL_Quit();
 		exit(1);
 	}
@@ -130,6 +116,7 @@ void Engine::CreateSDLContext(void) {
 		// If setup for OpenGL 3.3 and OpenGL 2.0 both failed, The program will display an error and close.
 		SDL_DestroyWindow(sdlWindow);
 		std::cout << "SDL_GL_CreateContext Error: " << SDL_GetError() << std::endl;	// Print the error.
+		CleanUp();
 		SDL_Quit();
 		exit(1);
 	}
@@ -177,6 +164,7 @@ void Engine::InitialiseGlew(void) {
 	if (GLEW_OK != rev) {
 		// If GLEW fails, close the program.
 		std::cout << ">> GLEW Error: " << glewGetErrorString(rev) << std::endl;
+		CleanUp();
 		SDL_Quit();
 		exit(1);
 	}
@@ -184,7 +172,7 @@ void Engine::InitialiseGlew(void) {
 		std::cout << ">> GLEW Initialisation Successfully!" << std::endl;
 	}
 }
-GLuint Engine::CreateGLProgram(const std::vector<Shader>& shaderList) {
+GLuint Engine::CreateGLProgram(const std::vector<OldShader>& shaderList) {
 	// Create the OpenGL program and attach the shaders.
 	GLuint program = glCreateProgram();
 
@@ -217,14 +205,15 @@ GLuint Engine::CreateGLProgram(const std::vector<Shader>& shaderList) {
 	return program;
 }
 void Engine::InitialiseProgram(void) {
-	std::vector<Shader> shaderList;
-	shaderList.push_back(Shader("content/shaders/default.vert", GL_VERTEX_SHADER));
-	shaderList.push_back(Shader("content/shaders/default.frag", GL_FRAGMENT_SHADER));
+	std::vector<OldShader> shaderList;
+	shaderList.push_back(OldShader("content/shaders/default.vert", GL_VERTEX_SHADER));
+	shaderList.push_back(OldShader("content/shaders/default.frag", GL_FRAGMENT_SHADER));
 
 	glProgram = CreateGLProgram(shaderList);	// Create the Program.
 	if (glProgram == 0) {
 		// If the program failed to be created, print the error and close the program.
 		std::cout << ">> GLSL program creation error." << std::endl;
+		CleanUp();
 		SDL_Quit();
 		exit(1);
 	}
@@ -237,6 +226,30 @@ void Engine::InitialiseProgram(void) {
 	for (size_t i = 0; i < shaderList.size(); i++) {
 		glDeleteShader(shaderList[i].shaderID);
 	}
+}
+void Engine::LoadShaders(void) {
+	// Load the Shaders
+	std::cout << ">> Loading Shaders - Begun" << std::endl;
+	std::vector<std::string> listOfShaders = FileSystemUtilities::GetFileList(contentDirectory + "config/shaders");
+	for (size_t i = 0; i < listOfShaders.size(); i++) {
+		LuaScript currentShaderConfig = LuaScript(listOfShaders[i]);
+		if (currentShaderConfig.isScriptLoaded) {
+			std::string vertexShaderName = contentDirectory + "/shaders/" + currentShaderConfig.Get<std::string>("shader_config.vertex");
+			std::string fragmentShaderName = contentDirectory + "/shaders/" + currentShaderConfig.Get<std::string>("shader_config.fragment");
+
+			Shader* newShader = new Shader(vertexShaderName, fragmentShaderName);
+			if (newShader->Load()) {
+				shaderRegister.push_back(newShader);
+			}
+			else {
+				std::cout << ">> Shader Load failed." << std::endl;
+				CleanUp();
+				SDL_Quit();
+				exit(1);
+			}
+		}
+	}
+	std::cout << ">> Loading Shaders - Complete" << std::endl;
 }
 void Engine::LoadGraphicsEnvironment(void) {
 	// Setup the Engine environment (E.g. OpenGL, SDL, etc.)
@@ -252,6 +265,7 @@ void Engine::LoadGraphicsEnvironment(void) {
 	glViewport(0, 0, windowDimensions.x, windowDimensions.y);
 	SDL_GL_SwapWindow(sdlWindow);
 	InitialiseProgram();
+	//LoadShaders();
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -260,6 +274,43 @@ void Engine::LoadGraphicsEnvironment(void) {
 }
 void Engine::CleanUp(void) {
 	std::cout << "Cleanup - Begun" << std::endl;
+
+	// Delete all the levels.
+	int levelRegisterSize = levelRegister.size();
+	for (int i = 0; i < levelRegisterSize; i++) {
+		delete levelRegister[i];
+	}
+
+	// Delete all the items loaded.
+	int itemRegisterSize = itemRegister.size();
+	for (int i = 0; i < itemRegisterSize; i++) {
+		delete itemRegister[i];
+	}
+
+	// Delete all the Entities.
+	if (player != nullptr) {
+		delete player;
+	}
+	int entityRegisterSize = entityRegister.size();
+	for (int i = 0; i < entityRegisterSize; i++) {
+		delete entityRegister[i];
+	}
+
+	// Delete all the Input Devices.
+	if (deviceKeyboard != nullptr) {
+		delete deviceKeyboard;
+	}
+	int gameControllerRegisterSize = deviceGameControllerRegister.size();
+	for (int i = 0; i < gameControllerRegisterSize; i++) {
+		delete deviceGameControllerRegister[i];
+	}
+
+	// Delete the loaded Shaders.
+	int shaderRegisterSize = shaderRegister.size();
+	for (int i = 0; i < shaderRegisterSize; i++) {
+		delete shaderRegister[i];
+	}
+
 	if (SDL_NumJoysticks() > 0) {
 		for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
 			SDL_GameControllerClose(deviceGameControllerRegister[i]->GetSDLHook());	// Close the controller.
@@ -278,6 +329,7 @@ void Engine::ImportTexture(const char* texturePath) {
 		if (image == NULL) {
 			// If the texture was not loaded correctly, quit the program and show a error message on the console.
 			std::cout << ">> The loading of Spritesheet: " << texturePath << " failed." << std::endl;
+			CleanUp();
 			SDL_Quit();
 			exit(1);
 		}
@@ -320,6 +372,7 @@ void Engine::LoadTextures(void) {
 		}
 	}
 	if (indexOfDefaultTexture == -1) {
+		CleanUp();
 		SDL_Quit();
 		exit(1);
 	}
@@ -388,6 +441,7 @@ void Engine::LoadModels(void) {
 		}
 	}
 	if (indexOfTileModel == -1) {
+		CleanUp();
 		SDL_Quit();
 		exit(1);
 	}
@@ -566,7 +620,7 @@ void Engine::Run(void) {
 		oldFrameTime = currentFrameTime;
 	}
 	std::cout << "Game Runtime - Finished" << std::endl;
-	CleanUp();					// Cleans up after SDL
+	CleanUp();						// Cleans up after SDL
 	SDL_Quit();						// Quits the program
 }
 // Engine Utilities

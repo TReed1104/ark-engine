@@ -1,61 +1,67 @@
 #include "Shader.h"
 
-Shader::Shader(const std::string& shaderLocation, const GLenum& eShaderType) {
-	Load(shaderLocation);
-	Create(eShaderType, strShader);
+Shader::Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {
+	vertexFilePath = vertexShaderPath;
+	fragmentFilePath = fragmentShaderPath;
 }
+
 Shader::~Shader() {
 
 }
 
-void Shader::Load(const std::string& ShaderLocation) {
-	bool complete = false;
-	std::string line = "";
-	std::string text = "";
-	std::ifstream shaderReader(ShaderLocation);
-
-	if (!shaderReader.is_open()) {
-		throw std::runtime_error("Shader file not found" + ShaderLocation);
-	}
-
-	while (getline(shaderReader, line)) {
-		text += line + "\n";
-	}
-	shaderReader.close();
-	strShader = text;
-	complete = true;
+void Shader::Activate(void) {
+	// Tells the engine to use this shader for the Current Draw.
+	glUseProgram(program);
 }
-void Shader::Create(const GLenum& eShaderType, const std::string& strShaderFile){
-	shaderID = glCreateShader(eShaderType);
-	// Error check
-	const char *strFileData = strShaderFile.c_str();
-	glShaderSource(shaderID, 1, &strFileData, NULL);
 
-	glCompileShader(shaderID);
-
-	GLint status;
-	glGetShaderiv(shaderID, GL_COMPILE_STATUS, &status);
-	if (status == GL_FALSE) {
-		GLint infoLogLength;
-		glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLogLength);
-
-		GLchar *strInfoLog = new GLchar[infoLogLength + 1];
-		glGetShaderInfoLog(shaderID, infoLogLength, NULL, strInfoLog);
-
-		const char *strShaderType = NULL;
-		switch (eShaderType) {
-		case GL_VERTEX_SHADER:
-			strShaderType = "vertex";
-			break;
-		case GL_GEOMETRY_SHADER:
-			strShaderType = "geometry";
-			break;
-		case GL_FRAGMENT_SHADER:
-			strShaderType = "fragment";
-			break;
+bool Shader::Load(void)
+{
+	if (ReadShaderFiles(vertexFilePath, fragmentFilePath)) {
+		if (CompileShader()) {
+			return true;
 		}
-
-		fprintf(stderr, "Compile failure in %s shader:\n%s\n", strShaderType, strInfoLog);
-		delete[] strInfoLog;
+		else {
+			return false;
+		}
 	}
+	else {
+		return false;
+	}
+}
+
+bool Shader::ReadShaderFiles(const std::string & vertexShaderPath, const std::string & fragmentShaderPath)
+{
+	rawVertexString = "";
+	rawFragmentString = "";
+
+	// Read the Vertex shader file
+	std::ifstream vertexShaderReader(vertexShaderPath);
+	if (!vertexShaderReader.is_open()) {
+		std::cout << "Vertex Shader file not found - " << vertexShaderPath << std::endl;
+		return false;
+	}
+	std::string line = "";
+	while (getline(vertexShaderReader, line)) {
+		rawVertexString += line + "\n";
+	}
+	vertexShaderReader.close();
+
+	// Read the Fragment shader file
+	std::ifstream fragmentShaderReader(fragmentShaderPath);
+	if (!fragmentShaderReader.is_open()) {
+		std::cout << "Fragment Shader file not found - " << fragmentShaderPath << std::endl;
+		return false;
+	}
+	line = "";
+	while (getline(fragmentShaderReader, line)) {
+		rawFragmentString += line + "\n";
+	}
+	fragmentShaderReader.close();
+
+	// As both the shader files were parsed correctly into memory, return true.
+	return true;
+}
+
+bool Shader::CompileShader() {
+	return false;
 }

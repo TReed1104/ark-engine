@@ -19,6 +19,7 @@
 #include <assimp/postprocess.h>
 // Engine Source
 #include "Shader.h"
+#include "OldShader.h"
 #include "Keyboard.h"
 #include "GameController.h"
 #include "BoundingBox.h"
@@ -51,6 +52,7 @@ public:
 	Camera camera;
 
 	// Registers
+	std::vector<Shader*> shaderRegister;
 	std::vector<Model> modelRegister;
 	std::vector<Tileset> tilesetRegister;
 	std::vector<GameObject*> itemRegister;
@@ -107,8 +109,9 @@ private:
 	void CreateSDLContext(void);
 	void CheckForInputDevices(void);
 	void InitialiseGlew(void);
-	GLuint CreateGLProgram(const std::vector<Shader>& shaderList);
+	GLuint CreateGLProgram(const std::vector<OldShader>& shaderList);
 	void InitialiseProgram(void);
+	void LoadShaders(void);
 	void LoadGraphicsEnvironment(void);
 	void CleanUp(void);
 	// Content loading related functions
