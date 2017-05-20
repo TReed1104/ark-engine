@@ -58,7 +58,6 @@ public:
 	Model(const std::string& name = "");
 	~Model();
 
-	void SetVertexObjects();
 	void SetMeshParents();
 	void Translate(const glm::vec3& translation = glm::vec3(0.0f));
 	void Rotate(const float& rotationAngle = 0.0f, const glm::vec3& rotationAxis = glm::vec3(0.0f));

@@ -404,7 +404,7 @@ Model Engine::LoadModel(const std::string& modelPath) {
 				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[1]);
 				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[2]);
 			}
-
+			currentMesh.BindBuffers();
 			currentModel.meshes.push_back(currentMesh);
 		}
 		std::cout << ">> Model loaded: " << modelPath << std::endl;	// Outputs that the model has been loaded.
@@ -417,11 +417,6 @@ void Engine::LoadModels(void) {
 	std::vector<std::string> listOfModels = FileSystemUtilities::GetFileList(contentDirectory + "models");
 	for (size_t i = 0; i < listOfModels.size(); i++) {
 		modelRegister.push_back(LoadModel(listOfModels[i]));
-
-	}
-	// Loop through the model register and setup the Vertex Objects for every model for their default states.
-	for (int i = 0; i < modelRegister.size(); i++) {
-		modelRegister[i].SetVertexObjects();
 	}
 	
 	// Find the default model

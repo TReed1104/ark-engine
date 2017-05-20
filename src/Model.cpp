@@ -10,11 +10,7 @@ Model::Model(const std::string& name) {
 Model::~Model() {
 
 }
-void Model::SetVertexObjects() {
-	for (int i = 0; i < meshes.size(); i++) {
-		meshes[i].BindBuffers();
-	}
-}
+
 void Model::SetMeshParents() {
 	for (int i = 0; i < meshes.size(); i++) {
 		meshes[i].SetParent(*this);
