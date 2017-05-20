@@ -114,6 +114,7 @@ private:
 	void LoadShaders(void);
 	void LoadGraphicsEnvironment(void);
 	void CleanUp(void);
+	void Close(bool isClean = false);
 	// Content loading related functions
 	void ImportTexture(const char* texturePath);
 	void LoadTextures(void);

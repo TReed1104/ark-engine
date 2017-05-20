@@ -48,9 +48,7 @@ void Engine::LoadEngineConfig(void) {
 	}
 	else {
 		// Config failed to load.
-		CleanUp();
-		SDL_Quit();
-		exit(1);
+		this->Close();
 	}
 }
 void Engine::LoadKeyBindings(void) {
@@ -64,9 +62,7 @@ void Engine::LoadKeyBindings(void) {
 	}
 	else {
 		// Config failed to load.
-		CleanUp();
-		SDL_Quit();
-		exit(1);
+		this->Close();
 	}
 }
 void Engine::LoadEnginePointers(void) {
@@ -98,9 +94,7 @@ void Engine::CreateSDLWindow(void) {
 	// Error handling for the SDL Window.
 	if (sdlWindow == nullptr) {
 		std::cout << ">> SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
-		CleanUp();
-		SDL_Quit();
-		exit(1);
+		this->Close();
 	}
 	std::cout << ">> SDL Window Created Successfully!" << std::endl;
 }
@@ -116,9 +110,7 @@ void Engine::CreateSDLContext(void) {
 		// If setup for OpenGL 3.3 and OpenGL 2.0 both failed, The program will display an error and close.
 		SDL_DestroyWindow(sdlWindow);
 		std::cout << "SDL_GL_CreateContext Error: " << SDL_GetError() << std::endl;	// Print the error.
-		CleanUp();
-		SDL_Quit();
-		exit(1);
+		this->Close();
 	}
 
 	// Print the OpenGL version the program is using (3.3 or 2.0).
@@ -164,9 +156,7 @@ void Engine::InitialiseGlew(void) {
 	if (GLEW_OK != rev) {
 		// If GLEW fails, close the program.
 		std::cout << ">> GLEW Error: " << glewGetErrorString(rev) << std::endl;
-		CleanUp();
-		SDL_Quit();
-		exit(1);
+		this->Close();
 	}
 	else {
 		std::cout << ">> GLEW Initialisation Successfully!" << std::endl;
@@ -213,9 +203,7 @@ void Engine::InitialiseProgram(void) {
 	if (glProgram == 0) {
 		// If the program failed to be created, print the error and close the program.
 		std::cout << ">> GLSL program creation error." << std::endl;
-		CleanUp();
-		SDL_Quit();
-		exit(1);
+		this->Close();
 	}
 	else {
 		// If the program was created successfully.
@@ -243,9 +231,7 @@ void Engine::LoadShaders(void) {
 			}
 			else {
 				std::cout << ">> Shader Load failed." << std::endl;
-				CleanUp();
-				SDL_Quit();
-				exit(1);
+				this->Close();
 			}
 		}
 	}
@@ -320,6 +306,18 @@ void Engine::CleanUp(void) {
 	SDL_DestroyWindow(sdlWindow);
 	std::cout << "Cleanup - Complete" << std::endl;
 }
+void Engine::Close(bool isClean) {
+	// Clear up and close the engine.
+	if (isClean) {
+		CleanUp();
+		SDL_Quit();
+	}
+	else {
+		CleanUp();
+		SDL_Quit();
+		exit(1);
+	}
+}
 // Content loading related functions
 void Engine::ImportTexture(const char* texturePath) {
 	// This function loads a texture into memory to be used with a source rectangle to depict what part of it to render.
@@ -329,9 +327,7 @@ void Engine::ImportTexture(const char* texturePath) {
 		if (image == NULL) {
 			// If the texture was not loaded correctly, quit the program and show a error message on the console.
 			std::cout << ">> The loading of Spritesheet: " << texturePath << " failed." << std::endl;
-			CleanUp();
-			SDL_Quit();
-			exit(1);
+			this->Close();
 		}
 		else {
 			std::cout << ">> The loading of Spritesheet: " << texturePath << " was successful." << std::endl;
@@ -372,9 +368,7 @@ void Engine::LoadTextures(void) {
 		}
 	}
 	if (indexOfDefaultTexture == -1) {
-		CleanUp();
-		SDL_Quit();
-		exit(1);
+		this->Close();
 	}
 
 	std::cout << ">> Loading Textures - Complete" << std::endl;
@@ -441,9 +435,7 @@ void Engine::LoadModels(void) {
 		}
 	}
 	if (indexOfTileModel == -1) {
-		CleanUp();
-		SDL_Quit();
-		exit(1);
+		this->Close();
 	}
 	if (indexOfSpriteModel == -1) {
 		indexOfSpriteModel = indexOfTileModel;
@@ -620,8 +612,7 @@ void Engine::Run(void) {
 		oldFrameTime = currentFrameTime;
 	}
 	std::cout << "Game Runtime - Finished" << std::endl;
-	CleanUp();						// Cleans up after SDL
-	SDL_Quit();						// Quits the program
+	this->Close(true);
 }
 // Engine Utilities
 glm::vec2 Engine::ConvertToGridPosition(const glm::vec2 & position) {
