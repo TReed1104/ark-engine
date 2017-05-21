@@ -36,6 +36,8 @@ public:
 	// Core Engine Variables
 	std::string contentDirectory;
 	glm::vec2 tileSize;
+	std::string windowTitle;
+	glm::vec2 windowDimensions;
 	glm::vec2 windowGridSize;
 	glm::vec2 windowScaler;
 	int maxNumberOfControllers;
@@ -48,7 +50,7 @@ public:
 	std::vector<GameController*> deviceGameControllerRegister;
 
 	// Cameras
-	Camera camera;
+	Camera* camera;
 
 	// Registers
 	std::vector<Shader*> shaderRegister;
@@ -92,9 +94,7 @@ private:
 	SDL_GLContext glContext;
 	bool isRunning;
 
-	// Program variables
-	std::string windowTitle;
-	glm::vec2 windowDimensions;
+	// DeltaTime math
 	float oldFrameTime;
 	float currentFrameTime;
 

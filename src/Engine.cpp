@@ -17,6 +17,7 @@ Engine::Engine(char* gameName) {
 	indexOfDefaultTexture = -1;
 	indexOfSpriteModel = -1;
 
+	camera = nullptr;
 	player = nullptr;
 	deviceKeyboard = nullptr;
 }
@@ -222,6 +223,11 @@ void Engine::CleanUp(void) {
 	int itemRegisterSize = itemRegister.size();
 	for (int i = 0; i < itemRegisterSize; i++) {
 		delete itemRegister[i];
+	}
+
+	// Delete the camera
+	if (camera != nullptr) {
+		delete camera;
 	}
 
 	// Delete all the Entities.
@@ -437,7 +443,7 @@ void Engine::LoadEntities(void) {
 }
 void Engine::LoadCameras(void) {
 	std::cout << ">> Loading Camera - Begun" << std::endl;
-	camera = Camera(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::ortho(0.0f, windowDimensions.x, windowDimensions.y, 0.0f));
+	camera = new Camera(glm::vec3(0.0f, 0.0f, 1.0f));
 	std::cout << ">> Loading Camera - Complete" << std::endl;
 }
 void Engine::Load(void) {
@@ -500,7 +506,7 @@ void Engine::Update(const float& deltaTime) {
 	}
 	if (player != nullptr) {
 		player->Update(deltaTime);
-		camera.Update(deltaTime, *player);
+		camera->Update(deltaTime, *player);
 	}
 }
 void Engine::Render(void) {
