@@ -18,7 +18,6 @@ Camera::~Camera(void) {
 
 void Camera::Update(const float& deltaTime, GameObject& object) {
 	// Depending on the Camera mode, call the right function
-
 	(controlMode == CameraMode::Follow) ? FollowObject(deltaTime, object) : ManualControl();
 
 	// Clamp the position to the world bounds
@@ -33,6 +32,15 @@ void Camera::FollowObject(const float& deltaTime, GameObject& object) {
 		centerPoint = glm::vec3((object.boundingBox.GetPosition() + (object.boundingBox.GetDimensions() / 2.0f)), position.z);
 		glm::vec2 viewPortOffset = (viewPort / 2.0f);
 		position = centerPoint - glm::vec3(viewPortOffset, 0.0f);
+
+		// Calculate the new Position
+		//centerPoint = glm::vec3((object.boundingBox.GetPosition() + (object.boundingBox.GetDimensions() / 2.0f)), position.z);
+		//glm::vec2 viewPortOffset = (viewPort / 2.0f);
+		//glm::vec3 targetPosition = centerPoint - glm::vec3(viewPortOffset, 0.0f);
+		//targetPosition.x = glm::clamp(targetPosition.x, 0.0f, (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.x - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).x));
+		//targetPosition.y = glm::clamp(targetPosition.y, 0.0f, (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.y - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).y));
+		//
+		//position += (targetPosition - position) * 0.5f;
 	}
 }
 void Camera::ManualControl(void) {
