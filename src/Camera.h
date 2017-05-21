@@ -35,6 +35,5 @@ public:
 	void FollowObject(const float& deltaTime, GameObject& object);
 	void ManualControl(void);
 	void SetControlMode(const CameraMode& newMode);
-	void ClampCameraToWorld(void);
 };
 #endif
