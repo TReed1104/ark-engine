@@ -17,4 +17,33 @@ entity = {
 	-- Stats
 	health = 10.0,
 	movement_speed = 60.0,
+	
+	-- Animations
+	animations = {
+		animation_0 = { 
+			name = "Walk Down", 
+			number_of_frames = 2,
+			frame_0 = { x = 000, y = 000, length = 0.2, }, 
+			frame_1 = { x = 001, y = 000, length = 0.2, }, 
+		},
+		animation_1 = { 
+			name = "Walk Up", 
+			number_of_frames = 2, 
+			frame_0 = { x = 002, y = 000, length = 0.2, }, 
+			frame_1 = { x = 003, y = 000, length = 0.2, }, 
+		},
+		animation_2 = { 
+			name = "Walk Left", 
+			number_of_frames = 2, 
+			frame_0 = { x = 004, y = 000, length = 0.2, }, 
+			frame_1 = { x = 005, y = 000, length = 0.2, }, 
+		},
+		animation_3 = { 
+			name = "Walk Right", 
+			number_of_frames = 2, 
+			frame_0 = { x = 006, y = 000, length = 0.2, }, 
+			frame_1 = { x = 700, y = 000, length = 0.2, }, 
+		},
+	},
+	
 }
