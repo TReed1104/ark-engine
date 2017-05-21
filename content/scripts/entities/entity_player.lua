@@ -21,6 +21,7 @@ entity = {
 	-- Animations
 	has_animations = true,
 	animations = {
+		number_of_animations = 4,
 		animation_0 = { 
 			name = "Walk Down", 
 			number_of_frames = 2,
@@ -43,7 +44,7 @@ entity = {
 			name = "Walk Right", 
 			number_of_frames = 2, 
 			frame_0 = { x = 006, y = 000, length = 0.2, }, 
-			frame_1 = { x = 700, y = 000, length = 0.2, }, 
+			frame_1 = { x = 007, y = 000, length = 0.2, }, 
 		},
 	},
 	
