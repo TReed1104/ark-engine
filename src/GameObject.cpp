@@ -48,6 +48,10 @@ GameObject::~GameObject(void) {
 
 // Game Run Time.
 void GameObject::Update(const float& deltaTime) {
+	// Animate the object
+	Animation(deltaTime);
+	
+	// Apply transformations
 	UpdatePosition((velocity != glm::vec2(0.0f, 0.0f) || velocitySnap != glm::vec2(0.0f, 0.0f)));
 	UpdateRotation();
 	UpdateScale();
@@ -140,7 +144,6 @@ void GameObject::UpdateScale() {
 		model.Scale(scale);
 	}
 }
-
 void GameObject::Animation(const float & deltaTime) {
 
 }
