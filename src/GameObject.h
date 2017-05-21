@@ -24,7 +24,7 @@ public:
 	static Engine* Engine_Pointer;
 
 	// Shader indexer
-	int indexOfShader;
+	int indexOfCurrentShader;
 
 	// Model and texture variables
 	LuaScript* script;

@@ -4,7 +4,7 @@
 Engine* GameObject::Engine_Pointer;
 
 GameObject::GameObject(const std::string & scriptPath) {
-	indexOfShader = Engine_Pointer->indexOfDefaultShader;
+	indexOfCurrentShader = Engine_Pointer->indexOfDefaultShader;
 
 	// Load the script if given
 	if (scriptPath != "NO SCRIPT") {
@@ -57,7 +57,7 @@ void GameObject::Update(const float& deltaTime) {
 	velocitySnap = glm::vec2(0.0f, 0.0f);
 }
 void GameObject::Draw(void) {
-	Engine_Pointer->shaderRegister[indexOfShader]->Activate();
+	Engine_Pointer->shaderRegister[indexOfCurrentShader]->Activate();
 
 	glEnable(GL_BLEND);
 	// Loop through each mesh of the model
@@ -68,17 +68,17 @@ void GameObject::Draw(void) {
 		glBindVertexArray(currentMesh.vertexArrayObject);
 
 		// Passes the Matrices to the shader
-		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfShader]->program, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->camera->viewMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfShader]->program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->camera->projectionMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfShader]->program, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
+		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->camera->viewMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->camera->projectionMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 
 		bool useTextures = (texture->id != -1 && currentMesh.isSetupForTextures);
 		if (useTextures) {
 			// Textures are setup correctly, tell the shader to use the texture and setup the source frame.
-			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfShader]->program, "hasTexture"), useTextures);
-			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfShader]->program, "textureDimensions"), 1, glm::value_ptr(texture->dimensions));
-			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfShader]->program, "sourceFrameSize"), 1, glm::value_ptr(sourceFrameSize));
-			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfShader]->program, "sourceFramePosition"), 1, glm::value_ptr(sourceFramePosition));
+			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "hasTexture"), useTextures);
+			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "textureDimensions"), 1, glm::value_ptr(texture->dimensions));
+			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "sourceFrameSize"), 1, glm::value_ptr(sourceFrameSize));
+			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "sourceFramePosition"), 1, glm::value_ptr(sourceFramePosition));
 
 			// Activate the correct texture.
 			glActiveTexture(GL_TEXTURE0);
