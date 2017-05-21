@@ -15,16 +15,33 @@ Level::~Level() {
 }
 
 void Level::Update(const float& deltaTime) {
-	for (int y = 0; y < tileGridSize.y; y++) {
-		for (int x = 0; x < tileGridSize.x; x++) {
+	// Use the cameras position (top left of its viewport) to calculate where to update
+	glm::vec2 topLeftGridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(Engine_Pointer->camera->position.x, Engine_Pointer->camera->position.y));
+	glm::vec2 bottomRightGridPosition = topLeftGridPosition + (Engine_Pointer->windowGridSize + glm::vec2(1, 1));	// the +(1,1) here is to update one extra line of tiles on each axis, preventing odd behaviour when things are only partially visible.
+
+	// Clamp the bottomRight of the update area to the bounds of the world, the cameras already had its position clamped so we don't need to do it again.
+	int xAxis = glm::clamp(bottomRightGridPosition.x, topLeftGridPosition.x, tileGridSize.x);
+	int yAxis = glm::clamp(bottomRightGridPosition.y, topLeftGridPosition.y, tileGridSize.y);
+
+	for (int y = topLeftGridPosition.y; y < yAxis; y++) {
+		for (int x = topLeftGridPosition.x; x < xAxis;  x++) {
 			int index = y * tileGridSize.x + x;
 			tileMap[index]->Update(deltaTime);
 		}
 	}
+
 }
 void Level::Draw() {
-	for (int y = 0; y < tileGridSize.y; y++) {
-		for (int x = 0; x < tileGridSize.x; x++) {
+	// Use the cameras position (top left of its viewport) to calculate where to update
+	glm::vec2 topLeftGridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(Engine_Pointer->camera->position.x, Engine_Pointer->camera->position.y));
+	glm::vec2 bottomRightGridPosition = topLeftGridPosition + (Engine_Pointer->windowGridSize + glm::vec2(1, 1));	// the +(1,1) here is to render one extra line of tiles on each axis, preventing terrain popping in and out of existence.
+
+	// Clamp the bottomRight of the render area to the bounds of the world, the cameras already had its position clamped so we don't need to do it again.
+	int xAxis = glm::clamp(bottomRightGridPosition.x, topLeftGridPosition.x, tileGridSize.x);
+	int yAxis = glm::clamp(bottomRightGridPosition.y, topLeftGridPosition.y, tileGridSize.y);
+
+	for (int y = topLeftGridPosition.y; y < yAxis; y++) {
+		for (int x = topLeftGridPosition.x; x < xAxis; x++) {
 			int index = y * tileGridSize.x + x;
 			tileMap[index]->Draw();
 		}
