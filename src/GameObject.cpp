@@ -5,7 +5,6 @@ Engine* GameObject::Engine_Pointer;
 
 GameObject::GameObject(const std::string & scriptPath) {
 	indexOfCurrentShader = Engine_Pointer->indexOfDefaultShader;
-
 	// Load the script if given
 	if (scriptPath != "NO SCRIPT") {
 		this->script = new LuaScript(scriptPath);
@@ -48,13 +47,13 @@ GameObject::~GameObject(void) {
 
 // Game Run Time.
 void GameObject::Update(const float& deltaTime) {
-	// Animate the object
-	Animation(deltaTime);
-	
 	// Apply transformations
 	UpdatePosition((velocity != glm::vec2(0.0f, 0.0f) || velocitySnap != glm::vec2(0.0f, 0.0f)));
 	UpdateRotation();
 	UpdateScale();
+
+	// Animate the object
+	AnimationHandler(deltaTime);
 
 	// Reset the velocities.
 	velocity = glm::vec2(0, 0);
@@ -144,6 +143,14 @@ void GameObject::UpdateScale() {
 		model.Scale(scale);
 	}
 }
-void GameObject::Animation(const float & deltaTime) {
+void GameObject::AnimationHandler(const float& deltaTime) {
+	int animationIndex = 0;
+
+	// TODO: Work out what animation to use
+
+	// Run the animation
+	if (animations.size() > 0) {
+		animations[animationIndex].Run(deltaTime);
+	}
 
 }

@@ -14,6 +14,7 @@
 #include <SDL_image.h>
 #include "Model.h"
 #include "Texture.hpp"
+#include "Animation.h"
 #include "BoundingBox.h"
 #include "LuaScript.h"
 
@@ -32,6 +33,7 @@ public:
 	const Texture* texture;
 	glm::vec2 sourceFrameSize;
 	glm::vec2 sourceFramePosition;
+	std::vector<Animation> animations;
 
 	// Positions
 	glm::vec3 position;			// The world position of the object
@@ -65,7 +67,7 @@ private:
 	void UpdatePosition(bool doTransform = false);
 	void UpdateRotation();
 	void UpdateScale();
-	void Animation(const float& deltaTime);
+	void AnimationHandler(const float& deltaTime);
 
 protected:
 
