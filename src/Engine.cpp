@@ -76,6 +76,8 @@ void Engine::LoadEnginePointers(void) {
 	GameController::Engine_Pointer = this;
 	Camera::Engine_Pointer = this;
 	BoundingBox::Engine_Pointer = this;
+	Animation::Engine_Pointer = this;
+	Animation::Frame::Engine_Pointer = this;
 	GameObject::Engine_Pointer = this;
 	Tileset::Engine_Pointer = this;
 	Level::Engine_Pointer = this;
