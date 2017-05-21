@@ -68,8 +68,8 @@ void GameObject::Draw(void) {
 		glBindVertexArray(currentMesh.vertexArrayObject);
 
 		// Passes the Matrices to the shader
-		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfShader]->program, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->camera.viewMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfShader]->program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->camera.projectionMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfShader]->program, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->camera->viewMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfShader]->program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->camera->projectionMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfShader]->program, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 
 		bool useTextures = (texture->id != -1 && currentMesh.isSetupForTextures);
