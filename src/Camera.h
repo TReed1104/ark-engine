@@ -18,19 +18,21 @@ public:
 	// Public Member Variables.
 	enum CameraMode { Follow, Manual, };
 	CameraMode controlMode;
+
+	glm::vec2 viewPort;
 	glm::vec3 position;
-	glm::vec3 lookAt;
-	glm::vec3 upVector;
+	glm::vec3 centerPoint;
+
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
 
 	// Constructors and Deconstructors
-	Camera(const glm::vec3& cameraPosition = glm::vec3(0.0f), const glm::vec3& cameraLookAt = glm::vec3(0.0f), const glm::vec3& upVector = glm::vec3(0.0f, 1.0f, 0.0f), const glm::mat4& projectionMatrix = glm::mat4(), const CameraMode& cameraMode = CameraMode::Follow);
+	Camera(const glm::vec3& cameraPosition = glm::vec3(0.0f), const CameraMode& cameraMode = CameraMode::Follow);
 	~Camera(void);
 
 	// Public Member Function Declarations
-	void Update(const float& deltaTime, const GameObject& object);
-	void FollowObject(const GameObject& object);
+	void Update(const float& deltaTime, GameObject& object);
+	void FollowObject(const float& deltaTime, GameObject& object);
 	void ManualControl(void);
 	void SetControlMode(const CameraMode& newMode);
 	void ClampCameraToWorld(void);

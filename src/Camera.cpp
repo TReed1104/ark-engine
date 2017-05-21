@@ -5,42 +5,33 @@
 
 Engine* Camera::Engine_Pointer;
 
-Camera::Camera(const glm::vec3& cameraPosition, const glm::vec3& cameraLookAt, const glm::vec3& upVector, const glm::mat4& projectionMatrix, const CameraMode& cameraMode) {
+Camera::Camera(const glm::vec3& cameraPosition, const CameraMode& cameraMode) {
 	// Initialise the Camera.
+	this->viewPort = (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize);
 	this->position = cameraPosition;
-	this->lookAt = cameraLookAt;
-	this->upVector = upVector;
-	this->viewMatrix = glm::lookAt(cameraPosition, cameraLookAt, upVector);
-	this->projectionMatrix = projectionMatrix;
+	this->projectionMatrix = glm::ortho(0.0f, viewPort.x, viewPort.y, 0.0f, 0.0f, 2.0f);
 	this->controlMode = cameraMode;
 }
 Camera::~Camera(void) {
 
 }
 
-void Camera::Update(const float& deltaTime, const GameObject& object) {
+void Camera::Update(const float& deltaTime, GameObject& object) {
 	if (controlMode == CameraMode::Follow) {
-		FollowObject(object);
+		FollowObject(deltaTime, object);
 	}
 	else if (controlMode == CameraMode::Manual) {
 		ManualControl();
 	}
 	ClampCameraToWorld();
-	viewMatrix = glm::lookAt(position, lookAt, upVector);	// Update the ViewMatrix.
+	viewMatrix = glm::lookAt(position, glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 }
-void Camera::FollowObject(const GameObject& object) {
+void Camera::FollowObject(const float& deltaTime, GameObject& object) {
 	if (&object != nullptr) {
-
-		glm::vec2 viewPort = Engine_Pointer->windowGridSize * Engine_Pointer->tileSize;
-		glm::vec2 viewPortOffset = viewPort / 2.0f;
-		BoundingBox boundingBoxOfObject = object.boundingBox;
-		glm::vec2 objectCenterOffset = (boundingBoxOfObject.GetDimensions() / 2.0f);
-		viewPortOffset -= objectCenterOffset;
-
-		position = glm::vec3(boundingBoxOfObject.GetPosition().x - viewPortOffset.x, boundingBoxOfObject.GetPosition().y - viewPortOffset.y, position.z);
-		lookAt = glm::vec3(position.x, position.y, lookAt.z);
+		centerPoint = glm::vec3((object.boundingBox.GetPosition() + (object.boundingBox.GetDimensions() / 2.0f)), position.z);
+		glm::vec2 viewPortOffset = (viewPort / 2.0f);
+		position = centerPoint - glm::vec3(viewPortOffset, 0.0f);
 	}
-	
 }
 void Camera::ManualControl(void) {
 
@@ -61,5 +52,4 @@ void Camera::ClampCameraToWorld(void) {
 	if (position.y >(Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.y - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).y)) {
 		position.y = (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.y - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).y);
 	}
-	lookAt = glm::vec3(position.x, position.y, lookAt.z);
 }
