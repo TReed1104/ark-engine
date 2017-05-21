@@ -140,3 +140,7 @@ void GameObject::UpdateScale() {
 		model.Scale(scale);
 	}
 }
+
+void GameObject::Animation(const float & deltaTime) {
+
+}
