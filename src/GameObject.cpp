@@ -8,6 +8,9 @@ GameObject::GameObject(const std::string & scriptPath) {
 	// Load the script if given
 	if (scriptPath != "NO SCRIPT") {
 		this->script = new LuaScript(scriptPath);
+		if (script->isScriptLoaded) {
+			LoadAnimations();
+		}
 	}
 	else {
 		this->script = nullptr;
@@ -143,6 +146,25 @@ void GameObject::UpdateScale() {
 		model.Scale(scale);
 	}
 }
+void GameObject::LoadAnimations() {
+	animations.clear();
+	bool areAnimationsPresent = script->Get<bool>("entity.has_animations");
+	if (areAnimationsPresent) {
+		int numberOfAnimations = script->Get<int>("entity.animations.number_of_animations");
+		for (int i = 0; i < numberOfAnimations; i++) {
+			std::string animationName = script->Get<std::string>("entity.animations.animation_" + std::to_string(i) + ".name");
+			int numberOfFrames = script->Get<int>("entity.animations.animation_" + std::to_string(i) + ".number_of_frames");
+			Animation newAnimation = Animation(animationName);
+			for (int j = 0; j < numberOfFrames; j++) {
+				int frameX = script->Get<int>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".x");
+				int frameY = script->Get<int>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".y");
+				float frameLength = script->Get<float>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".length");
+				newAnimation.AddFrame(glm::vec2(frameX, frameY), frameLength);
+			}
+			animations.push_back(newAnimation);
+		}
+	}
+}
 void GameObject::AnimationHandler(const float& deltaTime) {
 	int animationIndex = 0;
 
@@ -150,7 +172,8 @@ void GameObject::AnimationHandler(const float& deltaTime) {
 
 	// Run the animation
 	if (animations.size() > 0) {
-		animations[animationIndex].Run(deltaTime);
+		sourceFramePosition = animations[animationIndex].Run(deltaTime);
+		//std::cout << "Source Frame Position - X:" << sourceFramePosition.x << ", Y: " << sourceFramePosition.y << std::endl;
 	}
 
 }

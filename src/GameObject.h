@@ -67,6 +67,7 @@ private:
 	void UpdatePosition(bool doTransform = false);
 	void UpdateRotation();
 	void UpdateScale();
+	void LoadAnimations();
 	void AnimationHandler(const float& deltaTime);
 
 protected:
