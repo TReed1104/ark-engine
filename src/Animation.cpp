@@ -14,6 +14,8 @@ Animation::Frame::~Frame() {
 
 Animation::Animation(const std::string & name) {
 	this->name = name;
+	animationTimer = 0;
+	animationIndex = 0;
 }
 Animation::~Animation() {
 
