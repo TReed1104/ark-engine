@@ -5,6 +5,19 @@ class Animation
 {
 public:
 
+	class Frame
+	{
+	public:
+		
+
+		Frame();
+		~Frame();
+
+	private:
+
+	};
+
+	
 
 
 	Animation();
