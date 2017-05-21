@@ -19,6 +19,7 @@ entity = {
 	movement_speed = 60.0,
 	
 	-- Animations
+	has_animations = true,
 	animations = {
 		animation_0 = { 
 			name = "Walk Down", 
