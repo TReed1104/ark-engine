@@ -17,17 +17,15 @@ Camera::~Camera(void) {
 }
 
 void Camera::Update(const float& deltaTime, GameObject& object) {
-	if (controlMode == CameraMode::Follow) {
-		FollowObject(deltaTime, object);
-	}
-	else if (controlMode == CameraMode::Manual) {
-		ManualControl();
-	}
+	// Depending on the Camera mode, call the right function
 
-	// Clamp the position to the world bounds.
+	(controlMode == CameraMode::Follow) ? FollowObject(deltaTime, object) : ManualControl();
+
+	// Clamp the position to the world bounds
 	position.x = glm::clamp(position.x, 0.0f, (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.x - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).x));
 	position.y = glm::clamp(position.y, 0.0f, (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.y - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).y));
 
+	// Create the new View matrix from the updated values
 	viewMatrix = glm::lookAt(position, glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 }
 void Camera::FollowObject(const float& deltaTime, GameObject& object) {
