@@ -20,6 +20,9 @@ public:
 
 private:
 
+protected:
+	void AnimationHandler(void);
+
 };
 
 #endif

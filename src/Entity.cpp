@@ -278,3 +278,6 @@ void Entity::HandleCollisions(float deltaTime) {
 		}
 	}
 }
+void Entity::AnimationHandler(void) {
+
+}

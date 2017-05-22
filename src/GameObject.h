@@ -69,12 +69,13 @@ public:
 
 private:
 	void UpdatePosition(bool doTransform = false);
-	void UpdateRotation();
-	void UpdateScale();
-	void LoadAnimations();
+	void UpdateRotation(void);
+	void UpdateScale(void);
+	void LoadAnimations(void);
 	void UpdateAnimations(const float& deltaTime);
 
 protected:
+	virtual void AnimationHandler(void);
 
 };
 

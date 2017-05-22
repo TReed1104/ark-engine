@@ -181,3 +181,6 @@ void GameObject::UpdateAnimations(const float& deltaTime) {
 	}
 
 }
+
+void GameObject::AnimationHandler() {
+}
