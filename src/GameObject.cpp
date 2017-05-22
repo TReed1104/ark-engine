@@ -16,6 +16,9 @@ GameObject::GameObject(const std::string & scriptPath) {
 		this->script = nullptr;
 	}
 
+	// Animation Setup
+	animationState = AnimationState::IdleDown;
+
 	// Texture Setup
 	this->texture = nullptr;
 	this->sourceFrameSize = glm::vec2(Engine_Pointer->tileSize);
@@ -56,7 +59,7 @@ void GameObject::Update(const float& deltaTime) {
 	UpdateScale();
 
 	// Animate the object
-	AnimationHandler(deltaTime);
+	UpdateAnimations(deltaTime);
 
 	// Reset the velocities.
 	velocity = glm::vec2(0, 0);
@@ -165,10 +168,11 @@ void GameObject::LoadAnimations() {
 		}
 	}
 }
-void GameObject::AnimationHandler(const float& deltaTime) {
+void GameObject::UpdateAnimations(const float& deltaTime) {
 	int animationIndex = 0;
 
 	// TODO: Work out what animation to use
+
 
 	// Run the animation
 	if (animations.size() > 0) {

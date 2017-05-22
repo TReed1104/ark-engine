@@ -26,6 +26,7 @@ public:
 
 	// Animation Enum
 	enum AnimationState { IdleDown, IdleUp, IdleLeft, IdleRight, MoveDown, MoveUp, MoveLeft, MoveRight, AttackDown, AttackUp, AttackLeft, AttackRight, };
+	AnimationState animationState;
 
 	// Shader indexer
 	int indexOfCurrentShader;
@@ -71,7 +72,7 @@ private:
 	void UpdateRotation();
 	void UpdateScale();
 	void LoadAnimations();
-	void AnimationHandler(const float& deltaTime);
+	void UpdateAnimations(const float& deltaTime);
 
 protected:
 
