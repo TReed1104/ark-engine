@@ -24,6 +24,9 @@ class GameObject {
 public:
 	static Engine* Engine_Pointer;
 
+	// Animation Enum
+	enum AnimationState { IdleDown, IdleUp, IdleLeft, IdleRight, MoveDown, MoveUp, MoveLeft, MoveRight, AttackDown, AttackUp, AttackLeft, AttackRight, };
+
 	// Shader indexer
 	int indexOfCurrentShader;
 
