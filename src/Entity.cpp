@@ -280,5 +280,20 @@ void Entity::HandleCollisions(float deltaTime) {
 	}
 }
 void Entity::AnimationHandler(void) {
-
+	switch (spriteDirection) {
+	case Directions::Up:
+		(velocity.y < 0) ? animationState = AnimationState::MoveUp : animationState = AnimationState::IdleUp;
+		break;
+	case Directions::Down:
+		(velocity.y > 0) ? animationState = AnimationState::MoveDown : animationState = AnimationState::IdleDown;
+		break;
+	case Directions::Left:
+		(velocity.x < 0) ? animationState = AnimationState::MoveLeft : animationState = AnimationState::IdleLeft;
+		break;
+	case Directions::Right:
+		(velocity.x > 0) ? animationState = AnimationState::MoveRight : animationState = AnimationState::IdleRight;
+		break;
+	default:
+		break;
+	}
 }
