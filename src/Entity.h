@@ -10,6 +10,7 @@ class Entity : public GameObject
 public:
 	enum Directions { NotSet, Up, Down, Left, Right, UpLeft, UpRight, DownLeft, DownRight};
 	Directions movementDirection;
+	Directions spriteDirection;
 
 	Entity(const std::string& scriptPath);
 	~Entity(void);
