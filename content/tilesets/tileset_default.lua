@@ -3,7 +3,6 @@ tileset = {
 	name = "default",
 	number_of_tiles = 100,
 	texture = "tileset.png",
-	
 	-- Tile Row 0
 	tile_0 = { type = 0, source_frame_position = { x = 0, y = 0, }, },
 	tile_1 = { type = 0, source_frame_position = { x = 1, y = 0, }, },
