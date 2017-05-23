@@ -37,3 +37,8 @@ glm::vec2 Animation::Run(const float & deltaTime) {
 		return glm::vec2(0, 0);
 	}
 }
+
+void Animation::Reset(void) {
+	animationIndex = 0;
+	animationTimer = 0.0f;
+}

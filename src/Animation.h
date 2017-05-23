@@ -36,6 +36,7 @@ public:
 
 	void AddFrame(const glm::vec2& sourceRectanglePosition, const float& frameLength);
 	glm::vec2 Run(const float& deltaTime);
+	void Reset(void);
 
 private:
 	std::vector<Frame> frames;
