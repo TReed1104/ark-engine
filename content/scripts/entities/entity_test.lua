@@ -2,7 +2,7 @@ entity = {
 	-- Entity identifiers
 	name = "Test",
 	-- Texture
-	texture = "Test.png",
+	texture = "test.png",
 	-- Source rectangle
 	source_rectangle_dimensions = { width = 48, height = 48, },
 	-- Position
@@ -13,7 +13,6 @@ entity = {
 	bounding_box_dimensions = { width = 10, height = 10, },
 	-- Bounding box offset
 	bounding_box_offset = { x = 3, y = 3, },
-	
 	-- Stats
 	health = 10.0,
 	movement_speed = 60.0,
