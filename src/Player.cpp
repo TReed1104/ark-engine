@@ -24,71 +24,87 @@ void Player::HandleInput_WithController(void) {
 
 	if ((leftThumbAxis.x < -Engine_Pointer->thumbStickDeadZone) || Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementLeft)) {
 		// Left movement
-		movementDirection = Player::Left;
+		movementDirection = Directions::Left;
+		spriteDirection = Directions::Left;
 	}
 	else if ((leftThumbAxis.x > Engine_Pointer->thumbStickDeadZone) || Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementRight)) {
 		// Right movement
-		movementDirection = Player::Right;
+		movementDirection = Directions::Right;
+		spriteDirection = Directions::Right;
 	}
 	if ((leftThumbAxis.y < -Engine_Pointer->thumbStickDeadZone) || Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementUp)) {
 		// Up movement
-		if (movementDirection == Player::Left) {
-			movementDirection = Player::UpLeft;
+		if (movementDirection == Directions::Left) {
+			movementDirection = Directions::UpLeft;
+			spriteDirection = Directions::Left;
 		}
-		else if (movementDirection == Player::Right) {
-			movementDirection = Player::UpRight;
+		else if (movementDirection == Directions::Right) {
+			movementDirection = Directions::UpRight;
+			spriteDirection = Directions::Right;
 		}
 		else {
-			movementDirection = Player::Up;
+			movementDirection = Directions::Up;
+			spriteDirection = Directions::Up;
 		}
 	}
 	else if ((leftThumbAxis.y > Engine_Pointer->thumbStickDeadZone) || Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementDown)) {
 		// Down movement
-		if (movementDirection == Player::Left) {
-			movementDirection = Player::DownLeft;
+		if (movementDirection == Directions::Left) {
+			movementDirection = Directions::DownLeft;
+			spriteDirection = Directions::Left;
 		}
-		else if (movementDirection == Player::Right) {
-			movementDirection = Player::DownRight;
+		else if (movementDirection == Directions::Right) {
+			movementDirection = Directions::DownRight;
+			spriteDirection = Directions::Right;
 		}
 		else {
-			movementDirection = Player::Down;
+			movementDirection = Directions::Down;
+			spriteDirection = Directions::Down;
 		}
 	}
 }
 void Player::HandleInput_WithoutController(void) {
 	// Reset the movement direction
-	movementDirection = Player::NotSet;
+	movementDirection = Directions::NotSet;
 
 	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementLeft)) {
 		// Left movement
-		movementDirection = Player::Left;
+		movementDirection = Directions::Left;
+		spriteDirection = Directions::Left;
 	}
 	else if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementRight)) {
 		// Right movement
-		movementDirection = Player::Right;
+		movementDirection = Directions::Right;
+		spriteDirection = Directions::Right;
 	}
 	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementUp)) {
 		// Up movement
-		if (movementDirection == Player::Left) {
-			movementDirection = Player::UpLeft;
+		if (movementDirection == Directions::Left) {
+			movementDirection = Directions::UpLeft;
+			spriteDirection = Directions::Left;
 		}
-		else if (movementDirection == Player::Right) {
-			movementDirection = Player::UpRight;
+		else if (movementDirection == Directions::Right) {
+			movementDirection = Directions::UpRight;
+			spriteDirection = Directions::Right;
 		}
 		else {
-			movementDirection = Player::Up;
+			movementDirection = Directions::Up;
+			spriteDirection = Directions::Up;
 		}
 	}
 	else if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementDown)) {
 		// Down movement
-		if (movementDirection == Player::Left) {
-			movementDirection = Player::DownLeft;
+		if (movementDirection == Directions::Left) {
+			movementDirection = Directions::DownLeft;
+			spriteDirection = Directions::Left;
 		}
-		else if (movementDirection == Player::Right) {
-			movementDirection = Player::DownRight;
+		else if (movementDirection == Directions::Right) {
+			movementDirection = Directions::DownRight;
+			spriteDirection = Directions::Right;
 		}
 		else {
-			movementDirection = Player::Down;
+			movementDirection = Directions::Down;
+			spriteDirection = Directions::Down;
 		}
 	}
 }
