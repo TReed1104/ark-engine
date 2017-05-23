@@ -171,8 +171,10 @@ void GameObject::LoadAnimations() {
 void GameObject::UpdateAnimations(const float& deltaTime) {
 	int animationIndex = 0;
 
-	// TODO: Work out what animation to use
+	// Call the Derived handler function
+	AnimationHandler();
 
+	// TODO: Work out what animation to use
 
 	// Run the animation
 	if (animations.size() > 0) {
