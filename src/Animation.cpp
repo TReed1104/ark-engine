@@ -8,7 +8,7 @@ Animation::Frame::Frame(const glm::vec2& sourceRectanglePosition, const float& f
 	this->sourceRectanglePosition = sourceRectanglePosition;
 	this->frameLength = frameLength;
 }
-Animation::Frame::~Frame() {
+Animation::Frame::~Frame(void) {
 
 }
 
@@ -17,7 +17,7 @@ Animation::Animation(const std::string & name) {
 	animationTimer = 0;
 	animationIndex = 0;
 }
-Animation::~Animation() {
+Animation::~Animation(void) {
 
 }
 

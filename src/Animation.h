@@ -30,17 +30,17 @@ public:
 	};
 
 	std::string name;
-	std::vector<Frame> frames;
-	int animationIndex;
-	float animationTimer;
 
 	Animation(const std::string& name = "");
-	~Animation();
+	~Animation(void);
 
 	void AddFrame(const glm::vec2& sourceRectanglePosition, const float& frameLength);
 	glm::vec2 Run(const float& deltaTime);
 
 private:
+	std::vector<Frame> frames;
+	int animationIndex;
+	float animationTimer;
 
 };
 
