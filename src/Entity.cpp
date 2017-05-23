@@ -3,7 +3,8 @@
 
 Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	// Default values
-	movementDirection = Entity::NotSet;
+	movementDirection = Directions::NotSet;
+	spriteDirection = Directions::Down;
 	if (script->isScriptLoaded) {
 		// Texture Setup
 		int indexOfTexture = -1;
