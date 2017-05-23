@@ -27,6 +27,7 @@ public:
 	// Animation Enum
 	enum AnimationState { IdleDown, IdleUp, IdleLeft, IdleRight, MoveDown, MoveUp, MoveLeft, MoveRight, AttackDown, AttackUp, AttackLeft, AttackRight, };
 	AnimationState animationState;
+	int animationIndex;
 
 	// Shader indexer
 	int indexOfCurrentShader;
