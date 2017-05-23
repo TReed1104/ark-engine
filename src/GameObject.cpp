@@ -174,7 +174,47 @@ void GameObject::UpdateAnimations(const float& deltaTime) {
 	// Call the Derived handler function
 	AnimationHandler();
 
-	// TODO: Work out what animation to use
+	// Using the current animaiton state, work out which animation in the list to use.
+	switch (animationState) {
+	case AnimationState::IdleDown:
+		animationIndex = 0;
+		break;
+	case AnimationState::IdleUp:
+		animationIndex = 1;
+		break;
+	case AnimationState::IdleLeft:
+		animationIndex = 2;
+		break;
+	case AnimationState::IdleRight:
+		animationIndex = 3;
+		break;
+	case AnimationState::MoveDown:
+		animationIndex = 4;
+		break;
+	case AnimationState::MoveUp:
+		animationIndex = 5;
+		break;
+	case AnimationState::MoveLeft:
+		animationIndex = 6;
+		break;
+	case AnimationState::MoveRight:
+		animationIndex = 7;
+		break;
+	case AnimationState::AttackDown:
+		animationIndex = 8;
+		break;
+	case AnimationState::AttackUp:
+		animationIndex = 9;
+		break;
+	case AnimationState::AttackLeft:
+		animationIndex = 10;
+		break;
+	case AnimationState::AttackRight:
+		animationIndex = 11;
+		break;
+	default:
+		break;
+	}
 
 	// Run the animation
 	if (animations.size() > 0) {
