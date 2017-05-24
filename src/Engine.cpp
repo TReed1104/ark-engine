@@ -510,6 +510,22 @@ void Engine::Update(const float& deltaTime) {
 		player->Update(deltaTime);
 		camera->Update(deltaTime, *player);
 	}
+
+	if (deviceKeyboard->GetKeyState(Keyboard::y)) {
+		windowScaler = glm::vec2(1.0f);
+		windowDimensions = (tileSize * windowGridSize) * windowScaler;
+		SDL_SetWindowSize(sdlWindow, windowDimensions.x, windowDimensions.y);
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::u)) {
+		windowScaler = glm::vec2(2.0f);
+		windowDimensions = (tileSize * windowGridSize) * windowScaler;
+		SDL_SetWindowSize(sdlWindow, windowDimensions.x, windowDimensions.y);
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::i)) {
+		windowScaler = glm::vec2(3.0f);
+		windowDimensions = (tileSize * windowGridSize) * windowScaler;
+		SDL_SetWindowSize(sdlWindow, windowDimensions.x, windowDimensions.y);
+	}
 }
 void Engine::Render(void) {
 	// Pre-render
