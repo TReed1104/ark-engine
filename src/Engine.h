@@ -37,6 +37,7 @@ public:
 	// Core Engine Variables
 	std::string contentDirectory;
 	glm::vec2 tileSize;
+	std::string defaultWindowTitle;
 	std::string windowTitle;
 	glm::vec2 windowDimensions;
 	glm::vec2 windowGridSize;
