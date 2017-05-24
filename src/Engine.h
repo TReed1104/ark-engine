@@ -129,5 +129,8 @@ private:
 	void EventHandler(void);
 	void Update(const float& deltaTime);
 	void Render(void);
+	// Window Control functions
+	void WindowResize(const glm::vec2& newScaler);
+
 };
 #endif

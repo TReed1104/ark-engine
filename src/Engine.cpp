@@ -545,6 +545,9 @@ void Engine::Render(void) {
 	// Post-Render
 	SDL_GL_SwapWindow(sdlWindow);	// Gives the frame buffer to the display (swapBuffers).
 }
+void Engine::WindowResize(const glm::vec2 & newScaler) {
+
+}
 // Core Engine function
 void Engine::Run(void) {
 	Load();		// Loads all the configs, the game content and initialises everything needed by the engine to run.
