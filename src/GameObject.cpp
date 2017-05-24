@@ -67,11 +67,10 @@ void GameObject::Update(const float& deltaTime) {
 	velocitySnap = glm::vec2(0.0f, 0.0f);
 }
 void GameObject::Draw(void) {
-	Engine_Pointer->shaderRegister[indexOfCurrentShader]->Activate();
-
 	glEnable(GL_BLEND);
 	// Loop through each mesh of the model
 	for (int i = 0; i < model.meshes.size(); i++) {
+		Engine_Pointer->shaderRegister[indexOfCurrentShader]->Activate();
 		Model::Mesh &currentMesh = model.meshes[i];	// Ref to the current mesh for easier access.
 
 		// Bind the VAO to be used in this draw.
@@ -116,10 +115,9 @@ void GameObject::Draw(void) {
 
 		// Unbind the VAO, ready for the next object.
 		glBindVertexArray(0);
+		glUseProgram(0);
 	}
 	glDisable(GL_BLEND);
-
-	glUseProgram(0);
 }
 
 // Position control functions
