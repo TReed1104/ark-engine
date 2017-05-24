@@ -9,6 +9,7 @@ out vec2 UV;
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
+uniform mat4 upScaler;
 
 void main() {
 	fragmentColour = vertexColor;
