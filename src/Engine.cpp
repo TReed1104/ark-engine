@@ -512,19 +512,13 @@ void Engine::Update(const float& deltaTime) {
 	}
 
 	if (deviceKeyboard->GetKeyState(Keyboard::y)) {
-		windowScaler = glm::vec2(1.0f);
-		windowDimensions = (tileSize * windowGridSize) * windowScaler;
-		SDL_SetWindowSize(sdlWindow, windowDimensions.x, windowDimensions.y);
+		WindowResize(glm::vec2(1.0f));
 	}
 	if (deviceKeyboard->GetKeyState(Keyboard::u)) {
-		windowScaler = glm::vec2(2.0f);
-		windowDimensions = (tileSize * windowGridSize) * windowScaler;
-		SDL_SetWindowSize(sdlWindow, windowDimensions.x, windowDimensions.y);
+		WindowResize(glm::vec2(2.0f));
 	}
 	if (deviceKeyboard->GetKeyState(Keyboard::i)) {
-		windowScaler = glm::vec2(3.0f);
-		windowDimensions = (tileSize * windowGridSize) * windowScaler;
-		SDL_SetWindowSize(sdlWindow, windowDimensions.x, windowDimensions.y);
+		WindowResize(glm::vec2(3.0f));
 	}
 }
 void Engine::Render(void) {
@@ -546,7 +540,10 @@ void Engine::Render(void) {
 	SDL_GL_SwapWindow(sdlWindow);	// Gives the frame buffer to the display (swapBuffers).
 }
 void Engine::WindowResize(const glm::vec2 & newScaler) {
-
+	// Resizes the window
+	windowScaler = newScaler;
+	windowDimensions = (tileSize * windowGridSize) * windowScaler;
+	SDL_SetWindowSize(sdlWindow, windowDimensions.x, windowDimensions.y);
 }
 // Core Engine function
 void Engine::Run(void) {
