@@ -574,8 +574,7 @@ void Engine::Run(void) {
 		secondCounter += deltaTime;		// Counts up to the next second
 		if (secondCounter >= 1) {
 			// If it has been a second since the last FPS count, reset the counter and print.
-			std::string fpsDisplay = windowTitle + " - FPS: " + std::to_string(fpsCounter);
-			SDL_SetWindowTitle(sdlWindow, fpsDisplay.c_str());
+			WindowRename(windowTitle + " - FPS: " + std::to_string(fpsCounter));
 			fpsCounter = 0;
 			secondCounter = 0;
 		}
