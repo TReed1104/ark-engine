@@ -546,8 +546,9 @@ void Engine::WindowResize(const glm::vec2 & newScaler) {
 	windowDimensions = (tileSize * windowGridSize) * windowScaler;
 	SDL_SetWindowSize(sdlWindow, windowDimensions.x, windowDimensions.y);
 }
-void Engine::WindowRename(const std::string & newName) {
-
+void Engine::WindowRename(const std::string& newName) {
+	std::string windowTitle = newName;
+	SDL_SetWindowTitle(sdlWindow, windowTitle.c_str());
 }
 // Core Engine function
 void Engine::Run(void) {
