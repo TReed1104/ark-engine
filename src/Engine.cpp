@@ -513,7 +513,7 @@ void Engine::Update(const float& deltaTime) {
 }
 void Engine::Render(void) {
 	// Pre-render
-	glViewport(0, 0, windowDimensions.x, windowDimensions.y);
+	glViewport(0, 0, windowDimensions.x, windowDimensions.y);		// This might automatically handle the changing of the window size? needs testing.
 	glClearColor(100 / 255.0f, 149 / 255.0f, 237 / 255.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
