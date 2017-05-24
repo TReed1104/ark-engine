@@ -131,6 +131,7 @@ private:
 	void Render(void);
 	// Window Control functions
 	void WindowResize(const glm::vec2& newScaler);
+	void WindowRename(const std::string& newName);
 
 };
 #endif

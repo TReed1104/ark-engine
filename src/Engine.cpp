@@ -546,6 +546,9 @@ void Engine::WindowResize(const glm::vec2 & newScaler) {
 	windowDimensions = (tileSize * windowGridSize) * windowScaler;
 	SDL_SetWindowSize(sdlWindow, windowDimensions.x, windowDimensions.y);
 }
+void Engine::WindowRename(const std::string & newName) {
+
+}
 // Core Engine function
 void Engine::Run(void) {
 	Load();		// Loads all the configs, the game content and initialises everything needed by the engine to run.
