@@ -511,6 +511,7 @@ void Engine::Update(const float& deltaTime) {
 		camera->Update(deltaTime, *player);
 	}
 
+	// Window resize tests
 	if (deviceKeyboard->GetKeyState(Keyboard::num8)) {
 		WindowResize(glm::vec2(1.0f));
 	}
