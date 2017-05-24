@@ -2,6 +2,7 @@
 
 Engine::Engine(char* gameName) {
 	windowTitle = gameName;
+	defaultWindowTitle = gameName;
 	oldFrameTime = 0.0f;
 	currentFrameTime = 0.0f;
 
@@ -32,6 +33,7 @@ void Engine::LoadEngineConfig(void) {
 	if (configScript.isScriptLoaded) {
 		// Core setup
 		windowTitle = configScript.Get<std::string>("config.window.title");
+		defaultWindowTitle = configScript.Get<std::string>("config.window.title");
 		tileSize = glm::vec2(configScript.Get<int>("config.window.tile_size.x"), configScript.Get<int>("config.window.tile_size.y"));
 		windowGridSize = glm::vec2(configScript.Get<int>("config.window.grid_size.x"), configScript.Get<int>("config.window.grid_size.y"));
 		windowScaler = glm::vec2(configScript.Get<int>("config.window.scale.x"), configScript.Get<int>("config.window.scale.y"));
@@ -547,7 +549,7 @@ void Engine::WindowResize(const glm::vec2 & newScaler) {
 	SDL_SetWindowSize(sdlWindow, windowDimensions.x, windowDimensions.y);
 }
 void Engine::WindowRename(const std::string& newName) {
-	std::string windowTitle = newName;
+	windowTitle = newName;
 	SDL_SetWindowTitle(sdlWindow, windowTitle.c_str());
 }
 // Core Engine function
@@ -574,7 +576,7 @@ void Engine::Run(void) {
 		secondCounter += deltaTime;		// Counts up to the next second
 		if (secondCounter >= 1) {
 			// If it has been a second since the last FPS count, reset the counter and print.
-			WindowRename(windowTitle + " - FPS: " + std::to_string(fpsCounter));
+			WindowRename(defaultWindowTitle + " - FPS: " + std::to_string(fpsCounter));
 			fpsCounter = 0;
 			secondCounter = 0;
 		}
