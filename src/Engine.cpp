@@ -511,13 +511,13 @@ void Engine::Update(const float& deltaTime) {
 		camera->Update(deltaTime, *player);
 	}
 
-	if (deviceKeyboard->GetKeyState(Keyboard::y)) {
+	if (deviceKeyboard->GetKeyState(Keyboard::num8)) {
 		WindowResize(glm::vec2(1.0f));
 	}
-	if (deviceKeyboard->GetKeyState(Keyboard::u)) {
+	if (deviceKeyboard->GetKeyState(Keyboard::num9)) {
 		WindowResize(glm::vec2(2.0f));
 	}
-	if (deviceKeyboard->GetKeyState(Keyboard::i)) {
+	if (deviceKeyboard->GetKeyState(Keyboard::num0)) {
 		WindowResize(glm::vec2(3.0f));
 	}
 }
