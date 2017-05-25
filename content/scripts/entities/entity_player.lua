@@ -6,7 +6,7 @@ entity = {
 	-- Source rectangle
 	source_rectangle_dimensions = { width = 64, height = 64, },
 	-- Position
-	position = { x = 96, y = 75, z = 0, },
+	position = { x = (46 * 16), y = (22 * 16), z = 0, },
 	-- Draw Offset
 	draw_offset = { x = -24, y = -24, },
 	-- Bounding box Dimensions
