@@ -246,7 +246,7 @@ tileset = {
 	tile_227 = { type = 0, source_frame_position = { x = 07, y = 11, }, },
 	tile_228 = { type = 0, source_frame_position = { x = 08, y = 11, }, },
 	tile_229 = { type = 0, source_frame_position = { x = 09, y = 11, }, },
-	tile_220 = { type = 0, source_frame_position = { x = 10, y = 11, }, },
+	tile_230 = { type = 0, source_frame_position = { x = 10, y = 11, }, },
 	tile_231 = { type = 0, source_frame_position = { x = 11, y = 11, }, },
 	tile_232 = { type = 0, source_frame_position = { x = 12, y = 11, }, },
 	tile_233 = { type = 0, source_frame_position = { x = 13, y = 11, }, },
