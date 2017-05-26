@@ -13,7 +13,7 @@ tileset = {
 	tile_6   = { type = 1, source_frame_position = { x = 06, y = 00, }, },
 	tile_7   = { type = 1, source_frame_position = { x = 07, y = 00, }, },
 	tile_8   = { type = 1, source_frame_position = { x = 08, y = 00, }, },
-	tile_9   = { type = 0, source_frame_position = { x = 09, y = 00, }, },
+	tile_9   = { type = 1, source_frame_position = { x = 09, y = 00, }, },
 	tile_10  = { type = 0, source_frame_position = { x = 10, y = 00, }, },
 	tile_11  = { type = 0, source_frame_position = { x = 11, y = 00, }, },
 	tile_12  = { type = 0, source_frame_position = { x = 12, y = 00, }, },
