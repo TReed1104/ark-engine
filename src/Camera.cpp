@@ -2,6 +2,7 @@
 #include "Tile.h"
 #include "Engine.h"
 #include "GameObject.h"
+#include <iomanip>
 
 Engine* Camera::Engine_Pointer;
 
@@ -33,14 +34,11 @@ void Camera::FollowObject(const float& deltaTime, GameObject& object) {
 		glm::vec2 viewPortOffset = (viewPort / 2.0f);
 		position = centerPoint - glm::vec3(viewPortOffset, 0.0f);
 
-		// Calculate the new Position
-		//centerPoint = glm::vec3((object.boundingBox.GetPosition() + (object.boundingBox.GetDimensions() / 2.0f)), position.z);
-		//glm::vec2 viewPortOffset = (viewPort / 2.0f);
 		//glm::vec3 targetPosition = centerPoint - glm::vec3(viewPortOffset, 0.0f);
 		//targetPosition.x = glm::clamp(targetPosition.x, 0.0f, (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.x - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).x));
 		//targetPosition.y = glm::clamp(targetPosition.y, 0.0f, (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.y - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).y));
-		//
-		//position += (targetPosition - position) * 0.5f;
+		//position += (targetPosition - position) * (1.0f * deltaTime);
+		//std::cout << std::setprecision(15) << position.x << ", " << position.y << std::endl;
 	}
 }
 void Camera::ManualControl(void) {
