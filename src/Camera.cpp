@@ -29,7 +29,7 @@ void Camera::Update(const float& deltaTime, GameObject& object) {
 }
 void Camera::FollowObject(const float& deltaTime, GameObject& object) {
 	if (&object != nullptr) {
-		centerPoint = glm::vec3((object.boundingBox.GetPosition() + (object.boundingBox.GetDimensions() / 2.0f)), position.z);
+		centerPoint = object.position + glm::vec3((object.boundingBox.GetDimensions() / 2.0f), position.z);
 		glm::vec2 viewPortOffset = (viewPort / 2.0f);
 		position = centerPoint - glm::vec3(viewPortOffset, 0.0f);
 
