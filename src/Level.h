@@ -12,6 +12,7 @@ class Level
 {
 public:
 	static Engine* Engine_Pointer;
+	std::string filePath;
 	std::string nameOfTilest;
 	int indexOfTileset;
 	glm::vec2 tileGridSize;
@@ -30,6 +31,6 @@ public:
 private:
 	LuaScript* script;
 
-	void Load(const std::string& filePath);
+	void Load();
 };
 #endif

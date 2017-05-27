@@ -5,7 +5,8 @@
 Engine* Level::Engine_Pointer;
 
 Level::Level(const std::string & filePath) {
-	Load(filePath);
+	this->filePath = filePath;
+	Load();
 }
 Level::~Level() {
 	delete script;
@@ -59,7 +60,7 @@ BoundingBox Level::GetTileBoundingBox(const glm::vec2 & gridPosition) {
 	int index = gridPosition.y * tileGridSize.x + gridPosition.x;
 	return tileMap[index]->boundingBox;
 }
-void Level::Load(const std::string & filePath) {
+void Level::Load() {
 	// Load the information from the script
 	script = new LuaScript(filePath);
 	if (script->isScriptLoaded) {
