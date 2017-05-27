@@ -21,16 +21,17 @@ public:
 	std::vector<Tile*> tileMap;
 
 	Level(const std::string& filePath);
-	~Level();
+	~Level(void);
 
 	void Update(const float& deltaTime);
-	void Draw();
+	void Draw(void);
 	bool IsTileSolid(const glm::vec2& gridPosition);
 	BoundingBox GetTileBoundingBox(const glm::vec2& gridPosition);
+	void Reload(void);
 
 private:
 	LuaScript* script;
 
-	void Load();
+	void Load(void);
 };
 #endif
