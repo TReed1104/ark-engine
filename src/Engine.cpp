@@ -523,6 +523,10 @@ void Engine::Update(const float& deltaTime) {
 	if (deviceKeyboard->GetKeyState(Keyboard::num0)) {
 		WindowResize(glm::vec2(3.0f));
 	}
+
+	if (deviceKeyboard->GetKeyState(Keyboard::num3)) {
+		levelRegister[indexCurrentLevel]->Reload();
+	}
 }
 void Engine::Render(void) {
 	// Pre-render
