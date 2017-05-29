@@ -30,7 +30,7 @@ public:
 class StringUtilities {
 public:
 	static std::vector<std::string> Split(const std::string& stringToSplit, const char& splitToken) {
-		// Splits a string using the given splitToken, E.g. ""The.Cat.Sat.On.The.Mat" splits with token '.' into Array[6] = {The, Cat, Sat, On, The, Mat};
+		// Splits a string using the given splitToken, E.g. ""The.Cat.Sat.On.The.Mat" splits with token '.' into Vector[6] = {The, Cat, Sat, On, The, Mat};
 
 		std::vector<std::string> splitString;	// Stores the split sections of string for the return.
 		std::string currentSplit = "";			// Stores the current section being split off.
