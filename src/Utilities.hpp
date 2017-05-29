@@ -25,9 +25,6 @@ public:
 		}
 		return fileList;
 	}
-
-private:
-
 };
 
 class StringUtilities {
