@@ -11,8 +11,7 @@ extern "C" {
 }
 #include "Utilities.hpp"
 
-class LuaScript
-{
+class LuaScript {
 public:
 	bool isScriptLoaded = false;
 	std::string name = "";
