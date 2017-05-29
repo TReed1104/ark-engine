@@ -62,8 +62,8 @@ public:
 class MathUtilities {
 public:
 	template<typename T> static T RoundToDecimalPlace(const T& valueToRound, const int& precision) {
-		T value = 0.0;
-		return value;
+		// floorf(x * (10 ^ precision)) / (10 ^ precision)
+		return std::floorf(valueToRound * std::pow(10, precision)) / std::pow(10, precision);
 	}
 };
 
