@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include <filesystem>
-#include "glm/glm.hpp"
 
 namespace FileSystem = std::experimental::filesystem;
 
@@ -57,6 +56,14 @@ public:
 		}
 
 		return splitString;
+	}
+};
+
+class MathUtilities {
+public:
+	template<typename T> static T RoundToDecimalPlace(const T& valueToRound, const int& precision) {
+		T value = 0.0;
+		return value;
 	}
 };
 
