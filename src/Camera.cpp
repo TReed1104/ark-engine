@@ -33,14 +33,14 @@ void Camera::FollowObject(const float& deltaTime, GameObject& object) {
 		if (isCameraCenter) {
 			// Camera is centered on the object.
 			// Update the center point of the camera to be the center of the objects sprite.
-			centerPoint = object.position + glm::vec3((object.boundingBox.GetDimensions() / 2.0f), position.z);
+			centerPoint = object.drawPosition + glm::vec3(object.sourceFrameSize / 2.0f, position.z);
 			// Update the camera position.
 			position = centerPoint - glm::vec3(viewPort / 2.0f, 0.0f);
 		}
 		else {
 			// Camera will pan towards the center of the object at the given speed.
 			// Update the center point of the camera to be the center of the objects sprite.
-			centerPoint = object.position + glm::vec3((object.boundingBox.GetDimensions() / 2.0f), position.z);
+			centerPoint = object.drawPosition + glm::vec3(object.sourceFrameSize / 2.0f, position.z);
 			// Calculate the position we want to move the camera to
 			glm::vec3 targetPosition = centerPoint - glm::vec3(viewPort / 2.0f, 0.0f);
 			// Clamp the targetPosition to the bounds of the world as the camera's position already is.
