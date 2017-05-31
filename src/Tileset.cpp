@@ -28,6 +28,9 @@ void Tileset::Load(const std::string& tilesetScript) {
 			}
 		}
 
+		// Get the size of the border round each tile.
+		tileBorderSize = glm::vec2(tileConfigScript.Get<int>("tileset.tile_border_size.x"), tileConfigScript.Get<int>("tileset.tile_border_size.y"));
+
 		// Load each of the Tiles from the current Tileset script.
 		for (int i = 0; i < numberOfTiles; i++) {
 			int tileType = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".type");
