@@ -20,7 +20,7 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 			texture = &Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture];
 		}
 		sourceFrameSize = glm::vec2(script->Get<float>("entity.source_rectangle_dimensions.width"), script->Get<float>("entity.source_rectangle_dimensions.height"));
-		this->sourceFrameBorderSize = glm::vec2(0, 0);
+		this->sourceFrameBorderSize = glm::vec2(1, 1);
 
 		position = glm::vec3(script->Get<float>("entity.position.x"), script->Get<float>("entity.position.y"), script->Get<float>("entity.position.z"));
 		gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
