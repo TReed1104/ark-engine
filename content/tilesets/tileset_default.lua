@@ -3,6 +3,8 @@ tileset = {
 	name = "default",
 	number_of_tiles = 400,
 	texture = "tileset.png",
+	tile_border_size = { x = 1, y = 1, },
+	
 	-- Tile Row 0
 	tile_0   = { type = 0, source_frame_position = { x = 00, y = 00, }, },
 	tile_1   = { type = 0, source_frame_position = { x = 01, y = 00, }, },
