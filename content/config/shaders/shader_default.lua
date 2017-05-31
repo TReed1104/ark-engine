@@ -1,6 +1,6 @@
 shader_config = {
 	name = "default",
 	vertex = "default.vert",
-	fragment = "default.frag",
+	fragment = "texture_atlas.frag",
 	tessellation = "DO NOT LOAD",
 }
