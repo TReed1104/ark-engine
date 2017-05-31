@@ -14,12 +14,13 @@ uniform vec2 sourceFramePosition;
 void main() {
 	if (hasTexture) {
         vec2 pixelSizeInUVs = vec2(1, 1) / textureDimensions;
+		vec2 halfPixelSizeInUVs = (pixelSizeInUVs / 2);
         vec2 borderedFrameSize = (sourceFrameSize + (frameBorderSize * 2));
         vec2 borderedFrameSizeInUV = pixelSizeInUVs * borderedFrameSize;
         vec2 borderedFramePositionInUV = borderedFrameSizeInUV * sourceFramePosition;
 
         vec2 offSetFramePositionInUV = borderedFramePositionInUV + (pixelSizeInUVs * frameBorderSize);
-        vec2 newUV = (offSetFramePositionInUV + (UV / ((textureDimensions / sourceFrameSize))));
+        vec2 newUV = offSetFramePositionInUV + (UV / ((textureDimensions / sourceFrameSize)));
 		outputColour = texture2D(textureSampler, newUV);
 	}
 	else {
