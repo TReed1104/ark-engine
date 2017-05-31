@@ -11,12 +11,12 @@ public:
 	std::string name;
 	std::vector<Tile> tileList;
 
-	Tileset();
+	Tileset(const std::string& tilesetScript);
 	~Tileset();
 
-	void Load(const std::string& tilesetScript);
 
 private:
+	void Load(const std::string& tilesetScript);
 };
 
 #endif

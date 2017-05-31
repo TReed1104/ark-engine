@@ -4,16 +4,17 @@
 
 Engine* Tileset::Engine_Pointer;
 
-Tileset::Tileset() {
-
+Tileset::Tileset(const std::string& tilesetScript) {
+	Load(tilesetScript);
 }
 
 Tileset::~Tileset() {
 }
 
-void Tileset::Load(const std::string & tilesetScript) {
+void Tileset::Load(const std::string& tilesetScript) {
 	LuaScript tileConfigScript = LuaScript(tilesetScript);
 	if (tileConfigScript.isScriptLoaded) {
+		// Get the config script values
 		name = tileConfigScript.Get<std::string>("tileset.name");
 		int numberOfTiles = tileConfigScript.Get<int>("tileset.number_of_tiles");
 
