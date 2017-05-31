@@ -24,6 +24,7 @@ GameObject::GameObject(const std::string & scriptPath) {
 	this->texture = nullptr;
 	this->sourceFrameSize = glm::vec2(Engine_Pointer->tileSize);
 	this->sourceFramePosition = glm::vec2(0.0f);
+	this->sourceFrameBorderSize = glm::vec2(1, 1);
 	// Position Setup
 	this->position = glm::vec3(0.0f);
 	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
