@@ -89,6 +89,7 @@ void GameObject::Draw(void) {
 			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "textureDimensions"), 1, glm::value_ptr(texture->dimensions));
 			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "sourceFrameSize"), 1, glm::value_ptr(sourceFrameSize));
 			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "sourceFramePosition"), 1, glm::value_ptr(sourceFramePosition));
+			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "frameBorderSize"), 1, glm::value_ptr(sourceFrameBorderSize));
 
 			// Activate the correct texture.
 			glActiveTexture(GL_TEXTURE0);
