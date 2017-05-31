@@ -19,17 +19,17 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 		if (indexOfTexture == -1) {
 			texture = &Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture];
 		}
-		sourceFrameSize = glm::vec2(script->Get<float>("entity.source_rectangle_dimensions.width"), script->Get<float>("entity.source_rectangle_dimensions.height"));
-		this->sourceFrameBorderSize = glm::vec2(1, 1);
+		sourceFrameSize = glm::vec2(script->Get<int>("entity.source_rectangle_dimensions.width"), script->Get<int>("entity.source_rectangle_dimensions.height"));
+		this->sourceFrameBorderSize = glm::vec2(script->Get<int>("entity.source_rectangle_border_size.width"), script->Get<int>("entity.source_rectangle_border_size.height"));
 
 		position = glm::vec3(script->Get<float>("entity.position.x"), script->Get<float>("entity.position.y"), script->Get<float>("entity.position.z"));
 		gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
-		drawOffset = glm::vec2(script->Get<float>("entity.draw_offset.x"), script->Get<float>("entity.draw_offset.y"));
+		drawOffset = glm::vec2(script->Get<int>("entity.draw_offset.x"), script->Get<int>("entity.draw_offset.y"));
 		drawPosition = this->position + glm::vec3(this->drawOffset, 0);
 
 		movementSpeed = script->Get<float>("entity.movement_speed");
-		boundingBoxOffset = glm::vec2(script->Get<float>("entity.bounding_box_offset.x"), script->Get<float>("entity.bounding_box_offset.y"));
-		glm::vec2 boundingBoxDimensions = glm::vec2(script->Get<float>("entity.bounding_box_dimensions.width"), script->Get<float>("entity.bounding_box_dimensions.height"));
+		boundingBoxOffset = glm::vec2(script->Get<int>("entity.bounding_box_offset.x"), script->Get<int>("entity.bounding_box_offset.y"));
+		glm::vec2 boundingBoxDimensions = glm::vec2(script->Get<int>("entity.bounding_box_dimensions.width"), script->Get<int>("entity.bounding_box_dimensions.height"));
 		boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset, boundingBoxDimensions);
 
 		// Model Setup
