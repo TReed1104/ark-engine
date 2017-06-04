@@ -11,7 +11,7 @@ Camera::Camera(const glm::vec3& cameraPosition, const CameraMode& cameraMode) {
 	this->position = cameraPosition;
 	this->projectionMatrix = glm::ortho(0.0f, viewPort.x, viewPort.y, 0.0f, 0.0f, 2.0f);
 	this->controlMode = cameraMode;
-	this->isCameraCenter = false;
+	this->isCameraCenter = true;
 }
 Camera::~Camera(void) {
 
@@ -54,7 +54,7 @@ void Camera::FollowObject(const float& deltaTime, GameObject& object) {
 			// Calculate the difference between the targetposition and where the camera currently is
 			glm::vec3 cameraDelta = (targetPosition - position);
 			// Set the Speed the camera is to move at
-			float speed = 1.0f;
+			float speed = 2.0f;
 			// Update the camera position.
 			position += cameraDelta * (speed * deltaTime);
 		}
