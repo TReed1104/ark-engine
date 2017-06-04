@@ -295,22 +295,23 @@ void Engine::ImportTexture(const char* texturePath) {
 		}
 
 		Texture tempTexture = Texture(texturePath);
-		glGenTextures(1, &tempTexture.id);				// Generate a texture ID and store it
-		glBindTexture(GL_TEXTURE_2D, tempTexture.id);
+		tempTexture.dimensions = glm::vec2(image->w, image->h);
 
-		// Set the texturing variables for this texture.
+		// Generate the texture buffers
+		glGenTextures(1, &tempTexture.id);
+		glBindTexture(GL_TEXTURE_2D, tempTexture.id);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+		//glGenerateMipmap(GL_TEXTURE_2D);
+
+		// Wrapping settings
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 
-		tempTexture.dimensions = glm::vec2(image->w, image->h);
-		// Setup the texture.
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
-		glGenerateMipmap(GL_TEXTURE_2D);
+		// Filtering settings
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
-
 		textureRegister.push_back(tempTexture);
 		SDL_FreeSurface(image);
 	}
