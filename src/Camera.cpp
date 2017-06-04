@@ -11,6 +11,7 @@ Camera::Camera(const glm::vec3& cameraPosition, const CameraMode& cameraMode) {
 	this->position = cameraPosition;
 	this->projectionMatrix = glm::ortho(0.0f, viewPort.x, viewPort.y, 0.0f, 0.0f, 2.0f);
 	this->controlMode = cameraMode;
+	this->isCameraCenter = false;
 }
 Camera::~Camera(void) {
 
@@ -23,19 +24,26 @@ void Camera::Update(const float& deltaTime, GameObject& object) {
 	// Clamp the position to the world bounds
 	position.x = glm::clamp(position.x, 0.0f, (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.x - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).x));
 	position.y = glm::clamp(position.y, 0.0f, (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.y - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).y));
+	drawPosition = position;
+
+	if (!isCameraCenter) {
+		// Round to grid
+		drawPosition.x = MathUtilities::RoundToDecimalPlace(drawPosition.x, 1);
+		drawPosition.y = MathUtilities::RoundToDecimalPlace(drawPosition.y, 1);
+	}
 
 	// Create the new View matrix from the updated values
-	viewMatrix = glm::lookAt(position, glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	viewMatrix = glm::lookAt(drawPosition, glm::vec3(drawPosition.x, drawPosition.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 }
 void Camera::FollowObject(const float& deltaTime, GameObject& object) {
 	if (&object != nullptr) {
-		bool isCameraCenter = true;
 		if (isCameraCenter) {
 			// Camera is centered on the object.
 			// Update the center point of the camera to be the center of the objects sprite.
 			centerPoint = object.drawPosition + glm::vec3(object.sourceFrameSize / 2.0f, position.z);
 			// Update the camera position.
 			position = centerPoint - glm::vec3(viewPort / 2.0f, 0.0f);
+			drawPosition = position;
 		}
 		else {
 			// Camera will pan towards the center of the object at the given speed.

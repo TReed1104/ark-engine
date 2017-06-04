@@ -18,10 +18,12 @@ public:
 	// Public Member Variables.
 	enum CameraMode { Follow, Manual, };
 	CameraMode controlMode;
+	bool isCameraCenter;
 
 	glm::vec2 viewPort;
 	glm::vec3 position;
 	glm::vec3 centerPoint;
+	glm::vec3 drawPosition;
 
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
