@@ -11,7 +11,7 @@ Camera::Camera(const glm::vec3& cameraPosition, const CameraMode& cameraMode) {
 	this->position = cameraPosition;
 	this->projectionMatrix = glm::ortho(0.0f, viewPort.x, viewPort.y, 0.0f, 0.0f, 2.0f);
 	this->controlMode = cameraMode;
-	this->isCameraCenter = false;
+	this->isCameraCenter = true;
 }
 Camera::~Camera(void) {
 
@@ -26,11 +26,8 @@ void Camera::Update(const float& deltaTime, GameObject& object) {
 	position.y = glm::clamp(position.y, 0.0f, (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.y - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).y));
 	drawPosition = position;
 
-	if (!isCameraCenter) {
-		// Round to grid
-		drawPosition.x = MathUtilities::RoundToDecimalPlace(drawPosition.x, 1);
-		drawPosition.y = MathUtilities::RoundToDecimalPlace(drawPosition.y, 1);
-	}
+	drawPosition.x = MathUtilities::RoundToDecimalPlace(drawPosition.x, 1);
+	drawPosition.y = MathUtilities::RoundToDecimalPlace(drawPosition.y, 1);
 
 	// Create the new View matrix from the updated values
 	viewMatrix = glm::lookAt(drawPosition, glm::vec3(drawPosition.x, drawPosition.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
