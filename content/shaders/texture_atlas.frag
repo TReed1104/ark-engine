@@ -15,7 +15,6 @@ void main() {
 	if (hasTexture) {
 		// Calculate the size of a single pixel of the texture in UVs (0.0-1.0)
 		vec2 pixelSizeInUVs = vec2(1, 1) / textureDimensions;
-		vec2 halfPixelSizeInUVs = (pixelSizeInUVs / 2);		// Size of half a pixel, this was a test for offsetting texels to investigate the texture bleeding
 		// Calculate the size of each tile including the border
 		ivec2 borderedFrameSize = (sourceFrameSize + (frameBorderSize * 2));
 		// Calculate where the frame is to be positioned on the spritesheet
