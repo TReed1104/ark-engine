@@ -20,7 +20,7 @@ config = {
 		scripts = "scripts",
 	},
 	-- Texture Frame Settings
-	sprite_configs = {
+	spritesheet_source_frames = {
 		texture_border_size = { width = 1, height = 1, },
 		tile_frame_dimensions = { width = 16, height = 16, },
 		entity_frame_dimensions = { width = 64, height = 64, },
