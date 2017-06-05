@@ -18,19 +18,20 @@ void main() {
 		vec2 halfPixelSizeInUVs = (pixelSizeInUVs / 2);		// Size of half a pixel, this was a test for offsetting texels to investigate the texture bleeding
 
 		// Calculate the size of each tile including the border
-		vec2 borderedFrameSize = (sourceFrameSize + (frameBorderSize * 2));
-		// Calculate the size of the tile and its border in UVs
-		vec2 borderedFrameSizeInUV = pixelSizeInUVs * borderedFrameSize;
+		ivec2 borderedFrameSize = (sourceFrameSize + (frameBorderSize * 2));
 
-		// Calculate the position of the frame we want on the texture in UVs
-		vec2 borderedFramePositionInUV = borderedFrameSizeInUV * sourceFramePosition;
+		// Calculate where the frame is to be positioned on the spritesheet
+		ivec2 borderedFramePositionInPixels = borderedFrameSize * sourceFramePosition;
+		// Convert that position to Texels
+		vec2 borderedFramePositionInUV = pixelSizeInUVs * borderedFramePositionInPixels;
+
 		// Calculate the offset from the above position that the actual texture we want is, ignoring the border
-		vec2 offSetFramePositionInUV = borderedFramePositionInUV + (pixelSizeInUVs * frameBorderSize);
+		vec2 framePositionInUVs = borderedFramePositionInUV + (pixelSizeInUVs * frameBorderSize);
 
 		// Use all the above math and the UV passed from the vertex shader to calculate the part of the texture we actually want to render.
-		vec2 newUV = offSetFramePositionInUV + (UV / ((textureDimensions / (sourceFrameSize - (pixelSizeInUVs * frameBorderSize)))));
+		vec2 newUV = framePositionInUVs + (UV / ((textureDimensions / (sourceFrameSize - (pixelSizeInUVs * frameBorderSize)))));
 
-		// Set the colour of the pixel to pass to the rasteriser.
+		// Set the colour to pass to the rasteriser.
 		outputColour = texture2D(textureSampler, newUV);
 	}
 	else {
