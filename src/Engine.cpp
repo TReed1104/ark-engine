@@ -285,11 +285,11 @@ void Engine::Close(bool isClean) {
 	}
 }
 // Content loading related functions
-void Engine::ImportTexture(const char* texturePath) {
+void Engine::ImportTexture(const std::string& texturePath) {
 	// This function loads a texture into memory to be used with a source rectangle to depict what part of it to render.
 	if (texturePath != "EMPTY") {
 		//int init = IMG_Init(IMG_INIT_PNG);
-		SDL_Surface* image = IMG_Load(texturePath);	// Try and load the texture.
+		SDL_Surface* image = IMG_Load(texturePath.c_str());	// Try and load the texture.
 		if (image == NULL) {
 			// If the texture was not loaded correctly, quit the program and show a error message on the console.
 			std::cout << ">> The loading of Spritesheet: " << texturePath << " failed." << std::endl;
@@ -298,26 +298,38 @@ void Engine::ImportTexture(const char* texturePath) {
 		else {
 			std::cout << ">> The loading of Spritesheet: " << texturePath << " was successful." << std::endl;
 		}
-
+		// Create the texture
 		Texture tempTexture = Texture(texturePath);
-		tempTexture.dimensions = glm::vec2(image->w, image->h);
+		
+		// Base framesize to be used for the texture
+		glm::ivec2 currentFrameSize = tileTextureFrameSize;
+		
+		// Work out what frame size to use using the texture naming conventions.
+		if (texturePath.find("entity") != std::string::npos) {
+			currentFrameSize = entityTextureFrameSize;
+		}
 
-		// Generate the texture buffers
+		// Size of each frame including its border for differentiation
+		glm::ivec2 currentFrameSizeBordered = currentFrameSize + (textureBorderSize * 2);
+		glm::ivec2 textureDimensionsInTiles = glm::ivec2(image->w / currentFrameSizeBordered.x, image->h / currentFrameSizeBordered.y);
+
+
+		// Initialise the texture buffer
 		glGenTextures(1, &tempTexture.id);
 		glBindTexture(GL_TEXTURE_2D_ARRAY, tempTexture.id);
+		// Initialise the size of the 3D texture array
+		glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, currentFrameSize.x, currentFrameSize.y, (textureDimensionsInTiles.x * textureDimensionsInTiles.y));
 
-		glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, tileSize.x, tileSize.y, 400);
-
-		glm::ivec2 textureDimensionsInTiles = glm::ivec2(image->w / (tileSize.x + 2), image->w / (tileSize.x + 2));
-
-		int layerCount = 0;
-		for (int y = 0; y < textureDimensionsInTiles.x; y++) {
+		int textureArrayLayerIndexer = 0;	// Stores the current layer level we are putting the new texture into
+		for (int y = 0; y < textureDimensionsInTiles.y; y++) {
 			for (int x = 0; x < textureDimensionsInTiles.y; x++) {
+				// Works out how to unpack and grab the correct part of the texture for the frame
 				glPixelStorei(GL_UNPACK_ROW_LENGTH, image->w);
-				glPixelStorei(GL_UNPACK_SKIP_PIXELS, ((tileSize.x + 2) * x) + 1);
-				glPixelStorei(GL_UNPACK_SKIP_ROWS, ((tileSize.y + 2) * y) + 1);
-				glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, layerCount, tileSize.x, tileSize.y, 1, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
-				layerCount++;
+				glPixelStorei(GL_UNPACK_SKIP_PIXELS, (currentFrameSizeBordered.x * x) + textureBorderSize.x);
+				glPixelStorei(GL_UNPACK_SKIP_ROWS, (currentFrameSizeBordered.y * y) + textureBorderSize.y);
+				// Store the part of the texture into the array
+				glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, textureArrayLayerIndexer, currentFrameSize.x, currentFrameSize.y, 1, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+				textureArrayLayerIndexer++;		// Increment the indexer
 			}
 		}
 
@@ -329,16 +341,16 @@ void Engine::ImportTexture(const char* texturePath) {
 		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
-		textureRegister.push_back(tempTexture);
-		SDL_FreeSurface(image);
+		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);		// Unbind the texture
+		textureRegister.push_back(tempTexture);		// Push the texture to the texture register for use.
+		SDL_FreeSurface(image);						// Clear up the memory used by SDL's image loader.
 	}
 }
 void Engine::LoadTextures(void) {
 	std::cout << ">> Loading Textures - Begun" << std::endl;
 	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
 	for (size_t i = 0; i < listOfTextures.size(); i++) {
-		ImportTexture(listOfTextures[i].c_str());
+		ImportTexture(listOfTextures[i]);
 	}
 
 	// Find the default texture for when textures are failed to be found.

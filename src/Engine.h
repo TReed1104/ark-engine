@@ -120,7 +120,7 @@ private:
 	void CleanUp(void);
 	void Close(bool isClean = false);
 	// Content loading related functions
-	void ImportTexture(const char* texturePath);
+	void ImportTexture(const std::string& texturePath);
 	void LoadTextures(void);
 	Model LoadModel(const std::string& modelPath);
 	void LoadModels(void);
