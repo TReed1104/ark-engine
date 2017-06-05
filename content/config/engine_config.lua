@@ -25,6 +25,12 @@ config = {
 		sprite = "sprite.obj",
 		texture = "default.png",
 	},
+	-- Texture configs
+	sprite_configs = {
+		texture_border_size = { width = 1, height = 1, },
+		tile_frame_dimensions = { width = 16, height = 16, },
+		entity_frame_dimensions = { width = 64, height = 64, },
+	},
 	-- Controller Settings
 	game_controller = {
 		max_number_of_controllers = 4,
