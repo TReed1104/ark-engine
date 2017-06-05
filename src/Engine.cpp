@@ -299,19 +299,32 @@ void Engine::ImportTexture(const char* texturePath) {
 
 		// Generate the texture buffers
 		glGenTextures(1, &tempTexture.id);
-		glBindTexture(GL_TEXTURE_2D, tempTexture.id);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
-		//glGenerateMipmap(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D_ARRAY, tempTexture.id);
+
+		glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, tileSize.x, tileSize.y, 400);
+
+		glm::ivec2 textureDimensionsInTiles = glm::ivec2(image->w / (tileSize.x + 2), image->w / (tileSize.x + 2));
+
+		int layerCount = 0;
+		for (int y = 0; y < textureDimensionsInTiles.x; y++) {
+			for (int x = 0; x < textureDimensionsInTiles.y; x++) {
+				glPixelStorei(GL_UNPACK_ROW_LENGTH, image->w);
+				glPixelStorei(GL_UNPACK_SKIP_PIXELS, ((tileSize.x + 2) * x) + 1);
+				glPixelStorei(GL_UNPACK_SKIP_ROWS, ((tileSize.y + 2) * y) + 1);
+				glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, layerCount, tileSize.x, tileSize.y, 1, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+				layerCount++;
+			}
+		}
 
 		// Wrapping settings
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 		// Filtering settings
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 		textureRegister.push_back(tempTexture);
 		SDL_FreeSurface(image);
 	}
