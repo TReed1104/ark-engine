@@ -2,7 +2,7 @@ tileset = {
 	-- Tileset Config
 	name = "default",
 	number_of_tiles = 400,
-	texture = "tileset.png",
+	texture = "tileset_test.png",
 	source_rectangle_border_size = { width = 1, height = 1, },
 
 	-- Tile Row 0

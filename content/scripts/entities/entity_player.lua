@@ -2,7 +2,7 @@ entity = {
 	-- Entity identifiers
 	name = "Player",
 	-- Texture
-	texture = "player.png",
+	texture = "entity_player.png",
 	-- Source rectangle
 	source_rectangle_dimensions = { width = 64, height = 64, },
 	source_rectangle_border_size = { width = 1, height = 1, },
