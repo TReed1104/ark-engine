@@ -11,7 +11,7 @@ Camera::Camera(const glm::vec3& cameraPosition, const CameraMode& cameraMode) {
 	this->position = cameraPosition;
 	this->projectionMatrix = glm::ortho(0.0f, viewPort.x, viewPort.y, 0.0f, 0.0f, 2.0f);
 	this->controlMode = cameraMode;
-	this->isCameraCenter = false;
+	this->isCameraCenter = true;
 }
 Camera::~Camera(void) {
 
