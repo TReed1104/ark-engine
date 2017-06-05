@@ -24,7 +24,7 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 
 		position = glm::vec3(script->Get<float>("entity.position.x"), script->Get<float>("entity.position.y"), script->Get<float>("entity.position.z"));
 		gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
-		drawOffset = glm::vec2(script->Get<int>("entity.draw_offset.x"), script->Get<int>("entity.draw_offset.y"));
+		drawOffset = glm::ivec2(script->Get<int>("entity.draw_offset.x"), script->Get<int>("entity.draw_offset.y"));
 		drawPosition = this->position + glm::vec3(this->drawOffset, 0);
 
 		movementSpeed = script->Get<float>("entity.movement_speed");
@@ -87,7 +87,7 @@ void Entity::HandleCollisions(float deltaTime) {
 	if (movementDirection != Entity::NotSet) {
 		// Calculate the new position and grid position
 		glm::vec2 newPosition = glm::vec2(position.x, position.y) + newVelocity;
-		glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
+		glm::ivec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
 		BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
 
 		// Check it is within the world bounds.

@@ -43,8 +43,8 @@ public:
 
 	// Positions
 	glm::vec3 position;			// The world position of the object
-	glm::vec2 gridPosition;		// The current grid cell the object is counted as being within.
-	glm::vec2 drawOffset;		// The offset the sprite is to be drawn in relation to the world position.
+	glm::ivec2 gridPosition;	// The current grid cell the object is counted as being within.
+	glm::ivec2 drawOffset;		// The offset the sprite is to be drawn in relation to the world position.
 	glm::vec3 drawPosition;		// Position to draw to the screen, this takes into account the offset of the object to its texture
 
 	// Bounding Boxes

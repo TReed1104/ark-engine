@@ -19,10 +19,10 @@ public:
 	public:
 		static Engine* Engine_Pointer;
 
-		glm::vec2 sourceRectanglePosition;
+		glm::ivec2 sourceRectanglePosition;
 		float frameLength;
 
-		Frame(const glm::vec2& sourceRectanglePosition, const float& frameLength);
+		Frame(const glm::ivec2& sourceRectanglePosition, const float& frameLength);
 		~Frame();
 
 	private:
@@ -34,8 +34,8 @@ public:
 	Animation(const std::string& name = "");
 	~Animation(void);
 
-	void AddFrame(const glm::vec2& sourceRectanglePosition, const float& frameLength);
-	glm::vec2 Run(const float& deltaTime);
+	void AddFrame(const glm::ivec2& sourceRectanglePosition, const float& frameLength);
+	glm::ivec2 Run(const float& deltaTime);
 	void Reset(void);
 
 private:

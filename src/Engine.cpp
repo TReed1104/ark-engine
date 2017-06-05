@@ -590,6 +590,6 @@ void Engine::Run(void) {
 	this->Close(true);
 }
 // Engine Utilities
-glm::vec2 Engine::ConvertToGridPosition(const glm::vec2 & position) {
+glm::ivec2 Engine::ConvertToGridPosition(const glm::vec2 & position) {
 	return glm::vec2((int)(position.x / this->tileSize.x), (int)(position.y / this->tileSize.y));
 }

@@ -22,13 +22,13 @@ GameObject::GameObject(const std::string & scriptPath) {
 
 	// Texture Setup
 	this->texture = nullptr;
-	this->sourceFrameSize = glm::vec2(Engine_Pointer->tileSize);
-	this->sourceFramePosition = glm::vec2(0.0f);
-	this->sourceFrameBorderSize = glm::vec2(0, 0);
+	this->sourceFrameSize = glm::ivec2(Engine_Pointer->tileSize);
+	this->sourceFramePosition = glm::ivec2(0.0f);
+	this->sourceFrameBorderSize = glm::ivec2(0, 0);
 	// Position Setup
 	this->position = glm::vec3(0.0f);
 	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
-	this->drawOffset = glm::vec2(0.0f);
+	this->drawOffset = glm::ivec2(0.0f);
 	this->drawPosition = this->position + glm::vec3(this->drawOffset, 0);
 	this->rotation = 0.0f;
 	this->scale = glm::vec3(1.0f);
@@ -165,7 +165,7 @@ void GameObject::LoadAnimations() {
 				int frameX = script->Get<int>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".x");
 				int frameY = script->Get<int>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".y");
 				float frameLength = script->Get<float>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".length");
-				newAnimation.AddFrame(glm::vec2(frameX, frameY), frameLength);
+				newAnimation.AddFrame(glm::ivec2(frameX, frameY), frameLength);
 			}
 			animations.push_back(newAnimation);
 		}

@@ -4,7 +4,7 @@
 Engine* Animation::Engine_Pointer;
 Engine* Animation::Frame::Engine_Pointer;
 
-Animation::Frame::Frame(const glm::vec2& sourceRectanglePosition, const float& frameLength) {
+Animation::Frame::Frame(const glm::ivec2& sourceRectanglePosition, const float& frameLength) {
 	this->sourceRectanglePosition = sourceRectanglePosition;
 	this->frameLength = frameLength;
 }
@@ -21,10 +21,10 @@ Animation::~Animation(void) {
 
 }
 
-void Animation::AddFrame(const glm::vec2 & sourceRectanglePosition, const float & frameLength) {
+void Animation::AddFrame(const glm::ivec2 & sourceRectanglePosition, const float & frameLength) {
 	frames.push_back(Frame(sourceRectanglePosition, frameLength));
 }
-glm::vec2 Animation::Run(const float & deltaTime) {
+glm::ivec2 Animation::Run(const float & deltaTime) {
 	if (frames.size() > 0) {
 		animationTimer += deltaTime;
 		if (animationTimer >= frames[animationIndex].frameLength) {
@@ -34,7 +34,7 @@ glm::vec2 Animation::Run(const float & deltaTime) {
 		return frames[animationIndex].sourceRectanglePosition;
 	}
 	else {
-		return glm::vec2(0, 0);
+		return glm::ivec2(0, 0);
 	}
 }
 
