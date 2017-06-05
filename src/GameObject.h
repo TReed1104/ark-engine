@@ -38,7 +38,6 @@ public:
 	const Texture* texture;
 	glm::ivec2 sourceFrameSize;
 	glm::ivec2 sourceFramePosition;
-	glm::ivec2 sourceFrameBorderSize;
 	std::vector<Animation> animations;
 
 	// Positions

@@ -19,8 +19,6 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 		if (indexOfTexture == -1) {
 			texture = &Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture];
 		}
-		sourceFrameSize = glm::ivec2(script->Get<int>("entity.source_rectangle_dimensions.width"), script->Get<int>("entity.source_rectangle_dimensions.height"));
-		this->sourceFrameBorderSize = glm::ivec2(script->Get<int>("entity.source_rectangle_border_size.width"), script->Get<int>("entity.source_rectangle_border_size.height"));
 
 		position = glm::vec3(script->Get<float>("entity.position.x"), script->Get<float>("entity.position.y"), script->Get<float>("entity.position.z"));
 		gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
@@ -38,6 +36,8 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 		model.Translate(drawPosition);
 		model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 		model.Scale(scale);
+
+		sourceFrameSize = Engine_Pointer->entityTextureFrameSize;
 	}
 }
 Entity::~Entity(void) {

@@ -82,6 +82,11 @@ public:
 	Keyboard::Keys keybindMovementLeft;
 	Keyboard::Keys keybindMovementRight;
 
+	// Texture frame sizes
+	glm::vec2 textureBorderSize;
+	glm::vec2 tileTextureFrameSize;
+	glm::vec2 entityTextureFrameSize;
+
 	// Constructors
 	Engine(char* gameName);
 	~Engine(void);

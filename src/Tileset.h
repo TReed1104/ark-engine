@@ -10,7 +10,6 @@ public:
 	static Engine* Engine_Pointer;
 	std::string name;
 	std::vector<Tile> tileList;
-	glm::ivec2 tileBorderSize;
 
 	Tileset(const std::string& tilesetScript);
 	~Tileset();

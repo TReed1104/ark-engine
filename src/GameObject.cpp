@@ -22,9 +22,8 @@ GameObject::GameObject(const std::string & scriptPath) {
 
 	// Texture Setup
 	this->texture = nullptr;
-	this->sourceFrameSize = glm::ivec2(Engine_Pointer->tileSize);
 	this->sourceFramePosition = glm::ivec2(0.0f);
-	this->sourceFrameBorderSize = glm::ivec2(0, 0);
+
 	// Position Setup
 	this->position = glm::vec3(0.0f);
 	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
@@ -46,6 +45,8 @@ GameObject::GameObject(const std::string & scriptPath) {
 
 	doRotation = false;
 	doScalar = false;
+
+	sourceFrameSize = Engine_Pointer->tileTextureFrameSize;
 }
 GameObject::~GameObject(void) {
 	if (script != nullptr) {
