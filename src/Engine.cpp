@@ -39,6 +39,11 @@ void Engine::LoadEngineConfig(void) {
 		windowScaler = glm::vec2(configScript.Get<int>("config.window.scale.x"), configScript.Get<int>("config.window.scale.y"));
 		windowDimensions = (tileSize * windowGridSize) * windowScaler;
 
+		// Texture Source Frame setup
+		textureBorderSize = glm::vec2(configScript.Get<int>("config.spritesheet_source_frames.texture_border_size.width"), configScript.Get<int>("config.spritesheet_source_frames.texture_border_size.height"));
+		tileTextureFrameSize = glm::vec2(configScript.Get<int>("config.spritesheet_source_frames.tile_frame_dimensions.width"), configScript.Get<int>("config.spritesheet_source_frames.tile_frame_dimensions.height"));
+		entityTextureFrameSize = glm::vec2(configScript.Get<int>("config.spritesheet_source_frames.entity_frame_dimensions.width"), configScript.Get<int>("config.spritesheet_source_frames.entity_frame_dimensions.height"));
+
 		// Default content setup
 		nameOfTileModel = configScript.Get<std::string>("config.default_content.tile");
 		nameOfSpriteModel = configScript.Get<std::string>("config.default_content.sprite");
