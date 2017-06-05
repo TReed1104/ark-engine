@@ -86,14 +86,11 @@ void GameObject::Draw(void) {
 		if (useTextures) {
 			// Textures are setup correctly, tell the shader to use the texture and setup the source frame.
 			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "hasTexture"), useTextures);
-			glUniform2iv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "textureDimensions"), 1, glm::value_ptr(texture->dimensions));
-			glUniform2iv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "sourceFrameSize"), 1, glm::value_ptr(sourceFrameSize));
-			glUniform2iv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "sourceFramePosition"), 1, glm::value_ptr(sourceFramePosition));
-			glUniform2iv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "frameBorderSize"), 1, glm::value_ptr(sourceFrameBorderSize));
+			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "textureArrayLayer"), sourceFramePosition.x + (20 * sourceFramePosition.y));
 
 			// Activate the correct texture.
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, texture->id);
+			glBindTexture(GL_TEXTURE_2D_ARRAY, texture->id);
 			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[0]->program, "textureSampler"), 0);
 		}
 		else {
@@ -109,7 +106,7 @@ void GameObject::Draw(void) {
 
 		// If the mesh was setup for texturing, this unbinds the textures used, clearing up ready for next time.
 		if (useTextures) {
-			glBindTexture(GL_TEXTURE_2D, 0);
+			glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 		}
 
 		// Unbinds the indices buffer.
