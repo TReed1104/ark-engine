@@ -19,17 +19,17 @@ config = {
 		textures = "textures",
 		scripts = "scripts",
 	},
+	-- Texture Frame Settings
+	sprite_configs = {
+		texture_border_size = { width = 1, height = 1, },
+		tile_frame_dimensions = { width = 16, height = 16, },
+		entity_frame_dimensions = { width = 64, height = 64, },
+	},
 	-- Setup the default content, for when things are missing or fail to load.
 	default_content = {
 		tile = "tile.obj",
 		sprite = "sprite.obj",
 		texture = "default.png",
-	},
-	-- Texture configs
-	sprite_configs = {
-		texture_border_size = { width = 1, height = 1, },
-		tile_frame_dimensions = { width = 16, height = 16, },
-		entity_frame_dimensions = { width = 64, height = 64, },
 	},
 	-- Controller Settings
 	game_controller = {
