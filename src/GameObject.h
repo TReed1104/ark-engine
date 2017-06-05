@@ -36,9 +36,9 @@ public:
 	LuaScript* script;
 	Model model;
 	const Texture* texture;
-	glm::vec2 sourceFrameSize;
-	glm::vec2 sourceFramePosition;
-	glm::vec2 sourceFrameBorderSize;
+	glm::ivec2 sourceFrameSize;
+	glm::ivec2 sourceFramePosition;
+	glm::ivec2 sourceFrameBorderSize;
 	std::vector<Animation> animations;
 
 	// Positions

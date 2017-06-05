@@ -6,10 +6,10 @@ out vec4 outputColour;
 
 uniform bool hasTexture;
 uniform sampler2D textureSampler;
-uniform vec2 frameBorderSize;
-uniform vec2 textureDimensions;
-uniform vec2 sourceFrameSize;
-uniform vec2 sourceFramePosition;
+uniform ivec2 frameBorderSize;
+uniform ivec2 textureDimensions;
+uniform ivec2 sourceFrameSize;
+uniform ivec2 sourceFramePosition;
 
 void main() {
 	if (hasTexture) {
@@ -28,7 +28,7 @@ void main() {
 		vec2 offSetFramePositionInUV = borderedFramePositionInUV + (pixelSizeInUVs * frameBorderSize);
 
 		// Use all the above math and the UV passed from the vertex shader to calculate the part of the texture we actually want to render.
-		vec2 newUV = offSetFramePositionInUV + (UV / ((textureDimensions / sourceFrameSize)));
+		vec2 newUV = offSetFramePositionInUV + (UV / ((textureDimensions / (sourceFrameSize - (pixelSizeInUVs * frameBorderSize)))));
 
 		// Set the colour of the pixel to pass to the rasteriser.
 		outputColour = texture2D(textureSampler, newUV);

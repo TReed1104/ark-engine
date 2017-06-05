@@ -86,10 +86,10 @@ void GameObject::Draw(void) {
 		if (useTextures) {
 			// Textures are setup correctly, tell the shader to use the texture and setup the source frame.
 			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "hasTexture"), useTextures);
-			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "textureDimensions"), 1, glm::value_ptr(texture->dimensions));
-			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "sourceFrameSize"), 1, glm::value_ptr(sourceFrameSize));
-			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "sourceFramePosition"), 1, glm::value_ptr(sourceFramePosition));
-			glUniform2fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "frameBorderSize"), 1, glm::value_ptr(sourceFrameBorderSize));
+			glUniform2iv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "textureDimensions"), 1, glm::value_ptr(texture->dimensions));
+			glUniform2iv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "sourceFrameSize"), 1, glm::value_ptr(sourceFrameSize));
+			glUniform2iv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "sourceFramePosition"), 1, glm::value_ptr(sourceFramePosition));
+			glUniform2iv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "frameBorderSize"), 1, glm::value_ptr(sourceFrameBorderSize));
 
 			// Activate the correct texture.
 			glActiveTexture(GL_TEXTURE0);

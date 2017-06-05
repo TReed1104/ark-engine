@@ -94,7 +94,7 @@ void Level::Load(void) {
 
 				const Texture* texture = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].texture;
 				Tile::Type type = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].type;
-				glm::vec2 sourceFramePosition = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].sourceFramePosition;
+				glm::ivec2 sourceFramePosition = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].sourceFramePosition;
 				glm::vec3 position = glm::vec3(x * Engine_Pointer->tileSize.x, y * Engine_Pointer->tileSize.y, -0.01f);
 				tileMap.push_back(new Tile(*texture, type, sourceFramePosition, position));
 				tileMap.back()->sourceFrameBorderSize = Engine_Pointer->tilesetRegister[indexOfTileset].tileBorderSize;

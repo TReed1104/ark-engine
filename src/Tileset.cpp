@@ -36,7 +36,7 @@ void Tileset::Load(const std::string& tilesetScript) {
 			int tileType = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".type");
 			int sourceFrameX = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.x");
 			int sourceFrameY = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.y");
-			glm::vec2 sourceFramePosition = glm::vec2(sourceFrameX, sourceFrameY);
+			glm::ivec2 sourceFramePosition = glm::ivec2(sourceFrameX, sourceFrameY);
 
 			if (indexOfTileSetTexture != -1) {
 				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, sourceFramePosition));

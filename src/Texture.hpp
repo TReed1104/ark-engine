@@ -8,12 +8,12 @@ class Texture {
 public:
 	std::string name;
 	GLuint id;
-	glm::vec2 dimensions;
+	glm::ivec2 dimensions;
 
 	Texture(const std::string& name) {
 		this->name = name;
 		this->id = -1;
-		this->dimensions = glm::vec2(0, 0);
+		this->dimensions = glm::ivec2(0, 0);
 	}
 	~Texture() {
 

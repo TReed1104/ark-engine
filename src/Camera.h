@@ -23,7 +23,6 @@ public:
 	glm::vec2 viewPort;
 	glm::vec3 position;
 	glm::vec3 centerPoint;
-	glm::vec3 drawPosition;
 
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;

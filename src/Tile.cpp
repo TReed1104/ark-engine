@@ -1,7 +1,7 @@
 #include "Tile.h"
 #include "Engine.h"
 
-Tile::Tile(const Texture& texture, const int& tileType, const glm::vec2& sourceFramePosition, const glm::vec3& position) : GameObject() {
+Tile::Tile(const Texture& texture, const int& tileType, const glm::ivec2& sourceFramePosition, const glm::vec3& position) : GameObject() {
 	this->type = (Type)tileType;
 	this->texture = &texture;
 	this->sourceFramePosition = sourceFramePosition;
