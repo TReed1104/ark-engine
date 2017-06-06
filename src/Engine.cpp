@@ -312,8 +312,8 @@ void Engine::ImportTexture(const std::string& texturePath) {
 
 		// Size of each frame including its border for differentiation
 		currentTexture.frameSizeBordered = currentTexture.frameSize + (textureBorderSize * 2);
-		currentTexture.dimensionsInTiles = glm::ivec2(image->w / currentTexture.frameSizeBordered.x, image->h / currentTexture.frameSizeBordered.y);
-		currentTexture.numberOfFrames = (currentTexture.dimensionsInTiles.x * currentTexture.dimensionsInTiles.y);
+		currentTexture.dimensionsInFrames = glm::ivec2(image->w / currentTexture.frameSizeBordered.x, image->h / currentTexture.frameSizeBordered.y);
+		currentTexture.numberOfFrames = (currentTexture.dimensionsInFrames.x * currentTexture.dimensionsInFrames.y);
 
 		// Initialise the texture buffer
 		glGenTextures(1, &currentTexture.id);
@@ -322,8 +322,8 @@ void Engine::ImportTexture(const std::string& texturePath) {
 		glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, currentTexture.frameSize.x, currentTexture.frameSize.y, currentTexture.numberOfFrames);
 
 		int textureArrayLayerIndexer = 0;	// Stores the current layer level we are putting the new texture into
-		for (int y = 0; y < currentTexture.dimensionsInTiles.y; y++) {
-			for (int x = 0; x < currentTexture.dimensionsInTiles.y; x++) {
+		for (int y = 0; y < currentTexture.dimensionsInFrames.y; y++) {
+			for (int x = 0; x < currentTexture.dimensionsInFrames.y; x++) {
 				// Works out how to unpack and grab the correct part of the texture for the frame
 				glPixelStorei(GL_UNPACK_ROW_LENGTH, image->w);
 				glPixelStorei(GL_UNPACK_SKIP_PIXELS, (currentTexture.frameSizeBordered.x * x) + textureBorderSize.x);
