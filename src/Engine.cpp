@@ -299,36 +299,37 @@ void Engine::ImportTexture(const std::string& texturePath) {
 			std::cout << ">> The loading of Spritesheet: " << texturePath << " was successful." << std::endl;
 		}
 		// Create the texture
-		Texture tempTexture = Texture(texturePath);
+		Texture currentTexture = Texture(texturePath);
+		currentTexture.dimensionsInPixels = glm::ivec2(image->w, image->h);
 		
 		// Base framesize to be used for the texture
-		glm::ivec2 currentFrameSize = tileTextureFrameSize;
-		
+		currentTexture.frameSize = tileTextureFrameSize;
+
 		// Work out what frame size to use using the texture naming conventions.
 		if (texturePath.find("entity") != std::string::npos) {
-			currentFrameSize = entityTextureFrameSize;
+			currentTexture.frameSize = entityTextureFrameSize;
 		}
 
 		// Size of each frame including its border for differentiation
-		glm::ivec2 currentFrameSizeBordered = currentFrameSize + (textureBorderSize * 2);
-		glm::ivec2 textureDimensionsInTiles = glm::ivec2(image->w / currentFrameSizeBordered.x, image->h / currentFrameSizeBordered.y);
-
+		currentTexture.frameSizeBordered = currentTexture.frameSize + (textureBorderSize * 2);
+		currentTexture.dimensionsInTiles = glm::ivec2(image->w / currentTexture.frameSizeBordered.x, image->h / currentTexture.frameSizeBordered.y);
+		currentTexture.numberOfFrames = (currentTexture.dimensionsInTiles.x * currentTexture.dimensionsInTiles.y);
 
 		// Initialise the texture buffer
-		glGenTextures(1, &tempTexture.id);
-		glBindTexture(GL_TEXTURE_2D_ARRAY, tempTexture.id);
+		glGenTextures(1, &currentTexture.id);
+		glBindTexture(GL_TEXTURE_2D_ARRAY, currentTexture.id);
 		// Initialise the size of the 3D texture array
-		glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, currentFrameSize.x, currentFrameSize.y, (textureDimensionsInTiles.x * textureDimensionsInTiles.y));
+		glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, currentTexture.frameSize.x, currentTexture.frameSize.y, currentTexture.numberOfFrames);
 
 		int textureArrayLayerIndexer = 0;	// Stores the current layer level we are putting the new texture into
-		for (int y = 0; y < textureDimensionsInTiles.y; y++) {
-			for (int x = 0; x < textureDimensionsInTiles.y; x++) {
+		for (int y = 0; y < currentTexture.dimensionsInTiles.y; y++) {
+			for (int x = 0; x < currentTexture.dimensionsInTiles.y; x++) {
 				// Works out how to unpack and grab the correct part of the texture for the frame
 				glPixelStorei(GL_UNPACK_ROW_LENGTH, image->w);
-				glPixelStorei(GL_UNPACK_SKIP_PIXELS, (currentFrameSizeBordered.x * x) + textureBorderSize.x);
-				glPixelStorei(GL_UNPACK_SKIP_ROWS, (currentFrameSizeBordered.y * y) + textureBorderSize.y);
+				glPixelStorei(GL_UNPACK_SKIP_PIXELS, (currentTexture.frameSizeBordered.x * x) + textureBorderSize.x);
+				glPixelStorei(GL_UNPACK_SKIP_ROWS, (currentTexture.frameSizeBordered.y * y) + textureBorderSize.y);
 				// Store the part of the texture into the array
-				glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, textureArrayLayerIndexer, currentFrameSize.x, currentFrameSize.y, 1, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+				glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, textureArrayLayerIndexer, currentTexture.frameSize.x, currentTexture.frameSize.y, 1, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
 				textureArrayLayerIndexer++;		// Increment the indexer
 			}
 		}
@@ -341,9 +342,9 @@ void Engine::ImportTexture(const std::string& texturePath) {
 		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);		// Unbind the texture
-		textureRegister.push_back(tempTexture);		// Push the texture to the texture register for use.
-		SDL_FreeSurface(image);						// Clear up the memory used by SDL's image loader.
+		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);			// Unbind the texture
+		textureRegister.push_back(currentTexture);		// Push the texture to the texture register for use.
+		SDL_FreeSurface(image);							// Clear up the memory used by SDL's image loader.
 	}
 }
 void Engine::LoadTextures(void) {
