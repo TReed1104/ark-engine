@@ -9,7 +9,7 @@ public:
 	std::string name;
 	GLuint id;
 	glm::ivec2 dimensionsInPixels;
-	glm::ivec2 dimensionsInTiles;
+	glm::ivec2 dimensionsInFrames;
 	glm::ivec2 frameSize;
 	glm::ivec2 frameSizeBordered;
 	int numberOfFrames;
@@ -18,7 +18,7 @@ public:
 		this->name = name;
 		this->id = -1;
 		this->dimensionsInPixels = glm::ivec2(0, 0);
-		this->dimensionsInTiles = glm::ivec2(0, 0);
+		this->dimensionsInFrames = glm::ivec2(0, 0);
 		this->frameSize = glm::ivec2(0, 0);
 		this->frameSizeBordered = glm::ivec2(0, 0);
 		this->numberOfFrames = 0;
