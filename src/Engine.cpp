@@ -554,10 +554,30 @@ void Engine::Update(const float& deltaTime) {
 		mainCamera->Update(deltaTime, *mainCameraFocus);
 	}
 
-
-
-	// LEVEL RELOADING DEBUGGING
+	// CAMERA MODE CHANGE
+	if (deviceKeyboard->GetKeyState(Keyboard::num2)) {
+		std::cout << ">>>> Main Camera has been changed to centered mode" << std::endl;
+		mainCamera->isCameraCenter = true;
+	}
 	if (deviceKeyboard->GetKeyState(Keyboard::num3)) {
+		std::cout << ">>>> Main Camera has been changed to panning mode" << std::endl;
+		mainCamera->isCameraCenter = false;
+	}
+	// CAMERA FOCUS CHANGE DEUBBGING
+	if (deviceKeyboard->GetKeyState(Keyboard::num4)) {
+		std::cout << ">>>> Changing camera target to " << std::endl;
+		mainCameraFocus = player;
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::num5)) {
+		std::cout << ">>>> Changing camera target to " << std::endl;
+		mainCameraFocus = levelRegister[indexCurrentLevel]->tileMap[200];
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::num6)) {
+		std::cout << ">>>> Changing camera target to " << std::endl;
+		mainCameraFocus = levelRegister[indexCurrentLevel]->tileMap[850];
+	}
+	// LEVEL RELOADING DEBUGGING
+	if (deviceKeyboard->GetKeyState(Keyboard::num7)) {
 		std::cout << ">>>> Reloading the current level" << std::endl;
 		levelRegister[indexCurrentLevel]->Reload();
 	}
