@@ -554,27 +554,30 @@ void Engine::Update(const float& deltaTime) {
 		mainCamera->Update(deltaTime, *mainCameraFocus);
 	}
 
-	// CAMERA MODE CHANGE
-	if (deviceKeyboard->GetKeyState(Keyboard::num2)) {
-		std::cout << ">>>> Main Camera has been changed to centered mode" << std::endl;
-		mainCamera->isCameraCenter = true;
-	}
-	if (deviceKeyboard->GetKeyState(Keyboard::num3)) {
-		std::cout << ">>>> Main Camera has been changed to panning mode" << std::endl;
-		mainCamera->isCameraCenter = false;
-	}
+	
 	// CAMERA FOCUS CHANGE DEUBBGING
-	if (deviceKeyboard->GetKeyState(Keyboard::num4)) {
+	if (deviceKeyboard->GetKeyState(Keyboard::num1)) {
 		std::cout << ">>>> Changing camera target to Player" << std::endl;
 		mainCameraFocus = player;
 	}
+	if (deviceKeyboard->GetKeyState(Keyboard::num2)) {
+		int focusIndex = 1547;
+		std::cout << ">>>> Changing camera target to TileMap: " << focusIndex << std::endl;
+		mainCameraFocus = levelRegister[indexCurrentLevel]->tileMap[1547];
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::num3)) {
+		int focusIndex = 2000;
+		std::cout << ">>>> Changing camera target to TileMap: " << focusIndex << std::endl;
+		mainCameraFocus = levelRegister[indexCurrentLevel]->tileMap[focusIndex];
+	}
+	// CAMERA MODE CHANGE
 	if (deviceKeyboard->GetKeyState(Keyboard::num5)) {
-		std::cout << ">>>> Changing camera target to TileMap[36]" << std::endl;
-		mainCameraFocus = levelRegister[indexCurrentLevel]->tileMap[200];
+		std::cout << ">>>> Main Camera has been changed to centered mode" << std::endl;
+		mainCamera->isCameraCenter = true;
 	}
 	if (deviceKeyboard->GetKeyState(Keyboard::num6)) {
-		std::cout << ">>>> Changing camera target to TileMap[3850]" << std::endl;
-		mainCameraFocus = levelRegister[indexCurrentLevel]->tileMap[3850];
+		std::cout << ">>>> Main Camera has been changed to panning mode" << std::endl;
+		mainCamera->isCameraCenter = false;
 	}
 	// LEVEL RELOADING DEBUGGING
 	if (deviceKeyboard->GetKeyState(Keyboard::num7)) {
