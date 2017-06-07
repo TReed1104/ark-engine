@@ -565,16 +565,16 @@ void Engine::Update(const float& deltaTime) {
 	}
 	// CAMERA FOCUS CHANGE DEUBBGING
 	if (deviceKeyboard->GetKeyState(Keyboard::num4)) {
-		std::cout << ">>>> Changing camera target to " << std::endl;
+		std::cout << ">>>> Changing camera target to Player" << std::endl;
 		mainCameraFocus = player;
 	}
 	if (deviceKeyboard->GetKeyState(Keyboard::num5)) {
-		std::cout << ">>>> Changing camera target to " << std::endl;
+		std::cout << ">>>> Changing camera target to TileMap[36]" << std::endl;
 		mainCameraFocus = levelRegister[indexCurrentLevel]->tileMap[200];
 	}
 	if (deviceKeyboard->GetKeyState(Keyboard::num6)) {
-		std::cout << ">>>> Changing camera target to " << std::endl;
-		mainCameraFocus = levelRegister[indexCurrentLevel]->tileMap[850];
+		std::cout << ">>>> Changing camera target to TileMap[3850]" << std::endl;
+		mainCameraFocus = levelRegister[indexCurrentLevel]->tileMap[3850];
 	}
 	// LEVEL RELOADING DEBUGGING
 	if (deviceKeyboard->GetKeyState(Keyboard::num7)) {
