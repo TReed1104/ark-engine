@@ -538,27 +538,35 @@ void Engine::EventHandler(void) {
 }
 void Engine::Update(const float& deltaTime) {
 	if (levelRegister[indexCurrentLevel] != nullptr) {
+		// Run the current Level's update function
 		levelRegister[indexCurrentLevel]->Update(deltaTime);
 	}
 	if (player != nullptr) {
+		// Run the player's update function
 		player->Update(deltaTime);
 	}
 	if (mainCameraFocus != nullptr) {
+		// Run the camera's update function
+		// TODO: Amend this to use a list of cameras?
 		mainCamera->Update(deltaTime, *mainCameraFocus);
 	}
 
-	// Window resize tests
+	// WINDOW RESIZE DEBUGGING
 	if (deviceKeyboard->GetKeyState(Keyboard::num8)) {
+		std::cout << ">>>> Changed Window scalar to 1" << std::endl;
 		WindowResize(glm::vec2(1.0f));
 	}
 	if (deviceKeyboard->GetKeyState(Keyboard::num9)) {
+		std::cout << ">>>> Changed Window scalar to 2" << std::endl;
 		WindowResize(glm::vec2(2.0f));
 	}
 	if (deviceKeyboard->GetKeyState(Keyboard::num0)) {
+		std::cout << ">>>> Changed Window scalar to 3" << std::endl;
 		WindowResize(glm::vec2(3.0f));
 	}
-
+	// LEVEL RELOADING DEBUGGING
 	if (deviceKeyboard->GetKeyState(Keyboard::num3)) {
+		std::cout << ">>>> Reloading the current level" << std::endl;
 		levelRegister[indexCurrentLevel]->Reload();
 	}
 }
