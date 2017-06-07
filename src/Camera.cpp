@@ -36,14 +36,14 @@ void Camera::FollowObject(const float& deltaTime, GameObject& object) {
 			// Update the center point of the camera to be the center of the objects sprite.
 			centerPoint = object.drawPosition + glm::vec3(glm::vec2(object.sourceFrameSize / 2), position.z);
 			// Update the camera position.
-			position = centerPoint - glm::vec3(viewPort / 2.0f, 0.0f);
+			position = glm::vec3(glm::vec2(centerPoint.x, centerPoint.y) - (viewPort / 2.0f), position.z);
 		}
 		else {
 			// Camera will pan towards the center of the object at the given speed.
 			// Update the center point of the camera to be the center of the objects sprite.
 			centerPoint = object.drawPosition + glm::vec3(glm::vec2(object.sourceFrameSize / 2), position.z);
 			// Calculate the position we want to move the camera to
-			glm::vec3 targetPosition = centerPoint - glm::vec3(viewPort / 2.0f, 0.0f);
+			glm::vec3 targetPosition = glm::vec3(glm::vec2(centerPoint.x, centerPoint.y) - (viewPort / 2.0f), position.z);
 			// Clamp the targetPosition to the bounds of the world as the camera's position already is.
 			targetPosition.x = glm::clamp(targetPosition.x, 0.0f, (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.x - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).x));
 			targetPosition.y = glm::clamp(targetPosition.y, 0.0f, (Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.y - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).y));
