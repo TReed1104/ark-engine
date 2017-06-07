@@ -52,7 +52,7 @@ public:
 	std::vector<GameController*> deviceGameControllerRegister;
 
 	// Cameras
-	Camera* camera;
+	Camera* mainCamera;
 	GameObject* mainCameraFocus;
 
 	// Registers

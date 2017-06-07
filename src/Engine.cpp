@@ -18,7 +18,7 @@ Engine::Engine(char* gameName) {
 	indexOfDefaultTexture = -1;
 	indexOfSpriteModel = -1;
 
-	camera = nullptr;
+	mainCamera = nullptr;
 	mainCameraFocus = nullptr;
 	player = nullptr;
 	deviceKeyboard = nullptr;
@@ -236,8 +236,8 @@ void Engine::CleanUp(void) {
 	}
 
 	// Delete the camera
-	if (camera != nullptr) {
-		delete camera;
+	if (mainCamera != nullptr) {
+		delete mainCamera;
 	}
 
 	// Delete all the Entities.
@@ -478,7 +478,7 @@ void Engine::LoadEntities(void) {
 }
 void Engine::LoadCameras(void) {
 	std::cout << ">> Loading Camera - Begun" << std::endl;
-	camera = new Camera(glm::vec3(0.0f, 0.0f, 1.0f));
+	mainCamera = new Camera(glm::vec3(0.0f, 0.0f, 1.0f));
 	mainCameraFocus = player;
 	std::cout << ">> Loading Camera - Complete" << std::endl;
 }
@@ -544,7 +544,7 @@ void Engine::Update(const float& deltaTime) {
 		player->Update(deltaTime);
 	}
 	if (mainCameraFocus != nullptr) {
-		camera->Update(deltaTime, *mainCameraFocus);
+		mainCamera->Update(deltaTime, *mainCameraFocus);
 	}
 
 	// Window resize tests
