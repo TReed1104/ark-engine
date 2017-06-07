@@ -53,6 +53,7 @@ public:
 
 	// Cameras
 	Camera* camera;
+	GameObject* mainCameraFocus;
 
 	// Registers
 	std::vector<Shader*> shaderRegister;
