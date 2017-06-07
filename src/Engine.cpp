@@ -537,20 +537,30 @@ void Engine::EventHandler(void) {
 	}
 }
 void Engine::Update(const float& deltaTime) {
+	// Check the current level has been initialised
 	if (levelRegister[indexCurrentLevel] != nullptr) {
 		// Run the current Level's update function
 		levelRegister[indexCurrentLevel]->Update(deltaTime);
 	}
+	// Check the player has been initialised
 	if (player != nullptr) {
 		// Run the player's update function
 		player->Update(deltaTime);
 	}
+	// Check the camera target has been initialised
 	if (mainCameraFocus != nullptr) {
 		// Run the camera's update function
 		// TODO: Amend this to use a list of cameras?
 		mainCamera->Update(deltaTime, *mainCameraFocus);
 	}
 
+
+
+	// LEVEL RELOADING DEBUGGING
+	if (deviceKeyboard->GetKeyState(Keyboard::num3)) {
+		std::cout << ">>>> Reloading the current level" << std::endl;
+		levelRegister[indexCurrentLevel]->Reload();
+	}
 	// WINDOW RESIZE DEBUGGING
 	if (deviceKeyboard->GetKeyState(Keyboard::num8)) {
 		std::cout << ">>>> Changed Window scalar to 1" << std::endl;
@@ -563,11 +573,6 @@ void Engine::Update(const float& deltaTime) {
 	if (deviceKeyboard->GetKeyState(Keyboard::num0)) {
 		std::cout << ">>>> Changed Window scalar to 3" << std::endl;
 		WindowResize(glm::vec2(3.0f));
-	}
-	// LEVEL RELOADING DEBUGGING
-	if (deviceKeyboard->GetKeyState(Keyboard::num3)) {
-		std::cout << ">>>> Reloading the current level" << std::endl;
-		levelRegister[indexCurrentLevel]->Reload();
 	}
 }
 void Engine::Render(void) {
