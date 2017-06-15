@@ -50,9 +50,22 @@ void Camera::FollowObject(const float& deltaTime, GameObject& object) {
 			// Calculate the difference between the targetposition and where the camera currently is
 			glm::vec3 cameraDelta = (targetPosition - position);
 			// Set the Speed the camera is to move at
-			float speed = 2.0f;
+			float speed = 3.0f;
+			
 			// Update the camera position.
-			position += cameraDelta * (speed * deltaTime);
+			glm::vec3 movementSize = cameraDelta * (speed * deltaTime);
+			position += movementSize;
+
+			// Snap math to make sure the movements don't get too small
+			std::cout << "Camera Delta X: " << cameraDelta.x << ", Y: " << cameraDelta.y << std::endl;
+			std::cout << "Size of the momvement X: " << movementSize.x << ", Y: " << movementSize.y << std::endl;
+			glm::vec3 absDelta = glm::abs(cameraDelta);	// Absolute the delta to ignore the x/y direction of it
+			if (absDelta.x < 0.5f) {
+				position.x = targetPosition.x;
+			}
+			if (absDelta.y < 0.5f) {
+				position.y = targetPosition.y;
+			}
 		}
 	}
 }
