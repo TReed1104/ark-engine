@@ -86,7 +86,8 @@ void GameObject::Draw(void) {
 		if (useTextures) {
 			// Textures are setup correctly, tell the shader to usse the texture and setup the source frame.
 			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "hasTexture"), useTextures);
-			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "textureArrayLayer"), sourceFramePosition.x + (texture->dimensionsInFrames.x * sourceFramePosition.y));
+			int textureLayerIndex = (sourceFramePosition.x + (texture->dimensionsInFrames.x * sourceFramePosition.y));
+			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "textureArrayLayer"), textureLayerIndex);
 
 			// Activate the correct texture.
 			glActiveTexture(GL_TEXTURE0);
