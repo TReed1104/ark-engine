@@ -24,9 +24,7 @@ class GameObject {
 public:
 	static Engine* Engine_Pointer;
 
-	// Animation Enum
-	enum AnimationState { IdleDown, IdleUp, IdleLeft, IdleRight, MoveDown, MoveUp, MoveLeft, MoveRight, AttackDown, AttackUp, AttackLeft, AttackRight, };
-	AnimationState animationState;
+	std::vector<Animation> animations;
 	int animationIndex;
 
 	// Shader indexer
@@ -38,7 +36,6 @@ public:
 	const Texture* texture;
 	glm::ivec2 sourceFrameSize;
 	glm::ivec2 sourceFramePosition;
-	std::vector<Animation> animations;
 
 	// Positions
 	glm::vec3 position;			// The world position of the object

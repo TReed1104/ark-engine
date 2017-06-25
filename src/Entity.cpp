@@ -6,6 +6,8 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	movementDirection = Directions::NotSet;
 	spriteDirection = Directions::Down;
 	if (script->isScriptLoaded) {
+		animationState = AnimationState::IdleDown;
+
 		// Texture Setup
 		int indexOfTexture = -1;
 		std::string textureName = script->Get<std::string>("entity.texture");

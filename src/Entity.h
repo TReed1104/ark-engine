@@ -11,6 +11,8 @@ public:
 	enum Directions { NotSet, Up, Down, Left, Right, UpLeft, UpRight, DownLeft, DownRight};
 	Directions movementDirection;
 	Directions spriteDirection;
+	enum AnimationState { IdleDown, IdleUp, IdleLeft, IdleRight, MoveDown, MoveUp, MoveLeft, MoveRight, AttackDown, AttackUp, AttackLeft, AttackRight, };
+	AnimationState animationState;
 
 	Entity(const std::string& scriptPath);
 	~Entity(void);

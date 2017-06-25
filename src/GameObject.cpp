@@ -17,7 +17,6 @@ GameObject::GameObject(const std::string & scriptPath) {
 	}
 
 	// Animation Setup
-	animationState = AnimationState::IdleDown;
 	animationIndex = 0;
 
 	// Texture Setup
