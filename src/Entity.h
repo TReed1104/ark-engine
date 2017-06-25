@@ -22,8 +22,8 @@ public:
 private:
 
 protected:
-	void CheckAnimationState(void);
-
+	void UpdateAnimationState(void);
+	void UpdateAnimationIndex(void);
 };
 
 #endif

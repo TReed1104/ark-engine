@@ -280,7 +280,7 @@ void Entity::HandleCollisions(float deltaTime) {
 		}
 	}
 }
-void Entity::CheckAnimationState(void) {
+void Entity::UpdateAnimationState(void) {
 	switch (spriteDirection) {
 	case Directions::Up:
 		(velocity != glm::vec2(0.0f, 0.0f)) ? animationState = AnimationState::MoveUp : animationState = AnimationState::IdleUp;
@@ -293,6 +293,49 @@ void Entity::CheckAnimationState(void) {
 		break;
 	case Directions::Right:
 		(velocity != glm::vec2(0.0f, 0.0f)) ? animationState = AnimationState::MoveRight : animationState = AnimationState::IdleRight;
+		break;
+	default:
+		break;
+	}
+}
+void Entity::UpdateAnimationIndex(void) {
+	// Using the current animaiton state, work out which animation in the list to use.
+	switch (animationState) {
+	case AnimationState::IdleDown:
+		animationIndex = 0;
+		break;
+	case AnimationState::IdleUp:
+		animationIndex = 1;
+		break;
+	case AnimationState::IdleLeft:
+		animationIndex = 2;
+		break;
+	case AnimationState::IdleRight:
+		animationIndex = 3;
+		break;
+	case AnimationState::MoveDown:
+		animationIndex = 4;
+		break;
+	case AnimationState::MoveUp:
+		animationIndex = 5;
+		break;
+	case AnimationState::MoveLeft:
+		animationIndex = 6;
+		break;
+	case AnimationState::MoveRight:
+		animationIndex = 7;
+		break;
+	case AnimationState::AttackDown:
+		animationIndex = 8;
+		break;
+	case AnimationState::AttackUp:
+		animationIndex = 9;
+		break;
+	case AnimationState::AttackLeft:
+		animationIndex = 10;
+		break;
+	case AnimationState::AttackRight:
+		animationIndex = 11;
 		break;
 	default:
 		break;
