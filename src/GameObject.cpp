@@ -62,7 +62,7 @@ void GameObject::Update(const float& deltaTime) {
 	UpdateScale();
 
 	// Animate the object
-	Animate(deltaTime);
+	HandleAnimations(deltaTime);
 
 	// Reset the velocities.
 	velocity = glm::vec2(0, 0);
@@ -167,7 +167,7 @@ void GameObject::LoadAnimations() {
 		}
 	}
 }
-void GameObject::Animate(const float& deltaTime) {
+void GameObject::HandleAnimations(const float& deltaTime) {
 	if (animations.size() > 0) {
 		// Store the old animation index for checking if it changes, this is needed for resetting the old animation.
 		int oldAnimationIndex = animationIndex;
