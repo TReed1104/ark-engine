@@ -22,7 +22,7 @@ public:
 private:
 
 protected:
-	void AnimationHandler(void);
+	void CheckAnimationState(void);
 
 };
 

@@ -76,7 +76,8 @@ private:
 	void Animate(const float& deltaTime);
 
 protected:
-	virtual void AnimationHandler(void);
+	virtual void CheckAnimationState(void);
+	virtual void FindAnimation(void);
 
 };
 

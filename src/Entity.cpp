@@ -280,7 +280,7 @@ void Entity::HandleCollisions(float deltaTime) {
 		}
 	}
 }
-void Entity::AnimationHandler(void) {
+void Entity::CheckAnimationState(void) {
 	switch (spriteDirection) {
 	case Directions::Up:
 		(velocity != glm::vec2(0.0f, 0.0f)) ? animationState = AnimationState::MoveUp : animationState = AnimationState::IdleUp;

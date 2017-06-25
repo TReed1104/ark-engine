@@ -173,8 +173,8 @@ void GameObject::Animate(const float& deltaTime) {
 		int oldAnimationIndex = animationIndex;
 
 		// Call the Derived handler function
-		AnimationHandler();
-
+		CheckAnimationState();
+		FindAnimation();
 		// Using the current animaiton state, work out which animation in the list to use.
 		switch (animationState) {
 		case AnimationState::IdleDown:
@@ -228,5 +228,7 @@ void GameObject::Animate(const float& deltaTime) {
 	}
 
 }
-void GameObject::AnimationHandler(void) {
+void GameObject::CheckAnimationState(void) {
+}
+void GameObject::FindAnimation(void) {
 }
