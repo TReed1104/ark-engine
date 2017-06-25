@@ -73,7 +73,7 @@ private:
 	void UpdateRotation(void);
 	void UpdateScale(void);
 	void LoadAnimations(void);
-	void UpdateAnimations(const float& deltaTime);
+	void Animate(const float& deltaTime);
 
 protected:
 	virtual void AnimationHandler(void);
