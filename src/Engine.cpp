@@ -461,6 +461,7 @@ void Engine::LoadFonts(void) {
 	std::vector<std::string> listOfFonts = FileSystemUtilities::GetFileList(contentDirectory + "fonts");
 	for (size_t i = 0; i < listOfFonts.size(); i++) {
 		//fontRegister.push_back(Font(listOfFonts[i]));
+		
 	}
 	std::cout << ">> Loading Fonts - Complete" << std::endl;
 }
