@@ -320,7 +320,16 @@ void Engine::ImportTexture(const std::string& texturePath) {
 		glGenTextures(1, &currentTexture.id);
 		glBindTexture(GL_TEXTURE_2D_ARRAY, currentTexture.id);
 		// Initialise the size of the 3D texture array
-		glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, currentTexture.frameSize.x, currentTexture.frameSize.y, currentTexture.numberOfFrames);
+		
+		GLenum textureFormat = GL_RGBA8;
+		if (image->format->BytesPerPixel == 4) {
+			textureFormat = GL_RGBA8;
+		}
+		else {
+			textureFormat = GL_RGB8;
+		}
+
+		glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, textureFormat, currentTexture.frameSize.x, currentTexture.frameSize.y, currentTexture.numberOfFrames);
 
 		int textureArrayLayerIndexer = 0;	// Stores the current layer level we are putting the new texture into
 		for (int y = 0; y < currentTexture.dimensionsInFrames.y; y++) {
