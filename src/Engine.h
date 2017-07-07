@@ -58,11 +58,12 @@ public:
 	// Registers
 	std::vector<Shader*> shaderRegister;
 	std::vector<Model> modelRegister;
+	std::vector<Texture> textureRegister;
+	//std::vector<Font> fontRegister;
 	std::vector<Tileset> tilesetRegister;
 	std::vector<GameObject*> itemRegister;
 	std::vector<Entity*> entityRegister;
 	std::vector<Level*> levelRegister;
-	std::vector<Texture> textureRegister;
 	Player* player;
 
 	// Indexers
@@ -125,6 +126,7 @@ private:
 	void LoadTextures(void);
 	Model LoadModel(const std::string& modelPath);
 	void LoadModels(void);
+	void LoadFonts(void);
 	void LoadTilesets(void);
 	void LoadLevels(void);
 	void LoadItems(void);
