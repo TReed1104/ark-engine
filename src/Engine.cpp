@@ -177,7 +177,7 @@ void Engine::InitialiseGlew(void) {
 void Engine::LoadShaders(void) {
 	// Load the Shaders
 	std::cout << ">> Loading Shaders - Begun" << std::endl;
-	std::vector<std::string> listOfShaders = FileSystemUtilities::GetFileList(contentDirectory + "config/shaders");
+	std::vector<std::string> listOfShaders = FileSystemUtilities::GetFileList(contentDirectory + "shaders/configs");
 	for (size_t i = 0; i < listOfShaders.size(); i++) {
 		LuaScript currentShaderConfig = LuaScript(listOfShaders[i]);
 		if (currentShaderConfig.isScriptLoaded) {
