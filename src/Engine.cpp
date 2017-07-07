@@ -99,6 +99,13 @@ void Engine::InitialiseSDL(void) {
 	}
 	std::cout << ">> SDL initialised Successfully!" << std::endl;
 }
+void Engine::InitialiseTTF(void) {
+	if (TTF_Init() != 0) {
+		std::cout << ">> TTF_Init Error: " << TTF_GetError() << std::endl;
+		exit(1);
+	}
+	std::cout << ">> TTF initialised Successfully!" << std::endl;
+}
 void Engine::CreateSDLWindow(void) {
 	// Create window
 	sdlWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowDimensions.x, windowDimensions.y, SDL_WINDOW_OPENGL);
@@ -205,6 +212,7 @@ void Engine::LoadGraphicsEnvironment(void) {
 	std::cout << ">> Environment Setup - Begun" << std::endl;
 	// SDL setup
 	InitialiseSDL();
+	InitialiseTTF();
 	CreateSDLWindow();
 	CreateSDLContext();
 	CheckForInputDevices();		// Finds all the input devices attached to the machine
@@ -277,10 +285,12 @@ void Engine::Close(bool isClean) {
 	// Clear up and close the engine.
 	if (isClean) {
 		CleanUp();
+		TTF_Quit();
 		SDL_Quit();
 	}
 	else {
 		CleanUp();
+		TTF_Quit();
 		SDL_Quit();
 		exit(1);
 	}
@@ -445,6 +455,9 @@ void Engine::LoadModels(void) {
 	}
 
 	std::cout << ">> Loading Models - Complete" << std::endl;
+}
+void Engine::LoadFonts(void) {
+
 }
 void Engine::LoadTilesets(void) {
 	// Load the Tilesets

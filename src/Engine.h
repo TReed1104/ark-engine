@@ -7,11 +7,12 @@
 #include <vector>
 #include <string>
 // Graphics dependencies
-#include "GL/glew.h"
-#include "SDL.h"
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/type_ptr.hpp"
+#include <GL/glew.h>
+#include <SDL.h>
+#include <SDL_ttf.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <assimp/mesh.h>
 #include <assimp/material.h>
 #include <assimp/scene.h>
@@ -112,6 +113,7 @@ private:
 	void LoadEnginePointers(void);
 	// OpenGL and SDL related functions
 	void InitialiseSDL(void);
+	void InitialiseTTF(void);
 	void CreateSDLWindow(void);
 	void CreateSDLContext(void);
 	void CheckForInputDevices(void);
@@ -125,6 +127,7 @@ private:
 	void LoadTextures(void);
 	Model LoadModel(const std::string& modelPath);
 	void LoadModels(void);
+	void LoadFonts(void);
 	void LoadTilesets(void);
 	void LoadLevels(void);
 	void LoadItems(void);
