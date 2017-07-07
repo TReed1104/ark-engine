@@ -443,7 +443,6 @@ void Engine::LoadFonts(void) {
 	for (size_t i = 0; i < listOfFonts.size(); i++) {
 		//fontRegister.push_back(Font(listOfFonts[i]));
 	}
-
 	std::cout << ">> Loading Fonts - Complete" << std::endl;
 }
 void Engine::LoadTilesets(void) {
