@@ -437,14 +437,6 @@ void Engine::LoadModels(void) {
 
 	std::cout << ">> Loading Models - Complete" << std::endl;
 }
-void Engine::LoadFonts(void) {
-	std::cout << ">> Loading Fonts - Begun" << std::endl;
-	std::vector<std::string> listOfFonts = FileSystemUtilities::GetFileList(contentDirectory + "fonts");
-	for (size_t i = 0; i < listOfFonts.size(); i++) {
-		//fontRegister.push_back(Font(listOfFonts[i]));
-	}
-	std::cout << ">> Loading Fonts - Complete" << std::endl;
-}
 void Engine::LoadTilesets(void) {
 	// Load the Tilesets
 	std::cout << ">> Loading Tilesets - Begun" << std::endl;
