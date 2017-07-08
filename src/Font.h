@@ -26,7 +26,7 @@ Font::Font(const std::string & scriptPath) {
 	if (scriptPath != "NO SCRIPT") {
 		this->script = new LuaScript(scriptPath);
 		if (script->isScriptLoaded) {
-			path = script->Get<std::string>("font.path");
+			path = script->Get<std::string>("font.file_name");
 			size = script->Get<int>("font.size");
 			font = TTF_OpenFont(path.c_str(), size);
 			name = script->Get<std::string>("font.name");
