@@ -21,6 +21,7 @@
 // Engine Source
 #include "Shader.h"
 #include "LuaScript.h"
+#include "Font.h"
 #include "Keyboard.h"
 #include "GameController.h"
 #include "GameObject.h"
@@ -58,6 +59,7 @@ public:
 	std::vector<Shader*> shaderRegister;
 	std::vector<Model> modelRegister;
 	std::vector<Texture> textureRegister;
+	std::vector<Font> fontRegister;
 	std::vector<Tileset> tilesetRegister;
 	std::vector<GameObject*> itemRegister;
 	std::vector<Entity*> entityRegister;
