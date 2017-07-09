@@ -1,13 +1,37 @@
 #ifndef ARKENGINE_FONT_H_
 #define ARKENGINE_FONT_H_
 
+#include <iostream>
 #include <string>
 #include <SDL_ttf.h>
+#include <GL/glew.h>
+#include <glm/glm.hpp>
 #include "LuaScript.h"
 
 
 class Font {
 public:
+	class Glyph {
+	public:
+		// OpenGL rendering
+		GLuint vertexBufferObject;
+		GLuint indicesBufferObject;
+		GLuint vertexArrayObject;
+
+		// Glyph metrics
+		int minX;
+		int maxX;
+		int minY;
+		int maxY;
+		int advance;
+
+		Glyph() {}
+		~Glyph() {}
+
+	private:
+
+	};
+
 	LuaScript* script;
 	std::string path;
 	int size;
@@ -16,36 +40,10 @@ public:
 
 	Font(const std::string& scriptPath = "NO SCRIPT");
 	~Font();
+
+	void LoadGlyphs(void);
 	
 private:
 
 };
-
-Font::Font(const std::string & scriptPath) {
-	// Load the script config for the font and load it into memory.
-	if (scriptPath != "NO SCRIPT") {
-		this->script = new LuaScript(scriptPath);
-		if (script->isScriptLoaded) {
-			path = script->Get<std::string>("font.file_name");
-			size = script->Get<int>("font.size");
-			font = TTF_OpenFont(path.c_str(), size);
-			name = script->Get<std::string>("font.name");
-		}
-	}
-	else {
-		this->script = nullptr;
-		path = "NOT LOADED";
-		size = 0;
-		font = nullptr;
-		name = "NOT LOADED";
-	}
-}
-Font::~Font() {
-	// Clean up the font
-	if (script != nullptr) {
-		delete script;
-	}
-	TTF_CloseFont(font);
-}
-
 #endif
