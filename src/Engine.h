@@ -20,10 +20,9 @@
 #include <assimp/postprocess.h>
 // Engine Source
 #include "Shader.h"
+#include "LuaScript.h"
 #include "Keyboard.h"
 #include "GameController.h"
-#include "BoundingBox.h"
-#include "Animation.h"
 #include "GameObject.h"
 #include "Camera.h"
 #include "Tileset.h"
@@ -31,7 +30,6 @@
 #include "Level.h"
 #include "Entity.h"
 #include "Player.h"
-#include "LuaScript.h"
 
 class Engine {
 public:
