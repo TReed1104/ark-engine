@@ -42,6 +42,7 @@ GameObject::GameObject(const std::string & scriptPath) {
 	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 	model.Scale(scale);
 
+	doTranslation = false;
 	doRotation = false;
 	doScalar = false;
 
@@ -55,8 +56,13 @@ GameObject::~GameObject(void) {
 
 // Game Run Time.
 void GameObject::Update(const float& deltaTime) {
+	// Check if the object's velocity has been set, if so then allow the transformation matrix to be updated.
+	if ((velocity != glm::vec2(0.0f, 0.0f) || velocitySnap != glm::vec2(0.0f, 0.0f))) {
+		doTranslation = true;
+	}
+
 	// Apply transformations
-	UpdatePosition((velocity != glm::vec2(0.0f, 0.0f) || velocitySnap != glm::vec2(0.0f, 0.0f)));
+	UpdatePosition();
 	UpdateRotation();
 	UpdateScale();
 
@@ -128,24 +134,27 @@ void GameObject::Reposition(const glm::vec2& newPosition) {
 	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
 	model.Translate(drawPosition);
 }
-void GameObject::UpdatePosition(bool doTransform) {
-	if (doTransform) {
+void GameObject::UpdatePosition() {
+	if (doTranslation) {
 		position += glm::vec3(velocity, 0.0f);
 		position += glm::vec3(velocitySnap, 0.0f);
 		gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(position.x, position.y));
 		drawPosition = (position + glm::vec3(drawOffset, 0.0f));
 		boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
 		model.Translate(drawPosition);
+		doTranslation = false;
 	}
 }
 void GameObject::UpdateRotation() {
 	if (doRotation) {
 		model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+		doRotation = false;
 	}
 }
 void GameObject::UpdateScale() {
 	if (doScalar) {
 		model.Scale(scale);
+		doScalar = false;
 	}
 }
 void GameObject::LoadAnimations() {

@@ -53,6 +53,7 @@ public:
 	// Transformations
 	float rotation;
 	glm::vec3 scale;
+	bool doTranslation;		// Flag controlling if the Object needs translating
 	bool doRotation;		// Flag controlling if the Object needs rotating
 	bool doScalar;			// Flag controlling if the Object needs scaling
 	
@@ -64,7 +65,7 @@ public:
 	void Reposition(const glm::vec2& newPosition);
 
 private:
-	void UpdatePosition(bool doTransform = false);
+	void UpdatePosition(void);
 	void UpdateRotation(void);
 	void UpdateScale(void);
 	void LoadAnimations(void);
