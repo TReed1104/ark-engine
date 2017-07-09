@@ -3,11 +3,13 @@
 
 #include <iostream>
 #include <string>
+#include <map>
 #include <SDL_ttf.h>
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include "LuaScript.h"
 
+class Engine;
 
 class Font {
 public:
@@ -19,6 +21,7 @@ public:
 		GLuint vertexArrayObject;
 
 		// Glyph metrics
+		char character;
 		int minX;
 		int maxX;
 		int minY;
@@ -26,11 +29,14 @@ public:
 		int advance;
 
 		Glyph() {}
-		~Glyph() {}
+		Glyph(const char& character);
+		~Glyph();
 
 	private:
 
 	};
+
+	static Engine* Engine_Pointer;
 
 	LuaScript* script;
 	std::string path;
@@ -44,6 +50,6 @@ public:
 	void LoadGlyphs(void);
 	
 private:
-
+	std::map<char, Glyph> glyphs;
 };
 #endif
