@@ -80,6 +80,7 @@ void Engine::LoadEnginePointers(void) {
 	// Sets the Engine_Pointer static of each of the Engines classes.
 	std::cout << ">> Setting static pointers - Begun" << std::endl;
 	Model::Engine_Pointer = this;
+	Font::Engine_Pointer = this;
 	Keyboard::Engine_Pointer = this;
 	GameController::Engine_Pointer = this;
 	Camera::Engine_Pointer = this;
@@ -264,6 +265,12 @@ void Engine::CleanUp(void) {
 	int gameControllerRegisterSize = deviceGameControllerRegister.size();
 	for (int i = 0; i < gameControllerRegisterSize; i++) {
 		delete deviceGameControllerRegister[i];
+	}
+
+	// Delete the loaded Fonts
+	int fontRegisterSize = fontRegister.size();
+	for (int i = 0; i < fontRegisterSize; i++) {
+		delete fontRegister[i];
 	}
 
 	// Delete the loaded Shaders.
@@ -458,9 +465,9 @@ void Engine::LoadModels(void) {
 }
 void Engine::LoadFonts(void) {
 	std::cout << ">> Loading Fonts - Begun" << std::endl;
-	std::vector<std::string> listOfFonts = FileSystemUtilities::GetFileList(contentDirectory + "fonts");
+	std::vector<std::string> listOfFonts = FileSystemUtilities::GetFileList(contentDirectory + "fonts/configs");
 	for (size_t i = 0; i < listOfFonts.size(); i++) {
-		fontRegister.push_back(Font(listOfFonts[i]));
+		fontRegister.push_back(new Font(listOfFonts[i]));
 	}
 	std::cout << ">> Loading Fonts - Complete" << std::endl;
 }
