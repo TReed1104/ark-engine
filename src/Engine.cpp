@@ -386,7 +386,7 @@ void Engine::LoadTextures(void) {
 
 	std::cout << ">> Loading Textures - Complete" << std::endl;
 }
-Model Engine::LoadModel(const std::string& modelPath) {
+void Engine::LoadModel(const std::string& modelPath) {
 	// Load in a Model.
 	if (modelPath != "") {
 		Assimp::Importer importer;	// An importer for importing the model data.
@@ -427,14 +427,14 @@ Model Engine::LoadModel(const std::string& modelPath) {
 		}
 		std::cout << ">> Model loaded: " << modelPath << std::endl;	// Outputs that the model has been loaded.
 		importer.FreeScene();						// Cleans up the loader.
-		return currentModel;
+		modelRegister.push_back(currentModel);
 	}
 }
 void Engine::LoadModels(void) {
 	std::cout << ">> Loading Models - Begun" << std::endl;
 	std::vector<std::string> listOfModels = FileSystemUtilities::GetFileList(contentDirectory + "models");
 	for (size_t i = 0; i < listOfModels.size(); i++) {
-		modelRegister.push_back(LoadModel(listOfModels[i]));
+		LoadModel(listOfModels[i]);
 	}
 
 	// Find the default model
