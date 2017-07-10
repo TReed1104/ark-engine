@@ -481,7 +481,8 @@ void Engine::LoadTilesets(void) {
 	// Load the Tilesets
 	std::cout << ">> Loading Tilesets - Begun" << std::endl;
 	std::vector<std::string> listOfTilesets = FileSystemUtilities::GetFileList(contentDirectory + "tilesets");
-	for (size_t i = 0; i < listOfTilesets.size(); i++) {
+	const size_t listOfTilesetsSize = listOfTilesets.size();
+	for (size_t i = 0; i < listOfTilesetsSize; i++) {
 		tilesetRegister.push_back(Tileset(listOfTilesets[i]));
 	}
 	std::cout << ">> Loading Tilesets - Complete" << std::endl;
