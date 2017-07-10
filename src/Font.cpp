@@ -89,6 +89,43 @@ void Font::LoadGlyphs(void) {
 				newGlyph.model.Rotate(0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 				newGlyph.model.Scale(glm::vec3(1.0f));
 
+				// Texture Generation
+				// Setup the defaults of the Glyph Texture
+				SDL_Color colour = { 255, 255, 255, 255 };
+				SDL_Surface* glyphImage = TTF_RenderText_Blended(font, &currentChar, colour);
+				newGlyph.texture.dimensionsInPixels = glm::ivec2(glyphImage->w, glyphImage->h);
+				newGlyph.texture.dimensionsInFrames = glm::ivec2(1, 1);
+				newGlyph.texture.frameSize = glm::ivec2(glyphImage->w, glyphImage->h);
+				newGlyph.texture.frameSizeBordered = glm::ivec2(0, 0);
+				newGlyph.texture.numberOfFrames = 1;
+
+				// OpenGL side of texture setup
+				glGenTextures(1, &newGlyph.texture.id);
+				glBindTexture(GL_TEXTURE_2D, newGlyph.texture.id);
+				GLenum textureFormat = GL_RGBA8;
+				GLint internalFormat = GL_RGBA;
+				if (glyphImage->format->BytesPerPixel == 4) {
+					textureFormat = GL_RGBA8;
+					internalFormat = GL_RGBA;
+				}
+				else {
+					textureFormat = GL_RGB8;
+					internalFormat = GL_RGB;
+				}
+				glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, glyphImage->w, glyphImage->h, 0, textureFormat, GL_UNSIGNED_BYTE, glyphImage->pixels);
+				
+				// Wrapping settings
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+				// Filtering settings
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+				glBindTexture(GL_TEXTURE_2D, 0);
+				SDL_FreeSurface(glyphImage);
+
+
 				glyphs[currentChar] = newGlyph;
 			}
 			else {
