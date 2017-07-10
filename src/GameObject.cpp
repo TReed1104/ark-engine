@@ -21,12 +21,12 @@ GameObject::GameObject(const std::string & scriptPath) {
 
 	// Texture Setup
 	this->texture = nullptr;
-	this->sourceFramePosition = glm::ivec2(0.0f);
+	this->sourceFramePosition = glm::ivec2(0);
 
 	// Position Setup
 	this->position = glm::vec3(0.0f);
 	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
-	this->drawOffset = glm::ivec2(0.0f);
+	this->drawOffset = glm::ivec2(0);
 	this->drawPosition = this->position + glm::vec3(this->drawOffset, 0);
 	this->rotation = 0.0f;
 	this->scale = glm::vec3(1.0f);
@@ -109,7 +109,7 @@ void GameObject::Draw(void) {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
 
 		// Executes the draw call. Draws triangles, drawing between the points in the order specified. Using the indicies buffer currently bound.
-		glDrawElements(GL_TRIANGLES, currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
+		glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
 
 		// If the mesh was setup for texturing, this unbinds the textures used, clearing up ready for next time.
 		if (useTextures) {
