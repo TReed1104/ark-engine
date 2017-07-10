@@ -1,8 +1,8 @@
 #version 330
 layout (location = 0) in vec3 vertexPosition;
-layout (location = 1) in vec3 vertexColor;=
+layout (location = 1) in vec3 vertexColor;
 
-out vec3 fragmentColour;=
+out vec3 fragmentColour;
 
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
