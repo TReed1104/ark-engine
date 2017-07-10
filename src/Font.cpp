@@ -47,13 +47,18 @@ void Font::LoadGlyphs(void) {
 	for (int i = startIndexOfGlyphs; i <= lastIndexOfGlyphs; i++) {
 		int indexOfGlyph = TTF_GlyphIsProvided(font, i);
 		if (indexOfGlyph) {
-			std::cout << "Glyph " << i << " was found in the font " << name << " at index " << indexOfGlyph << std::endl;
+			//std::cout << "Glyph " << i << " was found in the font " << name << " at index " << indexOfGlyph << std::endl;
 
 			char currentChar = char(i);
 			Glyph newGlyph = Glyph(currentChar);
 			if (TTF_GlyphMetrics(font, newGlyph.character, &newGlyph.minX, &newGlyph.maxX, &newGlyph.minY, &newGlyph.maxY, &newGlyph.advance) != -1) {
 				// Glyph model setup
-
+				Model newModel = Model();
+				Model::Mesh newMesh = Model::Mesh();
+				// Calculate the vertex locations of the renderable surface for the glyph
+				newMesh.BindBuffers();
+				newModel.meshes.push_back(newMesh);
+				newModel.SetMeshParents();
 
 				glyphs[currentChar] = newGlyph;
 			}

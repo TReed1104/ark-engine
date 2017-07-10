@@ -16,8 +16,6 @@ class Font {
 public:
 	class Glyph {
 	public:
-		Model model;
-
 		// Glyph metrics
 		char character;
 		int minX;
@@ -25,6 +23,10 @@ public:
 		int minY;
 		int maxY;
 		int advance;
+
+		// Rendering
+		Model model;
+		glm::vec4 colour;
 		
 		Glyph(const char& character = NULL);
 		~Glyph();
