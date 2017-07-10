@@ -14,7 +14,7 @@ public:
 	glm::ivec2 frameSizeBordered;
 	int numberOfFrames;
 
-	Texture(const std::string& name) {
+	Texture(const std::string& name = "") {
 		this->name = name;
 		this->id = -1;
 		this->dimensionsInPixels = glm::ivec2(0, 0);
