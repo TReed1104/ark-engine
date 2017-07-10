@@ -64,6 +64,12 @@ void Font::LoadGlyphs(void) {
 				newMesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.width, 0.0f + newGlyph.height, 0.0f));
 				newMesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f + newGlyph.height, 0.0f));
 
+				// Add raw colour data to each vertex incase none is passed to the shader
+				const size_t numberOfVertices = newMesh.vertexPositions.size();
+				for (size_t i = 0; i < numberOfVertices; i++) {
+					newMesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+				}
+
 				// Generate the surface
 				newMesh.BindBuffers();
 				newModel.meshes.push_back(newMesh);
