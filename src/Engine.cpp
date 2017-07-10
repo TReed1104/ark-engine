@@ -513,7 +513,8 @@ void Engine::LoadEntities(void) {
 	// Load the Entities
 	std::cout << ">> Loading Entities - Begun" << std::endl;
 	std::vector<std::string> listOfEntityFiles = FileSystemUtilities::GetFileList(contentDirectory + "scripts/entities");
-	for (size_t i = 0; i < listOfEntityFiles.size(); i++) {
+	const size_t listOfEntityFilesSize = listOfEntityFiles.size();
+	for (size_t i = 0; i < listOfEntityFilesSize; i++) {
 
 	}
 	std::cout << ">> Loading Entities - Complete" << std::endl;
