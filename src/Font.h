@@ -8,6 +8,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include "LuaScript.h"
+#include "Model.h"
 
 class Engine;
 
@@ -15,10 +16,7 @@ class Font {
 public:
 	class Glyph {
 	public:
-		// OpenGL rendering
-		GLuint vertexBufferObject;
-		GLuint indicesBufferObject;
-		GLuint vertexArrayObject;
+		Model model;
 
 		// Glyph metrics
 		char character;

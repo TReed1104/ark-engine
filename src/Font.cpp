@@ -52,6 +52,9 @@ void Font::LoadGlyphs(void) {
 			char currentChar = char(i);
 			Glyph newGlyph = Glyph(currentChar);
 			if (TTF_GlyphMetrics(font, newGlyph.character, &newGlyph.minX, &newGlyph.maxX, &newGlyph.minY, &newGlyph.maxY, &newGlyph.advance) != -1) {
+				// Glyph model setup
+
+
 				glyphs[currentChar] = newGlyph;
 			}
 			else {
