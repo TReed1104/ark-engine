@@ -97,27 +97,26 @@ void Font::LoadGlyphs(void) {
 				// Texture Generation
 				// Setup the defaults of the Glyph Texture
 				SDL_Color colour = { 255, 255, 255, 255 };
-				SDL_Surface* glyphImage = TTF_RenderText_Blended(font, &currentChar, colour);
-				newGlyph.texture.dimensionsInPixels = glm::ivec2(glyphImage->w, glyphImage->h);
+				SDL_Surface* glyphSurface = TTF_RenderUTF8_Blended(font, &currentChar, colour);
+				newGlyph.texture.dimensionsInPixels = glm::ivec2(glyphSurface->w, glyphSurface->h);
 				newGlyph.texture.dimensionsInFrames = glm::ivec2(1, 1);
-				newGlyph.texture.frameSize = glm::ivec2(glyphImage->w, glyphImage->h);
+				newGlyph.texture.frameSize = glm::ivec2(glyphSurface->w, glyphSurface->h);
 				newGlyph.texture.frameSizeBordered = glm::ivec2(0, 0);
 				newGlyph.texture.numberOfFrames = 1;
 
 				// OpenGL side of texture setup
 				glGenTextures(1, &newGlyph.texture.id);
 				glBindTexture(GL_TEXTURE_2D, newGlyph.texture.id);
+				
+				int colours = glyphSurface->format->BytesPerPixel;
 				GLenum textureFormat = GL_RGBA8;
-				GLint internalFormat = GL_RGBA;
-				if (glyphImage->format->BytesPerPixel == 4) {
-					textureFormat = GL_RGBA8;
-					internalFormat = GL_RGBA;
+				if (colours == 4) {
+					textureFormat = GL_BGRA;
 				}
 				else {
-					textureFormat = GL_RGB8;
-					internalFormat = GL_RGB;
+					textureFormat = GL_RGB;
 				}
-				glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, glyphImage->w, glyphImage->h, 0, textureFormat, GL_UNSIGNED_BYTE, glyphImage->pixels);
+				glTexImage2D(GL_TEXTURE_2D, 0, colours, glyphSurface->w, glyphSurface->h, 0, textureFormat, GL_UNSIGNED_BYTE, glyphSurface->pixels);
 				
 				// Wrapping settings
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -128,7 +127,7 @@ void Font::LoadGlyphs(void) {
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
 				glBindTexture(GL_TEXTURE_2D, 0);
-				SDL_FreeSurface(glyphImage);
+				SDL_FreeSurface(glyphSurface);
 
 
 				glyphs[currentChar] = newGlyph;
