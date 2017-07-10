@@ -35,8 +35,8 @@ public:
 		std::vector<std::string> splitString;	// Stores the split sections of string for the return.
 		std::string currentSplit = "";			// Stores the current section being split off.
 
-		int sizeOfStringArray = stringToSplit.size();			// .Size() of a const so it never changes and we store it once.
-		for (unsigned int i = 0; i < sizeOfStringArray; i++) {
+		size_t sizeOfStringArray = stringToSplit.size();			// .Size() of a const so it never changes and we store it once.
+		for (size_t i = 0; i < sizeOfStringArray; i++) {
 			char currentChar = stringToSplit.at(i);
 			if (currentChar == splitToken) {
 				splitString.push_back(currentSplit);

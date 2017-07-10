@@ -109,7 +109,7 @@ void Engine::InitialiseTTF(void) {
 }
 void Engine::CreateSDLWindow(void) {
 	// Create window
-	sdlWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowDimensions.x, windowDimensions.y, SDL_WINDOW_OPENGL);
+	sdlWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)windowDimensions.x, (int)windowDimensions.y, SDL_WINDOW_OPENGL);
 
 	// Error handling for the SDL Window.
 	if (sdlWindow == nullptr) {
@@ -221,7 +221,7 @@ void Engine::LoadGraphicsEnvironment(void) {
 	// OpenGL setup
 	InitialiseGlew();
 	LoadShaders();
-	glViewport(0, 0, windowDimensions.x, windowDimensions.y);
+	glViewport(0, 0, (int)windowDimensions.x, (int)windowDimensions.y);
 	SDL_GL_SwapWindow(sdlWindow);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
@@ -233,14 +233,14 @@ void Engine::CleanUp(void) {
 	std::cout << "Cleanup - Begun" << std::endl;
 
 	// Delete all the levels.
-	int levelRegisterSize = levelRegister.size();
-	for (int i = 0; i < levelRegisterSize; i++) {
+	const size_t levelRegisterSize = levelRegister.size();
+	for (size_t i = 0; i < levelRegisterSize; i++) {
 		delete levelRegister[i];
 	}
 
 	// Delete all the items loaded.
-	int itemRegisterSize = itemRegister.size();
-	for (int i = 0; i < itemRegisterSize; i++) {
+	const size_t itemRegisterSize = itemRegister.size();
+	for (size_t i = 0; i < itemRegisterSize; i++) {
 		delete itemRegister[i];
 	}
 
@@ -253,8 +253,8 @@ void Engine::CleanUp(void) {
 	if (player != nullptr) {
 		delete player;
 	}
-	int entityRegisterSize = entityRegister.size();
-	for (int i = 0; i < entityRegisterSize; i++) {
+	const size_t entityRegisterSize = entityRegister.size();
+	for (size_t i = 0; i < entityRegisterSize; i++) {
 		delete entityRegister[i];
 	}
 
@@ -262,25 +262,26 @@ void Engine::CleanUp(void) {
 	if (deviceKeyboard != nullptr) {
 		delete deviceKeyboard;
 	}
-	int gameControllerRegisterSize = deviceGameControllerRegister.size();
-	for (int i = 0; i < gameControllerRegisterSize; i++) {
+	const size_t gameControllerRegisterSize = deviceGameControllerRegister.size();
+	for (size_t i = 0; i < gameControllerRegisterSize; i++) {
 		delete deviceGameControllerRegister[i];
 	}
 
 	// Delete the loaded Fonts
-	int fontRegisterSize = fontRegister.size();
-	for (int i = 0; i < fontRegisterSize; i++) {
+	const size_t fontRegisterSize = fontRegister.size();
+	for (size_t i = 0; i < fontRegisterSize; i++) {
 		delete fontRegister[i];
 	}
 
 	// Delete the loaded Shaders.
-	int shaderRegisterSize = shaderRegister.size();
-	for (int i = 0; i < shaderRegisterSize; i++) {
+	const size_t shaderRegisterSize = shaderRegister.size();
+	for (size_t i = 0; i < shaderRegisterSize; i++) {
 		delete shaderRegister[i];
 	}
 
 	if (SDL_NumJoysticks() > 0) {
-		for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+		const size_t deviceGameControllerRegisterSize = deviceGameControllerRegister.size();
+		for (size_t i = 0; i < deviceGameControllerRegisterSize; i++) {
 			SDL_GameControllerClose(deviceGameControllerRegister[i]->GetSDLHook());	// Close the controller.
 		}
 	}
@@ -382,9 +383,10 @@ void Engine::LoadTextures(void) {
 	}
 
 	// Find the default texture for when textures are failed to be found.
-	for (size_t i = 0; i < textureRegister.size(); i++) {
+	const size_t textureRegisterSize = textureRegister.size();
+	for (size_t i = 0; i < textureRegisterSize; i++) {
 		if (textureRegister[i].name.find(nameOfDefaultTexture) != std::string::npos) {
-			indexOfDefaultTexture = i;
+			indexOfDefaultTexture = (int)i;
 		}
 	}
 	if (indexOfDefaultTexture == -1) {
@@ -402,10 +404,10 @@ void Engine::LoadModel(const std::string& modelPath) {
 		Model currentModel = Model(modelPath);
 
 		// Loop through each mesh in the loaded model.
-		for (int i = 0; i < scene->mNumMeshes; i++) {
+		for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
 			Model::Mesh currentMesh = Model::Mesh();
 
-			for (int j = 0; j < scene->mMeshes[i]->mNumVertices; j++) {
+			for (unsigned int j = 0; j < scene->mMeshes[i]->mNumVertices; j++) {
 				// Get the vertices from assimp.
 				currentMesh.vertexPositions.push_back(glm::vec3(scene->mMeshes[i]->mVertices[j].x, scene->mMeshes[i]->mVertices[j].y, scene->mMeshes[i]->mVertices[j].z));
 
@@ -424,7 +426,7 @@ void Engine::LoadModel(const std::string& modelPath) {
 				}
 			}
 			// Loops through the array of indices, pushing each of them to the index vector individually, this is because they are used individually whilst drawing instead of in 3s.
-			for (int j = 0; j < scene->mMeshes[i]->mNumFaces; j++) {
+			for (unsigned int j = 0; j < scene->mMeshes[i]->mNumFaces; j++) {
 				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[0]);
 				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[1]);
 				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[2]);
@@ -635,7 +637,7 @@ void Engine::Update(const float& deltaTime) {
 }
 void Engine::Render(void) {
 	// Pre-render
-	glViewport(0, 0, windowDimensions.x, windowDimensions.y);
+	glViewport(0, 0, (int)windowDimensions.x, (int)windowDimensions.y);
 	glClearColor(100 / 255.0f, 149 / 255.0f, 237 / 255.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -655,7 +657,7 @@ void Engine::WindowResize(const glm::vec2 & newScaler) {
 	// Resizes the window
 	windowScaler = newScaler;
 	windowDimensions = (tileSize * windowGridSize) * windowScaler;
-	SDL_SetWindowSize(sdlWindow, windowDimensions.x, windowDimensions.y);
+	SDL_SetWindowSize(sdlWindow, (int)windowDimensions.x, (int)windowDimensions.y);
 }
 void Engine::WindowRename(const std::string& newName) {
 	windowTitle = newName;
@@ -672,7 +674,7 @@ void Engine::Run(void) {
 
 	while (isRunning) {
 		// DeltaTime math
-		currentFrameTime = SDL_GetTicks();
+		currentFrameTime = (float)SDL_GetTicks();
 		float deltaTime = ((currentFrameTime - oldFrameTime) / 1000);
 
 		// Main Game loop
