@@ -469,7 +469,8 @@ void Engine::LoadModels(void) {
 void Engine::LoadFonts(void) {
 	std::cout << ">> Loading Fonts - Begun" << std::endl;
 	std::vector<std::string> listOfFonts = FileSystemUtilities::GetFileList(contentDirectory + "fonts/configs");
-	for (size_t i = 0; i < listOfFonts.size(); i++) {
+	const size_t listOfFontSize = listOfFonts.size();
+	for (size_t i = 0; i < listOfFontSize; i++) {
 		fontRegister.push_back(new Font(listOfFonts[i]));
 	}
 	std::cout << ">> Loading Fonts - Complete" << std::endl;
