@@ -491,7 +491,8 @@ void Engine::LoadLevels(void) {
 	// Load each of the Level scripts.
 	std::cout << ">> Loading Levels - Begun" << std::endl;
 	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList(contentDirectory + "levels");
-	for (size_t i = 0; i < listOfLevelFiles.size(); i++) {
+	const size_t listOfLevelFilesSize = listOfLevelFiles.size();
+	for (size_t i = 0; i < listOfLevelFilesSize; i++) {
 		levelRegister.push_back(new Level(listOfLevelFiles[i]));
 	}
 	indexCurrentLevel = 0;
