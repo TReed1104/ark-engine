@@ -8,6 +8,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include "LuaScript.h"
+#include "Texture.hpp"
 #include "Model.h"
 
 class Engine;
@@ -28,6 +29,7 @@ public:
 
 		// Rendering
 		Model model;
+		Texture texture;
 		glm::vec4 colour;
 		
 		Glyph(const char& character = NULL);
