@@ -14,7 +14,7 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 		// Find the Texture for the Player.
 		for (size_t i = 0; i < Engine_Pointer->textureRegister.size(); i++) {
 			if (Engine_Pointer->textureRegister[i].name.find(textureName) != std::string::npos) {
-				indexOfTexture = i;
+				indexOfTexture = (int)i;
 				texture = &Engine_Pointer->textureRegister[indexOfTexture];
 			}
 		}
