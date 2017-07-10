@@ -500,7 +500,11 @@ void Engine::LoadLevels(void) {
 }
 void Engine::LoadItems(void) {
 	std::cout << ">> Loading Items - Begun" << std::endl;
+	std::vector<std::string> listOfItemFiles = FileSystemUtilities::GetFileList(contentDirectory + "scripts/items");
+	const size_t listOfItemFilesSize = listOfItemFiles.size();
+	for (size_t i = 0; i < listOfItemFilesSize; i++) {
 
+	}
 	std::cout << ">> Loading Items - Complete" << std::endl;
 }
 void Engine::LoadPlayer(void) {
