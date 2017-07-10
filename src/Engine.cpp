@@ -443,7 +443,8 @@ void Engine::LoadModel(const std::string& modelPath) {
 void Engine::LoadModels(void) {
 	std::cout << ">> Loading Models - Begun" << std::endl;
 	std::vector<std::string> listOfModels = FileSystemUtilities::GetFileList(contentDirectory + "models");
-	for (size_t i = 0; i < listOfModels.size(); i++) {
+	const size_t listOfModelSize = listOfModels.size();
+	for (size_t i = 0; i < listOfModelSize; i++) {
 		LoadModel(listOfModels[i]);
 	}
 
