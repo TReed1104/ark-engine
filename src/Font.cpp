@@ -53,36 +53,41 @@ void Font::LoadGlyphs(void) {
 			Glyph newGlyph = Glyph(currentChar);
 			if (TTF_GlyphMetrics(font, newGlyph.character, &newGlyph.minX, &newGlyph.maxX, &newGlyph.minY, &newGlyph.maxY, &newGlyph.advance) != -1) {
 				// Glyph model setup
-				Model newModel = Model();
-				Model::Mesh newMesh = Model::Mesh();
+				newGlyph.model = Model(std::to_string(currentChar));
+				Model::Mesh mesh = Model::Mesh();
 				// Calculate the vertex locations of the renderable surface for the glyph
 				newGlyph.width = newGlyph.maxX - newGlyph.minX;
 				newGlyph.height = newGlyph.maxY - newGlyph.minY;
 				// Calculate the four vertex positions using the size of the glyph
-				newMesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
-				newMesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.width, 0.0f, 0.0f));
-				newMesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.width, 0.0f + newGlyph.height, 0.0f));
-				newMesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f + newGlyph.height, 0.0f));
+				mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+				mesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.width, 0.0f, 0.0f));
+				mesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.width, 0.0f + newGlyph.height, 0.0f));
+				mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f + newGlyph.height, 0.0f));
 
 				// Add raw colour data to each vertex incase none is passed to the shader
-				const size_t numberOfVertices = newMesh.vertexPositions.size();
+				const size_t numberOfVertices = mesh.vertexPositions.size();
 				for (size_t i = 0; i < numberOfVertices; i++) {
-					newMesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+					mesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
 				}
 
 				// Triangle 0 of the surface
-				newMesh.indices.push_back(1);
-				newMesh.indices.push_back(2);
-				newMesh.indices.push_back(3);
+				mesh.indices.push_back(1);
+				mesh.indices.push_back(2);
+				mesh.indices.push_back(3);
 				// Triangle 1 of the surface
-				newMesh.indices.push_back(1);
-				newMesh.indices.push_back(3);
-				newMesh.indices.push_back(4);
+				mesh.indices.push_back(1);
+				mesh.indices.push_back(3);
+				mesh.indices.push_back(4);
 
 				// Generate the surface
-				newMesh.BindBuffers();
-				newModel.meshes.push_back(newMesh);
-				newModel.SetMeshParents();
+				mesh.BindBuffers();
+				newGlyph.model.meshes.push_back(mesh);
+				newGlyph.model.SetMeshParents();
+				
+				// Set the default model transformations
+				newGlyph.model.Translate(glm::vec3(0.0f));
+				newGlyph.model.Rotate(0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+				newGlyph.model.Scale(glm::vec3(1.0f));
 
 				glyphs[currentChar] = newGlyph;
 			}
