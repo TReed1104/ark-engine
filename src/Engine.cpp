@@ -452,11 +452,11 @@ void Engine::LoadModels(void) {
 	const size_t modelRegisterSize = modelRegister.size();
 	for (size_t i = 0; i < modelRegisterSize; i++) {
 		if (modelRegister[i].name.find(nameOfTileModel) != std::string::npos) {
-			indexOfTileModel = i;
+			indexOfTileModel = (int)i;
 		}
 
 		if (modelRegister[i].name.find(nameOfSpriteModel) != std::string::npos) {
-			indexOfSpriteModel = i;
+			indexOfSpriteModel = (int)i;
 		}
 	}
 	if (indexOfTileModel == -1) {
