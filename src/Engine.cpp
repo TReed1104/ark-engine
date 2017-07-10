@@ -396,7 +396,7 @@ void Engine::LoadTextures(void) {
 
 	std::cout << ">> Loading Textures - Complete" << std::endl;
 }
-void Engine::LoadModel(const std::string& modelPath) {
+void Engine::ImportModel(const std::string& modelPath) {
 	// Load in a Model.
 	if (modelPath != "") {
 		Assimp::Importer importer;	// An importer for importing the model data.
@@ -445,7 +445,7 @@ void Engine::LoadModels(void) {
 	std::vector<std::string> listOfModels = FileSystemUtilities::GetFileList(contentDirectory + "models");
 	const size_t listOfModelSize = listOfModels.size();
 	for (size_t i = 0; i < listOfModelSize; i++) {
-		LoadModel(listOfModels[i]);
+		ImportModel(listOfModels[i]);
 	}
 
 	// Find the default model
