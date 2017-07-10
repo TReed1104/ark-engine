@@ -449,7 +449,8 @@ void Engine::LoadModels(void) {
 	}
 
 	// Find the default model
-	for (int i = 0; i < modelRegister.size(); i++) {
+	const size_t modelRegisterSize = modelRegister.size();
+	for (size_t i = 0; i < modelRegisterSize; i++) {
 		if (modelRegister[i].name.find(nameOfTileModel) != std::string::npos) {
 			indexOfTileModel = i;
 		}
