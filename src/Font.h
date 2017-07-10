@@ -23,6 +23,8 @@ public:
 		int minY;
 		int maxY;
 		int advance;
+		int width;
+		int height;
 
 		// Rendering
 		Model model;
