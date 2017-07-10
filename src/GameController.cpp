@@ -76,6 +76,9 @@ glm::vec2 GameController::GetThumbStickState(ThumbSticks thumbStick) {
 	else if (thumbStick == ThumbSticks::ThumbStickRight) {
 		return glm::vec2(thumbStickStates["Right Thumb X"], thumbStickStates["Right Thumb Y"]);
 	}
+	else {
+		return glm::vec2(0, 0);
+	}
 }
 bool GameController::GetTriggerState(Triggers trigger) {
 	if (trigger == Triggers::TriggerLeft) {
