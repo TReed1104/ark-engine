@@ -27,9 +27,8 @@ public:
 		int minY;
 		int maxY;
 		int advance;
-
-		Glyph() {}
-		Glyph(const char& character);
+		
+		Glyph(const char& character = NULL);
 		~Glyph();
 
 	private:
