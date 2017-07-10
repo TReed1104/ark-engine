@@ -58,7 +58,11 @@ void Font::LoadGlyphs(void) {
 				// Calculate the vertex locations of the renderable surface for the glyph
 				newGlyph.width = newGlyph.maxX - newGlyph.minX;
 				newGlyph.height = newGlyph.maxY - newGlyph.minY;
-
+				// Calculate the four vertex positions using the size of the glyph
+				newMesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+				newMesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.width, 0.0f, 0.0f));
+				newMesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.width, 0.0f + newGlyph.height, 0.0f));
+				newMesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f + newGlyph.height, 0.0f));
 
 				// Generate the surface
 				newMesh.BindBuffers();
