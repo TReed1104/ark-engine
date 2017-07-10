@@ -7,6 +7,7 @@
 #include <SDL_ttf.h>
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include "Glyph.h"
 #include "LuaScript.h"
 #include "Texture.hpp"
 #include "Model.h"
@@ -15,30 +16,6 @@ class Engine;
 
 class Font {
 public:
-	class Glyph {
-	public:
-		// Glyph metrics
-		char character;
-		int minX;
-		int maxX;
-		int minY;
-		int maxY;
-		int advance;
-		int width;
-		int height;
-
-		// Rendering
-		Model model;
-		Texture texture;
-		glm::vec4 colour;
-		
-		Glyph(const char& character = NULL);
-		~Glyph();
-
-	private:
-
-	};
-
 	static Engine* Engine_Pointer;
 
 	LuaScript* script;
