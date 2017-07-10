@@ -72,6 +72,10 @@ void Font::LoadGlyphs(void) {
 	}
 }
 
+Font::Glyph Font::GetGlyph(const char & character) {
+	return glyphs[character];
+}
+
 Font::Glyph::Glyph(const char& character) {
 	this->texture = Texture(std::to_string(character));
 	this->character = character;
