@@ -129,7 +129,7 @@ void Font::LoadGlyphs(void) {
 				glBindTexture(GL_TEXTURE_2D, 0);
 				SDL_FreeSurface(glyphSurface);
 
-
+				// Add the newly created glyph to the glyph dictionary
 				glyphs[currentChar] = newGlyph;
 			}
 			else {
