@@ -51,6 +51,7 @@ public:
 	~Font();
 
 	void LoadGlyphs(void);
+	Glyph GetGlyph(const char& character);
 	
 private:
 	std::map<char, Glyph> glyphs;
