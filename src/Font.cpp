@@ -56,6 +56,11 @@ void Font::LoadGlyphs(void) {
 				Model newModel = Model();
 				Model::Mesh newMesh = Model::Mesh();
 				// Calculate the vertex locations of the renderable surface for the glyph
+				newGlyph.width = newGlyph.maxX - newGlyph.minX;
+				newGlyph.height = newGlyph.maxY - newGlyph.minY;
+
+
+				// Generate the surface
 				newMesh.BindBuffers();
 				newModel.meshes.push_back(newMesh);
 				newModel.SetMeshParents();
