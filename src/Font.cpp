@@ -70,6 +70,15 @@ void Font::LoadGlyphs(void) {
 					newMesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
 				}
 
+				// Triangle 0 of the surface
+				newMesh.indices.push_back(1);
+				newMesh.indices.push_back(2);
+				newMesh.indices.push_back(3);
+				// Triangle 1 of the surface
+				newMesh.indices.push_back(1);
+				newMesh.indices.push_back(3);
+				newMesh.indices.push_back(4);
+
 				// Generate the surface
 				newMesh.BindBuffers();
 				newModel.meshes.push_back(newMesh);
