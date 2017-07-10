@@ -378,7 +378,8 @@ void Engine::ImportTexture(const std::string& texturePath) {
 void Engine::LoadTextures(void) {
 	std::cout << ">> Loading Textures - Begun" << std::endl;
 	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
-	for (size_t i = 0; i < listOfTextures.size(); i++) {
+	const size_t textureFileListSize = listOfTextures.size();
+	for (size_t i = 0; i < textureFileListSize; i++) {
 		ImportTexture(listOfTextures[i]);
 	}
 
