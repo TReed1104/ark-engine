@@ -22,10 +22,10 @@ GameController::GameController(SDL_GameController* sdlHook) {
 	butttonStates["DPad Right"] = false;
 
 	// Thumb stick state dictionary
-	thumbStickStates["Left Thumb X"] = 0.0f;
-	thumbStickStates["Left Thumb Y"] = 0.0f;
-	thumbStickStates["Right Thumb X"] = 0.0f;
-	thumbStickStates["Right Thumb Y"] = 0.0f;
+	thumbStickStates["Left Thumb X"] = 0;
+	thumbStickStates["Left Thumb Y"] = 0;
+	thumbStickStates["Right Thumb X"] = 0;
+	thumbStickStates["Right Thumb Y"] = 0;
 
 	// Trigger state dictionary
 	triggerStates["Left"] = false;
@@ -186,7 +186,7 @@ void GameController::UpdateThumbSticks(void) {
 		thumbStickStates["Left Thumb X"] = leftThumbX;
 	}
 	else {
-		thumbStickStates["Left Thumb X"] = 0.0f;
+		thumbStickStates["Left Thumb X"] = 0;
 	}
 
 	// Check the Left Thumb Y
@@ -194,7 +194,7 @@ void GameController::UpdateThumbSticks(void) {
 		thumbStickStates["Left Thumb Y"] = leftThumbY;
 	}
 	else {
-		thumbStickStates["Left Thumb Y"] = 0.0f;
+		thumbStickStates["Left Thumb Y"] = 0;
 	}
 
 	// Check the Right Thumb X
@@ -202,7 +202,7 @@ void GameController::UpdateThumbSticks(void) {
 		thumbStickStates["Right Thumb X"] = rightThumbX;
 	}
 	else {
-		thumbStickStates["Right Thumb X"] = 0.0f;
+		thumbStickStates["Right Thumb X"] = 0;
 	}
 
 	// Check the Right Thumb Y
@@ -210,7 +210,7 @@ void GameController::UpdateThumbSticks(void) {
 		thumbStickStates["Right Thumb Y"] = rightThumbY;
 	}
 	else {
-		thumbStickStates["Right Thumb Y"] = 0.0f;
+		thumbStickStates["Right Thumb Y"] = 0;
 	}
 
 	// Check the Triggers

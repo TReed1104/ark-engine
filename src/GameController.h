@@ -32,7 +32,7 @@ private:
 
 	// Input dictionaries
 	std::map<std::string, bool> butttonStates;
-	std::map<std::string, float> thumbStickStates;
+	std::map<std::string, int> thumbStickStates;
 	std::map<std::string, bool> triggerStates;
 };
 #endif
