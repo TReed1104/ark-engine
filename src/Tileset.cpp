@@ -24,7 +24,7 @@ void Tileset::Load(const std::string& tilesetScript) {
 
 		for (size_t i = 0; i < Engine_Pointer->textureRegister.size(); i++) {
 			if (Engine_Pointer->textureRegister[i].name.find(tilesetTextureName) != std::string::npos) {
-				indexOfTileSetTexture = i;
+				indexOfTileSetTexture = (int)i;
 			}
 		}
 

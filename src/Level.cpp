@@ -21,12 +21,12 @@ void Level::Update(const float& deltaTime) {
 	glm::vec2 bottomRightGridPosition = topLeftGridPosition + (Engine_Pointer->windowGridSize + glm::vec2(1, 1));	// the +(1,1) here is to update one extra line of tiles on each axis, preventing odd behaviour when things are only partially visible.
 
 	// Clamp the bottomRight of the update area to the bounds of the world, the cameras already had its position clamped so we don't need to do it again.
-	int xAxis = glm::clamp(bottomRightGridPosition.x, topLeftGridPosition.x, tileGridSize.x);
-	int yAxis = glm::clamp(bottomRightGridPosition.y, topLeftGridPosition.y, tileGridSize.y);
+	int xAxis = (int)glm::clamp(bottomRightGridPosition.x, topLeftGridPosition.x, tileGridSize.x);
+	int yAxis = (int)glm::clamp(bottomRightGridPosition.y, topLeftGridPosition.y, tileGridSize.y);
 
-	for (int y = topLeftGridPosition.y; y < yAxis; y++) {
-		for (int x = topLeftGridPosition.x; x < xAxis;  x++) {
-			int index = y * tileGridSize.x + x;
+	for (int y = (int)topLeftGridPosition.y; y < yAxis; y++) {
+		for (int x = (int)topLeftGridPosition.x; x < xAxis;  x++) {
+			int index = y * (int)tileGridSize.x + x;
 			tileMap[index]->Update(deltaTime);
 		}
 	}
@@ -38,26 +38,26 @@ void Level::Draw(void) {
 	glm::vec2 bottomRightGridPosition = topLeftGridPosition + (Engine_Pointer->windowGridSize + glm::vec2(1, 1));	// the +(1,1) here is to render one extra line of tiles on each axis, preventing terrain popping in and out of existence.
 
 	// Clamp the bottomRight of the render area to the bounds of the world, the cameras already had its position clamped so we don't need to do it again.
-	int xAxis = glm::clamp(bottomRightGridPosition.x, topLeftGridPosition.x, tileGridSize.x);
-	int yAxis = glm::clamp(bottomRightGridPosition.y, topLeftGridPosition.y, tileGridSize.y);
+	int xAxis = (int)glm::clamp(bottomRightGridPosition.x, topLeftGridPosition.x, tileGridSize.x);
+	int yAxis = (int)glm::clamp(bottomRightGridPosition.y, topLeftGridPosition.y, tileGridSize.y);
 
-	for (int y = topLeftGridPosition.y; y < yAxis; y++) {
-		for (int x = topLeftGridPosition.x; x < xAxis; x++) {
-			int index = y * tileGridSize.x + x;
+	for (int y = (int)topLeftGridPosition.y; y < yAxis; y++) {
+		for (int x = (int)topLeftGridPosition.x; x < xAxis; x++) {
+			int index = y * (int)tileGridSize.x + x;
 			tileMap[index]->Draw();
 		}
 	}
 }
 bool Level::IsTileSolid(const glm::vec2 & gridPosition) {
-	int index = gridPosition.y * tileGridSize.x + gridPosition.x;
-	if (gridPosition.x < 0) return true;
-	if (gridPosition.x >= tileGridSize.x) return true;
-	if (gridPosition.y < 0) return true;
-	if (gridPosition.y >= tileGridSize.y) return true;
+	int index = (int)gridPosition.y * (int)tileGridSize.x + (int)gridPosition.x;
+	if ((int)gridPosition.x < 0) return true;
+	if ((int)gridPosition.x >= tileGridSize.x) return true;
+	if ((int)gridPosition.y < 0) return true;
+	if ((int)gridPosition.y >= tileGridSize.y) return true;
 	return tileMap[index]->type == Tile::Type::Solid;
 }
 BoundingBox Level::GetTileBoundingBox(const glm::vec2 & gridPosition) {
-	int index = gridPosition.y * tileGridSize.x + gridPosition.x;
+	int index = (int)gridPosition.y * (int)tileGridSize.x + (int)gridPosition.x;
 	return tileMap[index]->boundingBox;
 }
 void Level::Reload(void) {
@@ -79,7 +79,7 @@ void Level::Load(void) {
 		indexOfTileset = -1;
 		for (size_t i = 0; i < Engine_Pointer->tilesetRegister.size(); i++) {
 			if (Engine_Pointer->tilesetRegister[i].name == nameOfTilest) {
-				indexOfTileset = i;
+				indexOfTileset = (int)i;
 			}
 		}
 		// If the wanted one wasn't found, use the default.
@@ -88,9 +88,9 @@ void Level::Load(void) {
 		}
 
 		// Populate the tilemap.
-		for (int y = 0; y < tileGridSize.y; y++) {
-			for (int x = 0; x < tileGridSize.x; x++) {
-				int index = y * tileGridSize.x + x;
+		for (int y = 0; y < (int)tileGridSize.y; y++) {
+			for (int x = 0; x < (int)tileGridSize.x; x++) {
+				int index = y * (int)tileGridSize.x + x;
 
 				const Texture* texture = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].texture;
 				Tile::Type type = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].type;

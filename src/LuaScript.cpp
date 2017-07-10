@@ -31,8 +31,8 @@ void LuaScript::Clean() {
 bool LuaScript::HandleLuaStack(const std::string & variableName) {
 	// Split the variableName into its hierarchy.
 	std::vector<std::string> variableNameSplit = StringUtilities::Split(variableName, '.');
-	int numberOfLevels = variableNameSplit.size();	// Store the size and .size() recalculates the size each call and the size is constant here.
-	for (int i = 0; i < numberOfLevels; i++) {
+	const size_t numberOfLevels = variableNameSplit.size();	// Store the size and .size() recalculates the size each call and the size is constant here.
+	for (size_t i = 0; i < numberOfLevels; i++) {
 		if (i == 0) {
 			// If we are at the head of the stack, get global.
 			lua_getglobal(L, variableNameSplit[i].c_str());
