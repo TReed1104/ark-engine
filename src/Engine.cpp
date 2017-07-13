@@ -342,10 +342,10 @@ void Engine::ImportTexture(const std::string& texturePath) {
 		int colours = image->format->BytesPerPixel;
 		GLenum textureFormat = GL_RGBA8;
 		if (colours == 4) {
-			textureFormat = GL_BGRA;
+			textureFormat = GL_RGBA8;
 		}
 		else {
-			textureFormat = GL_RGB;
+			textureFormat = GL_RGB8;
 		}
 
 		glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, textureFormat, currentTexture.frameSize.x, currentTexture.frameSize.y, currentTexture.numberOfFrames);

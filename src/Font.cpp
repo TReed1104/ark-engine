@@ -109,9 +109,9 @@ void Font::LoadGlyphs(void) {
 				glBindTexture(GL_TEXTURE_2D, newGlyph.texture.id);
 				
 				int colours = glyphSurface->format->BytesPerPixel;
-				GLenum textureFormat = GL_RGBA8;
+				GLenum textureFormat = GL_RGBA;
 				if (colours == 4) {
-					textureFormat = GL_BGRA;
+					textureFormat = GL_RGBA;
 				}
 				else {
 					textureFormat = GL_RGB;
