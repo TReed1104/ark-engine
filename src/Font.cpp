@@ -53,7 +53,7 @@ void Font::LoadGlyphs(void) {
 			Glyph newGlyph = Glyph(currentChar);
 			if (TTF_GlyphMetrics(font, newGlyph.character, &newGlyph.minX, &newGlyph.maxX, &newGlyph.minY, &newGlyph.maxY, &newGlyph.advance) != -1) {
 				// Glyph model setup
-				newGlyph.model = Model(std::to_string(currentChar));
+				newGlyph.model = Model(std::to_string(currentChar), false);
 				Model::Mesh mesh = Model::Mesh();
 				// Calculate the vertex locations of the renderable surface for the glyph
 				newGlyph.width = newGlyph.maxX - newGlyph.minX;
