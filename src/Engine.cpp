@@ -435,6 +435,7 @@ void Engine::Load(void) {
 	LoadModels();
 	LoadTextures();
 	LoadFonts();
+	LoadText();
 	LoadTilesets();
 	LoadLevels();
 	LoadItems();
