@@ -369,7 +369,9 @@ void Engine::LoadFonts(void) {
 	std::cout << ">> Loading Fonts - Complete" << std::endl;
 }
 void Engine::LoadRenderableText(void) {
-	//renderableTextRegister.push_back(RenderableText("Test", fontRegister[0]));
+	std::cout << ">> Loading Renderable Text - Begun" << std::endl;
+	renderableTextRegister.push_back(RenderableText("Test", fontRegister[0]));
+	std::cout << ">> Loading Renderable Text - Complete" << std::endl;
 }
 void Engine::LoadTilesets(void) {
 	// Load the Tilesets
