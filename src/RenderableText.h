@@ -17,19 +17,18 @@ class RenderableText {
 public:
 	static Engine* Engine_Pointer;
 
-	std::string text;
-	std::vector<Glyph> glyphs;
+	std::string text;			// String the class will represent
+	std::vector<Glyph> glyphs;	// The glyphs making up the text.
 
 	// Positions
-	glm::vec3 position;			// The world position of the object
-	glm::vec3 drawPosition;		// Position to draw to the screen, this takes into account the offset of the object to its texture
+	glm::vec3 position;
 
-	// Transformations
+	// Transformations and flags.
 	float rotation;
 	glm::vec3 scale;
-	bool doTranslation;		// Flag controlling if the Text needs translating
-	bool doRotation;		// Flag controlling if the Text needs rotating
-	bool doScalar;			// Flag controlling if the Text needs scaling
+	bool doTranslation;
+	bool doRotation;
+	bool doScalar;
 
 	RenderableText(const std::string& text = "", const Font* font = nullptr);
 	~RenderableText();
@@ -39,7 +38,9 @@ public:
 	void Reposition(const glm::vec2& newPosition);
 
 private:
-
+	void UpdatePosition(void);
+	void UpdateRotation(void);
+	void UpdateScale(void);
 };
 
 #endif
