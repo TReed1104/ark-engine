@@ -18,7 +18,11 @@ public:
 	static Engine* Engine_Pointer;
 
 	std::string text;			// String the class will represent
+	Font* font;
 	std::vector<Glyph> glyphs;	// The glyphs making up the text.
+
+	// Indexers
+	int indexOfTextShader;
 
 	// Positions
 	glm::vec3 position;
@@ -30,7 +34,7 @@ public:
 	bool doRotation;
 	bool doScalar;
 
-	RenderableText(const std::string& text = "", const Font* font = nullptr);
+	RenderableText(const std::string& text, Font* font, const glm::vec3& position = glm::vec3(0.0f));
 	~RenderableText();
 
 	void Update(const float& deltaTime);

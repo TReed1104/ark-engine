@@ -1,10 +1,21 @@
 #include "RenderableText.h"
+#include "Engine.h"
 
 Engine* RenderableText::Engine_Pointer;
 
 
-RenderableText::RenderableText(const std::string& text, const Font* font) {
+RenderableText::RenderableText(const std::string& text, Font* font, const glm::vec3& position) {
+	this->text = text;
+	this->font = font;
+	this->indexOfTextShader = 1;
+	///TODO: Add code to find the text rendering shader dynamically.
 
+	this->doTranslation = false;
+	this->doRotation = false;
+	this->doScalar = false;
+	this->position = position;
+	this->rotation = 0.0f;
+	this->scale = glm::vec3(1.0f);
 }
 RenderableText::~RenderableText() {
 
