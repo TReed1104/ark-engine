@@ -31,7 +31,15 @@ void RenderableText::LoadText(void) {
 	const size_t lengthOfText = text.size();
 	for (size_t i = 0; i < lengthOfText; i++) {
 		char& currentChar = text[i];
-		glyphs.push_back(font->GetGlyph(currentChar));
+		Glyph& currentGlyph = font->GetGlyph(currentChar);
 
+		glyphs.push_back(currentGlyph);
+		model.meshes.push_back(currentGlyph.mesh);
 	}
+
+	// Setup the Model for handling its new Meshes.
+	model.SetMeshParents();
+	model.Translate(position);
+	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+	model.Scale(scale);
 }
