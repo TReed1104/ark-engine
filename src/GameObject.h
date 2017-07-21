@@ -11,7 +11,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <SDL_image.h>
 #include "Model.h"
-#include "Texture.hpp"
+#include "Texture.h"
 #include "Animation.h"
 #include "BoundingBox.h"
 #include "LuaScript.h"
