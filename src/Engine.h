@@ -63,6 +63,7 @@ public:
 	std::vector<Model> modelRegister;
 	std::vector<Texture> textureRegister;
 	std::vector<Font*> fontRegister;
+	std::vector<RenderableText> renderableTextRegister;
 	std::vector<Tileset> tilesetRegister;
 	std::vector<GameObject*> itemRegister;
 	std::vector<Entity*> entityRegister;
