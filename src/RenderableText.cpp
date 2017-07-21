@@ -27,7 +27,39 @@ void RenderableText::Update(const float & deltaTime) {
 	UpdateScale();
 }
 void RenderableText::Draw(void) {
+	glEnable(GL_BLEND);
+	
+	const size_t sizeOfGlyphList = glyphs.size();
+	for (size_t i = 0; i < sizeOfGlyphList; i++) {
+		Glyph &currentGlyph = glyphs[i];
+		const size_t numberOfMeshes = currentGlyph.model.meshes.size();
+		for (size_t j = 0; j < numberOfMeshes; j++) {
+			Model::Mesh &currentMesh = currentGlyph.model.meshes[j];
+			glBindVertexArray(currentMesh.vertexArrayObject);
 
+			glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->viewMatrix));
+			glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->projectionMatrix));
+			glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
+
+			bool useTextures = (currentGlyph.texture.id != -1 && currentMesh.isSetupForTextures);
+			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "hasTexture"), useTextures);
+			if (useTextures) {
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, currentGlyph.texture.id);
+			}
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
+			glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
+			if (useTextures) {
+				glBindTexture(GL_TEXTURE_2D, 0);
+			}
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+			glBindVertexArray(0);
+			glUseProgram(0);
+		}
+	}
+
+	
+	glDisable(GL_BLEND);
 }
 void RenderableText::Reposition(const glm::vec2 & newPosition) {
 	position = glm::vec3(newPosition.x, newPosition.y, position.z);
