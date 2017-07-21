@@ -44,6 +44,9 @@ public:
 
 private:
 	void LoadText(void);
+	void UpdatePosition(void);
+	void UpdateRotation(void);
+	void UpdateScale(void);
 };
 
 #endif

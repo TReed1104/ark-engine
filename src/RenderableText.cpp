@@ -22,7 +22,10 @@ RenderableText::~RenderableText() {
 }
 
 void RenderableText::Update(const float & deltaTime) {
-	
+	// Apply transformations
+	UpdatePosition();
+	UpdateRotation();
+	UpdateScale();
 }
 void RenderableText::Draw(void) {
 
@@ -42,4 +45,22 @@ void RenderableText::LoadText(void) {
 	model.Translate(position);
 	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 	model.Scale(scale);
+}
+void RenderableText::UpdatePosition() {
+	if (doTranslation) {
+		model.Translate(position);
+		doTranslation = false;
+	}
+}
+void RenderableText::UpdateRotation() {
+	if (doRotation) {
+		model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+		doRotation = false;
+	}
+}
+void RenderableText::UpdateScale() {
+	if (doScalar) {
+		model.Scale(scale);
+		doScalar = false;
+	}
 }
