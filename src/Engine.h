@@ -123,7 +123,7 @@ private:
 	void CleanUp(void);
 	void Close(bool isClean = false);
 	// Content loading related functions
-	void ImportTexture(const std::string& texturePath);
+	void ImportTextureArray(const std::string& texturePath);
 	void LoadTextures(void);
 	void LoadModels(void);
 	void LoadFonts(void);

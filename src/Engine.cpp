@@ -304,7 +304,7 @@ void Engine::Close(bool isClean) {
 	}
 }
 // Content loading related functions
-void Engine::ImportTexture(const std::string& texturePath) {
+void Engine::ImportTextureArray(const std::string& texturePath) {
 	// This function loads a texture into memory to be used with a source rectangle to depict what part of it to render.
 	if (texturePath != "EMPTY") {
 		//int init = IMG_Init(IMG_INIT_PNG);
@@ -381,7 +381,7 @@ void Engine::LoadTextures(void) {
 	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
 	const size_t textureFileListSize = listOfTextures.size();
 	for (size_t i = 0; i < textureFileListSize; i++) {
-		ImportTexture(listOfTextures[i]);
+		ImportTextureArray(listOfTextures[i]);
 	}
 
 	// Find the default texture for when textures are failed to be found.
