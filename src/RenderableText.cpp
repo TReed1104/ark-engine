@@ -16,6 +16,7 @@ RenderableText::RenderableText(const std::string& text, Font* font, const glm::v
 	this->position = position;
 	this->rotation = 0.0f;
 	this->scale = glm::vec3(1.0f);
+	LoadText();
 }
 RenderableText::~RenderableText() {
 
@@ -66,6 +67,14 @@ void RenderableText::Reposition(const glm::vec2 & newPosition) {
 	const size_t sizeOfGlyphList = glyphs.size();
 	for (size_t i = 0; i < sizeOfGlyphList; i++) {
 		glyphs[i].model.Translate(position);
+	}
+}
+void RenderableText::LoadText(void) {
+	const size_t lengthOfText = text.size();
+	for (size_t i = 0; i < lengthOfText; i++) {
+		char& currentChar = text[i];
+		glyphs.push_back(font->GetGlyph(currentChar));
+
 	}
 }
 void RenderableText::UpdatePosition() {
