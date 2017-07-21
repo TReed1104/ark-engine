@@ -79,6 +79,7 @@ void Engine::LoadKeyBindings(void) {
 void Engine::LoadEnginePointers(void) {
 	// Sets the Engine_Pointer static of each of the Engines classes.
 	std::cout << ">> Setting static pointers - Begun" << std::endl;
+	Texture::Engine_Pointer = this;
 	Model::Engine_Pointer = this;
 	Font::Engine_Pointer = this;
 	Keyboard::Engine_Pointer = this;
