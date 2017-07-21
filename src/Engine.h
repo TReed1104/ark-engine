@@ -130,7 +130,7 @@ private:
 	void LoadTextures(void);
 	void LoadModels(void);
 	void LoadFonts(void);
-	void LoadText(void);
+	void LoadRenderableText(void);
 	void LoadTilesets(void);
 	void LoadLevels(void);
 	void LoadItems(void);

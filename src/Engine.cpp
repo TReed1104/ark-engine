@@ -368,7 +368,7 @@ void Engine::LoadFonts(void) {
 	}
 	std::cout << ">> Loading Fonts - Complete" << std::endl;
 }
-void Engine::LoadText(void) {
+void Engine::LoadRenderableText(void) {
 	//renderableTextRegister.push_back(RenderableText("Test", fontRegister[0]));
 }
 void Engine::LoadTilesets(void) {
@@ -435,7 +435,7 @@ void Engine::Load(void) {
 	LoadModels();
 	LoadTextures();
 	LoadFonts();
-	LoadText();
+	LoadRenderableText();
 	LoadTilesets();
 	LoadLevels();
 	LoadItems();
