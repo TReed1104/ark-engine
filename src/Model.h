@@ -5,6 +5,11 @@
 #include <vector>
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include <assimp/mesh.h>
+#include <assimp/material.h>
+#include <assimp/scene.h>
+#include <assimp/Importer.hpp>
+#include <assimp/postprocess.h>
 
 class Engine;
 
@@ -54,7 +59,7 @@ public:
 	std::string name;
 	std::vector<Mesh> meshes;
 
-	Model(const std::string& name = "");
+	Model(const std::string& modelPath = "", const bool& load = true);
 	~Model();
 
 	void SetMeshParents();
