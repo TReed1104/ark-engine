@@ -397,56 +397,12 @@ void Engine::LoadTextures(void) {
 
 	std::cout << ">> Loading Textures - Complete" << std::endl;
 }
-void Engine::ImportModel(const std::string& modelPath) {
-	// Load in a Model.
-	if (modelPath != "") {
-		Assimp::Importer importer;	// An importer for importing the model data.
-		const aiScene* scene = importer.ReadFile(modelPath, aiProcess_Triangulate | aiProcess_GenNormals);		// Read the Model file.
-
-		Model currentModel = Model(modelPath);
-
-		// Loop through each mesh in the loaded model.
-		for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
-			Model::Mesh currentMesh = Model::Mesh();
-
-			for (unsigned int j = 0; j < scene->mMeshes[i]->mNumVertices; j++) {
-				// Get the vertices from assimp.
-				currentMesh.vertexPositions.push_back(glm::vec3(scene->mMeshes[i]->mVertices[j].x, scene->mMeshes[i]->mVertices[j].y, scene->mMeshes[i]->mVertices[j].z));
-
-				// If the mesh is setup for texturing, get all the textures from assimp.
-				if (scene->mMeshes[i]->mTextureCoords[0] != NULL) {
-					currentMesh.isSetupForTextures = true;
-					currentMesh.uvs.push_back(glm::vec2(scene->mMeshes[i]->mTextureCoords[0][j].x, scene->mMeshes[i]->mTextureCoords[0][j].y));
-				}
-
-				// Populate the colour buffer with a default value.
-				currentMesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-
-				// Check if the current mesh has surface normals setup ready for lighting.
-				if (scene->mMeshes[i]->mNormals != NULL) {
-					currentMesh.surfaceNormals.push_back(glm::vec3(scene->mMeshes[i]->mNormals[j].x, scene->mMeshes[i]->mNormals[j].y, scene->mMeshes[i]->mNormals[j].z));
-				}
-			}
-			// Loops through the array of indices, pushing each of them to the index vector individually, this is because they are used individually whilst drawing instead of in 3s.
-			for (unsigned int j = 0; j < scene->mMeshes[i]->mNumFaces; j++) {
-				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[0]);
-				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[1]);
-				currentMesh.indices.push_back(scene->mMeshes[i]->mFaces[j].mIndices[2]);
-			}
-			currentMesh.BindBuffers();
-			currentModel.meshes.push_back(currentMesh);
-		}
-		std::cout << ">> Model loaded: " << modelPath << std::endl;	// Outputs that the model has been loaded.
-		importer.FreeScene();						// Cleans up the loader.
-		modelRegister.push_back(currentModel);
-	}
-}
 void Engine::LoadModels(void) {
 	std::cout << ">> Loading Models - Begun" << std::endl;
 	std::vector<std::string> listOfModels = FileSystemUtilities::GetFileList(contentDirectory + "models");
 	const size_t listOfModelSize = listOfModels.size();
 	for (size_t i = 0; i < listOfModelSize; i++) {
-		ImportModel(listOfModels[i]);
+		modelRegister.push_back(Model(listOfModels[i]));
 	}
 
 	// Find the default model

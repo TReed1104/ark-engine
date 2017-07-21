@@ -125,7 +125,6 @@ private:
 	// Content loading related functions
 	void ImportTexture(const std::string& texturePath);
 	void LoadTextures(void);
-	void ImportModel(const std::string& modelPath);
 	void LoadModels(void);
 	void LoadFonts(void);
 	void LoadTilesets(void);
