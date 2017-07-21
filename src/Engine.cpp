@@ -82,6 +82,7 @@ void Engine::LoadEnginePointers(void) {
 	Texture::Engine_Pointer = this;
 	Model::Engine_Pointer = this;
 	Font::Engine_Pointer = this;
+	RenderableText::Engine_Pointer = this;
 	Keyboard::Engine_Pointer = this;
 	GameController::Engine_Pointer = this;
 	Camera::Engine_Pointer = this;
