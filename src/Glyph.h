@@ -21,7 +21,7 @@ public:
 	int height;
 
 	// Rendering
-	Model model;
+	Model::Mesh mesh;
 	Texture texture;
 	glm::vec4 colour;
 
