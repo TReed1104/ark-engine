@@ -5,7 +5,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include "Glyph.h"
-#include "Texture.hpp"
+#include "Texture.h"
 #include "Model.h"
 
 class Glyph {
