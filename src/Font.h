@@ -9,7 +9,7 @@
 #include <glm/glm.hpp>
 #include "Glyph.h"
 #include "LuaScript.h"
-#include "Texture.hpp"
+#include "Texture.h"
 #include "Model.h"
 
 class Engine;
