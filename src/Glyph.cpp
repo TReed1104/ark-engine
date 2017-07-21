@@ -1,7 +1,7 @@
 #include "Glyph.h"
 
 Glyph::Glyph(const char& character) {
-	this->texture = Texture(std::to_string(character));
+	this->texture = Texture(std::to_string(character), false);
 	this->character = character;
 	this->minX = -1;
 	this->maxX = -1;
