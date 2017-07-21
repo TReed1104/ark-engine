@@ -381,7 +381,11 @@ void Engine::LoadTextures(void) {
 	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
 	const size_t textureFileListSize = listOfTextures.size();
 	for (size_t i = 0; i < textureFileListSize; i++) {
-		ImportTextureArray(listOfTextures[i]);
+		//ImportTextureArray(listOfTextures[i]);
+		textureRegister.push_back(Texture(listOfTextures[i], true, true));
+		if (!textureRegister.back().isLoaded) {
+			this->Close();
+		}
 	}
 
 	// Find the default texture for when textures are failed to be found.
