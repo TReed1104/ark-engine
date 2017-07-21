@@ -368,6 +368,9 @@ void Engine::LoadFonts(void) {
 	}
 	std::cout << ">> Loading Fonts - Complete" << std::endl;
 }
+void Engine::LoadText(void) {
+
+}
 void Engine::LoadTilesets(void) {
 	// Load the Tilesets
 	std::cout << ">> Loading Tilesets - Begun" << std::endl;
