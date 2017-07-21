@@ -3,7 +3,6 @@
 
 Engine* RenderableText::Engine_Pointer;
 
-
 RenderableText::RenderableText(const std::string& text, Font* font, const glm::vec3& position) {
 	this->text = text;
 	this->font = font;
@@ -27,7 +26,6 @@ void RenderableText::Update(const float & deltaTime) {
 }
 void RenderableText::Draw(void) {
 	glEnable(GL_BLEND);
-	
 	const size_t sizeOfGlyphList = glyphs.size();
 	for (size_t i = 0; i < sizeOfGlyphList; i++) {
 		Glyph &currentGlyph = glyphs[i];
@@ -56,8 +54,6 @@ void RenderableText::Draw(void) {
 			glUseProgram(0);
 		}
 	}
-
-	
 	glDisable(GL_BLEND);
 }
 void RenderableText::LoadText(void) {
