@@ -369,7 +369,7 @@ void Engine::LoadFonts(void) {
 	std::cout << ">> Loading Fonts - Complete" << std::endl;
 }
 void Engine::LoadText(void) {
-
+	//renderableTextRegister.push_back(RenderableText("Test", fontRegister[0]));
 }
 void Engine::LoadTilesets(void) {
 	// Load the Tilesets
