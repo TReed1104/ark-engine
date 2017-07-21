@@ -39,13 +39,9 @@ public:
 
 	void Update(const float& deltaTime);
 	void Draw(void);
-	void Reposition(const glm::vec2& newPosition);
 
 private:
 	void LoadText(void);
-	void UpdatePosition(void);
-	void UpdateRotation(void);
-	void UpdateScale(void);
 };
 
 #endif
