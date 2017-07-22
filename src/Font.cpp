@@ -67,6 +67,7 @@ void Font::LoadGlyphs(void) {
 				newGlyph.mesh.uvs.push_back(glm::vec2(1.0f, 0.0f));
 				newGlyph.mesh.uvs.push_back(glm::vec2(1.0f, 1.0f));
 				newGlyph.mesh.uvs.push_back(glm::vec2(0.0f, 1.0f));
+				newGlyph.mesh.isSetupForTextures = true;
 
 				// Add raw colour data to each vertex incase none is passed to the shader
 				const size_t numberOfVertices = newGlyph.mesh.vertexPositions.size();
