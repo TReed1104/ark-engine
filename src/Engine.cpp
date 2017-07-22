@@ -370,7 +370,7 @@ void Engine::LoadFonts(void) {
 }
 void Engine::LoadRenderableText(void) {
 	std::cout << ">> Loading Renderable Text - Begun" << std::endl;
-	renderableTextRegister.push_back(RenderableText("Test", fontRegister[0]));
+	renderableTextRegister.push_back(RenderableText("T", fontRegister[0], glm::vec3(0.0f, 0.0f, 0.01f)));
 	std::cout << ">> Loading Renderable Text - Complete" << std::endl;
 }
 void Engine::LoadTilesets(void) {
@@ -557,7 +557,7 @@ void Engine::Render(void) {
 	if (player != nullptr) {
 		player->Draw();
 	}
-
+	renderableTextRegister[0].Draw();
 	// Post-Render
 	SDL_GL_SwapWindow(sdlWindow);	// Gives the frame buffer to the display (swapBuffers).
 }
