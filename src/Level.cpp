@@ -68,6 +68,7 @@ void Level::Load(void) {
 	script = new LuaScript(filePath);
 	if (script->isScriptLoaded) {
 		// Grab the data from the script.
+		name = script->Get<std::string>("map.level_name");
 		nameOfTilest = script->Get<std::string>("map.tileset_name");
 		tileGridSize = glm::vec2(script->Get<int>("map.tile_grid_size.x"), script->Get<int>("map.tile_grid_size.y"));
 		pixelGridSize = tileGridSize * Engine_Pointer->tileSize;

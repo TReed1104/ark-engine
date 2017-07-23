@@ -12,6 +12,7 @@ class Level
 {
 public:
 	static Engine* Engine_Pointer;
+	std::string name;
 	std::string filePath;
 	std::string nameOfTilest;
 	int indexOfTileset;

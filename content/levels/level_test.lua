@@ -1,4 +1,7 @@
 map = {
+	-- Name of the level
+	level_name = "default",
+
 	-- Name of the tileset to use for this level
 	tileset_name = "default",
 
