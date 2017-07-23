@@ -22,11 +22,8 @@ void Tileset::Load(const std::string& tilesetScript) {
 		int indexOfTileSetTexture = -1;
 		std::string tilesetTextureName = tileConfigScript.Get<std::string>("tileset.texture");
 
-		for (size_t i = 0; i < Engine_Pointer->textureRegister.size(); i++) {
-			if (Engine_Pointer->textureRegister[i].name.find(tilesetTextureName) != std::string::npos) {
-				indexOfTileSetTexture = (int)i;
-			}
-		}
+		// Get the index of theTileset's texture.
+		indexOfTileSetTexture = Engine_Pointer->GetIndexOfTexture(tilesetTextureName);
 
 		// Load each of the Tiles from the current Tileset script.
 		for (int i = 0; i < numberOfTiles; i++) {
