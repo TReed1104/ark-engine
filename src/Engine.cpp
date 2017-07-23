@@ -626,3 +626,7 @@ int Engine::GetIndexOfModel(const std::string & modelName) {
 int Engine::GetIndexOfTexture(const std::string & textureName) {
 	return 0;
 }
+
+int Engine::GetIndexOfFont(const std::string & fontName) {
+	return 0;
+}
