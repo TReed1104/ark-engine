@@ -614,3 +614,7 @@ void Engine::Run(void) {
 glm::ivec2 Engine::ConvertToGridPosition(const glm::vec2 & position) {
 	return glm::vec2((int)(position.x / this->tileSize.x), (int)(position.y / this->tileSize.y));
 }
+
+int Engine::GetIndexOfShader(const std::string & shaderName) {
+	return 0;
+}
