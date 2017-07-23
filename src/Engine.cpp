@@ -376,7 +376,7 @@ void Engine::LoadFonts(void) {
 }
 void Engine::LoadRenderableText(void) {
 	std::cout << ">> Loading Renderable Text - Begun" << std::endl;
-	renderableTextRegister.push_back(new RenderableText("Test", fontRegister[0], glm::vec3(20.0f, 20.0f, 0.0f)));
+	renderableTextRegister.push_back(new RenderableText("This is a test.", fontRegister[0], glm::vec3(20.0f, 20.0f, 0.0f)));
 	std::cout << ">> Loading Renderable Text - Complete" << std::endl;
 }
 void Engine::LoadTilesets(void) {
@@ -504,7 +504,6 @@ void Engine::Update(const float& deltaTime) {
 		// TODO: Amend this to use a list of cameras?
 		mainCamera->Update(deltaTime, *mainCameraFocus);
 	}
-	renderableTextRegister[0]->Update(deltaTime);
 	
 	// CAMERA FOCUS CHANGE DEUBBGING
 	if (deviceKeyboard->GetKeyState(Keyboard::num1)) {
