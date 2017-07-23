@@ -90,20 +90,16 @@ void GameObject::Draw(void) {
 		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 
 		bool useTextures = (texture->id != -1 && currentMesh.isSetupForTextures);
+		glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "hasTexture"), useTextures);
 		if (useTextures) {
 			// Textures are setup correctly, tell the shader to usse the texture and setup the source frame.
-			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "hasTexture"), useTextures);
 			int textureLayerIndex = (sourceFramePosition.x + (texture->dimensionsInFrames.x * sourceFramePosition.y));
 			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "textureArrayLayer"), textureLayerIndex);
 
 			// Activate the correct texture.
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D_ARRAY, texture->id);
-			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[0]->program, "textureSampler"), 0);
-		}
-		else {
-			// Textures are not setup, use the colour buffer.
-			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[0]->program, "hasTexture"), false);
+			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfCurrentShader]->program, "textureSampler"), 0);
 		}
 
 		// Tell the shader how to draw between each point.
