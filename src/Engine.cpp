@@ -325,13 +325,7 @@ void Engine::LoadTextures(void) {
 	}
 
 	// Find the default texture for when textures are failed to be found.
-	const size_t textureRegisterSize = textureRegister.size();
-	for (size_t i = 0; i < textureRegisterSize; i++) {
-		if (textureRegister[i].name.find(nameOfDefaultTexture) != std::string::npos) {
-			indexOfDefaultTexture = (int)i;
-		}
-	}
-	if (indexOfDefaultTexture == -1) {
+	if ((indexOfDefaultTexture = GetIndexOfTexture(nameOfDefaultTexture)) == -1) {
 		this->Close();
 	}
 
