@@ -618,3 +618,7 @@ glm::ivec2 Engine::ConvertToGridPosition(const glm::vec2 & position) {
 int Engine::GetIndexOfShader(const std::string & shaderName) {
 	return 0;
 }
+
+int Engine::GetIndexOfModel(const std::string & modelName) {
+	return 0;
+}
