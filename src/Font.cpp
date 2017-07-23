@@ -81,13 +81,13 @@ void Font::LoadGlyphs(void) {
 				}
 
 				// Triangle 0 of the surface
+				newGlyph.mesh.indices.push_back(0);
 				newGlyph.mesh.indices.push_back(1);
 				newGlyph.mesh.indices.push_back(2);
-				newGlyph.mesh.indices.push_back(3);
 				// Triangle 1 of the surface
+				newGlyph.mesh.indices.push_back(3);
 				newGlyph.mesh.indices.push_back(4);
 				newGlyph.mesh.indices.push_back(5);
-				newGlyph.mesh.indices.push_back(6);
 
 				// Generate the surface
 				newGlyph.mesh.BindBuffers();
