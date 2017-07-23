@@ -3,19 +3,19 @@
 
 Engine* RenderableText::Engine_Pointer;
 
-RenderableText::RenderableText(const std::string& text, Font* font, const glm::vec3& position) {
+RenderableText::RenderableText(const std::string& text, Font* font, const glm::vec3& position, const bool& useCamera) {
 	this->text = text;
 	this->font = font;
 	this->model = Model(text, false);
-	this->indexOfTextShader = 1;
-	///TODO: Add code to find the text rendering shader dynamically.
-
+	this->indexOfTextShader = 1;	///TODO: Add code to find the text rendering shader dynamically.
 	this->doTranslation = false;
 	this->doRotation = false;
 	this->doScalar = false;
 	this->position = position;
 	this->rotation = 0.0f;
 	this->scale = glm::vec3(1.0f);
+	this->useCamera = useCamera;
+
 	LoadText();
 }
 RenderableText::~RenderableText() {
@@ -29,19 +29,24 @@ void RenderableText::Update(const float & deltaTime) {
 	UpdateScale();
 }
 void RenderableText::Draw(void) {
-	glEnable(GL_BLEND);
+	// Setup the MVP matrix for the Text.
 	glm::vec2 viewPort = (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize);
-	glm::mat4 projectionMatrix = glm::ortho(0.0f, viewPort.x, viewPort.y, 0.0f, 0.0f, 2.0f);
-	glm::mat4 viewMatrix = glm::lookAt(glm::vec3(position.x, position.y, 1.0f), glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4* projectionMatrix = &(glm::ortho(0.0f, viewPort.x, viewPort.y, 0.0f, 0.0f, 2.0f));
+	glm::mat4* viewMatrix = &(glm::lookAt(glm::vec3(position.x, position.y, 1.0f), glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
+	if (useCamera) {
+		viewMatrix = &Engine_Pointer->mainCamera->viewMatrix;
+		projectionMatrix = &Engine_Pointer->mainCamera->projectionMatrix;
+	}
 
+	glEnable(GL_BLEND);
 	const size_t numberOfMeshes = model.meshes.size();
 	for (size_t i = 0; i < numberOfMeshes; i++) {
 		Engine_Pointer->shaderRegister[indexOfTextShader]->Activate();
 		Model::Mesh &currentMesh = model.meshes[i];
 		glBindVertexArray(currentMesh.vertexArrayObject);
 
-		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(viewMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 
 		bool useTextures = (glyphs[i].texture.id != -1 && currentMesh.isSetupForTextures);
