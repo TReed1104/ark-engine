@@ -612,7 +612,14 @@ const int Engine::GetIndexOfShader(const std::string & shaderName) {
 	return -1;
 }
 const int Engine::GetIndexOfModel(const std::string & modelName) {
-	return -1;
+	int indexOfDesiredModel = -1;
+	const size_t modelRegisterSize = modelRegister.size();
+	for (size_t i = 0; i < modelRegisterSize; i++) {
+		if (modelRegister[i].name.find(modelName) != std::string::npos) {
+			indexOfDesiredModel = (int)i;
+		}
+	}
+	return indexOfDesiredModel;
 }
 const int Engine::GetIndexOfTexture(const std::string & textureName) {
 	int indexOfDesiredTexture = -1;
