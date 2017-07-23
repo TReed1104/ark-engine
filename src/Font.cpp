@@ -16,7 +16,7 @@ Font::Font(const std::string & scriptPath) {
 		if (script->isScriptLoaded) {
 			path = script->Get<std::string>("font.file_name");
 			size = script->Get<int>("font.size");
-			font = TTF_OpenFont((Engine_Pointer->contentDirectory + "fonts/" + path).c_str(), size);
+			font = TTF_OpenFont((Engine_Pointer->contentDirectory + "fonts/source/" + path).c_str(), size);
 			name = script->Get<std::string>("font.name");
 
 			// Go through and load each of the glyphs.
