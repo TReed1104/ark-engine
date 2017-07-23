@@ -100,6 +100,7 @@ public:
 	// Functions
 	void Run(void);
 	glm::ivec2 ConvertToGridPosition(const glm::vec2& position);
+	int GetIndexOfShader(const std::string& shaderName);
 
 private:
 	// GL variables
