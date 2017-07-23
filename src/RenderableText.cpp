@@ -8,7 +8,7 @@ RenderableText::RenderableText(const std::string& name, const std::string& text,
 	this->text = text;
 	this->font = font;
 	this->model = Model(text, false);
-	this->indexOfTextShader = 1;	///TODO: Add code to find the text rendering shader dynamically.
+	this->indexOfTextShader = Engine_Pointer->GetIndexOfShader("Renderable Text");
 	this->doTranslation = false;
 	this->doRotation = false;
 	this->doScalar = false;
