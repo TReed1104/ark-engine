@@ -31,10 +31,11 @@ void RenderableText::Draw(void) {
 	glEnable(GL_BLEND);
 	glm::vec2 viewPort = (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize);
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, viewPort.x, viewPort.y, 0.0f, 0.0f, 2.0f);
-	glm::mat4 viewMatrix = glm::lookAt(position, glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 viewMatrix = glm::lookAt(glm::vec3(position.x, position.y, 1.0f), glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 	const size_t numberOfMeshes = model.meshes.size();
 	for (size_t i = 0; i < numberOfMeshes; i++) {
+		Engine_Pointer->shaderRegister[indexOfTextShader]->Activate();
 		Model::Mesh &currentMesh = model.meshes[i];
 		glBindVertexArray(currentMesh.vertexArrayObject);
 
