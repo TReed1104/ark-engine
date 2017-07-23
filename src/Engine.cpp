@@ -649,7 +649,14 @@ const int Engine::GetIndexOfFont(const std::string & fontName) {
 	return indexOfDesiredFont;
 }
 const int Engine::GetIndexOfRenderableText(const std::string & renderableTextName) {
-	return -1;
+	int indexOfDesiredRenderableText = -1;
+	const size_t renderableTextRegisterSize = renderableTextRegister.size();
+	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
+		if (renderableTextRegister[i]->name.find(renderableTextName) != std::string::npos) {
+			indexOfDesiredRenderableText = (int)i;
+		}
+	}
+	return indexOfDesiredRenderableText;
 }
 const int Engine::GetIndexOfTileset(const std::string & tilesetName) {
 	return -1;
