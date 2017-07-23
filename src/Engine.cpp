@@ -638,3 +638,7 @@ int Engine::GetIndexOfRenderableText(const std::string & renderableTextName) {
 int Engine::GetIndexOfTileset(const std::string & tilesetName) {
 	return 0;
 }
+
+int Engine::GetIndexOfEntity(const std::string & entityName) {
+	return 0;
+}
