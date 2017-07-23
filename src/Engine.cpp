@@ -622,3 +622,7 @@ int Engine::GetIndexOfShader(const std::string & shaderName) {
 int Engine::GetIndexOfModel(const std::string & modelName) {
 	return 0;
 }
+
+int Engine::GetIndexOfTexture(const std::string & textureName) {
+	return 0;
+}
