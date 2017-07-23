@@ -187,13 +187,13 @@ void Engine::InitialiseGlew(void) {
 void Engine::LoadShaders(void) {
 	// Load the Shaders
 	std::cout << ">> Loading Shaders - Begun" << std::endl;
-	std::vector<std::string> listOfShaders = FileSystemUtilities::GetFileList(contentDirectory + "shaders/configs");
+	std::vector<std::string> listOfShaders = FileSystemUtilities::GetFileList(contentDirectory + "shaders/");
 	for (size_t i = 0; i < listOfShaders.size(); i++) {
 		LuaScript currentShaderConfig = LuaScript(listOfShaders[i]);
 		if (currentShaderConfig.isScriptLoaded) {
 			// Grab the variables from the config script
-			std::string vertexShaderName = contentDirectory + "shaders/" + currentShaderConfig.Get<std::string>("shader_config.vertex");
-			std::string fragmentShaderName = contentDirectory + "shaders/" + currentShaderConfig.Get<std::string>("shader_config.fragment");
+			std::string vertexShaderName = contentDirectory + "shaders/source/" + currentShaderConfig.Get<std::string>("shader_config.vertex");
+			std::string fragmentShaderName = contentDirectory + "shaders/source/" + currentShaderConfig.Get<std::string>("shader_config.fragment");
 			std::string shaderName = currentShaderConfig.Get<std::string>("shader_config.name");
 
 			// Create and Load the shader
