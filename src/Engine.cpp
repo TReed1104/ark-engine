@@ -640,8 +640,8 @@ const int Engine::GetIndexOfTexture(const std::string & textureName) {
 }
 const int Engine::GetIndexOfFont(const std::string & fontName) {
 	int indexOfDesiredFont = -1;
-	const size_t fontRegisterSiz = fontRegister.size();
-	for (size_t i = 0; i < fontRegisterSiz; i++) {
+	const size_t fontRegisterSize = fontRegister.size();
+	for (size_t i = 0; i < fontRegisterSize; i++) {
 		if (fontRegister[i]->name.find(fontName) != std::string::npos) {
 			indexOfDesiredFont = (int)i;
 		}
