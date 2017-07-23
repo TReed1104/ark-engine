@@ -102,6 +102,7 @@ public:
 	glm::ivec2 ConvertToGridPosition(const glm::vec2& position);
 	int GetIndexOfShader(const std::string& shaderName);
 	int GetIndexOfModel(const std::string& modelName);
+	int GetIndexOfTexture(const std::string& textureName);
 
 private:
 	// GL variables
