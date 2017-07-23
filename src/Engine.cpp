@@ -642,3 +642,7 @@ int Engine::GetIndexOfTileset(const std::string & tilesetName) {
 int Engine::GetIndexOfEntity(const std::string & entityName) {
 	return 0;
 }
+
+int Engine::GetIndexOfLevel(const std::string & levelName) {
+	return 0;
+}
