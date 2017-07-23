@@ -61,10 +61,15 @@ void Font::LoadGlyphs(void) {
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.width, 0.0f, 0.0f));
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.width, 0.0f + newGlyph.height, 0.0f));
+				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.width, 0.0f + newGlyph.height, 0.0f));
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f + newGlyph.height, 0.0f));
+
 
 				newGlyph.mesh.uvs.push_back(glm::vec2(0.0f, 0.0f));
 				newGlyph.mesh.uvs.push_back(glm::vec2(1.0f, 0.0f));
+				newGlyph.mesh.uvs.push_back(glm::vec2(1.0f, 1.0f));
+				newGlyph.mesh.uvs.push_back(glm::vec2(0.0f, 0.0f));
 				newGlyph.mesh.uvs.push_back(glm::vec2(1.0f, 1.0f));
 				newGlyph.mesh.uvs.push_back(glm::vec2(0.0f, 1.0f));
 				newGlyph.mesh.isSetupForTextures = true;
@@ -80,9 +85,9 @@ void Font::LoadGlyphs(void) {
 				newGlyph.mesh.indices.push_back(2);
 				newGlyph.mesh.indices.push_back(3);
 				// Triangle 1 of the surface
-				newGlyph.mesh.indices.push_back(1);
-				newGlyph.mesh.indices.push_back(3);
 				newGlyph.mesh.indices.push_back(4);
+				newGlyph.mesh.indices.push_back(5);
+				newGlyph.mesh.indices.push_back(6);
 
 				// Generate the surface
 				newGlyph.mesh.BindBuffers();
@@ -90,7 +95,8 @@ void Font::LoadGlyphs(void) {
 				// Texture Generation
 				// Setup the defaults of the Glyph Texture
 				SDL_Color colour = { 255, 255, 255, 255 };
-				SDL_Surface* glyphSurface = TTF_RenderUTF8_Blended(font, &currentChar, colour);
+				SDL_Surface* glyphSurface = TTF_RenderGlyph_Blended(font, currentChar, colour);
+				
 				newGlyph.texture.dimensionsInPixels = glm::ivec2(glyphSurface->w, glyphSurface->h);
 				newGlyph.texture.dimensionsInFrames = glm::ivec2(1, 1);
 				newGlyph.texture.frameSize = glm::ivec2(glyphSurface->w, glyphSurface->h);
