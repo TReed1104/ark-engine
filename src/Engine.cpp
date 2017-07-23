@@ -339,21 +339,11 @@ void Engine::LoadModels(void) {
 		modelRegister.push_back(Model(listOfModels[i]));
 	}
 
-	// Find the default model
-	const size_t modelRegisterSize = modelRegister.size();
-	for (size_t i = 0; i < modelRegisterSize; i++) {
-		if (modelRegister[i].name.find(nameOfTileModel) != std::string::npos) {
-			indexOfTileModel = (int)i;
-		}
-
-		if (modelRegister[i].name.find(nameOfSpriteModel) != std::string::npos) {
-			indexOfSpriteModel = (int)i;
-		}
-	}
-	if (indexOfTileModel == -1) {
+	// Find the default models
+	if ((indexOfTileModel = GetIndexOfModel(nameOfTileModel)) == -1) {
 		this->Close();
 	}
-	if (indexOfSpriteModel == -1) {
+	if ((indexOfSpriteModel = GetIndexOfModel(nameOfSpriteModel)) == -1) {
 		indexOfSpriteModel = indexOfTileModel;
 	}
 
