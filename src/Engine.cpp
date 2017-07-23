@@ -609,7 +609,14 @@ glm::ivec2 Engine::ConvertToGridPosition(const glm::vec2 & position) {
 	return glm::vec2((int)(position.x / this->tileSize.x), (int)(position.y / this->tileSize.y));
 }
 const int Engine::GetIndexOfShader(const std::string & shaderName) {
-	return -1;
+	int indexOfDesiredShader = -1;
+	const size_t shaderRegisterSize = shaderRegister.size();
+	for (size_t i = 0; i < shaderRegisterSize; i++) {
+		if (shaderRegister[i]->name.find(shaderName) != std::string::npos) {
+			indexOfDesiredShader = (int)i;
+		}
+	}
+	return indexOfDesiredShader;
 }
 const int Engine::GetIndexOfModel(const std::string & modelName) {
 	int indexOfDesiredModel = -1;
