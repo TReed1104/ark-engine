@@ -8,12 +8,19 @@ namespace FileSystem = std::experimental::filesystem;
 
 class FileSystemUtilities {
 public:
-	static std::vector<std::string> GetFileList(const std::string& directoryPath) {
+	static std::vector<std::string> GetFileList(const std::string& directoryPath, const bool& ignoreFolders = true) {
 		// Finds all the files within the given Directory.
 		std::vector<std::string> fileList;
 
 		for (FileSystem::path currentEntry : FileSystem::directory_iterator(directoryPath)) {
-			fileList.push_back(currentEntry.string());
+			if (ignoreFolders) {
+				if (currentEntry.string().find(".") != std::string::npos) {
+					fileList.push_back(currentEntry.string());
+				}
+			}
+			else {
+				fileList.push_back(currentEntry.string());
+			}
 		}
 		return fileList;
 	}
