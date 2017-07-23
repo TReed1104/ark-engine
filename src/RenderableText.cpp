@@ -3,7 +3,8 @@
 
 Engine* RenderableText::Engine_Pointer;
 
-RenderableText::RenderableText(const std::string& text, Font* font, const glm::vec3& position, const bool& useCamera) {
+RenderableText::RenderableText(const std::string& name, const std::string& text, Font* font, const glm::vec3& position, const bool& useCamera) {
+	this->name = name;
 	this->text = text;
 	this->font = font;
 	this->model = Model(text, false);

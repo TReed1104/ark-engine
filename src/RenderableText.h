@@ -38,7 +38,7 @@ public:
 	bool doRotation;
 	bool doScalar;
 
-	RenderableText(const std::string& text, Font* font, const glm::vec3& position = glm::vec3(0.0f), const bool& useCamera = false);
+	RenderableText(const std::string& name, const std::string& text, Font* font, const glm::vec3& position = glm::vec3(0.0f), const bool& useCamera = false);
 	~RenderableText();
 
 	void Update(const float& deltaTime);
