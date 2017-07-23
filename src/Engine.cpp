@@ -269,6 +269,12 @@ void Engine::CleanUp(void) {
 		delete deviceGameControllerRegister[i];
 	}
 
+	// Delete the loaded Renderable Texts
+	const size_t renderableTextRegisterSize = renderableTextRegister.size();
+	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
+		delete renderableTextRegister[i];
+	}
+
 	// Delete the loaded Fonts
 	const size_t fontRegisterSize = fontRegister.size();
 	for (size_t i = 0; i < fontRegisterSize; i++) {
@@ -370,7 +376,7 @@ void Engine::LoadFonts(void) {
 }
 void Engine::LoadRenderableText(void) {
 	std::cout << ">> Loading Renderable Text - Begun" << std::endl;
-	renderableTextRegister.push_back(RenderableText("T", fontRegister[0], glm::vec3(0.0f, 0.0f, 0.01f)));
+	renderableTextRegister.push_back(new RenderableText("Test", fontRegister[0], glm::vec3(20.0f, 20.0f, 0.0f)));
 	std::cout << ">> Loading Renderable Text - Complete" << std::endl;
 }
 void Engine::LoadTilesets(void) {
@@ -498,7 +504,7 @@ void Engine::Update(const float& deltaTime) {
 		// TODO: Amend this to use a list of cameras?
 		mainCamera->Update(deltaTime, *mainCameraFocus);
 	}
-
+	renderableTextRegister[0]->Update(deltaTime);
 	
 	// CAMERA FOCUS CHANGE DEUBBGING
 	if (deviceKeyboard->GetKeyState(Keyboard::num1)) {
@@ -557,7 +563,7 @@ void Engine::Render(void) {
 	if (player != nullptr) {
 		player->Draw();
 	}
-	renderableTextRegister[0].Draw();
+	renderableTextRegister[0]->Draw();
 	// Post-Render
 	SDL_GL_SwapWindow(sdlWindow);	// Gives the frame buffer to the display (swapBuffers).
 }
