@@ -97,8 +97,9 @@ public:
 	Engine(char* gameName);
 	~Engine(void);
 
-	// Functions
+	// The core run function of the Engine, this is the main callable function of the Engine.
 	void Run(void);
+	// Engine Utilities
 	glm::ivec2 ConvertToGridPosition(const glm::vec2& position);
 	int GetIndexOfShader(const std::string& shaderName);
 	int GetIndexOfModel(const std::string& modelName);
