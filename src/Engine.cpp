@@ -514,7 +514,7 @@ void Engine::Update(const float& deltaTime) {
 	if (deviceKeyboard->GetKeyState(Keyboard::num2)) {
 		int focusIndex = 1547;
 		std::cout << ">>>> Changing camera target to TileMap: " << focusIndex << std::endl;
-		mainCameraFocus = levelRegister[indexCurrentLevel]->tileMap[1547];
+		mainCameraFocus = levelRegister[indexCurrentLevel]->tileMap[focusIndex];
 	}
 	if (deviceKeyboard->GetKeyState(Keyboard::num3)) {
 		int focusIndex = 2000;
