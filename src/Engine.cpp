@@ -615,14 +615,14 @@ const int Engine::GetIndexOfModel(const std::string & modelName) {
 	return -1;
 }
 const int Engine::GetIndexOfTexture(const std::string & textureName) {
-	int indexOfTexture = -1;
+	int indexOfDesiredTexture = -1;
 	const size_t textureRegisterSize = textureRegister.size();
 	for (size_t i = 0; i < textureRegisterSize; i++) {
 		if (textureRegister[i].name.find(textureName) != std::string::npos) {
-			indexOfTexture = (int)i;
+			indexOfDesiredTexture = (int)i;
 		}
 	}
-	return indexOfTexture;
+	return indexOfDesiredTexture;
 }
 const int Engine::GetIndexOfFont(const std::string & fontName) {
 	return -1;
