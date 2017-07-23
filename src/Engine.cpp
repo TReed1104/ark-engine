@@ -606,10 +606,10 @@ void Engine::Run(void) {
 	this->Close(true);
 }
 // Engine Utilities
-glm::ivec2 Engine::ConvertToGridPosition(const glm::vec2 & position) {
+glm::ivec2 Engine::ConvertToGridPosition(const glm::vec2& position) {
 	return glm::vec2((int)(position.x / this->tileSize.x), (int)(position.y / this->tileSize.y));
 }
-const int Engine::GetIndexOfShader(const std::string & shaderName) {
+const int Engine::GetIndexOfShader(const std::string& shaderName) {
 	int indexOfDesiredShader = -1;
 	const size_t shaderRegisterSize = shaderRegister.size();
 	for (size_t i = 0; i < shaderRegisterSize; i++) {
@@ -619,7 +619,7 @@ const int Engine::GetIndexOfShader(const std::string & shaderName) {
 	}
 	return indexOfDesiredShader;
 }
-const int Engine::GetIndexOfModel(const std::string & modelName) {
+const int Engine::GetIndexOfModel(const std::string& modelName) {
 	int indexOfDesiredModel = -1;
 	const size_t modelRegisterSize = modelRegister.size();
 	for (size_t i = 0; i < modelRegisterSize; i++) {
@@ -629,7 +629,7 @@ const int Engine::GetIndexOfModel(const std::string & modelName) {
 	}
 	return indexOfDesiredModel;
 }
-const int Engine::GetIndexOfTexture(const std::string & textureName) {
+const int Engine::GetIndexOfTexture(const std::string& textureName) {
 	int indexOfDesiredTexture = -1;
 	const size_t textureRegisterSize = textureRegister.size();
 	for (size_t i = 0; i < textureRegisterSize; i++) {
@@ -639,7 +639,7 @@ const int Engine::GetIndexOfTexture(const std::string & textureName) {
 	}
 	return indexOfDesiredTexture;
 }
-const int Engine::GetIndexOfFont(const std::string & fontName) {
+const int Engine::GetIndexOfFont(const std::string& fontName) {
 	int indexOfDesiredFont = -1;
 	const size_t fontRegisterSize = fontRegister.size();
 	for (size_t i = 0; i < fontRegisterSize; i++) {
@@ -649,7 +649,7 @@ const int Engine::GetIndexOfFont(const std::string & fontName) {
 	}
 	return indexOfDesiredFont;
 }
-const int Engine::GetIndexOfRenderableText(const std::string & renderableTextName) {
+const int Engine::GetIndexOfRenderableText(const std::string& renderableTextName) {
 	int indexOfDesiredRenderableText = -1;
 	const size_t renderableTextRegisterSize = renderableTextRegister.size();
 	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
@@ -659,7 +659,7 @@ const int Engine::GetIndexOfRenderableText(const std::string & renderableTextNam
 	}
 	return indexOfDesiredRenderableText;
 }
-const int Engine::GetIndexOfTileset(const std::string & tilesetName) {
+const int Engine::GetIndexOfTileset(const std::string& tilesetName) {
 	int indexOfDesiredTileset = -1;
 	const size_t tilesetRegisterSize = tilesetRegister.size();
 	for (size_t i = 0; i < tilesetRegisterSize; i++) {
@@ -669,7 +669,7 @@ const int Engine::GetIndexOfTileset(const std::string & tilesetName) {
 	}
 	return indexOfDesiredTileset;
 }
-const int Engine::GetIndexOfEntity(const std::string & entityName) {
+const int Engine::GetIndexOfEntity(const std::string& entityName) {
 	int indexOfDesiredEntity = -1;
 	const size_t entityRegisterSize = entityRegister.size();
 	for (size_t i = 0; i < entityRegisterSize; i++) {
@@ -679,7 +679,7 @@ const int Engine::GetIndexOfEntity(const std::string & entityName) {
 	}
 	return indexOfDesiredEntity;
 }
-const int Engine::GetIndexOfLevel(const std::string & levelName) {
+const int Engine::GetIndexOfLevel(const std::string& levelName) {
 	int indexOfDesiredLevel = -1;
 	const size_t levelRegisterSize = levelRegister.size();
 	for (size_t i = 0; i < levelRegisterSize; i++) {
