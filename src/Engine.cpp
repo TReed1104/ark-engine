@@ -630,3 +630,7 @@ int Engine::GetIndexOfTexture(const std::string & textureName) {
 int Engine::GetIndexOfFont(const std::string & fontName) {
 	return 0;
 }
+
+int Engine::GetIndexOfRenderableText(const std::string & renderableTextName) {
+	return 0;
+}
