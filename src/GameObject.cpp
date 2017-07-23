@@ -4,7 +4,6 @@
 Engine* GameObject::Engine_Pointer;
 
 GameObject::GameObject(const std::string & scriptPath) {
-	indexOfCurrentShader = Engine_Pointer->indexOfDefaultShader;
 	// Load the script if given
 	if (scriptPath != "NO SCRIPT") {
 		this->script = new LuaScript(scriptPath);
@@ -15,6 +14,8 @@ GameObject::GameObject(const std::string & scriptPath) {
 	else {
 		this->script = nullptr;
 	}
+
+	indexOfCurrentShader = Engine_Pointer->GetIndexOfShader("default");
 
 	// Animation Setup
 	animationIndex = 0;
