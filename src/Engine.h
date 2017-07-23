@@ -107,6 +107,7 @@ public:
 	int GetIndexOfRenderableText(const std::string& renderableTextName);
 	int GetIndexOfTileset(const std::string& tilesetName);
 	int GetIndexOfEntity(const std::string& entityName);
+	int GetIndexOfLevel(const std::string& levelName);
 
 private:
 	// GL variables
