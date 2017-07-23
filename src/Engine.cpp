@@ -634,3 +634,7 @@ int Engine::GetIndexOfFont(const std::string & fontName) {
 int Engine::GetIndexOfRenderableText(const std::string & renderableTextName) {
 	return 0;
 }
+
+int Engine::GetIndexOfTileset(const std::string & tilesetName) {
+	return 0;
+}
