@@ -614,27 +614,27 @@ void Engine::Run(void) {
 glm::ivec2 Engine::ConvertToGridPosition(const glm::vec2 & position) {
 	return glm::vec2((int)(position.x / this->tileSize.x), (int)(position.y / this->tileSize.y));
 }
-int Engine::GetIndexOfShader(const std::string & shaderName) {
+const int Engine::GetIndexOfShader(const std::string & shaderName) {
 	return -1;
 }
-int Engine::GetIndexOfModel(const std::string & modelName) {
+const int Engine::GetIndexOfModel(const std::string & modelName) {
 	return -1;
 }
-int Engine::GetIndexOfTexture(const std::string & textureName) {
+const int Engine::GetIndexOfTexture(const std::string & textureName) {
 	return -1;
 }
-int Engine::GetIndexOfFont(const std::string & fontName) {
+const int Engine::GetIndexOfFont(const std::string & fontName) {
 	return -1;
 }
-int Engine::GetIndexOfRenderableText(const std::string & renderableTextName) {
+const int Engine::GetIndexOfRenderableText(const std::string & renderableTextName) {
 	return -1;
 }
-int Engine::GetIndexOfTileset(const std::string & tilesetName) {
+const int Engine::GetIndexOfTileset(const std::string & tilesetName) {
 	return -1;
 }
-int Engine::GetIndexOfEntity(const std::string & entityName) {
+const int Engine::GetIndexOfEntity(const std::string & entityName) {
 	return -1;
 }
-int Engine::GetIndexOfLevel(const std::string & levelName) {
+const int Engine::GetIndexOfLevel(const std::string & levelName) {
 	return -1;
 }

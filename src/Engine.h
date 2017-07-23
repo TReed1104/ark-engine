@@ -101,14 +101,14 @@ public:
 	void Run(void);
 	// Engine Utilities
 	glm::ivec2 ConvertToGridPosition(const glm::vec2& position);
-	int GetIndexOfShader(const std::string& shaderName);
-	int GetIndexOfModel(const std::string& modelName);
-	int GetIndexOfTexture(const std::string& textureName);
-	int GetIndexOfFont(const std::string& fontName);
-	int GetIndexOfRenderableText(const std::string& renderableTextName);
-	int GetIndexOfTileset(const std::string& tilesetName);
-	int GetIndexOfEntity(const std::string& entityName);
-	int GetIndexOfLevel(const std::string& levelName);
+	const int GetIndexOfShader(const std::string& shaderName);
+	const int GetIndexOfModel(const std::string& modelName);
+	const int GetIndexOfTexture(const std::string& textureName);
+	const int GetIndexOfFont(const std::string& fontName);
+	const int GetIndexOfRenderableText(const std::string& renderableTextName);
+	const int GetIndexOfTileset(const std::string& tilesetName);
+	const int GetIndexOfEntity(const std::string& entityName);
+	const int GetIndexOfLevel(const std::string& levelName);
 
 private:
 	// GL variables
