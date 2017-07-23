@@ -669,7 +669,14 @@ const int Engine::GetIndexOfTileset(const std::string & tilesetName) {
 	return indexOfDesiredTileset;
 }
 const int Engine::GetIndexOfEntity(const std::string & entityName) {
-	return -1;
+	int indexOfDesiredEntity = -1;
+	const size_t entityRegisterSize = entityRegister.size();
+	for (size_t i = 0; i < entityRegisterSize; i++) {
+		if (tilesetRegister[i].name.find(entityName) != std::string::npos) {
+			indexOfDesiredEntity = (int)i;
+		}
+	}
+	return indexOfDesiredEntity;
 }
 const int Engine::GetIndexOfLevel(const std::string & levelName) {
 	return -1;
