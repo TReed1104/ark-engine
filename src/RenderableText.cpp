@@ -6,6 +6,7 @@ Engine* RenderableText::Engine_Pointer;
 RenderableText::RenderableText(const std::string& text, Font* font, const glm::vec3& position) {
 	this->text = text;
 	this->font = font;
+	this->model = Model(text, false);
 	this->indexOfTextShader = 1;
 	///TODO: Add code to find the text rendering shader dynamically.
 
