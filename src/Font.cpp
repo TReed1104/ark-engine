@@ -66,7 +66,7 @@ void Font::LoadGlyphs(void) {
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.width, 0.0f + newGlyph.height, 0.0f));
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f + newGlyph.height, 0.0f));
 					
-
+				// Setup the mesh for texturing
 				newGlyph.mesh.uvs.push_back(glm::vec2(0.0f, 0.0f));
 				newGlyph.mesh.uvs.push_back(glm::vec2(1.0f, 0.0f));
 				newGlyph.mesh.uvs.push_back(glm::vec2(1.0f, 1.0f));
