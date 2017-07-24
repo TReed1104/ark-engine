@@ -65,7 +65,7 @@ void Font::LoadGlyphs(void) {
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.width, 0.0f + newGlyph.height, 0.0f));
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f + newGlyph.height, 0.0f));
-					
+
 				// Setup the mesh for texturing
 				newGlyph.mesh.uvs.push_back(glm::vec2(0.0f, 0.0f));
 				newGlyph.mesh.uvs.push_back(glm::vec2(1.0f, 0.0f));
@@ -102,10 +102,31 @@ void Font::LoadGlyphs(void) {
 					return;
 				}
 
+				// Check the number of colours provided by the surface to see if an alpha channel is present
+				Uint8 colours = glyphSurfaceARGB->format->BytesPerPixel;
+				// Check the format of the Surface is RGBA or BGRA
+				GLenum textureFormat = GL_RGBA;
+				if (colours == 4) {
+					if (glyphSurfaceARGB->format->Rmask == 0x000000ff) {
+						textureFormat = GL_RGBA;
+					}
+					else {
+						textureFormat = GL_BGRA;
+					}
+				}
+				else {
+					if (glyphSurfaceARGB->format->Rmask == 0x000000ff) {
+						textureFormat = GL_RGB;
+					}
+					else {
+						textureFormat = GL_BGR;
+					}
+				}
+
 				// OpenGL side of texture setup
 				glGenTextures(1, &newGlyph.texture.id);
 				glBindTexture(GL_TEXTURE_2D, newGlyph.texture.id);
-				glTexImage2D(GL_TEXTURE_2D, 0, 4, glyphSurfaceARGB->w, glyphSurfaceARGB->h, 0, GL_BGRA, GL_UNSIGNED_BYTE, glyphSurfaceARGB->pixels);
+				glTexImage2D(GL_TEXTURE_2D, 0, colours, glyphSurfaceARGB->w, glyphSurfaceARGB->h, 0, textureFormat, GL_UNSIGNED_BYTE, glyphSurfaceARGB->pixels);
 				// Wrapping settings
 				glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 				glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
