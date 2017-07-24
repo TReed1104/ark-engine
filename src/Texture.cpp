@@ -61,7 +61,7 @@ bool Texture::ImportTextureArray() {
 	glBindTexture(GL_TEXTURE_2D_ARRAY, id);
 	// Initialise the size of the 3D texture array
 
-	int colours = image->format->BytesPerPixel;
+	Uint8 colours = image->format->BytesPerPixel;
 	GLenum textureFormat = GL_RGBA8;
 	if (colours == 4) {
 		textureFormat = GL_RGBA8;
