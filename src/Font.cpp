@@ -101,14 +101,6 @@ void Font::LoadGlyphs(void) {
 					std::cout << "TTF failed to create " << currentChar << ", The error was: " << TTF_GetError() << std::endl;
 					return;
 				}
-				// Create an RGBA surface from the TTF ARGB surface to be given to OpenGL
-				SDL_Surface* glyphSurfaceRGBA = SDL_CreateRGBSurface(0, glyphSurfaceARGB->w, glyphSurfaceARGB->h, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
-				if (glyphSurfaceRGBA == NULL) {
-					std::cout << "TTF failed to create " << currentChar << ", The error was: " << TTF_GetError() << std::endl;
-					return;
-				}
-				// Blit the surfaces
-				SDL_BlitSurface(glyphSurfaceARGB, 0, glyphSurfaceRGBA, 0);
 
 				// Texture object setup
 				newGlyph.texture.dimensionsInPixels = glm::ivec2(glyphSurfaceARGB->w, glyphSurfaceARGB->h);
@@ -120,7 +112,7 @@ void Font::LoadGlyphs(void) {
 				// OpenGL side of texture setup
 				glGenTextures(1, &newGlyph.texture.id);
 				glBindTexture(GL_TEXTURE_2D, newGlyph.texture.id);
-				glTexImage2D(GL_TEXTURE_2D, 0, 4, glyphSurfaceRGBA->w, glyphSurfaceRGBA->h, 0, GL_BGRA, GL_UNSIGNED_BYTE, glyphSurfaceRGBA->pixels);
+				glTexImage2D(GL_TEXTURE_2D, 0, 4, glyphSurfaceARGB->w, glyphSurfaceARGB->h, 0, GL_BGRA, GL_UNSIGNED_BYTE, glyphSurfaceARGB->pixels);
 
 				// Filtering settings
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -129,7 +121,6 @@ void Font::LoadGlyphs(void) {
 				// Clear up
 				glBindTexture(GL_TEXTURE_2D, 0);
 				SDL_FreeSurface(glyphSurfaceARGB);
-				SDL_FreeSurface(glyphSurfaceRGBA);
 
 				// Add the newly created glyph to the glyph dictionary
 				glyphs[currentChar] = newGlyph;
