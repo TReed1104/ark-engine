@@ -97,7 +97,7 @@ void Font::LoadGlyphs(void) {
 				SDL_Color colour = { 255, 255, 255 };
 				SDL_Surface* glyphSurface = TTF_RenderGlyph_Blended(font, currentChar, colour);
 				if (glyphSurface == NULL) {
-					std::cout << ">> The loading of character: " << currentChar << " Failed, clould not create surface." << std::endl;
+					std::cout << "TTF failed to create " << currentChar << ", The error was: " << TTF_GetError() << std::endl;
 				}
 				
 				newGlyph.texture.dimensionsInPixels = glm::ivec2(glyphSurface->w, glyphSurface->h);
