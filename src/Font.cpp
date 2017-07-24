@@ -75,10 +75,11 @@ void Font::LoadGlyphs(void) {
 				newGlyph.mesh.uvs.push_back(glm::vec2(0.0f, 1.0f));
 				newGlyph.mesh.isSetupForTextures = true;
 
-				// Add raw colour data to each vertex incase none is passed to the shader
+				// Push raw colour data and default normals for each vertex
 				const size_t numberOfVertices = newGlyph.mesh.vertexPositions.size();
 				for (size_t i = 0; i < numberOfVertices; i++) {
 					newGlyph.mesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+					newGlyph.mesh.surfaceNormals.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
 				}
 
 				// Triangle 0 of the surface
@@ -95,7 +96,6 @@ void Font::LoadGlyphs(void) {
 
 				// SDL Text Texture generation
 				SDL_Color colour = { 255, 255, 255 };	// Setup the defaults of the Glyph Texture
-				// Create an ARGB surface from the TTF
 				SDL_Surface* glyphSurfaceARGB = TTF_RenderGlyph_Blended(font, currentChar, colour);
 				if (glyphSurfaceARGB == NULL) {
 					std::cout << "TTF failed to create " << currentChar << ", The error was: " << TTF_GetError() << std::endl;
