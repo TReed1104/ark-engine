@@ -94,8 +94,11 @@ void Font::LoadGlyphs(void) {
 
 				// Texture Generation
 				// Setup the defaults of the Glyph Texture
-				SDL_Color colour = { 255, 255, 255, 255 };
+				SDL_Color colour = { 255, 255, 255 };
 				SDL_Surface* glyphSurface = TTF_RenderGlyph_Blended(font, currentChar, colour);
+				if (glyphSurface == NULL) {
+					std::cout << ">> The loading of character: " << currentChar << " Failed, clould not create surface." << std::endl;
+				}
 				
 				newGlyph.texture.dimensionsInPixels = glm::ivec2(glyphSurface->w, glyphSurface->h);
 				newGlyph.texture.dimensionsInFrames = glm::ivec2(1, 1);
