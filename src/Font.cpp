@@ -102,21 +102,23 @@ void Font::LoadGlyphs(void) {
 					return;
 				}
 
+				// OpenGL side of texture setup
+				glGenTextures(1, &newGlyph.texture.id);
+				glBindTexture(GL_TEXTURE_2D, newGlyph.texture.id);
+				glTexImage2D(GL_TEXTURE_2D, 0, 4, glyphSurfaceARGB->w, glyphSurfaceARGB->h, 0, GL_BGRA, GL_UNSIGNED_BYTE, glyphSurfaceARGB->pixels);
+				// Wrapping settings
+				glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+				glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+				// Filtering settings
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
 				// Texture object setup
 				newGlyph.texture.dimensionsInPixels = glm::ivec2(glyphSurfaceARGB->w, glyphSurfaceARGB->h);
 				newGlyph.texture.dimensionsInFrames = glm::ivec2(1, 1);
 				newGlyph.texture.frameSize = glm::ivec2(glyphSurfaceARGB->w, glyphSurfaceARGB->h);
 				newGlyph.texture.frameSizeBordered = glm::ivec2(0, 0);
 				newGlyph.texture.numberOfFrames = 1;
-
-				// OpenGL side of texture setup
-				glGenTextures(1, &newGlyph.texture.id);
-				glBindTexture(GL_TEXTURE_2D, newGlyph.texture.id);
-				glTexImage2D(GL_TEXTURE_2D, 0, 4, glyphSurfaceARGB->w, glyphSurfaceARGB->h, 0, GL_BGRA, GL_UNSIGNED_BYTE, glyphSurfaceARGB->pixels);
-
-				// Filtering settings
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 				// Clear up
 				glBindTexture(GL_TEXTURE_2D, 0);
