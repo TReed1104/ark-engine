@@ -95,19 +95,18 @@ void Font::LoadGlyphs(void) {
 				newGlyph.mesh.BindBuffers();
 
 				// SDL Text Texture generation
-				SDL_Color colour = { 255, 255, 255 };	// Setup the defaults of the Glyph Texture
-				SDL_Surface* glyphSurfaceARGB = TTF_RenderGlyph_Blended(font, currentChar, colour);
-				if (glyphSurfaceARGB == NULL) {
+				SDL_Color textColour = { 255, 255, 255, 255 };
+				SDL_Surface* glyphSurface = TTF_RenderGlyph_Blended(font, currentChar, textColour);
+				if (glyphSurface == NULL) {
 					std::cout << "TTF failed to create " << currentChar << ", The error was: " << TTF_GetError() << std::endl;
 					return;
 				}
 
-				// Check the number of colours provided by the surface to see if an alpha channel is present
-				Uint8 colours = glyphSurfaceARGB->format->BytesPerPixel;
+				Uint8 colours = glyphSurface->format->BytesPerPixel;	// Check the number of colours provided by the surface to see if an alpha channel is present
 				// Check the format of the Surface is RGBA or BGRA
 				GLenum textureFormat = GL_RGBA;
 				if (colours == 4) {
-					if (glyphSurfaceARGB->format->Rmask == 0x000000ff) {
+					if (glyphSurface->format->Rmask == 0x000000ff) {
 						textureFormat = GL_RGBA;
 					}
 					else {
@@ -115,7 +114,7 @@ void Font::LoadGlyphs(void) {
 					}
 				}
 				else {
-					if (glyphSurfaceARGB->format->Rmask == 0x000000ff) {
+					if (glyphSurface->format->Rmask == 0x000000ff) {
 						textureFormat = GL_RGB;
 					}
 					else {
@@ -126,24 +125,24 @@ void Font::LoadGlyphs(void) {
 				// OpenGL side of texture setup
 				glGenTextures(1, &newGlyph.texture.id);
 				glBindTexture(GL_TEXTURE_2D, newGlyph.texture.id);
-				glTexImage2D(GL_TEXTURE_2D, 0, colours, glyphSurfaceARGB->w, glyphSurfaceARGB->h, 0, textureFormat, GL_UNSIGNED_BYTE, glyphSurfaceARGB->pixels);
+				glTexImage2D(GL_TEXTURE_2D, 0, colours, glyphSurface->w, glyphSurface->h, 0, textureFormat, GL_UNSIGNED_BYTE, glyphSurface->pixels);
 				// Wrapping settings
-				glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-				glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 				// Filtering settings
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 				// Texture object setup
-				newGlyph.texture.dimensionsInPixels = glm::ivec2(glyphSurfaceARGB->w, glyphSurfaceARGB->h);
+				newGlyph.texture.dimensionsInPixels = glm::ivec2(glyphSurface->w, glyphSurface->h);
 				newGlyph.texture.dimensionsInFrames = glm::ivec2(1, 1);
-				newGlyph.texture.frameSize = glm::ivec2(glyphSurfaceARGB->w, glyphSurfaceARGB->h);
+				newGlyph.texture.frameSize = glm::ivec2(glyphSurface->w, glyphSurface->h);
 				newGlyph.texture.frameSizeBordered = glm::ivec2(0, 0);
 				newGlyph.texture.numberOfFrames = 1;
 
 				// Clear up
 				glBindTexture(GL_TEXTURE_2D, 0);
-				SDL_FreeSurface(glyphSurfaceARGB);
+				SDL_FreeSurface(glyphSurface);
 
 				// Add the newly created glyph to the glyph dictionary
 				glyphs[currentChar] = newGlyph;
