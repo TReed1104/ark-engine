@@ -9,7 +9,6 @@
 // Graphics dependencies
 #include <GL/glew.h>
 #include <SDL.h>
-#include <SDL_ttf.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -25,8 +24,6 @@
 #include "GameController.h"
 #include "Texture.h"
 #include "Model.h"
-#include "RenderableText.h"
-#include "Font.h"
 #include "GameObject.h"
 #include "Camera.h"
 #include "Tileset.h"
@@ -62,8 +59,6 @@ public:
 	std::vector<Shader*> shaderRegister;
 	std::vector<Model> modelRegister;
 	std::vector<Texture> textureRegister;
-	std::vector<Font*> fontRegister;
-	std::vector<RenderableText*> renderableTextRegister;
 	std::vector<Tileset> tilesetRegister;
 	std::vector<GameObject*> itemRegister;
 	std::vector<Entity*> entityRegister;
@@ -104,8 +99,6 @@ public:
 	const int GetIndexOfShader(const std::string& shaderName);
 	const int GetIndexOfModel(const std::string& modelName);
 	const int GetIndexOfTexture(const std::string& textureName);
-	const int GetIndexOfFont(const std::string& fontName);
-	const int GetIndexOfRenderableText(const std::string& renderableTextName);
 	const int GetIndexOfTileset(const std::string& tilesetName);
 	const int GetIndexOfEntity(const std::string& entityName);
 	const int GetIndexOfLevel(const std::string& levelName);
@@ -126,7 +119,6 @@ private:
 	void LoadEnginePointers(void);
 	// OpenGL and SDL related functions
 	void InitialiseSDL(void);
-	void InitialiseTTF(void);
 	void CreateSDLWindow(void);
 	void CreateSDLContext(void);
 	void CheckForInputDevices(void);
@@ -138,8 +130,6 @@ private:
 	// Content loading related functions
 	void LoadTextures(void);
 	void LoadModels(void);
-	void LoadFonts(void);
-	void LoadRenderableText(void);
 	void LoadTilesets(void);
 	void LoadLevels(void);
 	void LoadItems(void);

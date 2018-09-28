@@ -81,8 +81,6 @@ void Engine::LoadEnginePointers(void) {
 	std::cout << ">> Setting static pointers - Begun" << std::endl;
 	Texture::Engine_Pointer = this;
 	Model::Engine_Pointer = this;
-	Font::Engine_Pointer = this;
-	RenderableText::Engine_Pointer = this;
 	Keyboard::Engine_Pointer = this;
 	GameController::Engine_Pointer = this;
 	Camera::Engine_Pointer = this;
@@ -101,13 +99,6 @@ void Engine::InitialiseSDL(void) {
 		exit(1);
 	}
 	std::cout << ">> SDL initialised Successfully!" << std::endl;
-}
-void Engine::InitialiseTTF(void) {
-	if (TTF_Init() != 0) {
-		std::cout << ">> TTF_Init Error: " << TTF_GetError() << std::endl;
-		exit(1);
-	}
-	std::cout << ">> TTF initialised Successfully!" << std::endl;
 }
 void Engine::CreateSDLWindow(void) {
 	// Create window
@@ -215,7 +206,6 @@ void Engine::LoadGraphicsEnvironment(void) {
 	std::cout << ">> Environment Setup - Begun" << std::endl;
 	// SDL setup
 	InitialiseSDL();
-	InitialiseTTF();
 	CreateSDLWindow();
 	CreateSDLContext();
 	CheckForInputDevices();		// Finds all the input devices attached to the machine
@@ -269,18 +259,6 @@ void Engine::CleanUp(void) {
 		delete deviceGameControllerRegister[i];
 	}
 
-	// Delete the loaded Renderable Texts
-	const size_t renderableTextRegisterSize = renderableTextRegister.size();
-	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
-		delete renderableTextRegister[i];
-	}
-
-	// Delete the loaded Fonts
-	const size_t fontRegisterSize = fontRegister.size();
-	for (size_t i = 0; i < fontRegisterSize; i++) {
-		delete fontRegister[i];
-	}
-
 	// Delete the loaded Shaders.
 	const size_t shaderRegisterSize = shaderRegister.size();
 	for (size_t i = 0; i < shaderRegisterSize; i++) {
@@ -301,12 +279,10 @@ void Engine::Close(bool isClean) {
 	// Clear up and close the engine.
 	if (isClean) {
 		CleanUp();
-		TTF_Quit();
 		SDL_Quit();
 	}
 	else {
 		CleanUp();
-		TTF_Quit();
 		SDL_Quit();
 		exit(1);
 	}
@@ -348,21 +324,6 @@ void Engine::LoadModels(void) {
 	}
 
 	std::cout << ">> Loading Models - Complete" << std::endl;
-}
-void Engine::LoadFonts(void) {
-	std::cout << ">> Loading Fonts - Begun" << std::endl;
-	std::vector<std::string> listOfFonts = FileSystemUtilities::GetFileList(contentDirectory + "fonts");
-	const size_t listOfFontSize = listOfFonts.size();
-	for (size_t i = 0; i < listOfFontSize; i++) {
-		fontRegister.push_back(new Font(listOfFonts[i]));
-	}
-	std::cout << ">> Loading Fonts - Complete" << std::endl;
-}
-void Engine::LoadRenderableText(void) {
-	std::cout << ">> Loading Renderable Text - Begun" << std::endl;
-	const int indexOfFont = GetIndexOfFont("digital-7");
-	renderableTextRegister.push_back(new RenderableText("Test", "This is a test.", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f)));
-	std::cout << ">> Loading Renderable Text - Complete" << std::endl;
 }
 void Engine::LoadTilesets(void) {
 	// Load the Tilesets
@@ -427,8 +388,6 @@ void Engine::Load(void) {
 	// Load Game Content
 	LoadModels();
 	LoadTextures();
-	LoadFonts();
-	LoadRenderableText();
 	LoadTilesets();
 	LoadLevels();
 	LoadItems();
@@ -547,7 +506,7 @@ void Engine::Render(void) {
 	if (player != nullptr) {
 		player->Draw();
 	}
-	renderableTextRegister[0]->Draw();
+	//renderableTextRegister[0]->Draw();
 	// Post-Render
 	SDL_GL_SwapWindow(sdlWindow);	// Gives the frame buffer to the display (swapBuffers).
 }
@@ -628,26 +587,6 @@ const int Engine::GetIndexOfTexture(const std::string& textureName) {
 		}
 	}
 	return indexOfDesiredTexture;
-}
-const int Engine::GetIndexOfFont(const std::string& fontName) {
-	int indexOfDesiredFont = -1;
-	const size_t fontRegisterSize = fontRegister.size();
-	for (size_t i = 0; i < fontRegisterSize; i++) {
-		if (fontRegister[i]->name.find(fontName) != std::string::npos) {
-			indexOfDesiredFont = (int)i;
-		}
-	}
-	return indexOfDesiredFont;
-}
-const int Engine::GetIndexOfRenderableText(const std::string& renderableTextName) {
-	int indexOfDesiredRenderableText = -1;
-	const size_t renderableTextRegisterSize = renderableTextRegister.size();
-	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
-		if (renderableTextRegister[i]->name.find(renderableTextName) != std::string::npos) {
-			indexOfDesiredRenderableText = (int)i;
-		}
-	}
-	return indexOfDesiredRenderableText;
 }
 const int Engine::GetIndexOfTileset(const std::string& tilesetName) {
 	int indexOfDesiredTileset = -1;
