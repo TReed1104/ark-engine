@@ -6,10 +6,6 @@ glm/0.9.8.5@bincrafters/stable
 assimp/3.3.1@lasote/vcpkg
 lua/5.3.3@lasote/vcpkg
 
-[options]
-sdl2:shared=True
-sdl2_image:shared=False
-
 [generators]
 cmake
 
