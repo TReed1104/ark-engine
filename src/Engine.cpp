@@ -172,8 +172,16 @@ void Engine::InitialiseGlew(void) {
 		this->Close();
 	}
 	else {
-		std::cout << ">> GLEW Initialisation Successfully!" << std::endl;
+		std::cout << ">> GLEW Initialisation Successful!" << std::endl;
 	}
+}
+void Engine::InitialiseFreeType(void) {
+	// Initialise the FreeType library
+	if (FT_Init_FreeType(&freeTypeLibrary)) {
+		std::cout << ">> FreeType failed to initialise, closing program." << std::endl;
+		this->Close();
+	}
+	std::cout << ">> FreeType Initialisation Successful!" << std::endl;
 }
 void Engine::LoadShaders(void) {
 	// Load the Shaders
@@ -212,6 +220,7 @@ void Engine::LoadGraphicsEnvironment(void) {
 
 	// OpenGL setup
 	InitialiseGlew();
+	InitialiseFreeType();
 	LoadShaders();
 	glViewport(0, 0, (int)windowDimensions.x, (int)windowDimensions.y);
 	SDL_GL_SwapWindow(sdlWindow);
@@ -288,6 +297,25 @@ void Engine::Close(bool isClean) {
 	}
 }
 // Content loading related functions
+void Engine::LoadFonts(void) {
+	std::cout << ">> Loading Fonts - Begun" << std::endl;
+
+	std::vector<std::string> listOfFonts = FileSystemUtilities::GetFileList(contentDirectory + "fonts");
+	const size_t fontFileListSize = listOfFonts.size();
+	for (size_t i = 0; i < fontFileListSize; i++) {
+		FT_Face font;
+		if (FT_New_Face(freeTypeLibrary, listOfFonts[i].c_str(), 0, &font)) {
+			std::cout << "Failed to load Font: " << listOfFonts[i] << " closing program" << std::endl;
+			this->Close();
+		}
+		else {
+			std::cout << "Font successfully loaded: " << listOfFonts[i] << std::endl;
+		}
+			
+	}
+
+	std::cout << ">> Loading Fonts - Complete" << std::endl;
+}
 void Engine::LoadTextures(void) {
 	std::cout << ">> Loading Textures - Begun" << std::endl;
 	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
@@ -386,6 +414,7 @@ void Engine::Load(void) {
 	LoadGraphicsEnvironment();
 
 	// Load Game Content
+	LoadFonts();
 	LoadModels();
 	LoadTextures();
 	LoadTilesets();

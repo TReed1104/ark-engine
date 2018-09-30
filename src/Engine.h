@@ -17,6 +17,10 @@
 #include <assimp/scene.h>
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
+// Text Rendering
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 // Engine Source
 #include "Shader.h"
 #include "LuaScript.h"
@@ -63,6 +67,7 @@ public:
 	std::vector<GameObject*> itemRegister;
 	std::vector<Entity*> entityRegister;
 	std::vector<Level*> levelRegister;
+	std::vector<FT_Face> fontRegister;
 	Player* player;
 
 	// Indexers
@@ -109,6 +114,9 @@ private:
 	SDL_GLContext glContext;
 	bool isRunning;
 
+	// Text Rendering
+	FT_Library freeTypeLibrary;
+
 	// DeltaTime math
 	float oldFrameTime;
 	float currentFrameTime;
@@ -123,11 +131,13 @@ private:
 	void CreateSDLContext(void);
 	void CheckForInputDevices(void);
 	void InitialiseGlew(void);
+	void InitialiseFreeType(void);
 	void LoadShaders(void);
 	void LoadGraphicsEnvironment(void);
 	void CleanUp(void);
 	void Close(bool isClean = false);
 	// Content loading related functions
+	void LoadFonts(void);
 	void LoadTextures(void);
 	void LoadModels(void);
 	void LoadTilesets(void);
