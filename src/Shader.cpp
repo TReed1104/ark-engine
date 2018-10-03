@@ -14,7 +14,7 @@ bool Shader::ReadFile(std::string& rawString, const std::string& strShaderFile) 
 	rawString = "";
 	std::ifstream fileReader(strShaderFile);
 	if (!fileReader.is_open()) {
-		std::cout << "Shader file not found - " << strShaderFile << std::endl;
+		std::cout << ">>>> ERROR!!!! - Shader File not found - " << strShaderFile << std::endl;
 		return false;
 	}
 	std::string line = "";
@@ -23,11 +23,10 @@ bool Shader::ReadFile(std::string& rawString, const std::string& strShaderFile) 
 	}
 	fileReader.close();
 
-	std::cout << "Shader file " << strShaderFile << " was loaded into memory" << std::endl;
+	std::cout << ">>>> Shader File Loaded! - " << strShaderFile << std::endl;
 	return true;
 }
 bool Shader::ImportShaderFiles() {
-	std::cout << "" << std::endl;
 	if (ReadFile(rawVertexString, vertexFilePath)) {
 		if (ReadFile(rawFragmentString, fragmentFilePath)) {
 			// As both the shader files were parsed correctly into memory, return true.
@@ -66,26 +65,25 @@ bool Shader::CreateShader(GLuint& shaderID, const GLenum& eShaderType, const std
 			strShaderType = "fragment";
 			break;
 		}
-		fprintf(stderr, "Compile failure in %s shader:\n%s\n", strShaderType, strInfoLog);
+		fprintf(stderr, ">>>> ERROR!!!! - Compile Failure in %s shader:\n%s\n", strShaderType, strInfoLog);
 		delete[] strInfoLog;
 		return false;
 	}
 	return true;
 }
 bool Shader::CompileShader() {
-	GLuint vertexShaderID;
-	GLuint fragmentShaderID;
+	GLuint vertexID;
+	GLuint fragmentD;
 
-	// Create the Vertex Shader
-	if (CreateShader(vertexShaderID, GL_VERTEX_SHADER, rawVertexString)) {
-		std::cout << "Shader - " << name << " - has had its vertex shader was compiled" << std::endl;
-		// Create the Fragment Shader
-		if (CreateShader(fragmentShaderID, GL_FRAGMENT_SHADER, rawFragmentString)) {
-			std::cout << "Shader - " << name << " - has had its fragment shader was compiled" << std::endl;
-			// Both Shaders were created, attach them to the program.
+	// Compile and create our shader
+	if (CreateShader(vertexID, GL_VERTEX_SHADER, rawVertexString)) {
+		//std::cout << ">>>> Vertex Compiled - " << name << std::endl;
+		if (CreateShader(fragmentD, GL_FRAGMENT_SHADER, rawFragmentString)) {
+			//std::cout << ">>>> Fragment Compiled - " << name << std::endl;
+
 			this->program = glCreateProgram();
-			glAttachShader(this->program, vertexShaderID);
-			glAttachShader(this->program, fragmentShaderID);
+			glAttachShader(this->program, vertexID);
+			glAttachShader(this->program, fragmentD);
 			glLinkProgram(this->program);
 
 			GLint status;
@@ -97,24 +95,24 @@ bool Shader::CompileShader() {
 				glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLength);
 				GLchar *strInfoLog = new GLchar[infoLogLength + 1];
 				glGetProgramInfoLog(program, infoLogLength, NULL, strInfoLog);
-				fprintf(stderr, "Linker failure: %s\n", strInfoLog);
+				fprintf(stderr, ">>>> ERROR!!!! - Linker failure: %s\n", strInfoLog);
 				delete[] strInfoLog;
-				glDeleteShader(vertexShaderID);
-				glDeleteShader(fragmentShaderID);
+				glDeleteShader(vertexID);
+				glDeleteShader(fragmentD);
 				return false;
 			}
-			glDeleteShader(vertexShaderID);
-			glDeleteShader(fragmentShaderID);
-			std::cout << "GLprogram " << name << " - has been compiled successfully" << std::endl;
+			glDeleteShader(vertexID);
+			glDeleteShader(fragmentD);
+			std::cout << ">>>> Shader Compiled! - " << name << std::endl;
 			return true;
 		}
 		else {
-			std::cout << "Failed to create Fragment Shader" << std::endl;
+			std::cout << ">>>> ERROR!!!! - Fragment Shader Failure - " << name << std::endl;
 			return false;
 		}
 	}
 	else {
-		std::cout << "Failed to create Vertex Shader" << std::endl;
+		std::cout << ">>>> ERROR!!!! - Fragment Vertex Failure - " << name << std::endl;
 		return false;
 	}
 }

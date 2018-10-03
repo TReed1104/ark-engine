@@ -30,15 +30,16 @@ bool Texture::ImportTexture() {
 	return false;
 }
 bool Texture::ImportTextureArray() {
-	SDL_Surface* image = IMG_Load(name.c_str());	// Try and load the texture.
+	SDL_Surface* image = IMG_Load(name.c_str());	// Produces an error, need to look into it ICCP - sRGB profile?
+
 	if (image == NULL) {
 		// If the texture was not loaded correctly, quit the program and show a error message on the console.
-		std::cout << ">> The loading of Spritesheet: " << name << " failed." << std::endl;
+		std::cout << ">>>> ERROR!!!! - Failed to load: " << name << std::endl;
 		isLoaded = false;
 		return false;
 	}
 	else {
-		std::cout << ">> The loading of Spritesheet: " << name << " was successful." << std::endl;
+		std::cout << ">>>> Texture Loaded! - " << name << std::endl;
 	}
 	// Create the texture
 	dimensionsInPixels = glm::ivec2(image->w, image->h);

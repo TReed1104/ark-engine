@@ -41,7 +41,7 @@ Model::Model(const std::string& modelPath, const bool& load) {
 			currentMesh.BindBuffers();
 			meshes.push_back(currentMesh);
 		}
-		std::cout << ">> Model loaded: " << modelPath << std::endl;	// Outputs that the model has been loaded.
+		std::cout << ">>>> Model loaded! - " << name << std::endl;	// Outputs that the model has been loaded.
 		importer.FreeScene();						// Cleans up the loader.
 	}
 }

@@ -74,13 +74,14 @@ public:
 	int indexOfPlayerController;
 	int indexOfDefaultShader;
 	int indexCurrentLevel;
-
-	std::string nameOfTileModel;
-	std::string nameOfSpriteModel;
-	std::string nameOfDefaultTexture;
 	int indexOfTileModel;
 	int indexOfSpriteModel;
 	int indexOfDefaultTexture;
+
+	// Default Content names
+	std::string nameOfDefaultTileModel;
+	std::string nameOfDefaultSpriteModel;
+	std::string nameOfDefaultTexture;
 
 	// Keybinding stores
 	Keyboard::Keys keybindMovementUp;
@@ -99,6 +100,7 @@ public:
 
 	// The core run function of the Engine, this is the main callable function of the Engine.
 	void Run(void);
+
 	// Engine Utilities
 	glm::ivec2 ConvertToGridPosition(const glm::vec2& position);
 	const int GetIndexOfShader(const std::string& shaderName);
@@ -125,17 +127,21 @@ private:
 	void LoadEngineConfig(void);
 	void LoadKeyBindings(void);
 	void LoadEnginePointers(void);
+
 	// OpenGL and SDL related functions
-	void InitialiseSDL(void);
+	void LoadSDL(void);
 	void CreateSDLWindow(void);
 	void CreateSDLContext(void);
-	void CheckForInputDevices(void);
-	void InitialiseGlew(void);
-	void InitialiseFreeType(void);
+	void LoadInputDevices(void);
+	void LoadGLEW(void);
+	void LoadFreeType(void);
 	void LoadShaders(void);
-	void LoadGraphicsEnvironment(void);
+	void LoadExternalLibraries(void);
+	
+	// Cleanup
 	void CleanUp(void);
 	void Close(bool isClean = false);
+	
 	// Content loading related functions
 	void LoadFonts(void);
 	void LoadTextures(void);
@@ -146,11 +152,13 @@ private:
 	void LoadPlayer(void);
 	void LoadEntities(void);
 	void LoadCameras(void);
-	void Load(void);
+	void LoadEngine(void);
+
 	// Game loop related functions
 	void EventHandler(void);
 	void Update(const float& deltaTime);
 	void Render(void);
+
 	// Window Control functions
 	void WindowResize(const glm::vec2& newScaler);
 	void WindowRename(const std::string& newName);

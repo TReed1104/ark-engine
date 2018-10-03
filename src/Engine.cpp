@@ -1,5 +1,6 @@
 #include "Engine.h"
 
+// Constructors
 Engine::Engine(char* gameName) {
 	windowTitle = gameName;
 	defaultWindowTitle = gameName;
@@ -11,8 +12,8 @@ Engine::Engine(char* gameName) {
 	indexOfDefaultShader = 0;
 	indexCurrentLevel = -1;
 
-	nameOfTileModel = "";
-	nameOfSpriteModel = "";
+	nameOfDefaultTileModel = "";
+	nameOfDefaultSpriteModel = "";
 	nameOfDefaultTexture = "";
 	indexOfTileModel = -1;
 	indexOfDefaultTexture = -1;
@@ -27,209 +28,7 @@ Engine::~Engine(void) {
 
 }
 
-// Engine config related functions
-void Engine::LoadEngineConfig(void) {
-	// Loads the main config file for the engine
-	LuaScript configScript = LuaScript(contentDirectory + "config/engine_config.lua");
-	if (configScript.isScriptLoaded) {
-		// Core setup
-		windowTitle = configScript.Get<std::string>("config.window.title");
-		defaultWindowTitle = configScript.Get<std::string>("config.window.title");
-		tileSize = glm::vec2(configScript.Get<int>("config.window.tile_size.x"), configScript.Get<int>("config.window.tile_size.y"));
-		windowGridSize = glm::vec2(configScript.Get<int>("config.window.grid_size.x"), configScript.Get<int>("config.window.grid_size.y"));
-		windowScaler = glm::vec2(configScript.Get<int>("config.window.scale.x"), configScript.Get<int>("config.window.scale.y"));
-		windowDimensions = (tileSize * windowGridSize) * windowScaler;
-
-		// Texture Source Frame setup
-		textureBorderSize = glm::ivec2(configScript.Get<int>("config.spritesheet_source_frames.texture_border_size.width"), configScript.Get<int>("config.spritesheet_source_frames.texture_border_size.height"));
-		tileTextureFrameSize = glm::ivec2(configScript.Get<int>("config.spritesheet_source_frames.tile_frame_dimensions.width"), configScript.Get<int>("config.spritesheet_source_frames.tile_frame_dimensions.height"));
-		entityTextureFrameSize = glm::ivec2(configScript.Get<int>("config.spritesheet_source_frames.entity_frame_dimensions.width"), configScript.Get<int>("config.spritesheet_source_frames.entity_frame_dimensions.height"));
-
-		// Default content setup
-		nameOfTileModel = configScript.Get<std::string>("config.default_content.tile");
-		nameOfSpriteModel = configScript.Get<std::string>("config.default_content.sprite");
-		nameOfDefaultTexture = configScript.Get<std::string>("config.default_content.texture");
-
-		// Controller setup
-		maxNumberOfControllers = configScript.Get<int>("config.game_controller.max_number_of_controllers");
-		indexOfPlayerController = configScript.Get<int>("config.game_controller.index_of_player_controller");
-		thumbStickDeadZone = configScript.Get<int>("config.game_controller.thumb_stick_dead_zone");
-		triggerDeadZone = configScript.Get<int>("config.game_controller.trigger_dead_zone");
-		pressedStateFlag = configScript.Get<int>("config.game_controller.press_state_flag");
-	}
-	else {
-		// Config failed to load.
-		this->Close();
-	}
-}
-void Engine::LoadKeyBindings(void) {
-	// Loads the Keybinding config file
-	LuaScript keybindScript = LuaScript(contentDirectory + "config/key_bindings.lua");
-	if (keybindScript.isScriptLoaded) {
-		keybindMovementUp = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_up");
-		keybindMovementDown = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_down");
-		keybindMovementLeft = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_left");
-		keybindMovementRight = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_right");
-	}
-	else {
-		// Config failed to load.
-		this->Close();
-	}
-}
-void Engine::LoadEnginePointers(void) {
-	// Sets the Engine_Pointer static of each of the Engines classes.
-	std::cout << ">> Setting static pointers - Begun" << std::endl;
-	Texture::Engine_Pointer = this;
-	Model::Engine_Pointer = this;
-	Keyboard::Engine_Pointer = this;
-	GameController::Engine_Pointer = this;
-	Camera::Engine_Pointer = this;
-	BoundingBox::Engine_Pointer = this;
-	Animation::Engine_Pointer = this;
-	Animation::Frame::Engine_Pointer = this;
-	GameObject::Engine_Pointer = this;
-	Tileset::Engine_Pointer = this;
-	Level::Engine_Pointer = this;
-	std::cout << ">> Setting static pointers - Complete" << std::endl;
-}
-// OpenGL and SDL related functions
-void Engine::InitialiseSDL(void) {
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-		std::cout << ">> SDL_Init Error: " << SDL_GetError() << std::endl;
-		exit(1);
-	}
-	std::cout << ">> SDL initialised Successfully!" << std::endl;
-}
-void Engine::CreateSDLWindow(void) {
-	// Create window
-	sdlWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)windowDimensions.x, (int)windowDimensions.y, SDL_WINDOW_OPENGL);
-
-	// Error handling for the SDL Window.
-	if (sdlWindow == nullptr) {
-		std::cout << ">> SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
-		this->Close();
-	}
-	std::cout << ">> SDL Window Created Successfully!" << std::endl;
-}
-void Engine::CreateSDLContext(void) {
-
-	// Sets up the OpenGL context for OpenGL version 3.3 - This is for 32bit Windows.
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);		// Use the Core profile.
-	glContext = SDL_GL_CreateContext(sdlWindow);		// Try and Setup the SDL Context for OpenGL 3.3, if the platform does not support OpenGL 3.3 the context will be a null pointer.
-
-	if (glContext == nullptr) {
-		// If setup for OpenGL 3.3 and OpenGL 2.0 both failed, The program will display an error and close.
-		SDL_DestroyWindow(sdlWindow);
-		std::cout << "SDL_GL_CreateContext Error: " << SDL_GetError() << std::endl;	// Print the error.
-		this->Close();
-	}
-
-	// Print the OpenGL version the program is using (3.3 or 2.0).
-	int tempMajor;
-	int tempMinor;
-	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &tempMajor);
-	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &tempMinor);
-
-	std::cout << ">> OpenGL Context Created Successfully!" << std::endl;
-	std::cout << ">> GL Context Version: " << tempMajor << "." << tempMinor << std::endl;
-}
-void Engine::CheckForInputDevices(void) {
-	std::cout << ">> Checking for Input Devices - Begun" << std::endl;
-	// Initialise the keyboard instance
-	deviceKeyboard = new Keyboard();
-
-	// Search for any Keyboards.
-	int numberOfConnectedControllers = SDL_NumJoysticks();
-	if (numberOfConnectedControllers < 1) {
-		//deviceGameController = nullptr;
-		std::cout << ">> No Controllers were found..." << std::endl;
-	}
-	else {
-		for (int i = 0; i < numberOfConnectedControllers; i++) {
-			if (i < maxNumberOfControllers) {
-				deviceGameControllerRegister.push_back(new GameController(SDL_GameControllerOpen(i)));
-				if (deviceGameControllerRegister[i]->GetSDLHook() != NULL) {
-					std::cout << ">> Game controller found: Controller 0 has been opened for input" << std::endl;
-				}
-				else {
-					std::cout << ">> ERROR: Unable to Open game controller for use! SDL Error: " << SDL_GetError() << std::endl;
-				}
-			}
-		}
-
-	}
-	std::cout << ">> Checking for Input Devices - Complete" << std::endl;
-}
-void Engine::InitialiseGlew(void) {
-	GLenum rev;
-	glewExperimental = GL_TRUE;
-	rev = glewInit();
-	if (GLEW_OK != rev) {
-		// If GLEW fails, close the program.
-		std::cout << ">> GLEW Error: " << glewGetErrorString(rev) << std::endl;
-		this->Close();
-	}
-	else {
-		std::cout << ">> GLEW Initialisation Successful!" << std::endl;
-	}
-}
-void Engine::InitialiseFreeType(void) {
-	// Initialise the FreeType library
-	if (FT_Init_FreeType(&freeTypeLibrary)) {
-		std::cout << ">> FreeType failed to initialise, closing program." << std::endl;
-		this->Close();
-	}
-	std::cout << ">> FreeType Initialisation Successful!" << std::endl;
-}
-void Engine::LoadShaders(void) {
-	// Load the Shaders
-	std::cout << ">> Loading Shaders - Begun" << std::endl;
-	std::vector<std::string> listOfShaders = FileSystemUtilities::GetFileList(contentDirectory + "shaders/");
-	for (size_t i = 0; i < listOfShaders.size(); i++) {
-		LuaScript currentShaderConfig = LuaScript(listOfShaders[i]);
-		if (currentShaderConfig.isScriptLoaded) {
-			// Grab the variables from the config script
-			std::string vertexShaderName = contentDirectory + "shaders/source/" + currentShaderConfig.Get<std::string>("shader_config.vertex");
-			std::string fragmentShaderName = contentDirectory + "shaders/source/" + currentShaderConfig.Get<std::string>("shader_config.fragment");
-			std::string shaderName = currentShaderConfig.Get<std::string>("shader_config.name");
-
-			// Create and Load the shader
-			Shader* newShader = new Shader(shaderName, vertexShaderName, fragmentShaderName);
-			if (newShader->Load()) {
-				// Loaded successfully, storing it for use
-				shaderRegister.push_back(newShader);
-			}
-			else {
-				std::cout << ">> Shader " << shaderName << " failed to load." << std::endl;
-				this->Close();
-			}
-		}
-	}
-	std::cout << "\n>> Loading Shaders - Complete" << std::endl;
-}
-void Engine::LoadGraphicsEnvironment(void) {
-	// Setup the Engine environment (E.g. OpenGL, SDL, etc.)
-	std::cout << ">> Environment Setup - Begun" << std::endl;
-	// SDL setup
-	InitialiseSDL();
-	CreateSDLWindow();
-	CreateSDLContext();
-	CheckForInputDevices();		// Finds all the input devices attached to the machine
-
-	// OpenGL setup
-	InitialiseGlew();
-	InitialiseFreeType();
-	LoadShaders();
-	glViewport(0, 0, (int)windowDimensions.x, (int)windowDimensions.y);
-	SDL_GL_SwapWindow(sdlWindow);
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glBlendEquation(GL_FUNC_ADD);
-	std::cout << ">> Environment Setup - Complete" << std::endl;
-}
+// Clean Up functions
 void Engine::CleanUp(void) {
 	std::cout << "Cleanup - Begun" << std::endl;
 
@@ -296,47 +95,280 @@ void Engine::Close(bool isClean) {
 		exit(1);
 	}
 }
-// Content loading related functions
+
+// Engine config related functions
+void Engine::LoadEngineConfig(void) {
+	std::cout << ">> 1 - Loading Engine Configs" << std::endl;
+
+	LuaScript configScript = LuaScript(contentDirectory + "config/engine_config.lua");
+	if (configScript.isScriptLoaded) {
+		// Core setup
+		windowTitle = configScript.Get<std::string>("config.window.title");
+		defaultWindowTitle = configScript.Get<std::string>("config.window.title");
+		tileSize = glm::vec2(configScript.Get<int>("config.window.tile_size.x"), configScript.Get<int>("config.window.tile_size.y"));
+		windowGridSize = glm::vec2(configScript.Get<int>("config.window.grid_size.x"), configScript.Get<int>("config.window.grid_size.y"));
+		windowScaler = glm::vec2(configScript.Get<int>("config.window.scale.x"), configScript.Get<int>("config.window.scale.y"));
+		windowDimensions = (tileSize * windowGridSize) * windowScaler;
+
+		// Texture Source Frame setup
+		textureBorderSize = glm::ivec2(configScript.Get<int>("config.spritesheet_source_frames.texture_border_size.width"), configScript.Get<int>("config.spritesheet_source_frames.texture_border_size.height"));
+		tileTextureFrameSize = glm::ivec2(configScript.Get<int>("config.spritesheet_source_frames.tile_frame_dimensions.width"), configScript.Get<int>("config.spritesheet_source_frames.tile_frame_dimensions.height"));
+		entityTextureFrameSize = glm::ivec2(configScript.Get<int>("config.spritesheet_source_frames.entity_frame_dimensions.width"), configScript.Get<int>("config.spritesheet_source_frames.entity_frame_dimensions.height"));
+
+		// Default content setup
+		nameOfDefaultTileModel = configScript.Get<std::string>("config.default_content.tile");
+		nameOfDefaultSpriteModel = configScript.Get<std::string>("config.default_content.sprite");
+		nameOfDefaultTexture = configScript.Get<std::string>("config.default_content.texture");
+
+		// Controller setup
+		maxNumberOfControllers = configScript.Get<int>("config.game_controller.max_number_of_controllers");
+		indexOfPlayerController = configScript.Get<int>("config.game_controller.index_of_player_controller");
+		thumbStickDeadZone = configScript.Get<int>("config.game_controller.thumb_stick_dead_zone");
+		triggerDeadZone = configScript.Get<int>("config.game_controller.trigger_dead_zone");
+		pressedStateFlag = configScript.Get<int>("config.game_controller.press_state_flag");
+	}
+	else {
+		// Config failed to load.
+		std::cout << ">> 1 - FAILED" << std::endl;
+		this->Close();
+	}
+
+	std::cout << ">> 1 - COMPLETE" << std::endl;
+}
+void Engine::LoadKeyBindings(void) {
+	std::cout << ">> 2 - Loading Keybinds" << std::endl;
+
+	LuaScript keybindScript = LuaScript(contentDirectory + "config/key_bindings.lua");
+	if (keybindScript.isScriptLoaded) {
+		keybindMovementUp = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_up");
+		keybindMovementDown = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_down");
+		keybindMovementLeft = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_left");
+		keybindMovementRight = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_right");
+	}
+	else {
+		// Config failed to load.
+		std::cout << ">> 2 - FAILED" << std::endl;
+		this->Close();
+	}
+
+	std::cout << ">> 2 - COMPLETE" << std::endl;
+}
+void Engine::LoadEnginePointers(void) {
+	std::cout << ">> 3 - Loading Engine Pointer" << std::endl;
+
+	Texture::Engine_Pointer = this;
+	Model::Engine_Pointer = this;
+	Keyboard::Engine_Pointer = this;
+	GameController::Engine_Pointer = this;
+	Camera::Engine_Pointer = this;
+	BoundingBox::Engine_Pointer = this;
+	Animation::Engine_Pointer = this;
+	Animation::Frame::Engine_Pointer = this;
+	GameObject::Engine_Pointer = this;
+	Tileset::Engine_Pointer = this;
+	Level::Engine_Pointer = this;
+
+	std::cout << ">> 3 - COMPLETE" << std::endl;
+}
+
+// Loading Functions
+void Engine::CreateSDLWindow(void) {
+	std::cout << ">>>>>> 4.1.1 - Creating SDL Window" << std::endl;
+
+	// Create window
+	sdlWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)windowDimensions.x, (int)windowDimensions.y, SDL_WINDOW_OPENGL);
+
+	// Error handling for the SDL Window.
+	if (sdlWindow == nullptr) {
+		std::cout << ">> SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
+		std::cout << ">>>>>> 4.1.1 - FAILED" << std::endl;
+		this->Close();
+	}
+
+	std::cout << ">>>>>> 4.1.1 - COMPLETE" << std::endl;
+}
+void Engine::CreateSDLContext(void) {
+	std::cout << ">>>>>> 4.1.2 - Loading SDL_GL Context" << std::endl;
+
+	// Sets up the OpenGL context for OpenGL version 3.3 - This is for 32bit Windows.
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);		// Use the Core profile.
+	glContext = SDL_GL_CreateContext(sdlWindow);		// Try and Setup the SDL Context for OpenGL 3.3, if the platform does not support OpenGL 3.3 the context will be a null pointer.
+
+	if (glContext == nullptr) {
+		// If setup for OpenGL 3.3 and OpenGL 2.0 both failed, The program will display an error and close.
+		SDL_DestroyWindow(sdlWindow);
+		std::cout << ">>>>>> ERROR!!!! - SDL_GL_CreateContext Error: " << SDL_GetError() << std::endl;	// Print the error.
+		std::cout << ">>>>>> 4.1.2 - FAILED" << std::endl;
+		this->Close();
+	}
+
+	std::cout << ">>>>>> 4.1.2 - COMPLETE" << std::endl;
+}
+void Engine::LoadSDL(void) {
+	std::cout << ">>>> 4.1 - Loading Library - SDL2" << std::endl;
+
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+		std::cout << ">>>> ERROR!!!! - SDL_Init Error: " << SDL_GetError() << std::endl;
+		std::cout << ">>>> 4.1 - FAILED" << std::endl;
+		this->Close();
+	}
+	CreateSDLWindow();
+	CreateSDLContext();
+
+	std::cout << ">>>> 4.1 - COMPLETE" << std::endl;
+}
+void Engine::LoadGLEW(void) {
+	std::cout << ">>>> 4.2 - Loading Library - GLEW" << std::endl;
+
+	GLenum rev;
+	glewExperimental = GL_TRUE;
+	rev = glewInit();
+	if (GLEW_OK != rev) {
+		// If GLEW fails, close the program.
+		std::cout << ">>>> ERROR!!!! - GLEW Error: " << glewGetErrorString(rev) << std::endl;
+		std::cout << ">>>> 4.2 - FAILED" << std::endl;
+		this->Close();
+	}
+
+	std::cout << ">>>> 4.2 - COMPLETE" << std::endl;
+}
+void Engine::LoadFreeType(void) {
+	std::cout << ">>>> 4.3 - Loading Library - GLEW" << std::endl;
+
+	// Initialise the FreeType library
+	if (FT_Init_FreeType(&freeTypeLibrary)) {
+		std::cout << ">>>> ERROR!!!! - FreeType Failed to Initialise" << std::endl;
+		std::cout << ">>>> 4.3 - FAILED" << std::endl;
+		this->Close();
+	}
+
+	std::cout << ">>>> 4.3 - COMPLETE" << std::endl;
+}
+void Engine::LoadExternalLibraries(void) {
+	std::cout << ">> 4 - Loading External Libraries" << std::endl;
+
+	// Load the Libraries
+	LoadSDL();
+	LoadGLEW();
+	LoadFreeType();
+
+	// Setup Core OpenGL
+	glViewport(0, 0, (int)windowDimensions.x, (int)windowDimensions.y);
+	SDL_GL_SwapWindow(sdlWindow);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendEquation(GL_FUNC_ADD);
+	
+	std::cout << ">> 4 - COMPLETE" << std::endl;
+}
+void Engine::LoadShaders(void) {
+	std::cout << ">> 5 - Loading Shaders" << std::endl;
+
+	std::vector<std::string> listOfShaders = FileSystemUtilities::GetFileList(contentDirectory + "shaders/");
+	for (size_t i = 0; i < listOfShaders.size(); i++) {
+		LuaScript currentShaderConfig = LuaScript(listOfShaders[i]);
+		if (currentShaderConfig.isScriptLoaded) {
+			// Grab the variables from the config script
+			std::string vertexShaderName = contentDirectory + "shaders/source/" + currentShaderConfig.Get<std::string>("shader_config.vertex");
+			std::string fragmentShaderName = contentDirectory + "shaders/source/" + currentShaderConfig.Get<std::string>("shader_config.fragment");
+			std::string shaderName = currentShaderConfig.Get<std::string>("shader_config.name");
+
+			// Create and Load the shader
+			Shader* newShader = new Shader(shaderName, vertexShaderName, fragmentShaderName);
+			if (newShader->Load()) {
+				// Loaded successfully, storing it for use
+				shaderRegister.push_back(newShader);
+			}
+			else {
+				std::cout << ">>>> ERROR!!!! - Failed to load Shader " << shaderName << std::endl;
+				std::cout << ">> 5 - FAILED" << std::endl;
+				this->Close();
+			}
+		}
+	}
+	std::cout << ">> 5 - COMPLETE" << std::endl;
+}
+void Engine::LoadInputDevices(void) {
+	std::cout << ">> 6 - Loading Input Devices" << std::endl;
+
+	// Initialise the keyboard instance
+	std::cout << ">>>> 6.1 - Keyboard Initialised..." << std::endl;
+	deviceKeyboard = new Keyboard();
+
+
+	// Search for any Keyboards.
+	int numberOfConnectedControllers = SDL_NumJoysticks();
+	if (numberOfConnectedControllers < 1) {
+		//deviceGameController = nullptr;
+		std::cout << ">>>> 6.2 - No Controllers were found..." << std::endl;
+	}
+	else {
+		for (int i = 0; i < numberOfConnectedControllers; i++) {
+			if (i < maxNumberOfControllers) {
+				deviceGameControllerRegister.push_back(new GameController(SDL_GameControllerOpen(i)));
+				if (deviceGameControllerRegister[i]->GetSDLHook() != NULL) {
+					std::cout << ">>>> 6.2 - Game controller found: Controller has been opened for input" << std::endl;
+				}
+				else {
+					std::cout << ">>>> ERROR!!!! - Unable to Open game controller for use! SDL Error: " << SDL_GetError() << std::endl;
+				}
+			}
+		}
+
+	}
+
+	std::cout << ">> 6 - COMPLETE" << std::endl;
+}
 void Engine::LoadFonts(void) {
-	std::cout << ">> Loading Fonts - Begun" << std::endl;
+	std::cout << ">> 7 - Loading Fonts" << std::endl;
 
 	std::vector<std::string> listOfFonts = FileSystemUtilities::GetFileList(contentDirectory + "fonts");
 	const size_t fontFileListSize = listOfFonts.size();
 	for (size_t i = 0; i < fontFileListSize; i++) {
 		FT_Face font;
 		if (FT_New_Face(freeTypeLibrary, listOfFonts[i].c_str(), 0, &font)) {
-			std::cout << "Failed to load Font: " << listOfFonts[i] << " closing program" << std::endl;
+			std::cout << ">>>> ERROR!!!! - Failed to load Font: " << listOfFonts[i] << std::endl;
+			std::cout << ">>>> 7 - FAILED" << std::endl;
 			this->Close();
 		}
 		else {
-			std::cout << "Font successfully loaded: " << listOfFonts[i] << std::endl;
+			fontRegister.push_back(font);
+			std::cout << ">>>> Font loaded! - " << listOfFonts[i] << std::endl;	// Will be removed after text is implemented fully
 		}
-			
 	}
 
-	std::cout << ">> Loading Fonts - Complete" << std::endl;
+	std::cout << ">> 7 - COMPLETE" << std::endl;
 }
 void Engine::LoadTextures(void) {
-	std::cout << ">> Loading Textures - Begun" << std::endl;
+	std::cout << ">> 8 - Loading Textures" << std::endl;
+
 	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
 	const size_t textureFileListSize = listOfTextures.size();
 	for (size_t i = 0; i < textureFileListSize; i++) {
 		//ImportTextureArray(listOfTextures[i]);
 		textureRegister.push_back(Texture(listOfTextures[i], true, true));
 		if (!textureRegister.back().isLoaded) {
+			std::cout << ">>>> ERROR!!!! - Failed to load texture" << listOfTextures[i] << std::endl;
+			std::cout << ">>>> 8 - FAILED" << std::endl;
 			this->Close();
 		}
 	}
 
 	// Find the default texture for when textures are failed to be found.
 	if ((indexOfDefaultTexture = GetIndexOfTexture(nameOfDefaultTexture)) == -1) {
+		std::cout << ">>>> ERROR!!!! - Unable to find default texture" << std::endl;
+		std::cout << ">>>> 8 - FAILED" << std::endl;
 		this->Close();
 	}
 
-	std::cout << ">> Loading Textures - Complete" << std::endl;
+	std::cout << ">> 8 - COMPLETE" << std::endl;
 }
 void Engine::LoadModels(void) {
-	std::cout << ">> Loading Models - Begun" << std::endl;
+	std::cout << ">> 9 - Loading Models" << std::endl;
+
 	std::vector<std::string> listOfModels = FileSystemUtilities::GetFileList(contentDirectory + "models");
 	const size_t listOfModelSize = listOfModels.size();
 	for (size_t i = 0; i < listOfModelSize; i++) {
@@ -344,74 +376,97 @@ void Engine::LoadModels(void) {
 	}
 
 	// Find the default models
-	if ((indexOfTileModel = GetIndexOfModel(nameOfTileModel)) == -1) {
+	if ((indexOfTileModel = GetIndexOfModel(nameOfDefaultTileModel)) == -1) {
+		std::cout << ">>>> ERROR!!!! - Unable to find default model" << std::endl;
+		std::cout << ">>>> 9 - FAILED" << std::endl;
 		this->Close();
 	}
-	if ((indexOfSpriteModel = GetIndexOfModel(nameOfSpriteModel)) == -1) {
+	if ((indexOfSpriteModel = GetIndexOfModel(nameOfDefaultSpriteModel)) == -1) {
 		indexOfSpriteModel = indexOfTileModel;
 	}
 
-	std::cout << ">> Loading Models - Complete" << std::endl;
+	std::cout << ">> 9 - COMPLETE" << std::endl;
 }
 void Engine::LoadTilesets(void) {
-	// Load the Tilesets
-	std::cout << ">> Loading Tilesets - Begun" << std::endl;
+	std::cout << ">> 10 - Loading Tilesets" << std::endl;
+
 	std::vector<std::string> listOfTilesets = FileSystemUtilities::GetFileList(contentDirectory + "tilesets");
 	const size_t listOfTilesetsSize = listOfTilesets.size();
 	for (size_t i = 0; i < listOfTilesetsSize; i++) {
 		tilesetRegister.push_back(Tileset(listOfTilesets[i]));
 	}
-	std::cout << ">> Loading Tilesets - Complete" << std::endl;
+
+	std::cout << ">> 10 - COMPLETE" << std::endl;
 }
 void Engine::LoadLevels(void) {
-	// Load each of the Level scripts.
-	std::cout << ">> Loading Levels - Begun" << std::endl;
+	std::cout << ">> 11 - Loading Levels" << std::endl;
+
 	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList(contentDirectory + "levels");
 	const size_t listOfLevelFilesSize = listOfLevelFiles.size();
 	for (size_t i = 0; i < listOfLevelFilesSize; i++) {
 		levelRegister.push_back(new Level(listOfLevelFiles[i]));
 	}
 	indexCurrentLevel = 0;
-	std::cout << ">> Loading Levels - Complete" << std::endl;
+	
+	std::cout << ">> 11 - COMPLETE" << std::endl;
 }
 void Engine::LoadItems(void) {
-	std::cout << ">> Loading Items - Begun" << std::endl;
-	std::vector<std::string> listOfItemFiles = FileSystemUtilities::GetFileList(contentDirectory + "scripts/items");
+	std::cout << ">> 12 - Loading Items" << std::endl;
+	std::cout << ">>>> NOT IMPLEMENTED" << std::endl;
+
+	/*std::vector<std::string> listOfItemFiles = FileSystemUtilities::GetFileList(contentDirectory + "scripts/items");
 	const size_t listOfItemFilesSize = listOfItemFiles.size();
 	for (size_t i = 0; i < listOfItemFilesSize; i++) {
 
-	}
-	std::cout << ">> Loading Items - Complete" << std::endl;
+	}*/
+
+	std::cout << ">> 12 - COMPLETE" << std::endl;
 }
 void Engine::LoadPlayer(void) {
-	// Load the Player
-	std::cout << ">> Loading Player - Begun" << std::endl;
+	std::cout << ">> 13 - Loading Players" << std::endl;
+
 	player = new Player(contentDirectory + "scripts/entities/entity_player.lua");
-	std::cout << ">> Loading Player - Complete" << std::endl;
+
+	std::cout << ">> 13 - COMPLETE" << std::endl;
 }
 void Engine::LoadEntities(void) {
-	// Load the Entities
-	std::cout << ">> Loading Entities - Begun" << std::endl;
-	std::vector<std::string> listOfEntityFiles = FileSystemUtilities::GetFileList(contentDirectory + "scripts/entities");
+	std::cout << ">> 14 - Loading Entities" << std::endl;
+	std::cout << ">>>> NOT IMPLEMENTED" << std::endl;
+	
+	/*std::vector<std::string> listOfEntityFiles = FileSystemUtilities::GetFileList(contentDirectory + "scripts/entities");
 	const size_t listOfEntityFilesSize = listOfEntityFiles.size();
 	for (size_t i = 0; i < listOfEntityFilesSize; i++) {
 
-	}
-	std::cout << ">> Loading Entities - Complete" << std::endl;
+	}*/
+
+	std::cout << ">> 14 - COMPLETE" << std::endl;
 }
 void Engine::LoadCameras(void) {
-	std::cout << ">> Loading Camera - Begun" << std::endl;
+	std::cout << ">> 15 - Loading Cameras" << std::endl;
+
 	mainCamera = new Camera(glm::vec3(0.0f, 0.0f, 1.0f));
 	mainCameraFocus = player;
-	std::cout << ">> Loading Camera - Complete" << std::endl;
+
+	std::cout << ">> 15 - COMPLETE" << std::endl;
 }
-void Engine::Load(void) {
-	std::cout << "Engine Loading - Begun" << std::endl;
-	// Load Engine Core
+
+// Master Load Function, calls all the other individual loads
+void Engine::LoadEngine(void) {
+	std::cout << "#### ARKENGINE LOAD BEGINNING" << std::endl;
+
+	// Load Engine Core configs
 	LoadEngineConfig();
 	LoadKeyBindings();
 	LoadEnginePointers();
-	LoadGraphicsEnvironment();
+
+	// Setup the Graphics Environment, Initialising OpenGL and loading our libraries
+	LoadExternalLibraries();
+
+	// Load the shaders
+	LoadShaders();
+
+	// Load the Input devices attached to the system
+	LoadInputDevices();
 
 	// Load Game Content
 	LoadFonts();
@@ -426,8 +481,9 @@ void Engine::Load(void) {
 
 	// Load complete
 	isRunning = true;	// Allows the game loop to run
-	std::cout << "Engine Loading - Complete" << std::endl;
+	std::cout << "#### ARKENGINE LOAD COMPLETE" << std::endl;
 }
+
 // Game loop related functions
 void Engine::EventHandler(void) {
 	SDL_Event event;
@@ -549,10 +605,14 @@ void Engine::WindowRename(const std::string& newName) {
 	windowTitle = newName;
 	SDL_SetWindowTitle(sdlWindow, windowTitle.c_str());
 }
+
 // Core Engine function
 void Engine::Run(void) {
-	Load();		// Loads all the configs, the game content and initialises everything needed by the engine to run.
-	std::cout << "Game Runtime - Begun" << std::endl;
+
+	// Loads all the configs, the game content and initialises everything needed by the engine to run.
+	LoadEngine();
+
+	std::cout << "\n## Game Runtime - Begun" << std::endl;
 
 	// FPS variables
 	int fpsCounter = 0;
@@ -580,9 +640,10 @@ void Engine::Run(void) {
 
 		oldFrameTime = currentFrameTime;
 	}
-	std::cout << "Game Runtime - Finished" << std::endl;
+	std::cout << "## Game Runtime - Finished" << std::endl;
 	this->Close(true);
 }
+
 // Engine Utilities
 glm::ivec2 Engine::ConvertToGridPosition(const glm::vec2& position) {
 	return glm::vec2((int)(position.x / this->tileSize.x), (int)(position.y / this->tileSize.y));
