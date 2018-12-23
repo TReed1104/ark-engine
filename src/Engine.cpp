@@ -79,6 +79,8 @@ void Engine::CleanUp(void) {
 			SDL_GameControllerClose(deviceGameControllerRegister[i]->GetSDLHook());	// Close the controller.
 		}
 	}
+
+	FT_Done_FreeType(freeTypeLibrary);
 	SDL_GL_DeleteContext(glContext);
 	SDL_DestroyWindow(sdlWindow);
 	std::cout << "Cleanup - Complete" << std::endl;
