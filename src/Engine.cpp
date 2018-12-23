@@ -328,16 +328,16 @@ void Engine::LoadFonts(void) {
 	std::vector<std::string> listOfFonts = FileSystemUtilities::GetFileList(contentDirectory + "fonts");
 	const size_t fontFileListSize = listOfFonts.size();
 	for (size_t i = 0; i < fontFileListSize; i++) {
-		FT_Face font;
-		if (FT_New_Face(freeTypeLibrary, listOfFonts[i].c_str(), 0, &font)) {
+		Font font = Font(freeTypeLibrary, listOfFonts[i]);
+		if (font.isLoaded) {
+			fontRegister.push_back(font);
+		}
+		else {
 			std::cout << ">>>> ERROR!!!! - Failed to load Font: " << listOfFonts[i] << std::endl;
 			std::cout << ">>>> 7 - FAILED" << std::endl;
 			this->Close();
 		}
-		else {
-			fontRegister.push_back(font);
-			std::cout << ">>>> Font loaded! - " << listOfFonts[i] << std::endl;	// Will be removed after text is implemented fully
-		}
+		
 	}
 
 	std::cout << ">> 7 - COMPLETE" << std::endl;

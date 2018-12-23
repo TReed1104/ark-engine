@@ -17,9 +17,6 @@
 #include <assimp/scene.h>
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
-// Text Rendering
-#include <ft2build.h>
-#include FT_FREETYPE_H
 
 // Engine Source
 #include "Shader.h"
@@ -28,6 +25,7 @@
 #include "GameController.h"
 #include "Texture.h"
 #include "Model.h"
+#include "Font.h"
 #include "GameObject.h"
 #include "Camera.h"
 #include "Tileset.h"
@@ -67,7 +65,7 @@ public:
 	std::vector<GameObject*> itemRegister;
 	std::vector<Entity*> entityRegister;
 	std::vector<Level*> levelRegister;
-	std::vector<FT_Face> fontRegister;
+	std::vector<Font> fontRegister;
 	Player* player;
 
 	// Indexers
