@@ -67,6 +67,11 @@ void Engine::CleanUp(void) {
 		delete deviceGameControllerRegister[i];
 	}
 
+	const size_t fontRegisterSize = fontRegister.size();
+	for (size_t i = 0; i < fontRegisterSize; i++) {
+		delete fontRegister[i];
+	}
+
 	// Delete the loaded Shaders.
 	const size_t shaderRegisterSize = shaderRegister.size();
 	for (size_t i = 0; i < shaderRegisterSize; i++) {
@@ -160,6 +165,7 @@ void Engine::LoadEnginePointers(void) {
 
 	Texture::Engine_Pointer = this;
 	Model::Engine_Pointer = this;
+	Font::Engine_Pointer = this;
 	Keyboard::Engine_Pointer = this;
 	GameController::Engine_Pointer = this;
 	Camera::Engine_Pointer = this;
@@ -330,16 +336,12 @@ void Engine::LoadFonts(void) {
 	std::vector<std::string> listOfFonts = FileSystemUtilities::GetFileList(contentDirectory + "fonts");
 	const size_t fontFileListSize = listOfFonts.size();
 	for (size_t i = 0; i < fontFileListSize; i++) {
-		Font font = Font(freeTypeLibrary, listOfFonts[i]);
-		if (font.isLoaded) {
-			fontRegister.push_back(font);
-		}
-		else {
+		fontRegister.push_back(new Font(listOfFonts[i]));
+		if (!fontRegister.back()->isLoaded) {
 			std::cout << ">>>> ERROR!!!! - Failed to load Font: " << listOfFonts[i] << std::endl;
 			std::cout << ">>>> 7 - FAILED" << std::endl;
 			this->Close();
 		}
-		
 	}
 
 	std::cout << ">> 7 - COMPLETE" << std::endl;

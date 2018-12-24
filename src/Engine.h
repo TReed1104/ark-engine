@@ -53,6 +53,9 @@ public:
 	Keyboard* deviceKeyboard;
 	std::vector<GameController*> deviceGameControllerRegister;
 
+	// Text Rendering
+	FT_Library freeTypeLibrary;
+
 	// Cameras
 	Camera* mainCamera;
 	GameObject* mainCameraFocus;
@@ -65,7 +68,7 @@ public:
 	std::vector<GameObject*> itemRegister;
 	std::vector<Entity*> entityRegister;
 	std::vector<Level*> levelRegister;
-	std::vector<Font> fontRegister;
+	std::vector<Font*> fontRegister;
 	Player* player;
 
 	// Indexers
@@ -113,9 +116,6 @@ private:
 	SDL_Window* sdlWindow;
 	SDL_GLContext glContext;
 	bool isRunning;
-
-	// Text Rendering
-	FT_Library freeTypeLibrary;
 
 	// DeltaTime math
 	float oldFrameTime;
