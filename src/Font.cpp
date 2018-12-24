@@ -38,6 +38,7 @@ Font::~Font() {
 
 bool Font::LoadGlyphs(void) {
 	// Go through each ASCII character between 32 and 126 in the standardised ASCII Table and try and load the character
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	for (size_t i = 32; i <= 126; i++) {
 		char charToLoad = char(i);	// Convert the ASCII Decima value to its character format
 		
@@ -83,6 +84,27 @@ bool Font::LoadGlyphs(void) {
 				newGlyph.mesh.indices.push_back(4);
 				newGlyph.mesh.indices.push_back(5);
 				newGlyph.mesh.BindBuffers();
+
+				// Get the Texture of the Glyph for Rendering
+				glGenTextures(1, &newGlyph.texture.id);
+				glBindTexture(GL_TEXTURE_2D, newGlyph.texture.id);
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, fontFace->glyph->bitmap.width, fontFace->glyph->bitmap.rows, 0, GL_RED, GL_UNSIGNED_BYTE, fontFace->glyph->bitmap.buffer);
+				// Wrapping settings
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+				// Filtering settings
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+				
+
+				newGlyph.texture.dimensionsInPixels = glm::ivec2(fontFace->glyph->bitmap.width, fontFace->glyph->bitmap.rows);
+				newGlyph.texture.dimensionsInFrames = glm::ivec2(1, 1);
+				newGlyph.texture.frameSize = glm::ivec2(fontFace->glyph->bitmap.width, fontFace->glyph->bitmap.rows);
+				newGlyph.texture.frameSizeBordered = glm::ivec2(0, 0);
+				newGlyph.texture.numberOfFrames = 1;
+
+				// Clear up
+				glBindTexture(GL_TEXTURE_2D, 0);
 
 				glyphs[charToLoad] = newGlyph;
 			}
