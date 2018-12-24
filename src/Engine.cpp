@@ -356,7 +356,7 @@ void Engine::LoadFonts(void) {
 }
 void Engine::LoadRenderableText(void) {
 	std::cout << ">> Loading Renderable Text - Begun" << std::endl;
-	const int indexOfFont = GetIndexOfFont("Digital-7");
+	const int indexOfFont = GetIndexOfFont("Arial");
 	renderableTextRegister.push_back(new RenderableText("Test Text", "Test Text 1", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f)));
 	std::cout << ">> Loading Renderable Text - Complete" << std::endl;
 }
