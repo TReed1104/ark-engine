@@ -357,7 +357,7 @@ void Engine::LoadFonts(void) {
 void Engine::LoadRenderableText(void) {
 	std::cout << ">> Loading Renderable Text - Begun" << std::endl;
 	const int indexOfFont = GetIndexOfFont("Digital-7");
-	renderableTextRegister.push_back(new RenderableText("Test", "This is a test.", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f)));
+	renderableTextRegister.push_back(new RenderableText("Test", "This is a test.", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f)));
 	std::cout << ">> Loading Renderable Text - Complete" << std::endl;
 }
 void Engine::LoadTextures(void) {
@@ -546,54 +546,12 @@ void Engine::Update(const float& deltaTime) {
 		// Run the player's update function
 		player->Update(deltaTime);
 	}
+	renderableTextRegister[0]->Update(deltaTime);
 	// Check the camera target has been initialised
 	if (mainCameraFocus != nullptr) {
 		// Run the camera's update function
 		// TODO: Amend this to use a list of cameras?
 		mainCamera->Update(deltaTime, *mainCameraFocus);
-	}
-	
-	// CAMERA FOCUS CHANGE DEUBBGING
-	if (deviceKeyboard->GetKeyState(Keyboard::num1)) {
-		std::cout << ">>>> Changing camera target to Player" << std::endl;
-		mainCameraFocus = player;
-	}
-	if (deviceKeyboard->GetKeyState(Keyboard::num2)) {
-		int focusIndex = 1547;
-		std::cout << ">>>> Changing camera target to TileMap: " << focusIndex << std::endl;
-		mainCameraFocus = levelRegister[indexCurrentLevel]->tileMap[focusIndex];
-	}
-	if (deviceKeyboard->GetKeyState(Keyboard::num3)) {
-		int focusIndex = 2000;
-		std::cout << ">>>> Changing camera target to TileMap: " << focusIndex << std::endl;
-		mainCameraFocus = levelRegister[indexCurrentLevel]->tileMap[focusIndex];
-	}
-	// CAMERA MODE CHANGE
-	if (deviceKeyboard->GetKeyState(Keyboard::num5)) {
-		std::cout << ">>>> Main Camera has been changed to centered mode" << std::endl;
-		mainCamera->isCameraCenter = true;
-	}
-	if (deviceKeyboard->GetKeyState(Keyboard::num6)) {
-		std::cout << ">>>> Main Camera has been changed to panning mode" << std::endl;
-		mainCamera->isCameraCenter = false;
-	}
-	// LEVEL RELOADING DEBUGGING
-	if (deviceKeyboard->GetKeyState(Keyboard::num7)) {
-		std::cout << ">>>> Reloading the current level" << std::endl;
-		levelRegister[indexCurrentLevel]->Reload();
-	}
-	// WINDOW RESIZE DEBUGGING
-	if (deviceKeyboard->GetKeyState(Keyboard::num8)) {
-		std::cout << ">>>> Changed Window scalar to 1" << std::endl;
-		WindowResize(glm::vec2(1.0f));
-	}
-	if (deviceKeyboard->GetKeyState(Keyboard::num9)) {
-		std::cout << ">>>> Changed Window scalar to 2" << std::endl;
-		WindowResize(glm::vec2(2.0f));
-	}
-	if (deviceKeyboard->GetKeyState(Keyboard::num0)) {
-		std::cout << ">>>> Changed Window scalar to 3" << std::endl;
-		WindowResize(glm::vec2(3.0f));
 	}
 }
 void Engine::Render(void) {
@@ -610,7 +568,9 @@ void Engine::Render(void) {
 	if (player != nullptr) {
 		player->Draw();
 	}
+
 	renderableTextRegister[0]->Draw();
+
 	// Post-Render
 	SDL_GL_SwapWindow(sdlWindow);	// Gives the frame buffer to the display (swapBuffers).
 }

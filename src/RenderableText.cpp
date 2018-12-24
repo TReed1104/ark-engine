@@ -3,10 +3,11 @@
 
 Engine* RenderableText::Engine_Pointer;
 
-RenderableText::RenderableText(const std::string& name, const std::string& text, Font* font, const glm::vec3& position, const bool& useCamera) {
+RenderableText::RenderableText(const std::string& name, const std::string& text, Font* font, const glm::vec3& position, const glm::vec3& colour, const bool& useCamera) {
 	this->name = name;
 	this->text = text;
 	this->font = font;
+	this->colour = colour;
 	this->model = Model(text, false);
 	this->indexOfTextShader = Engine_Pointer->GetIndexOfShader("renderable Text");
 	this->doTranslation = false;
@@ -56,6 +57,7 @@ void RenderableText::Draw(void) {
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, glyphs[i].texture.id);
 			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "textureSampler"), 0);
+			glUniform3fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "textColour"), 1, glm::value_ptr(colour));
 		}
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
 		glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);

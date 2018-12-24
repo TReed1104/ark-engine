@@ -6,13 +6,14 @@ out vec4 outputColour;
 
 uniform bool hasTexture;
 uniform sampler2D textureSampler;
+uniform vec3 textColour;
 
 void main() {
 	if (hasTexture) {
 		// Set the colour to pass to the rasteriser.
 		//outputColour = texture2D(textureSampler, UV);
 		vec4 sampled = vec4(1.0, 1.0, 1.0, texture(textureSampler, UV).r);
-    	outputColour = vec4(vec3(1.0, 1.0, 1.0), 1.0) * sampled;
+    	outputColour = vec4(textColour, 1.0) * sampled;
 	}
 	else {
 		// Texturing has not been setup, use the colour buffer.

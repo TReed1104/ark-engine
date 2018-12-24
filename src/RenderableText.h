@@ -20,6 +20,7 @@ public:
 	std::string name;			// id of the text
 	std::string text;			// String the class will represent
 	Font* font;
+	glm::vec3 colour;
 	std::vector<Glyph> glyphs;	// The glyphs making up the text
 	Model model;
 
@@ -37,7 +38,7 @@ public:
 	bool doRotation;
 	bool doScalar;
 
-	RenderableText(const std::string& name, const std::string& text, Font* font, const glm::vec3& position = glm::vec3(0.0f), const bool& useCamera = false);
+	RenderableText(const std::string& name, const std::string& text, Font* font, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& colour = glm::vec3(1.0f), const bool& useCamera = false);
 	~RenderableText();
 
 	void Update(const float& deltaTime);
