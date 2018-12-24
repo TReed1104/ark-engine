@@ -357,7 +357,7 @@ void Engine::LoadFonts(void) {
 void Engine::LoadRenderableText(void) {
 	std::cout << ">> Loading Renderable Text - Begun" << std::endl;
 	const int indexOfFont = GetIndexOfFont("Digital-7");
-	renderableTextRegister.push_back(new RenderableText("Test", "This is a test.", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f)));
+	renderableTextRegister.push_back(new RenderableText("Test Text", "Test Text 1", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f)));
 	std::cout << ">> Loading Renderable Text - Complete" << std::endl;
 }
 void Engine::LoadTextures(void) {
@@ -366,7 +366,6 @@ void Engine::LoadTextures(void) {
 	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
 	const size_t textureFileListSize = listOfTextures.size();
 	for (size_t i = 0; i < textureFileListSize; i++) {
-		//ImportTextureArray(listOfTextures[i]);
 		textureRegister.push_back(Texture(listOfTextures[i], true, true));
 		if (!textureRegister.back().isLoaded) {
 			std::cout << ">>>> ERROR!!!! - Failed to load texture" << listOfTextures[i] << std::endl;

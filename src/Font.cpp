@@ -118,7 +118,6 @@ bool Font::LoadGlyphs(void) {
 			std::cout << i << " - " << charToLoad << ": was not found in the Font Face file supplied" << std::endl;
 		}
 	}
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 0);
 	return true;
 }
 
