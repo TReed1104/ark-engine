@@ -8,10 +8,10 @@ class Glyph {
 public:
 	// Glyph metrics
 	char character;
-	glm::ivec2 size;
-	glm::ivec2 advance;
-	glm::ivec2 horizontalBearing;
-	glm::ivec2 verticalBearing;
+	glm::vec2 size;
+	glm::vec2 advance;
+	glm::vec2 horizontalBearing;
+	glm::vec2 verticalBearing;
 
 	// Rendering
 	Model::Mesh mesh;

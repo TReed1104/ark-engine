@@ -1,4 +1,4 @@
 font = {
     file_name = "digital-7.ttf",
-    size = "32",
+    size = "18",
 }

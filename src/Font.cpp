@@ -52,11 +52,11 @@ bool Font::LoadGlyphs(void) {
 				Glyph newGlyph = Glyph(charToLoad);
 
 				// Glyph Metrics provided by the FontDriver are stored in values of 1/64 of a pixel, so we bitshift by 6 to get the actual values
-				newGlyph.size = glm::ivec2(fontFace->glyph->metrics.width >> 6, fontFace->glyph->metrics.height >> 6);
-				newGlyph.advance = glm::ivec2(fontFace->glyph->metrics.horiAdvance >> 6, fontFace->glyph->metrics.vertAdvance >> 6);
-				newGlyph.horizontalBearing = glm::ivec2(fontFace->glyph->metrics.horiBearingX >> 6, fontFace->glyph->metrics.horiBearingY >> 6);
-				newGlyph.verticalBearing = glm::ivec2(fontFace->glyph->metrics.vertBearingX >> 6, fontFace->glyph->metrics.vertBearingY >> 6);
-
+				newGlyph.size = glm::vec2(fontFace->glyph->metrics.width >> 6, fontFace->glyph->metrics.height >> 6) / Engine_Pointer->windowScaler;	// Adjust the size of the font to make up for the window scalar
+				newGlyph.advance = glm::vec2(fontFace->glyph->metrics.horiAdvance >> 6, fontFace->glyph->metrics.vertAdvance >> 6) / Engine_Pointer->windowScaler;
+				newGlyph.horizontalBearing = glm::vec2(fontFace->glyph->metrics.horiBearingX >> 6, fontFace->glyph->metrics.horiBearingY >> 6) / Engine_Pointer->windowScaler;
+				newGlyph.verticalBearing = glm::vec2(fontFace->glyph->metrics.vertBearingX >> 6, fontFace->glyph->metrics.vertBearingY >> 6) / Engine_Pointer->windowScaler;
+				
 				// Create Mesh object for the Glyph
 				newGlyph.mesh = Model::Mesh();
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
