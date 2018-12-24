@@ -26,7 +26,7 @@ public:
 	Font(const std::string& scriptPath = "NO SCRIPT");
 	~Font();
 
-	void LoadGlyphs(void);
+	bool LoadGlyphs(void);
 	Glyph GetGlyph(const char& character);
 
 private:
