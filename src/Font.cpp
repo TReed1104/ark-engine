@@ -19,9 +19,9 @@ Font::Font(const std::string& scriptPath) {
 			fontSize = script->Get<int>("font.size");
 
 			// Try and load the font face
-			if (!FT_New_Face(Engine_Pointer->freeTypeLibrary, (Engine_Pointer->contentDirectory + "fonts/source/" + path).c_str(), 0, &freeTypeFace)) {
-				name = freeTypeFace->family_name;				// The friendly name for the font
-				FT_Set_Pixel_Sizes(freeTypeFace, 0, fontSize);	// Set the size of the font face
+			if (!FT_New_Face(Engine_Pointer->freeTypeLibrary, (Engine_Pointer->contentDirectory + "fonts/source/" + path).c_str(), 0, &fontFace)) {
+				name = fontFace->family_name;				// The friendly name for the font
+				FT_Set_Pixel_Sizes(fontFace, 0, fontSize);	// Set the size of the font face
 				isLoaded = LoadGlyphs();						// Split the loaded font face into its glyphs for rendering
 			}
 			else {
@@ -42,26 +42,49 @@ bool Font::LoadGlyphs(void) {
 		char charToLoad = char(i);	// Convert the ASCII Decima value to its character format
 		
 		// If FT_Get_Char_Index returns anything other than 0, the character is present
-		if (FT_Get_Char_Index(freeTypeFace, charToLoad) != 0) {
+		if (FT_Get_Char_Index(fontFace, charToLoad) != 0) {
 			// Try and load the Character into the FontFace's glyph slot for use
-			if (!FT_Load_Char(freeTypeFace, charToLoad, FT_LOAD_RENDER)) {
+			if (!FT_Load_Char(fontFace, charToLoad, FT_LOAD_RENDER)) {
 				std::cout << ">>>> Character: " << charToLoad << " was loaded into the Glyphslot for the face" << std::endl;
 
 				// Get Glyph Metrics
-				Glyph glyph = Glyph(charToLoad);
+				Glyph newGlyph = Glyph(charToLoad);
 
 				// Glyph Metrics provided by the FontDriver are stored in values of 1/64 of a pixel, so we bitshift by 6 to get the actual values
-				glyph.size = glm::ivec2(freeTypeFace->glyph->metrics.width >> 6, freeTypeFace->glyph->metrics.height >> 6);
-				glyph.advance = glm::ivec2(freeTypeFace->glyph->metrics.horiAdvance >> 6, freeTypeFace->glyph->metrics.vertAdvance >> 6);
-				glyph.horizontalBearing = glm::ivec2(freeTypeFace->glyph->metrics.horiBearingX >> 6, freeTypeFace->glyph->metrics.horiBearingY >> 6);
-				glyph.verticalBearing = glm::ivec2(freeTypeFace->glyph->metrics.vertBearingX >> 6, freeTypeFace->glyph->metrics.vertBearingY >> 6);
+				newGlyph.size = glm::ivec2(fontFace->glyph->metrics.width >> 6, fontFace->glyph->metrics.height >> 6);
+				newGlyph.advance = glm::ivec2(fontFace->glyph->metrics.horiAdvance >> 6, fontFace->glyph->metrics.vertAdvance >> 6);
+				newGlyph.horizontalBearing = glm::ivec2(fontFace->glyph->metrics.horiBearingX >> 6, fontFace->glyph->metrics.horiBearingY >> 6);
+				newGlyph.verticalBearing = glm::ivec2(fontFace->glyph->metrics.vertBearingX >> 6, fontFace->glyph->metrics.vertBearingY >> 6);
 
 				// Create Mesh object for the Glyph
+				newGlyph.mesh = Model::Mesh();
+				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.size.x, 0.0f, 0.0f));
+				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.size.x, 0.0f + newGlyph.size.y, 0.0f));
+				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.size.x, 0.0f + newGlyph.size.y, 0.0f));
+				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f + newGlyph.size.y, 0.0f));
+				newGlyph.mesh.uvs.push_back(glm::vec2(0.0f, 0.0f));
+				newGlyph.mesh.uvs.push_back(glm::vec2(1.0f, 0.0f));
+				newGlyph.mesh.uvs.push_back(glm::vec2(1.0f, 1.0f));
+				newGlyph.mesh.uvs.push_back(glm::vec2(0.0f, 0.0f));
+				newGlyph.mesh.uvs.push_back(glm::vec2(1.0f, 1.0f));
+				newGlyph.mesh.uvs.push_back(glm::vec2(0.0f, 1.0f));
+				newGlyph.mesh.isSetupForTextures = true;
+				const size_t numberOfVertices = newGlyph.mesh.vertexPositions.size();
+				for (size_t i = 0; i < numberOfVertices; i++) {
+					newGlyph.mesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+					newGlyph.mesh.surfaceNormals.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
+				}
+				newGlyph.mesh.indices.push_back(0);
+				newGlyph.mesh.indices.push_back(1);
+				newGlyph.mesh.indices.push_back(2);
+				newGlyph.mesh.indices.push_back(3);
+				newGlyph.mesh.indices.push_back(4);
+				newGlyph.mesh.indices.push_back(5);
+				newGlyph.mesh.BindBuffers();
 
-
-				// Get the Texture of the Glyph for Rendering
-				
-				
+				glyphs[charToLoad] = newGlyph;
 			}
 			else {
 				std::cout << ">>>> Character: " << charToLoad << " was not loaded successfully" << std::endl;

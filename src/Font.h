@@ -30,7 +30,7 @@ public:
 	Glyph GetGlyph(const char& character);
 
 private:
-	FT_Face freeTypeFace;
+	FT_Face fontFace;
 	std::map<char, Glyph> glyphs;
 };
 
