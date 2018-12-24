@@ -48,7 +48,13 @@ bool Font::LoadGlyphs(void) {
 				std::cout << ">>>> Character: " << charToLoad << " was loaded into the Glyphslot for the face" << std::endl;
 
 				// Get Glyph Metrics
+				Glyph glyph = Glyph(charToLoad);
 
+				// Glyph Metrics provided by the FontDriver are stored in values of 1/64 of a pixel, so we bitshift by 6 to get the actual values
+				glyph.size = glm::ivec2(freeTypeFace->glyph->metrics.width >> 6, freeTypeFace->glyph->metrics.height >> 6);
+				glyph.advance = glm::ivec2(freeTypeFace->glyph->metrics.horiAdvance >> 6, freeTypeFace->glyph->metrics.vertAdvance >> 6);
+				glyph.horizontalBearing = glm::ivec2(freeTypeFace->glyph->metrics.horiBearingX >> 6, freeTypeFace->glyph->metrics.horiBearingY >> 6);
+				glyph.verticalBearing = glm::ivec2(freeTypeFace->glyph->metrics.vertBearingX >> 6, freeTypeFace->glyph->metrics.vertBearingY >> 6);
 
 				// Create Mesh object for the Glyph
 
