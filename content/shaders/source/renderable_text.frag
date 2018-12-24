@@ -10,7 +10,9 @@ uniform sampler2D textureSampler;
 void main() {
 	if (hasTexture) {
 		// Set the colour to pass to the rasteriser.
-		outputColour = texture2D(textureSampler, UV);
+		//outputColour = texture2D(textureSampler, UV);
+		vec4 sampled = vec4(1.0, 1.0, 1.0, texture(textureSampler, UV).r);
+    	outputColour = vec4(vec3(1.0, 1.0, 1.0), 1.0) * sampled;
 	}
 	else {
 		// Texturing has not been setup, use the colour buffer.
