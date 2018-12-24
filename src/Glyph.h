@@ -8,13 +8,10 @@ class Glyph {
 public:
 	// Glyph metrics
 	char character;
-	int minX;
-	int maxX;
-	int minY;
-	int maxY;
-	int advance;
-	int width;
-	int height;
+	glm::ivec2 size;
+	glm::ivec2 advance;
+	glm::ivec2 horizontalBearing;
+	glm::ivec2 verticalBearing;
 
 	// Rendering
 	Model::Mesh mesh;

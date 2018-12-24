@@ -3,13 +3,10 @@
 Glyph::Glyph(const char& character) {
 	this->texture = Texture(std::to_string(character), false);
 	this->character = character;
-	this->minX = -1;
-	this->maxX = -1;
-	this->minY = -1;
-	this->maxY = -1;
-	this->advance = -1;
-	this->width = -1;
-	this->height = -1;
+	this->size = glm::ivec2(0, 0);
+	this->advance = glm::ivec2(0, 0);
+	this->horizontalBearing = glm::ivec2(0, 0);
+	this->verticalBearing = glm::ivec2(0, 0);
 }
 Glyph::~Glyph() {
 
