@@ -609,27 +609,34 @@ void Engine::Run(void) {
 
 	// FPS variables
 	int fpsCounter = 0;
-	float secondCounter = 0;
+	float secondsCounter = 0;
+
+	bool firstFrame = true;		// Temporary fix for the deltaTime issue caused as the game loads, hopefully the scene management will fix it
 
 	while (isRunning) {
 		// DeltaTime math
 		currentFrameTime = (float)SDL_GetTicks();
 		float deltaTime = ((currentFrameTime - oldFrameTime) / 1000);
 
-		// Main Game loop
-		EventHandler();			// Handle any events
-		Update(deltaTime);		// Update the game
-		Render();				// Render the game
+		if (firstFrame) {
+			firstFrame = false;
+		}
+		else {
+			// Main Game loop
+			EventHandler();			// Handle any events
+			Update(deltaTime);		// Update the game
+			Render();				// Render the game
+		}
 
 		// FPS math, called after the engine has finished its render function.
-		fpsCounter++;					// Counts the number of frames as they've been rendered.
-		secondCounter += deltaTime;		// Counts up to the next second
-		if (secondCounter >= 1) {
+		fpsCounter++;						// Counts the number of frames as they've been rendered.
+		secondsCounter += deltaTime;		// Counts up to the next second
+		if (secondsCounter >= 1) {
 			// If it has been a second since the last FPS count, reset the counter and print.
 			WindowRename(defaultWindowTitle + " - FPS: " + std::to_string(fpsCounter));
 			textObjectRegister[1]->UpdateText("FPS: " + std::to_string(fpsCounter));
 			fpsCounter = 0;
-			secondCounter = 0;
+			secondsCounter = 0;
 		}
 
 		oldFrameTime = currentFrameTime;
