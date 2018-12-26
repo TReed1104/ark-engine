@@ -87,8 +87,7 @@ public:
 	std::string nameOfDefaultTexture;
 
 	// Keybinding stores
-	Keyboard::Keys keybindMovementUp;
-	Keyboard::Keys keybindMovementDown;
+	Keyboard::Keys keybindMovementJump;
 	Keyboard::Keys keybindMovementLeft;
 	Keyboard::Keys keybindMovementRight;
 

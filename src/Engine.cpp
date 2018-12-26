@@ -154,8 +154,7 @@ void Engine::LoadKeyBindings(void) {
 
 	LuaScript keybindScript = LuaScript(contentDirectory + "config/key_bindings.lua");
 	if (keybindScript.isScriptLoaded) {
-		keybindMovementUp = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_up");
-		keybindMovementDown = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_down");
+		keybindMovementJump = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_jump");
 		keybindMovementLeft = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_left");
 		keybindMovementRight = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_right");
 	}
