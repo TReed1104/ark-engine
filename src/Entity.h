@@ -8,9 +8,8 @@ class Engine;
 class Entity : public GameObject
 {
 public:
-	enum Directions { MovementNotSet, MovementLeft, MovementRight, MovementFalling, MovementJumping };
+	enum Directions { Left, Right, Up, Down };
 	Directions movementDirection;
-	Directions spriteDirection;
 	enum AnimationState { AnimationIdleLeft, AnimationIdleRight, AnimationFalling, AnimationJumping, AnimationMoveLeft, AnimationMoveRight };
 	AnimationState animationState;
 

@@ -3,8 +3,7 @@
 
 Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	// Default values
-	movementDirection = Directions::MovementNotSet;
-	spriteDirection = Directions::MovementRight;
+	movementDirection = Directions::Right;
 	isJumping = false;
 	isFalling = false;
 
@@ -57,20 +56,47 @@ void Entity::Update(const float& deltaTime) {
 	GameObject::Update(deltaTime);
 }
 void Entity::MovementController(const float & deltaTime) {
+	glm::vec2 newVelocity = glm::vec2(0.0f);
+	glm::vec2 newPosition = glm::vec2(position);
+	glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
+	BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+
+	Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel];
+
+	// Falling
+	newVelocity.y = currentFallingSpeed * deltaTime;
+	newPosition += newVelocity;
+	newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
+	newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+
+	BoundingBox* bottomLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
+	BoundingBox* bottomRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
+
+	if (bottomLeftOverlap != nullptr && bottomRightOverlap != nullptr) {
+		bool isBottomLeftIntersecting = newBoundingBox.Intersect(*bottomLeftOverlap);
+		bool isBottomRightIntersecting = newBoundingBox.Intersect(*bottomRightOverlap);
+
+		isFalling = (isBottomLeftIntersecting || isBottomRightIntersecting);
+	}
+	if (!isFalling) {
+		velocity.y = newVelocity.y;
+		//std::cout << "Entity Position: " << newPosition.x << ", " << newPosition.y << std::endl;
+	}
+
 
 }
 void Entity::UpdateAnimationState(void) {
-	switch (spriteDirection) {
-	case Directions::MovementJumping:
+	switch (movementDirection) {
+	case Directions::Up:
 		animationState = AnimationState::AnimationJumping;
 		break;
-	case Directions::MovementFalling:
+	case Directions::Down:
 		animationState = AnimationState::AnimationFalling;
 		break;
-	case Directions::MovementLeft:
+	case Directions::Left:
 		(velocity != glm::vec2(0.0f, 0.0f)) ? animationState = AnimationState::AnimationMoveLeft : animationState = AnimationState::AnimationIdleLeft;
 		break;
-	case Directions::MovementRight:
+	case Directions::Right:
 		(velocity != glm::vec2(0.0f, 0.0f)) ? animationState = AnimationState::AnimationMoveRight : animationState = AnimationState::AnimationIdleRight;
 		break;
 	default:
