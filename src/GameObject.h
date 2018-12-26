@@ -49,9 +49,9 @@ public:
 	glm::vec2 velocity;
 	float baseMovementSpeed;
 	float currentMovementSpeed;
-	float baseFallingSpeed;
+	float maxFallingSpeed;
 	float currentFallingSpeed;
-	float baseJumpingSpeed;
+	float maxJumpingSpeed;
 	float currentJumpingSpeed;
 	
 	// Transformations

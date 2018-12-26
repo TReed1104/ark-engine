@@ -36,10 +36,10 @@ GameObject::GameObject(const std::string & scriptPath) {
 	velocity = glm::vec2(0.0f);
 	baseMovementSpeed = 60.0f;
 	currentMovementSpeed = baseMovementSpeed;
-	baseFallingSpeed = 150.0f;
-	currentFallingSpeed = baseFallingSpeed;
-	baseJumpingSpeed = 150.0f;
-	currentJumpingSpeed = baseJumpingSpeed;
+	maxFallingSpeed = 150.0f;
+	currentFallingSpeed = 0.0f;
+	maxJumpingSpeed = 150.0f;
+	currentJumpingSpeed = 0.0f;
 
 	boundingBoxOffset = glm::vec2(0.0f);
 	boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset);
