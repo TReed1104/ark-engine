@@ -5,6 +5,9 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	// Default values
 	movementDirection = Directions::NotSet;
 	spriteDirection = Directions::Right;
+	isJumping = false;
+	isFalling = false;
+
 	if (script->isScriptLoaded) {
 		animationState = AnimationState::IdleRight;
 
@@ -59,10 +62,10 @@ void Entity::HandleCollisions(float deltaTime) {
 			newVelocity = glm::vec2(0, 0);
 			break;
 		case Entity::Left:
-			newVelocity = glm::vec2(-movementSpeed * deltaTime, 0);
+			newVelocity = glm::vec2(-movementSpeed * deltaTime, newVelocity.y);
 			break;
 		case Entity::Right:
-			newVelocity = glm::vec2(movementSpeed * deltaTime, 0);
+			newVelocity = glm::vec2(movementSpeed * deltaTime, newVelocity.y);
 			break;
 		default:
 			break;

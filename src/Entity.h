@@ -11,7 +11,7 @@ public:
 	enum Directions { NotSet, Up, Down, Left, Right, UpLeft, UpRight, DownLeft, DownRight};
 	Directions movementDirection;
 	Directions spriteDirection;
-	enum AnimationState { IdleLeft, IdleRight, Fall, Jump, MoveLeft, MoveRight };
+	enum AnimationState { IdleLeft, IdleRight, Fall, Jump, MoveLeft, MoveRight};
 	AnimationState animationState;
 
 	Entity(const std::string& scriptPath);
@@ -24,6 +24,9 @@ public:
 private:
 
 protected:
+	bool isJumping;
+	bool isFalling;
+
 	void UpdateAnimationState(void);
 	void UpdateAnimationIndex(void);
 };
