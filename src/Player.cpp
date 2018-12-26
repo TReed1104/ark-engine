@@ -18,32 +18,17 @@ void Player::EntityController() {
 	}
 }
 void Player::HandleInputKeyboard(void) {
-	// Reset the movement direction
-	movementDirection = Directions::MovementNotSet;
-	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementJump)) {
-		// Jumping
-		movementDirection = Directions::MovementJumping;
-
-		// See if the Player is pressing left or right as they jump
-		if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementLeft)) {
-			// Left movement
-			spriteDirection = Directions::MovementLeft;
-		}
-		else if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementRight)) {
-			// Right movement
-			spriteDirection = Directions::MovementRight;
-		}
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementRight)) {
+		movementDirection = Directions::Right;
 	}
 	else if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementLeft)) {
-		// Left movement
-		movementDirection = Directions::MovementLeft;
-		spriteDirection = Directions::MovementLeft;
+		movementDirection = Directions::Left;
 	}
-	else if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementRight)) {
-		// Right movement
-		movementDirection = Directions::MovementRight;
-		spriteDirection = Directions::MovementRight;
+
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementJump)) {
+		movementDirection = Directions::Up;
 	}
+
 }
 void Player::HandleInputGameController(void) {
 	// TODO: Implement Controller support when Keyboard input is finished
