@@ -489,8 +489,8 @@ void Engine::LoadEngine(void) {
 	// Load Game Content
 	LoadFonts();
 	LoadRenderableText();
-	LoadModels();
 	LoadTextures();
+	LoadModels();
 	LoadTilesets();
 	LoadLevels();
 	LoadItems();
