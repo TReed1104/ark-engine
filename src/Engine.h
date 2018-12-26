@@ -26,7 +26,7 @@
 #include "Texture.h"
 #include "Model.h"
 #include "Font.h"
-#include "RenderableText.h"
+#include "TextObject.h"
 #include "GameObject.h"
 #include "Camera.h"
 #include "Tileset.h"
@@ -66,7 +66,7 @@ public:
 	std::vector<Model> modelRegister;
 	std::vector<Texture> textureRegister;
 	std::vector<Font*> fontRegister;
-	std::vector<RenderableText*> renderableTextRegister;
+	std::vector<TextObject*> textObjectRegister;
 	std::vector<Tileset> tilesetRegister;
 	std::vector<GameObject*> itemRegister;
 	std::vector<Entity*> entityRegister;

@@ -68,9 +68,9 @@ void Engine::CleanUp(void) {
 	}
 
 	// Delete the loaded Renderable Texts
-	const size_t renderableTextRegisterSize = renderableTextRegister.size();
+	const size_t renderableTextRegisterSize = textObjectRegister.size();
 	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
-		delete renderableTextRegister[i];
+		delete textObjectRegister[i];
 	}
 
 	// Delete the loaded Fonts
@@ -173,7 +173,7 @@ void Engine::LoadEnginePointers(void) {
 	Texture::Engine_Pointer = this;
 	Model::Engine_Pointer = this;
 	Font::Engine_Pointer = this;
-	RenderableText::Engine_Pointer = this;
+	TextObject::Engine_Pointer = this;
 	Keyboard::Engine_Pointer = this;
 	GameController::Engine_Pointer = this;
 	Camera::Engine_Pointer = this;
@@ -357,8 +357,8 @@ void Engine::LoadFonts(void) {
 void Engine::LoadRenderableText(void) {
 	std::cout << ">> 8 - Loading Text Objects" << std::endl;
 	const int indexOfFont = GetIndexOfFont("Arial");
-	renderableTextRegister.push_back(new RenderableText("Health", "Health: 100%", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f), true));
-	renderableTextRegister.push_back(new RenderableText("FPS Counter", "FPS: 0", fontRegister[indexOfFont], glm::vec3(20.0f, 120.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f), true));
+	textObjectRegister.push_back(new TextObject("Health", "Health: 100%", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f), true));
+	textObjectRegister.push_back(new TextObject("FPS Counter", "FPS: 0", fontRegister[indexOfFont], glm::vec3(20.0f, 120.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f), true));
 	std::cout << ">> 8 - COMPLETE" << std::endl;
 }
 void Engine::LoadTextures(void) {
@@ -549,10 +549,10 @@ void Engine::Update(const float& deltaTime) {
 	}
 	
 	// Update the text objects
-	const size_t renderableTextRegisterSize = renderableTextRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
+	const size_t renderableTextRegisterSize = textObjectRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
 	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
 		// TODO: Add a check condition to see if the text is currently active
-		renderableTextRegister[i]->Update(deltaTime);
+		textObjectRegister[i]->Update(deltaTime);
 	}
 
 	// Check the camera target has been initialised
@@ -579,10 +579,10 @@ void Engine::Render(void) {
 	}
 
 	// Render the text objects
-	const size_t renderableTextRegisterSize = renderableTextRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
+	const size_t renderableTextRegisterSize = textObjectRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
 	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
 		// TODO: Add a check condition to see if the text is currently active
-		renderableTextRegister[i]->Draw();
+		textObjectRegister[i]->Draw();
 	}
 
 	// Post-Render
@@ -627,7 +627,7 @@ void Engine::Run(void) {
 		if (secondCounter >= 1) {
 			// If it has been a second since the last FPS count, reset the counter and print.
 			WindowRename(defaultWindowTitle + " - FPS: " + std::to_string(fpsCounter));
-			renderableTextRegister[1]->UpdateText("FPS: " + std::to_string(fpsCounter));
+			textObjectRegister[1]->UpdateText("FPS: " + std::to_string(fpsCounter));
 			fpsCounter = 0;
 			secondCounter = 0;
 		}
@@ -684,9 +684,9 @@ const int Engine::GetIndexOfFont(const std::string& fontName) {
 }
 const int Engine::GetIndexOfRenderableText(const std::string& renderableTextName) {
 	int indexOfDesiredRenderableText = -1;
-	const size_t renderableTextRegisterSize = renderableTextRegister.size();
+	const size_t renderableTextRegisterSize = textObjectRegister.size();
 	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
-		if (renderableTextRegister[i]->name.find(renderableTextName) != std::string::npos) {
+		if (textObjectRegister[i]->name.find(renderableTextName) != std::string::npos) {
 			indexOfDesiredRenderableText = (int)i;
 		}
 	}

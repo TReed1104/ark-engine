@@ -1,5 +1,5 @@
-#ifndef ARKENGINE_RENDERABLETEXT_H_
-#define ARKENGINE_RENDERABLETEXT_H_
+#ifndef ARKENGINE_TEXTOBJECT_H_
+#define ARKENGINE_TEXTOBJECT_H_
 
 #include <string>
 #include <vector>
@@ -13,7 +13,7 @@
 
 class Engine;
 
-class RenderableText {
+class TextObject {
 public:
 	static Engine* Engine_Pointer;
 
@@ -35,8 +35,8 @@ public:
 	float rotation;
 	glm::vec3 scale;
 
-	RenderableText(const std::string& name, const std::string& text, Font* font, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& colour = glm::vec3(1.0f), const bool& isEnabled = false, const bool& useCamera = false);
-	~RenderableText();
+	TextObject(const std::string& name, const std::string& text, Font* font, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& colour = glm::vec3(1.0f), const bool& isEnabled = false, const bool& useCamera = false);
+	~TextObject();
 
 	void Update(const float& deltaTime);
 	void Draw(void);

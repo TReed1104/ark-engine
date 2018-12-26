@@ -1,9 +1,9 @@
-#include "RenderableText.h"
+#include "TextObject.h"
 #include "Engine.h"
 
-Engine* RenderableText::Engine_Pointer;
+Engine* TextObject::Engine_Pointer;
 
-RenderableText::RenderableText(const std::string& name, const std::string& text, Font* font, const glm::vec3& position, const glm::vec3& colour, const bool& isEnabled, const bool& useCamera) {
+TextObject::TextObject(const std::string& name, const std::string& text, Font* font, const glm::vec3& position, const glm::vec3& colour, const bool& isEnabled, const bool& useCamera) {
 	// Informational
 	this->name = name;
 	this->text = text;
@@ -16,18 +16,18 @@ RenderableText::RenderableText(const std::string& name, const std::string& text,
 	
 	// Rendering
 	this->colour = colour;
-	this->indexOfTextShader = Engine_Pointer->GetIndexOfShader("renderable Text");
+	this->indexOfTextShader = Engine_Pointer->GetIndexOfShader("text renderer");
 	this->model = Model(text, false);
 	this->useCamera = useCamera;
 	this->isEnabled = isEnabled;
 
 	LoadText();
 }
-RenderableText::~RenderableText() {
+TextObject::~TextObject() {
 
 }
 
-void RenderableText::Update(const float & deltaTime) {
+void TextObject::Update(const float & deltaTime) {
 	if (isEnabled) {
 		// Apply transformations
 		UpdatePosition();
@@ -35,7 +35,7 @@ void RenderableText::Update(const float & deltaTime) {
 		UpdateScale();
 	}
 }
-void RenderableText::Draw(void) {
+void TextObject::Draw(void) {
 	if (isEnabled) {
 		// Setup the MVP matrix for the Text.
 		glm::vec2 viewPort = (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize);
@@ -77,21 +77,21 @@ void RenderableText::Draw(void) {
 		glDisable(GL_BLEND);
 	}
 }
-void RenderableText::UpdateText(const std::string & newText) {
+void TextObject::UpdateText(const std::string & newText) {
 	this->text = newText;
 	this->LoadText();
 }
-void RenderableText::UpdateFont(Font* font) {
+void TextObject::UpdateFont(Font* font) {
 	this->font = font;
 	LoadText();
 }
-void RenderableText::Enable(void) {
+void TextObject::Enable(void) {
 	this->isEnabled = true;
 }
-void RenderableText::Disable(void) {
+void TextObject::Disable(void) {
 	this->isEnabled = false;
 }
-void RenderableText::LoadText() {
+void TextObject::LoadText() {
 	glyphs.clear();
 	model.meshes.clear();
 	const size_t lengthOfText = text.size();
@@ -117,12 +117,12 @@ void RenderableText::LoadText() {
 		cursorPosition.x += currentGlyph.advance.x;
 	}
 }
-void RenderableText::UpdatePosition() {
+void TextObject::UpdatePosition() {
 	model.Translate(position);
 }
-void RenderableText::UpdateRotation() {
+void TextObject::UpdateRotation() {
 	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 }
-void RenderableText::UpdateScale() {
+void TextObject::UpdateScale() {
 	model.Scale(scale);
 }
