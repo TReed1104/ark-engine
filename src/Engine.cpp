@@ -357,7 +357,7 @@ void Engine::LoadFonts(void) {
 void Engine::LoadRenderableText(void) {
 	std::cout << ">> Loading Renderable Text - Begun" << std::endl;
 	const int indexOfFont = GetIndexOfFont("Arial");
-	renderableTextRegister.push_back(new RenderableText("Test Text", "Test Text 1", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f)));
+	renderableTextRegister.push_back(new RenderableText("Health", "Health: 100%", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f)));
 	std::cout << ">> Loading Renderable Text - Complete" << std::endl;
 }
 void Engine::LoadTextures(void) {
@@ -540,12 +540,20 @@ void Engine::Update(const float& deltaTime) {
 		// Run the current Level's update function
 		levelRegister[indexCurrentLevel]->Update(deltaTime);
 	}
+
 	// Check the player has been initialised
 	if (player != nullptr) {
 		// Run the player's update function
 		player->Update(deltaTime);
 	}
-	renderableTextRegister[0]->Update(deltaTime);
+	
+	// Update the text objects
+	const size_t renderableTextRegisterSize = renderableTextRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
+	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
+		// TODO: Add a check condition to see if the text is currently active
+		renderableTextRegister[i]->Update(deltaTime);
+	}
+
 	// Check the camera target has been initialised
 	if (mainCameraFocus != nullptr) {
 		// Run the camera's update function
@@ -563,12 +571,18 @@ void Engine::Render(void) {
 	if (levelRegister[indexCurrentLevel] != nullptr) {
 		levelRegister[indexCurrentLevel]->Draw();
 	}
+
 	// Draw the player
 	if (player != nullptr) {
 		player->Draw();
 	}
 
-	renderableTextRegister[0]->Draw();
+	// Render the text objects
+	const size_t renderableTextRegisterSize = renderableTextRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
+	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
+		// TODO: Add a check condition to see if the text is currently active
+		renderableTextRegister[i]->Draw();
+	}
 
 	// Post-Render
 	SDL_GL_SwapWindow(sdlWindow);	// Gives the frame buffer to the display (swapBuffers).
