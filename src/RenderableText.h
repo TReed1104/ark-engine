@@ -42,6 +42,7 @@ public:
 	void Draw(void);
 
 	void UpdateText(const std::string& newText);
+	void UpdateFont(Font* font);
 	void Enable(void);
 	void Disable(void);
 

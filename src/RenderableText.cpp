@@ -81,6 +81,10 @@ void RenderableText::UpdateText(const std::string & newText) {
 	this->text = newText;
 	this->LoadText();
 }
+void RenderableText::UpdateFont(Font* font) {
+	this->font = font;
+	LoadText();
+}
 void RenderableText::Enable(void) {
 	this->isEnabled = true;
 }
