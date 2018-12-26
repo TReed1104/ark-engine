@@ -27,7 +27,7 @@ public:
 	void Update(const float& deltaTime);
 	void Draw(void);
 	bool IsTileSolid(const glm::vec2& gridPosition);
-	BoundingBox GetTileBoundingBox(const glm::vec2& gridPosition);
+	BoundingBox* GetTileBoundingBox(const glm::vec2& gridPosition);
 	void Reload(void);
 
 private:
