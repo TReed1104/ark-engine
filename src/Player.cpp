@@ -19,17 +19,30 @@ void Player::MovementController() {
 }
 void Player::HandleInputKeyboard(void) {
 	// Reset the movement direction
-	movementDirection = Directions::NotSet;
+	movementDirection = Directions::MovementNotSet;
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementJump)) {
+		// Jumping
+		movementDirection = Directions::MovementJumping;
 
-	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementLeft)) {
+		// See if the Player is pressing left or right as they jump
+		if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementLeft)) {
+			// Left movement
+			spriteDirection = Directions::MovementLeft;
+		}
+		else if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementRight)) {
+			// Right movement
+			spriteDirection = Directions::MovementRight;
+		}
+	}
+	else if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementLeft)) {
 		// Left movement
-		movementDirection = Directions::Left;
-		spriteDirection = Directions::Left;
+		movementDirection = Directions::MovementLeft;
+		spriteDirection = Directions::MovementLeft;
 	}
 	else if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementRight)) {
 		// Right movement
-		movementDirection = Directions::Right;
-		spriteDirection = Directions::Right;
+		movementDirection = Directions::MovementRight;
+		spriteDirection = Directions::MovementRight;
 	}
 }
 void Player::HandleInputGameController(void) {
