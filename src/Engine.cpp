@@ -219,6 +219,7 @@ void Engine::CreateSDLContext(void) {
 		std::cout << ">>>>>> 4.1.2 - FAILED" << std::endl;
 		this->Close();
 	}
+	SDL_GL_SetSwapInterval(0);	// Toggles V-Sync on and off for the SDL Window
 
 	std::cout << ">>>>>> 4.1.2 - COMPLETE" << std::endl;
 }
