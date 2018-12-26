@@ -70,6 +70,12 @@ void RenderableText::Draw(void) {
 	}
 	glDisable(GL_BLEND);
 }
+void RenderableText::Enable(void) {
+
+}
+void RenderableText::Disable(void) {
+
+}
 void RenderableText::LoadText(void) {
 	const size_t lengthOfText = text.size();
 	for (size_t i = 0; i < lengthOfText; i++) {

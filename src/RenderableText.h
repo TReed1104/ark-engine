@@ -44,6 +44,9 @@ public:
 	void Update(const float& deltaTime);
 	void Draw(void);
 
+	void Enable(void);
+	void Disable(void);
+
 private:
 	void LoadText(void);
 	void UpdatePosition(void);
