@@ -12,7 +12,7 @@ public:
 	Player(const std::string& scriptPath);
 	~Player(void);
 	
-	void HandleMovement(void);
+	void MovementController(void);
 	void HandleInputKeyboard(void);
 	void HandleInputGameController(void);
 

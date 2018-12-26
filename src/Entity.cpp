@@ -49,60 +49,19 @@ Entity::~Entity(void) {
 }
 
 void Entity::Update(const float& deltaTime) {
-	HandleMovement();
-	HandleCollisions(deltaTime);
+	MovementController();
+	Move(deltaTime);
 
 	// Calls the base class update.
 	GameObject::Update(deltaTime);
 }
-void Entity::HandleCollisions(float deltaTime) {
-	glm::vec2 newVelocity = glm::vec2(0, 0);
-	switch (movementDirection) {
-		case Entity::NotSet:
-			newVelocity = glm::vec2(0, 0);
-			break;
-		case Entity::Left:
-			newVelocity = glm::vec2(-movementSpeed * deltaTime, newVelocity.y);
-			break;
-		case Entity::Right:
-			newVelocity = glm::vec2(movementSpeed * deltaTime, newVelocity.y);
-			break;
-		default:
-			break;
-	}
-	if (movementDirection != Entity::NotSet) {
-		// Calculate the new position and grid position
-		glm::vec2 newPosition = glm::vec2(position.x, position.y) + newVelocity;
-		glm::ivec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
-		BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+void Entity::Move(const float & deltaTime) {
+	// Falling
 
-		// Check it is within the world bounds.
-		if ((newBoundingBox.GetPosition().x >= 0) && (newBoundingBox.TopRightPosition().x < Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.x) &&
-			(newBoundingBox.GetPosition().y >= 0) && (newBoundingBox.BottomRightPosition().y < Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel]->pixelGridSize.y)) {
+	// Jumping
 
-			// Create a pointer to the current level
-			Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel];
+	// Left & Right Movement
 
-			// Grab the bounding boxes of the locations of each of the four corners of the newBounding
-			BoundingBox topLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
-			BoundingBox topRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
-			BoundingBox bottomLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
-			BoundingBox bottomRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
-
-			// Check if the new bounding box is intersecting with the four bounding boxes
-			bool isTopLeftIntersecting = newBoundingBox.Intersect(topLeftOverlap);
-			bool isTopRightIntersecting = newBoundingBox.Intersect(topRightOverlap);
-			bool isBottomLeftIntersecting = newBoundingBox.Intersect(bottomLeftOverlap);
-			bool isBottomRightIntersecting = newBoundingBox.Intersect(bottomRightOverlap);
-
-			// See if any of the intersect checks were true.
-			bool isColliding = (isTopLeftIntersecting || isTopRightIntersecting || isBottomLeftIntersecting || isBottomRightIntersecting);
-
-			if (!isColliding) {
-				velocity = newVelocity;
-			}
-		}
-	}
 }
 void Entity::UpdateAnimationState(void) {
 	switch (spriteDirection) {

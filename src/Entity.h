@@ -18,8 +18,8 @@ public:
 	~Entity(void);
 
 	void Update(const float& deltaTime);
-	virtual void HandleMovement(void) {}
-	void HandleCollisions(float deltaTime);
+	virtual void MovementController(void) {}
+	void Move(const float& deltaTime);
 
 private:
 
