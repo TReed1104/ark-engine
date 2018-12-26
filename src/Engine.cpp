@@ -354,7 +354,7 @@ void Engine::LoadFonts(void) {
 
 	std::cout << ">> 7 - COMPLETE" << std::endl;
 }
-void Engine::LoadRenderableText(void) {
+void Engine::LoadTextObjects(void) {
 	std::cout << ">> 8 - Loading Text Objects" << std::endl;
 	const int indexOfFont = GetIndexOfFont("Arial");
 	textObjectRegister.push_back(new TextObject("Health", "Health: 100%", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f), true));
@@ -488,7 +488,7 @@ void Engine::LoadEngine(void) {
 
 	// Load Game Content
 	LoadFonts();
-	LoadRenderableText();
+	LoadTextObjects();
 	LoadTextures();
 	LoadModels();
 	LoadTilesets();

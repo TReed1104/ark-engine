@@ -146,7 +146,7 @@ private:
 	
 	// Content loading related functions
 	void LoadFonts(void);
-	void LoadRenderableText(void);
+	void LoadTextObjects(void);
 	void LoadTextures(void);
 	void LoadModels(void);
 	void LoadTilesets(void);
