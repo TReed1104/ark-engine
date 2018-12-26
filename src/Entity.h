@@ -18,7 +18,7 @@ public:
 	~Entity(void);
 
 	void Update(const float& deltaTime);
-	virtual void MovementController(void) {}
+	virtual void EntityController(void) {}	// The AI or Player Controller, gets overriden by the derived classes
 
 private:
 
@@ -26,7 +26,7 @@ protected:
 	bool isJumping;
 	bool isFalling;
 
-	void Move(const float& deltaTime);
+	void MovementController(const float& deltaTime);	// Executes the movements specified by EntityController
 	void UpdateAnimationState(void);
 	void UpdateAnimationIndex(void);
 };

@@ -8,7 +8,7 @@ Player::~Player(void) {
 
 }
 
-void Player::MovementController() {
+void Player::EntityController() {
 	// If decide how the player is getting its inputs
 	if (Engine_Pointer->deviceGameControllerRegister.size() != 0) {
 		HandleInputGameController();

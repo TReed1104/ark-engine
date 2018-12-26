@@ -30,6 +30,7 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 		drawPosition = this->position + glm::vec3(this->drawOffset, 0);
 
 		baseMovementSpeed = script->Get<float>("entity.movement_speed");
+		currentMovementSpeed = baseMovementSpeed;
 		boundingBoxOffset = glm::vec2(script->Get<int>("entity.bounding_box_offset.x"), script->Get<int>("entity.bounding_box_offset.y"));
 		glm::vec2 boundingBoxDimensions = glm::vec2(script->Get<int>("entity.bounding_box_dimensions.width"), script->Get<int>("entity.bounding_box_dimensions.height"));
 		boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset, boundingBoxDimensions);
@@ -49,26 +50,13 @@ Entity::~Entity(void) {
 }
 
 void Entity::Update(const float& deltaTime) {
-	MovementController();
-	Move(deltaTime);
+	EntityController();
+	MovementController(deltaTime);
 
 	// Calls the base class update.
 	GameObject::Update(deltaTime);
 }
-void Entity::Move(const float & deltaTime) {
-	// Falling
-		// Check if there is a collision below the entity
-			// If no collision then isFalling = true
-				// Amend Direction states
-			// else
-				// isFalling = false;
-
-	// Jumping
-		// If not falling
-			// Check for collision above
-				// If no collision above
-
-	// Left & Right Movement
+void Entity::MovementController(const float & deltaTime) {
 
 }
 void Entity::UpdateAnimationState(void) {
