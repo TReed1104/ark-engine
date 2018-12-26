@@ -46,7 +46,6 @@ bool Font::LoadGlyphs(void) {
 		if (FT_Get_Char_Index(fontFace, charToLoad) != 0) {
 			// Try and load the Character into the FontFace's glyph slot for use
 			if (!FT_Load_Char(fontFace, charToLoad, FT_LOAD_RENDER)) {
-				std::cout << ">>>> Character: " << charToLoad << " was loaded into the Glyphslot for the face" << std::endl;
 
 				// Get Glyph Metrics
 				Glyph newGlyph = Glyph(charToLoad);
@@ -120,7 +119,11 @@ bool Font::LoadGlyphs(void) {
 	}
 	return true;
 }
-
-Glyph Font::GetGlyph(const char & character){
-	return glyphs[character];
+Glyph Font::GetGlyph(const char& character){
+	if (glyphs.count(character) == 1) {
+		return glyphs[character];
+	}
+	else {
+		return glyphs['X'];
+	}
 }
