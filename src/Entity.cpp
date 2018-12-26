@@ -4,9 +4,9 @@
 Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	// Default values
 	movementDirection = Directions::NotSet;
-	spriteDirection = Directions::Down;
+	spriteDirection = Directions::Right;
 	if (script->isScriptLoaded) {
-		animationState = AnimationState::IdleDown;
+		animationState = AnimationState::IdleRight;
 
 		// Texture Setup
 		int indexOfTexture = -1;
@@ -284,10 +284,14 @@ void Entity::HandleCollisions(float deltaTime) {
 void Entity::UpdateAnimationState(void) {
 	switch (spriteDirection) {
 	case Directions::Up:
-		(velocity != glm::vec2(0.0f, 0.0f)) ? animationState = AnimationState::MoveUp : animationState = AnimationState::IdleUp;
+		if (velocity != glm::vec2(0.0f, 0.0f)) {
+			animationState = AnimationState::Jump;
+		}
 		break;
 	case Directions::Down:
-		(velocity != glm::vec2(0.0f, 0.0f)) ? animationState = AnimationState::MoveDown : animationState = AnimationState::IdleDown;
+		if (velocity != glm::vec2(0.0f, 0.0f)) {
+			animationState = AnimationState::Fall;
+		}
 		break;
 	case Directions::Left:
 		(velocity != glm::vec2(0.0f, 0.0f)) ? animationState = AnimationState::MoveLeft : animationState = AnimationState::IdleLeft;
@@ -302,41 +306,17 @@ void Entity::UpdateAnimationState(void) {
 void Entity::UpdateAnimationIndex(void) {
 	// Using the current animaiton state, work out which animation in the list to use.
 	switch (animationState) {
-	case AnimationState::IdleDown:
+	case AnimationState::IdleLeft:
 		animationIndex = 0;
 		break;
-	case AnimationState::IdleUp:
+	case AnimationState::IdleRight:
 		animationIndex = 1;
 		break;
-	case AnimationState::IdleLeft:
+	case AnimationState::MoveLeft:
 		animationIndex = 2;
 		break;
-	case AnimationState::IdleRight:
-		animationIndex = 3;
-		break;
-	case AnimationState::MoveDown:
-		animationIndex = 4;
-		break;
-	case AnimationState::MoveUp:
-		animationIndex = 5;
-		break;
-	case AnimationState::MoveLeft:
-		animationIndex = 6;
-		break;
 	case AnimationState::MoveRight:
-		animationIndex = 7;
-		break;
-	case AnimationState::AttackDown:
-		animationIndex = 8;
-		break;
-	case AnimationState::AttackUp:
-		animationIndex = 9;
-		break;
-	case AnimationState::AttackLeft:
-		animationIndex = 10;
-		break;
-	case AnimationState::AttackRight:
-		animationIndex = 11;
+		animationIndex = 3;
 		break;
 	default:
 		break;
