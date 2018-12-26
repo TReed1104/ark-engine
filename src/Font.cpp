@@ -34,6 +34,9 @@ Font::~Font() {
 	if (script->isScriptLoaded) {
 		delete script;
 	}
+	if (fontFace != NULL) {
+		FT_Done_Face(fontFace);
+	}
 }
 
 bool Font::LoadGlyphs(void) {
