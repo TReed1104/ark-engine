@@ -277,7 +277,7 @@ void Engine::LoadExternalLibraries(void) {
 	glDepthFunc(GL_LESS);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBlendEquation(GL_FUNC_ADD);
-	
+
 	std::cout << ">> 4 - COMPLETE" << std::endl;
 }
 void Engine::LoadShaders(void) {
@@ -425,7 +425,7 @@ void Engine::LoadLevels(void) {
 		levelRegister.push_back(new Level(listOfLevelFiles[i]));
 	}
 	indexCurrentLevel = 0;
-	
+
 	std::cout << ">> 12 - COMPLETE" << std::endl;
 }
 void Engine::LoadItems(void) {
@@ -450,7 +450,7 @@ void Engine::LoadPlayer(void) {
 void Engine::LoadEntities(void) {
 	std::cout << ">> 15 - Loading Entities" << std::endl;
 	std::cout << ">>>> NOT IMPLEMENTED" << std::endl;
-	
+
 	/*std::vector<std::string> listOfEntityFiles = FileSystemUtilities::GetFileList(contentDirectory + "scripts/entities");
 	const size_t listOfEntityFilesSize = listOfEntityFiles.size();
 	for (size_t i = 0; i < listOfEntityFilesSize; i++) {
@@ -547,7 +547,7 @@ void Engine::Update(const float& deltaTime) {
 		// Run the player's update function
 		player->Update(deltaTime);
 	}
-	
+
 	// Update the text objects
 	const size_t renderableTextRegisterSize = textObjectRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
 	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
@@ -610,23 +610,23 @@ void Engine::Run(void) {
 	// FPS variables
 	int fpsCounter = 0;
 	float secondsCounter = 0;
-
-	bool firstFrame = true;		// Temporary fix for the deltaTime issue caused as the game loads, hopefully the scene management will fix it
+	float maxDeltatime = 0.016f;	// Equivalent to 60 FPS timer
 
 	while (isRunning) {
 		// DeltaTime math
 		currentFrameTime = (float)SDL_GetTicks();
 		float deltaTime = ((currentFrameTime - oldFrameTime) / 1000);
 
-		if (firstFrame) {
-			firstFrame = false;
+
+		// This caps out deltaTime to prevent the insanely high deltaTime caused by moving the window or game loading
+		if (deltaTime > maxDeltatime) {
+			deltaTime = maxDeltatime;
 		}
-		else {
-			// Main Game loop
-			EventHandler();			// Handle any events
-			Update(deltaTime);		// Update the game
-			Render();				// Render the game
-		}
+
+		// Main Game loop
+		EventHandler();			// Handle any events
+		Update(deltaTime);		// Update the game
+		Render();				// Render the game
 
 		// FPS math, called after the engine has finished its render function.
 		fpsCounter++;						// Counts the number of frames as they've been rendered.
@@ -638,7 +638,6 @@ void Engine::Run(void) {
 			fpsCounter = 0;
 			secondsCounter = 0;
 		}
-
 		oldFrameTime = currentFrameTime;
 	}
 	std::cout << "## Game Runtime - Finished" << std::endl;
