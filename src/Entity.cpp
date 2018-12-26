@@ -80,9 +80,7 @@ void Entity::MovementController(const float & deltaTime) {
 	}
 	if (!isFalling) {
 		velocity.y = newVelocity.y;
-		//std::cout << "Entity Position: " << newPosition.x << ", " << newPosition.y << std::endl;
 	}
-
 
 }
 void Entity::UpdateAnimationState(void) {
