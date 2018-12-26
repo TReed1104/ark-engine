@@ -251,7 +251,7 @@ void Engine::LoadGLEW(void) {
 	std::cout << ">>>> 4.2 - COMPLETE" << std::endl;
 }
 void Engine::LoadFreeType(void) {
-	std::cout << ">>>> 4.3 - Loading Library - GLEW" << std::endl;
+	std::cout << ">>>> 4.3 - Loading Library - FreeType2" << std::endl;
 
 	// Initialise the FreeType library
 	if (FT_Init_FreeType(&freeTypeLibrary)) {
@@ -355,14 +355,14 @@ void Engine::LoadFonts(void) {
 	std::cout << ">> 7 - COMPLETE" << std::endl;
 }
 void Engine::LoadRenderableText(void) {
-	std::cout << ">> Loading Renderable Text - Begun" << std::endl;
+	std::cout << ">> 8 - Loading Text Objects" << std::endl;
 	const int indexOfFont = GetIndexOfFont("Arial");
 	renderableTextRegister.push_back(new RenderableText("Health", "Health: 100%", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f), true));
 	renderableTextRegister.push_back(new RenderableText("FPS Counter", "FPS: 0", fontRegister[indexOfFont], glm::vec3(20.0f, 120.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f), true));
-	std::cout << ">> Loading Renderable Text - Complete" << std::endl;
+	std::cout << ">> 8 - COMPLETE" << std::endl;
 }
 void Engine::LoadTextures(void) {
-	std::cout << ">> 8 - Loading Textures" << std::endl;
+	std::cout << ">> 9 - Loading Textures" << std::endl;
 
 	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
 	const size_t textureFileListSize = listOfTextures.size();
@@ -370,7 +370,7 @@ void Engine::LoadTextures(void) {
 		textureRegister.push_back(Texture(listOfTextures[i], true, true));
 		if (!textureRegister.back().isLoaded) {
 			std::cout << ">>>> ERROR!!!! - Failed to load texture" << listOfTextures[i] << std::endl;
-			std::cout << ">>>> 8 - FAILED" << std::endl;
+			std::cout << ">>>> 9 - FAILED" << std::endl;
 			this->Close();
 		}
 	}
@@ -378,14 +378,14 @@ void Engine::LoadTextures(void) {
 	// Find the default texture for when textures are failed to be found.
 	if ((indexOfDefaultTexture = GetIndexOfTexture(nameOfDefaultTexture)) == -1) {
 		std::cout << ">>>> ERROR!!!! - Unable to find default texture" << std::endl;
-		std::cout << ">>>> 8 - FAILED" << std::endl;
+		std::cout << ">>>> 9 - FAILED" << std::endl;
 		this->Close();
 	}
 
-	std::cout << ">> 8 - COMPLETE" << std::endl;
+	std::cout << ">> 9 - COMPLETE" << std::endl;
 }
 void Engine::LoadModels(void) {
-	std::cout << ">> 9 - Loading Models" << std::endl;
+	std::cout << ">> 10 - Loading Models" << std::endl;
 
 	std::vector<std::string> listOfModels = FileSystemUtilities::GetFileList(contentDirectory + "models");
 	const size_t listOfModelSize = listOfModels.size();
@@ -396,17 +396,17 @@ void Engine::LoadModels(void) {
 	// Find the default models
 	if ((indexOfTileModel = GetIndexOfModel(nameOfDefaultTileModel)) == -1) {
 		std::cout << ">>>> ERROR!!!! - Unable to find default model" << std::endl;
-		std::cout << ">>>> 9 - FAILED" << std::endl;
+		std::cout << ">>>> 10 - FAILED" << std::endl;
 		this->Close();
 	}
 	if ((indexOfSpriteModel = GetIndexOfModel(nameOfDefaultSpriteModel)) == -1) {
 		indexOfSpriteModel = indexOfTileModel;
 	}
 
-	std::cout << ">> 9 - COMPLETE" << std::endl;
+	std::cout << ">> 10 - COMPLETE" << std::endl;
 }
 void Engine::LoadTilesets(void) {
-	std::cout << ">> 10 - Loading Tilesets" << std::endl;
+	std::cout << ">> 11 - Loading Tilesets" << std::endl;
 
 	std::vector<std::string> listOfTilesets = FileSystemUtilities::GetFileList(contentDirectory + "tilesets");
 	const size_t listOfTilesetsSize = listOfTilesets.size();
@@ -414,10 +414,10 @@ void Engine::LoadTilesets(void) {
 		tilesetRegister.push_back(Tileset(listOfTilesets[i]));
 	}
 
-	std::cout << ">> 10 - COMPLETE" << std::endl;
+	std::cout << ">> 11 - COMPLETE" << std::endl;
 }
 void Engine::LoadLevels(void) {
-	std::cout << ">> 11 - Loading Levels" << std::endl;
+	std::cout << ">> 12 - Loading Levels" << std::endl;
 
 	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList(contentDirectory + "levels");
 	const size_t listOfLevelFilesSize = listOfLevelFiles.size();
@@ -426,10 +426,10 @@ void Engine::LoadLevels(void) {
 	}
 	indexCurrentLevel = 0;
 	
-	std::cout << ">> 11 - COMPLETE" << std::endl;
+	std::cout << ">> 12 - COMPLETE" << std::endl;
 }
 void Engine::LoadItems(void) {
-	std::cout << ">> 12 - Loading Items" << std::endl;
+	std::cout << ">> 13 - Loading Items" << std::endl;
 	std::cout << ">>>> NOT IMPLEMENTED" << std::endl;
 
 	/*std::vector<std::string> listOfItemFiles = FileSystemUtilities::GetFileList(contentDirectory + "scripts/items");
@@ -438,17 +438,17 @@ void Engine::LoadItems(void) {
 
 	}*/
 
-	std::cout << ">> 12 - COMPLETE" << std::endl;
+	std::cout << ">> 13 - COMPLETE" << std::endl;
 }
 void Engine::LoadPlayer(void) {
-	std::cout << ">> 13 - Loading Players" << std::endl;
+	std::cout << ">> 14 - Loading Players" << std::endl;
 
 	player = new Player(contentDirectory + "scripts/entities/entity_player.lua");
 
-	std::cout << ">> 13 - COMPLETE" << std::endl;
+	std::cout << ">> 14 - COMPLETE" << std::endl;
 }
 void Engine::LoadEntities(void) {
-	std::cout << ">> 14 - Loading Entities" << std::endl;
+	std::cout << ">> 15 - Loading Entities" << std::endl;
 	std::cout << ">>>> NOT IMPLEMENTED" << std::endl;
 	
 	/*std::vector<std::string> listOfEntityFiles = FileSystemUtilities::GetFileList(contentDirectory + "scripts/entities");
@@ -457,15 +457,15 @@ void Engine::LoadEntities(void) {
 
 	}*/
 
-	std::cout << ">> 14 - COMPLETE" << std::endl;
+	std::cout << ">> 15 - COMPLETE" << std::endl;
 }
 void Engine::LoadCameras(void) {
-	std::cout << ">> 15 - Loading Cameras" << std::endl;
+	std::cout << ">> 16 - Loading Cameras" << std::endl;
 
 	mainCamera = new Camera(glm::vec3(0.0f, 0.0f, 1.0f));
 	mainCameraFocus = player;
 
-	std::cout << ">> 15 - COMPLETE" << std::endl;
+	std::cout << ">> 16 - COMPLETE" << std::endl;
 }
 
 // Master Load Function, calls all the other individual loads

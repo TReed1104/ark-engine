@@ -117,6 +117,7 @@ bool Font::LoadGlyphs(void) {
 			std::cout << i << " - " << charToLoad << ": was not found in the Font Face file supplied" << std::endl;
 		}
 	}
+	std::cout << ">>>> Font Loaded! - " << name << " (Size - " << fontSize << "}" << std::endl;
 	return true;
 }
 Glyph Font::GetGlyph(const char& character){
