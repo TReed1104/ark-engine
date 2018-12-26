@@ -48,11 +48,16 @@ public:
 	// Movement Physics
 	glm::vec2 velocity;
 	float baseMovementSpeed;
+	float maxMovementSpeed;
 	float currentMovementSpeed;
+
+	float baseFallingSpeed;
 	float maxFallingSpeed;
 	float currentFallingSpeed;
-	float maxJumpingSpeed;
+
+	float baseJumpingSpeed;
 	float currentJumpingSpeed;
+	float maxJumpingSpeed;
 	
 	// Transformations
 	float rotation;
