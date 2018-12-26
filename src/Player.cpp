@@ -30,36 +30,6 @@ void Player::HandleInputKeyboard(void) {
 		movementDirection = Directions::Right;
 		spriteDirection = Directions::Right;
 	}
-	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementUp)) {
-		// Up movement
-		if (movementDirection == Directions::Left) {
-			movementDirection = Directions::UpLeft;
-			spriteDirection = Directions::Left;
-		}
-		else if (movementDirection == Directions::Right) {
-			movementDirection = Directions::UpRight;
-			spriteDirection = Directions::Right;
-		}
-		else {
-			movementDirection = Directions::Up;
-			spriteDirection = Directions::Up;
-		}
-	}
-	else if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementDown)) {
-		// Down movement
-		if (movementDirection == Directions::Left) {
-			movementDirection = Directions::DownLeft;
-			spriteDirection = Directions::Left;
-		}
-		else if (movementDirection == Directions::Right) {
-			movementDirection = Directions::DownRight;
-			spriteDirection = Directions::Right;
-		}
-		else {
-			movementDirection = Directions::Down;
-			spriteDirection = Directions::Down;
-		}
-	}
 }
 void Player::HandleInputGameController(void) {
 	// Reset the movement direction

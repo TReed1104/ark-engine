@@ -58,29 +58,11 @@ void Entity::HandleCollisions(float deltaTime) {
 		case Entity::NotSet:
 			newVelocity = glm::vec2(0, 0);
 			break;
-		case Entity::Up:
-			newVelocity = glm::vec2(0, -movementSpeed * deltaTime);
-			break;
-		case Entity::Down:
-			newVelocity = glm::vec2(0, movementSpeed * deltaTime);
-			break;
 		case Entity::Left:
 			newVelocity = glm::vec2(-movementSpeed * deltaTime, 0);
 			break;
 		case Entity::Right:
 			newVelocity = glm::vec2(movementSpeed * deltaTime, 0);
-			break;
-		case Entity::UpLeft:
-			newVelocity = glm::vec2(-movementSpeed * deltaTime, -movementSpeed * deltaTime);
-			break;
-		case Entity::UpRight:
-			newVelocity = glm::vec2(movementSpeed * deltaTime, -movementSpeed * deltaTime);
-			break;
-		case Entity::DownLeft:
-			newVelocity = glm::vec2(-movementSpeed * deltaTime, movementSpeed * deltaTime);
-			break;
-		case Entity::DownRight:
-			newVelocity = glm::vec2(movementSpeed * deltaTime, movementSpeed * deltaTime);
 			break;
 		default:
 			break;
@@ -97,186 +79,24 @@ void Entity::HandleCollisions(float deltaTime) {
 
 			// Create a pointer to the current level
 			Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel];
+
 			// Grab the bounding boxes of the locations of each of the four corners of the newBounding
 			BoundingBox topLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
 			BoundingBox topRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
 			BoundingBox bottomLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
 			BoundingBox bottomRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
+
 			// Check if the new bounding box is intersecting with the four bounding boxes
 			bool isTopLeftIntersecting = newBoundingBox.Intersect(topLeftOverlap);
 			bool isTopRightIntersecting = newBoundingBox.Intersect(topRightOverlap);
 			bool isBottomLeftIntersecting = newBoundingBox.Intersect(bottomLeftOverlap);
 			bool isBottomRightIntersecting = newBoundingBox.Intersect(bottomRightOverlap);
+
 			// See if any of the intersect checks were true.
 			bool isColliding = (isTopLeftIntersecting || isTopRightIntersecting || isBottomLeftIntersecting || isBottomRightIntersecting);
 
 			if (!isColliding) {
 				velocity = newVelocity;
-			}
-			else {
-				// If a collision was detected, we will snap the entity to the next available free position
-				float deltaX = 0.0f;
-				float deltaY = 0.0f;
-
-				switch (movementDirection) {
-					case Entity::Up:
-					{
-						// Calculate the Up Snap
-						float offsetTopLeft = boundingBox.GetPosition().y - (topLeftOverlap.GetPosition().y + topLeftOverlap.GetDimensions().y);
-						float offsetTopRight = boundingBox.GetPosition().y - (topRightOverlap.GetPosition().y + bottomLeftOverlap.GetDimensions().y);
-						if (offsetTopLeft < offsetTopRight) { deltaY = -offsetTopLeft; }
-						else { deltaY = -offsetTopRight; }
-						break;
-					}
-					case Entity::Down:
-					{
-						// Calculate the Down snap
-						float offsetBottomLeft = (boundingBox.GetPosition().y + boundingBox.GetDimensions().y) - bottomLeftOverlap.GetPosition().y;
-						float offsetBottomRight = (boundingBox.GetPosition().y + boundingBox.GetDimensions().y) - bottomRightOverlap.GetPosition().y;
-						if (offsetBottomLeft > offsetBottomRight) { deltaY = -offsetBottomLeft - 0.001f; }
-						else { deltaY = -offsetBottomRight - 0.001f; }
-						break;
-					}
-					case Entity::Left:
-					{
-						// Calculate the Left snap
-						float offsetTopLeft = boundingBox.GetPosition().x - (topLeftOverlap.GetPosition().x + topLeftOverlap.GetDimensions().x);
-						float offsetBottomLeft = boundingBox.GetPosition().x - (bottomLeftOverlap.GetPosition().x + bottomLeftOverlap.GetDimensions().x);
-						if (offsetTopLeft < offsetBottomLeft) { deltaX = -offsetTopLeft; }
-						else { deltaX = -offsetBottomLeft; }
-						break;
-					}
-					case Entity::Right:
-					{
-						// Calculate the Right snap
-						float offsetTopRight = (boundingBox.GetPosition().x + boundingBox.GetDimensions().x) - topRightOverlap.GetPosition().x;
-						float offsetBottomRight = (boundingBox.GetPosition().x + boundingBox.GetDimensions().x) - bottomRightOverlap.GetPosition().x;
-						if (offsetTopRight > offsetBottomRight) { deltaX = -offsetTopRight - 0.001f; }
-						else { deltaX = -offsetBottomRight - 0.001f; }
-						break;
-					}
-					case Entity::UpLeft:
-					{
-						bool isCollidingLeft = isTopLeftIntersecting && isBottomLeftIntersecting;
-						bool isCollidingUp = isTopLeftIntersecting && isTopRightIntersecting;
-
-						if (isCollidingLeft) {
-							// Calculate the Left snap
-							float offsetTopLeft = boundingBox.GetPosition().x - (topLeftOverlap.GetPosition().x + topLeftOverlap.GetDimensions().x);
-							float offsetBottomLeft = boundingBox.GetPosition().x - (bottomLeftOverlap.GetPosition().x + bottomLeftOverlap.GetDimensions().x);
-							if (offsetTopLeft < offsetBottomLeft) { deltaX = -offsetTopLeft; }
-							else { deltaX = -offsetBottomLeft; }
-						}
-						else {
-							movementDirection = Entity::Left;
-							HandleCollisions(deltaTime);
-						}
-						if (isCollidingUp) {
-							// Calculate the Up Snap
-							float offsetTopLeft = boundingBox.GetPosition().y - (topLeftOverlap.GetPosition().y + topLeftOverlap.GetDimensions().y);
-							float offsetTopRight = boundingBox.GetPosition().y - (topRightOverlap.GetPosition().y + bottomLeftOverlap.GetDimensions().y);
-							if (offsetTopLeft < offsetTopRight) { deltaY = -offsetTopLeft; }
-							else { deltaY = -offsetTopRight; }
-						}
-						else {
-							movementDirection = Entity::Up;
-							HandleCollisions(deltaTime);
-						}
-						break;
-					}
-					case Entity::UpRight:
-					{
-						bool isCollidingRight = isTopRightIntersecting && isBottomRightIntersecting;
-						bool isCollidingUp = isTopLeftIntersecting && isTopRightIntersecting;
-
-						if (isCollidingRight) {
-							// Calculate the Right snap
-							float offsetTopRight = (boundingBox.GetPosition().x + boundingBox.GetDimensions().x) - topRightOverlap.GetPosition().x;
-							float offsetBottomRight = (boundingBox.GetPosition().x + boundingBox.GetDimensions().x) - bottomRightOverlap.GetPosition().x;
-							if (offsetTopRight > offsetBottomRight) { deltaX = -offsetTopRight - 0.001f; }
-							else { deltaX = -offsetBottomRight - 0.001f; }
-						}
-						else {
-							movementDirection = Entity::Right;
-							HandleCollisions(deltaTime);
-						}
-						if (isCollidingUp) {
-							// Calculate the Up Snap
-							float offsetTopLeft = boundingBox.GetPosition().y - (topLeftOverlap.GetPosition().y + topLeftOverlap.GetDimensions().y);
-							float offsetTopRight = boundingBox.GetPosition().y - (topRightOverlap.GetPosition().y + bottomLeftOverlap.GetDimensions().y);
-							if (offsetTopLeft < offsetTopRight) { deltaY = -offsetTopLeft; }
-							else { deltaY = -offsetTopRight; }
-						}
-						else {
-							movementDirection = Entity::Up;
-							HandleCollisions(deltaTime);
-						}
-						break;
-					}
-					case Entity::DownLeft:
-					{
-						bool isCollidingLeft = isTopLeftIntersecting && isBottomLeftIntersecting;
-						bool isCollidingDown = isBottomLeftIntersecting && isBottomRightIntersecting;
-
-						if (isCollidingLeft) {
-							// Calculate the Left snap
-							float offsetTopLeft = boundingBox.GetPosition().x - (topLeftOverlap.GetPosition().x + topLeftOverlap.GetDimensions().x);
-							float offsetBottomLeft = boundingBox.GetPosition().x - (bottomLeftOverlap.GetPosition().x + bottomLeftOverlap.GetDimensions().x);
-							if (offsetTopLeft < offsetBottomLeft) { deltaX = -offsetTopLeft; }
-							else { deltaX = -offsetBottomLeft; }
-						}
-						else {
-							movementDirection = Entity::Left;
-							HandleCollisions(deltaTime);
-						}
-						if (isCollidingDown) {
-							// Calculate the Down snap
-							float offsetBottomLeft = (boundingBox.GetPosition().y + boundingBox.GetDimensions().y) - bottomLeftOverlap.GetPosition().y;
-							float offsetBottomRight = (boundingBox.GetPosition().y + boundingBox.GetDimensions().y) - bottomRightOverlap.GetPosition().y;
-							if (offsetBottomLeft > offsetBottomRight) { deltaY = -offsetBottomLeft - 0.001f; }
-							else { deltaY = -offsetBottomRight - 0.001f; }
-						}
-						else {
-							movementDirection = Entity::Down;
-							HandleCollisions(deltaTime);
-						}
-						break;
-					}
-					case Entity::DownRight:
-					{
-						bool isCollidingRight = isTopRightIntersecting && isBottomRightIntersecting;
-						bool isCollidingDown = isBottomLeftIntersecting && isBottomRightIntersecting;
-
-						if (isCollidingRight) {
-							// Calculate the Right snap
-							float offsetTopRight = (boundingBox.GetPosition().x + boundingBox.GetDimensions().x) - topRightOverlap.GetPosition().x;
-							float offsetBottomRight = (boundingBox.GetPosition().x + boundingBox.GetDimensions().x) - bottomRightOverlap.GetPosition().x;
-							if (offsetTopRight > offsetBottomRight) { deltaX = -offsetTopRight - 0.001f; }
-							else { deltaX = -offsetBottomRight - 0.001f; }
-						}
-						else {
-							movementDirection = Entity::Right;
-							HandleCollisions(deltaTime);
-						}
-						if (isCollidingDown) {
-							// Calculate the Down snap
-							float offsetBottomLeft = (boundingBox.GetPosition().y + boundingBox.GetDimensions().y) - bottomLeftOverlap.GetPosition().y;
-							float offsetBottomRight = (boundingBox.GetPosition().y + boundingBox.GetDimensions().y) - bottomRightOverlap.GetPosition().y;
-							if (offsetBottomLeft > offsetBottomRight) { deltaY = -offsetBottomLeft - 0.001f; }
-							else { deltaY = -offsetBottomRight - 0.001f; }
-						}
-						else {
-							movementDirection = Entity::Down;
-							HandleCollisions(deltaTime);
-						}
-						break;
-					}
-					default:
-					{
-						break;
-					}
-				}
-				velocitySnap = glm::vec2(deltaX, deltaY);
 			}
 		}
 	}
