@@ -358,8 +358,8 @@ void Engine::LoadFonts(void) {
 void Engine::LoadTextObjects(void) {
 	std::cout << ">> 8 - Loading Text Objects" << std::endl;
 	const int indexOfFont = GetIndexOfFont("Arial");
-	textObjectRegister.push_back(new TextObject("Health", "Health: 100%", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f), true));
-	textObjectRegister.push_back(new TextObject("FPS Counter", "FPS: 0", fontRegister[indexOfFont], glm::vec3(20.0f, 120.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f), true));
+	textObjectRegister.push_back(new TextObject("Health", "Health: 100%", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 255 / 255.0f, 255 / 255.0f), true));
+	textObjectRegister.push_back(new TextObject("FPS Counter", "FPS: 0", fontRegister[indexOfFont], glm::vec3(20.0f, 30.0f, 0.02f), glm::vec3(255 / 255.0f, 255 / 255.0f, 255 / 255.0f), true));
 	std::cout << ">> 8 - COMPLETE" << std::endl;
 }
 void Engine::LoadTextures(void) {
