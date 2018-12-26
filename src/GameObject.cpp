@@ -6,13 +6,13 @@ Engine* GameObject::Engine_Pointer;
 GameObject::GameObject(const std::string & scriptPath) {
 	// Load the script if given
 	if (scriptPath != "NO SCRIPT") {
-		this->script = new LuaScript(scriptPath);
+		script = new LuaScript(scriptPath);
 		if (script->isScriptLoaded) {
 			LoadAnimations();
 		}
 	}
 	else {
-		this->script = nullptr;
+		script = nullptr;
 	}
 
 	indexOfCurrentShader = Engine_Pointer->GetIndexOfShader("default");
@@ -21,28 +21,28 @@ GameObject::GameObject(const std::string & scriptPath) {
 	animationIndex = 0;
 
 	// Texture Setup
-	this->texture = nullptr;
-	this->sourceFramePosition = glm::ivec2(0);
+	texture = nullptr;
+	sourceFramePosition = glm::ivec2(0);
 
 	// Position Setup
-	this->position = glm::vec3(0.0f);
-	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
-	this->drawOffset = glm::ivec2(0);
-	this->drawPosition = this->position + glm::vec3(this->drawOffset, 0);
-	this->rotation = 0.0f;
-	this->scale = glm::vec3(1.0f);
+	position = glm::vec3(0.0f);
+	gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
+	drawOffset = glm::ivec2(0);
+	drawPosition = this->position + glm::vec3(this->drawOffset, 0);
+	rotation = 0.0f;
+	scale = glm::vec3(1.0f);
 
 	// Physics Setup
-	this->velocity = glm::vec2(0.0f);
-	this->baseMovementSpeed = 0.0f;
-	this->currentMovementSpeed = 0.0f;
-	this->baseFallingSpeed = 0.0f;
-	this->currentFallingSpeed = 0.0f;
-	this->baseJumpingSpeed = 0.0f;
-	this->currentJumpingSpeed = 0.0f;
+	velocity = glm::vec2(0.0f);
+	baseMovementSpeed = 0.0f;
+	currentMovementSpeed = 0.0f;
+	baseFallingSpeed = 0.0f;
+	currentFallingSpeed = 0.0f;
+	baseJumpingSpeed = 0.0f;
+	currentJumpingSpeed = 0.0f;
 
-	this->boundingBoxOffset = glm::vec2(0.0f);
-	this->boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset);
+	boundingBoxOffset = glm::vec2(0.0f);
+	boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset);
 
 	model.Translate(drawPosition);
 	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
