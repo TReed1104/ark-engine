@@ -63,6 +63,7 @@ void Entity::MovementController(const float & deltaTime) {
 
 	Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel];
 
+
 	// Falling
 	newVelocity.y = currentFallingSpeed * deltaTime;
 	newPosition += newVelocity;
@@ -76,9 +77,10 @@ void Entity::MovementController(const float & deltaTime) {
 		bool isBottomLeftIntersecting = newBoundingBox.Intersect(*bottomLeftOverlap);
 		bool isBottomRightIntersecting = newBoundingBox.Intersect(*bottomRightOverlap);
 
-		isFalling = (isBottomLeftIntersecting || isBottomRightIntersecting);
+		isFalling = !(isBottomLeftIntersecting || isBottomRightIntersecting);
 	}
-	if (!isFalling) {
+	if (isFalling) {
+		// The entity is falling, set its velocity to the calculated new Velocity
 		velocity.y = newVelocity.y;
 	}
 
