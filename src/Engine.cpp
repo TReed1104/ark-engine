@@ -358,6 +358,7 @@ void Engine::LoadRenderableText(void) {
 	std::cout << ">> Loading Renderable Text - Begun" << std::endl;
 	const int indexOfFont = GetIndexOfFont("Arial");
 	renderableTextRegister.push_back(new RenderableText("Health", "Health: 100%", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f), true));
+	renderableTextRegister.push_back(new RenderableText("FPS Counter", "FPS: 0", fontRegister[indexOfFont], glm::vec3(20.0f, 120.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f), true));
 	std::cout << ">> Loading Renderable Text - Complete" << std::endl;
 }
 void Engine::LoadTextures(void) {
@@ -626,6 +627,7 @@ void Engine::Run(void) {
 		if (secondCounter >= 1) {
 			// If it has been a second since the last FPS count, reset the counter and print.
 			WindowRename(defaultWindowTitle + " - FPS: " + std::to_string(fpsCounter));
+			renderableTextRegister[1]->UpdateText("FPS: " + std::to_string(fpsCounter));
 			fpsCounter = 0;
 			secondCounter = 0;
 		}

@@ -7,6 +7,7 @@ RenderableText::RenderableText(const std::string& name, const std::string& text,
 	// Informational
 	this->name = name;
 	this->text = text;
+	this->font = font;
 
 	// Transforms
 	this->position = position;
@@ -20,7 +21,7 @@ RenderableText::RenderableText(const std::string& name, const std::string& text,
 	this->useCamera = useCamera;
 	this->isEnabled = isEnabled;
 
-	LoadText(font);
+	LoadText();
 }
 RenderableText::~RenderableText() {
 
@@ -76,14 +77,19 @@ void RenderableText::Draw(void) {
 		glDisable(GL_BLEND);
 	}
 }
+void RenderableText::UpdateText(const std::string & newText) {
+	this->text = newText;
+	this->LoadText();
+}
 void RenderableText::Enable(void) {
 	this->isEnabled = true;
 }
 void RenderableText::Disable(void) {
 	this->isEnabled = false;
 }
-void RenderableText::LoadText(Font* font) {
+void RenderableText::LoadText() {
 	glyphs.clear();
+	model.meshes.clear();
 	const size_t lengthOfText = text.size();
 	for (size_t i = 0; i < lengthOfText; i++) {
 		Glyph& currentGlyph = font->GetGlyph(text[i]);

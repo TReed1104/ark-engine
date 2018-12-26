@@ -19,6 +19,7 @@ public:
 
 	std::string name;			// id of the text
 	std::string text;			// String the class will represent
+	Font* font;
 	glm::vec3 colour;
 	std::vector<Glyph> glyphs;	// The glyphs making up the text
 	Model model;
@@ -40,13 +41,14 @@ public:
 	void Update(const float& deltaTime);
 	void Draw(void);
 
+	void UpdateText(const std::string& newText);
 	void Enable(void);
 	void Disable(void);
 
 private:
 	bool isEnabled;
 
-	void LoadText(Font* font);
+	void LoadText();
 	void UpdatePosition(void);
 	void UpdateRotation(void);
 	void UpdateScale(void);
