@@ -63,9 +63,13 @@ void Entity::MovementController(const float & deltaTime) {
 
 	Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel];
 
-
 	// Falling
-	newVelocity.y = currentFallingSpeed * deltaTime;
+	if (currentFallingSpeed < baseFallingSpeed) {
+		newVelocity.y = baseFallingSpeed * deltaTime;
+	}
+	else {
+		newVelocity.y = currentFallingSpeed * deltaTime;
+	}
 	newPosition += newVelocity;
 	newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
 	newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
@@ -79,11 +83,35 @@ void Entity::MovementController(const float & deltaTime) {
 
 		isFalling = !(isBottomLeftIntersecting || isBottomRightIntersecting);
 	}
-	if (isFalling) {
-		// The entity is falling, set its velocity to the calculated new Velocity
-		velocity.y = newVelocity.y;
+	else {
+		// If neither of the level position could be found, stop the entity falling due to them going outside world bounds.
+		isFalling = false;
 	}
 
+	// If the entity is falling
+	if (isFalling) {
+		// Set the velocity, to the new calculated velocity
+		velocity.y = newVelocity.y;
+
+		// If the currentFallingSpeed hasn't yet been set to the base value
+		if (currentFallingSpeed < baseFallingSpeed) {
+			currentFallingSpeed = baseFallingSpeed;
+		}
+
+		// Increment the falling speed
+		currentFallingSpeed++;
+
+		// If the falling speed has gone past the max falling speed, set it back to max
+		if (currentFallingSpeed > maxFallingSpeed) {
+			currentFallingSpeed = maxFallingSpeed;
+		}
+
+		std::cout << currentFallingSpeed << std::endl;
+	}
+	else {
+		// If the entity is not falling, reset the current falling speed to nothing
+		currentFallingSpeed = 0.0f;
+	}
 }
 void Entity::UpdateAnimationState(void) {
 	switch (movementDirection) {
