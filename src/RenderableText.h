@@ -34,7 +34,7 @@ public:
 	float rotation;
 	glm::vec3 scale;
 
-	RenderableText(const std::string& name, const std::string& text, Font* font, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& colour = glm::vec3(1.0f), const bool& useCamera = false);
+	RenderableText(const std::string& name, const std::string& text, Font* font, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& colour = glm::vec3(1.0f), const bool& isEnabled = false, const bool& useCamera = false);
 	~RenderableText();
 
 	void Update(const float& deltaTime);
@@ -44,6 +44,8 @@ public:
 	void Disable(void);
 
 private:
+	bool isEnabled;
+
 	void LoadText(Font* font);
 	void UpdatePosition(void);
 	void UpdateRotation(void);
