@@ -3,13 +3,13 @@
 
 Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	// Default values
-	movementDirection = Directions::NotSet;
-	spriteDirection = Directions::Right;
+	movementDirection = Directions::MovementNotSet;
+	spriteDirection = Directions::MovementRight;
 	isJumping = false;
 	isFalling = false;
 
 	if (script->isScriptLoaded) {
-		animationState = AnimationState::IdleRight;
+		animationState = AnimationState::AnimationIdleRight;
 
 		// Texture Setup
 		int indexOfTexture = -1;
@@ -29,7 +29,7 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 		drawOffset = glm::ivec2(script->Get<int>("entity.draw_offset.x"), script->Get<int>("entity.draw_offset.y"));
 		drawPosition = this->position + glm::vec3(this->drawOffset, 0);
 
-		movementSpeed = script->Get<float>("entity.movement_speed");
+		baseMovementSpeed = script->Get<float>("entity.movement_speed");
 		boundingBoxOffset = glm::vec2(script->Get<int>("entity.bounding_box_offset.x"), script->Get<int>("entity.bounding_box_offset.y"));
 		glm::vec2 boundingBoxDimensions = glm::vec2(script->Get<int>("entity.bounding_box_dimensions.width"), script->Get<int>("entity.bounding_box_dimensions.height"));
 		boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset, boundingBoxDimensions);
@@ -57,29 +57,33 @@ void Entity::Update(const float& deltaTime) {
 }
 void Entity::Move(const float & deltaTime) {
 	// Falling
+		// Check if there is a collision below the entity
+			// If no collision then isFalling = true
+				// Amend Direction states
+			// else
+				// isFalling = false;
 
 	// Jumping
+		// If not falling
+			// Check for collision above
+				// If no collision above
 
 	// Left & Right Movement
 
 }
 void Entity::UpdateAnimationState(void) {
 	switch (spriteDirection) {
-	case Directions::Up:
-		if (velocity != glm::vec2(0.0f, 0.0f)) {
-			animationState = AnimationState::Jump;
-		}
+	case Directions::MovementJumping:
+		animationState = AnimationState::AnimationJumping;
 		break;
-	case Directions::Down:
-		if (velocity != glm::vec2(0.0f, 0.0f)) {
-			animationState = AnimationState::Fall;
-		}
+	case Directions::MovementFalling:
+		animationState = AnimationState::AnimationFalling;
 		break;
-	case Directions::Left:
-		(velocity != glm::vec2(0.0f, 0.0f)) ? animationState = AnimationState::MoveLeft : animationState = AnimationState::IdleLeft;
+	case Directions::MovementLeft:
+		(velocity != glm::vec2(0.0f, 0.0f)) ? animationState = AnimationState::AnimationMoveLeft : animationState = AnimationState::AnimationIdleLeft;
 		break;
-	case Directions::Right:
-		(velocity != glm::vec2(0.0f, 0.0f)) ? animationState = AnimationState::MoveRight : animationState = AnimationState::IdleRight;
+	case Directions::MovementRight:
+		(velocity != glm::vec2(0.0f, 0.0f)) ? animationState = AnimationState::AnimationMoveRight : animationState = AnimationState::AnimationIdleRight;
 		break;
 	default:
 		break;
@@ -88,16 +92,16 @@ void Entity::UpdateAnimationState(void) {
 void Entity::UpdateAnimationIndex(void) {
 	// Using the current animaiton state, work out which animation in the list to use.
 	switch (animationState) {
-	case AnimationState::IdleLeft:
+	case AnimationState::AnimationIdleLeft:
 		animationIndex = 0;
 		break;
-	case AnimationState::IdleRight:
+	case AnimationState::AnimationIdleRight:
 		animationIndex = 1;
 		break;
-	case AnimationState::MoveLeft:
+	case AnimationState::AnimationMoveLeft:
 		animationIndex = 2;
 		break;
-	case AnimationState::MoveRight:
+	case AnimationState::AnimationMoveRight:
 		animationIndex = 3;
 		break;
 	default:

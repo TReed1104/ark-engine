@@ -8,10 +8,10 @@ class Engine;
 class Entity : public GameObject
 {
 public:
-	enum Directions { NotSet, Up, Down, Left, Right, UpLeft, UpRight, DownLeft, DownRight};
+	enum Directions { MovementNotSet, MovementLeft, MovementRight, MovementFalling, MovementJumping };
 	Directions movementDirection;
 	Directions spriteDirection;
-	enum AnimationState { IdleLeft, IdleRight, Fall, Jump, MoveLeft, MoveRight};
+	enum AnimationState { AnimationIdleLeft, AnimationIdleRight, AnimationFalling, AnimationJumping, AnimationMoveLeft, AnimationMoveRight };
 	AnimationState animationState;
 
 	Entity(const std::string& scriptPath);
@@ -19,7 +19,6 @@ public:
 
 	void Update(const float& deltaTime);
 	virtual void MovementController(void) {}
-	void Move(const float& deltaTime);
 
 private:
 
@@ -27,6 +26,7 @@ protected:
 	bool isJumping;
 	bool isFalling;
 
+	void Move(const float& deltaTime);
 	void UpdateAnimationState(void);
 	void UpdateAnimationIndex(void);
 };
