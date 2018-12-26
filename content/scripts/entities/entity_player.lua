@@ -4,7 +4,7 @@ entity = {
 	-- Texture
 	texture = "entity_player.png",
 	-- Position
-	position = { x = (2 * 16), y = (2 * 16), z = 0, },
+	position = { x = (2 * 16), y = (5 * 16), z = 0, },
 	-- Draw Offset
 	draw_offset = { x = -24, y = -24, },
 	-- Bounding box Dimensions
