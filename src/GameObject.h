@@ -53,9 +53,6 @@ public:
 	// Transformations
 	float rotation;
 	glm::vec3 scale;
-	bool doTranslation;		// Flag controlling if the Object needs translating
-	bool doRotation;		// Flag controlling if the Object needs rotating
-	bool doScalar;			// Flag controlling if the Object needs scaling
 	
 	GameObject(const std::string& scriptPath = "NO SCRIPT");
 	~GameObject(void);

@@ -4,21 +4,22 @@
 Engine* RenderableText::Engine_Pointer;
 
 RenderableText::RenderableText(const std::string& name, const std::string& text, Font* font, const glm::vec3& position, const glm::vec3& colour, const bool& useCamera) {
+	// Informational
 	this->name = name;
 	this->text = text;
-	this->font = font;
-	this->colour = colour;
-	this->model = Model(text, false);
-	this->indexOfTextShader = Engine_Pointer->GetIndexOfShader("renderable Text");
-	this->doTranslation = false;
-	this->doRotation = false;
-	this->doScalar = false;
+
+	// Transforms
 	this->position = position;
 	this->rotation = 0.0f;
 	this->scale = glm::vec3(1.0f);
+	
+	// Rendering
+	this->colour = colour;
+	this->indexOfTextShader = Engine_Pointer->GetIndexOfShader("renderable Text");
+	this->model = Model(text, false);
 	this->useCamera = useCamera;
 
-	LoadText();
+	LoadText(font);
 }
 RenderableText::~RenderableText() {
 
@@ -76,7 +77,8 @@ void RenderableText::Enable(void) {
 void RenderableText::Disable(void) {
 
 }
-void RenderableText::LoadText(void) {
+void RenderableText::LoadText(Font* font) {
+	glyphs.clear();
 	const size_t lengthOfText = text.size();
 	for (size_t i = 0; i < lengthOfText; i++) {
 		Glyph& currentGlyph = font->GetGlyph(text[i]);
@@ -101,20 +103,11 @@ void RenderableText::LoadText(void) {
 	}
 }
 void RenderableText::UpdatePosition() {
-	if (doTranslation) {
-		model.Translate(position);
-		doTranslation = false;
-	}
+	model.Translate(position);
 }
 void RenderableText::UpdateRotation() {
-	if (doRotation) {
-		model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-		doRotation = false;
-	}
+	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 }
 void RenderableText::UpdateScale() {
-	if (doScalar) {
-		model.Scale(scale);
-		doScalar = false;
-	}
+	model.Scale(scale);
 }
