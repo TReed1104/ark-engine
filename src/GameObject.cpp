@@ -69,7 +69,6 @@ void GameObject::Update(const float& deltaTime) {
 
 	// Reset the velocities.
 	velocity = glm::vec2(0, 0);
-	velocitySnap = glm::vec2(0.0f, 0.0f);
 }
 void GameObject::Draw(void) {
 	glEnable(GL_BLEND);
@@ -130,7 +129,6 @@ void GameObject::Reposition(const glm::vec2& newPosition) {
 }
 void GameObject::UpdatePosition() {
 	position += glm::vec3(velocity, 0.0f);
-	position += glm::vec3(velocitySnap, 0.0f);
 	gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(position.x, position.y));
 	drawPosition = (position + glm::vec3(drawOffset, 0.0f));
 	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
