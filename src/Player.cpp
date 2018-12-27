@@ -18,17 +18,16 @@ void Player::EntityController() {
 	}
 }
 void Player::HandleInputKeyboard(void) {
+	movementDirection = Directions::NotSet;
+
 	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementRight)) {
 		movementDirection = Directions::Right;
+		spriteDirection = Directions::Right;
 	}
 	else if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementLeft)) {
 		movementDirection = Directions::Left;
+		spriteDirection = Directions::Left;
 	}
-
-	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementJump)) {
-		movementDirection = Directions::Up;
-	}
-
 }
 void Player::HandleInputGameController(void) {
 	// TODO: Implement Controller support when Keyboard input is finished

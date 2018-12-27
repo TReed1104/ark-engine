@@ -3,7 +3,8 @@
 
 Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	// Default values
-	movementDirection = Directions::Right;
+	movementDirection = Directions::NotSet;
+	spriteDirection = Directions::Right;
 	isJumping = false;
 	isFalling = false;
 
@@ -50,16 +51,21 @@ Entity::~Entity(void) {
 
 void Entity::Update(const float& deltaTime) {
 	EntityController();
-	MovementController(deltaTime);
+	ActionController(deltaTime);
 
 	// Calls the base class update.
 	GameObject::Update(deltaTime);
 }
-void Entity::MovementController(const float & deltaTime) {
+void Entity::Falling(const float & deltaTime) {
 	glm::vec2 newVelocity = glm::vec2(0.0f);
 	glm::vec2 newPosition = glm::vec2(position);
 	glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
 	BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+
+	BoundingBox* topLeftOverlap = nullptr;
+	BoundingBox* topRightOverlap = nullptr;
+	BoundingBox* bottomLeftOverlap = nullptr;
+	BoundingBox* bottomRightOverlap = nullptr;
 
 	Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel];
 
@@ -70,12 +76,12 @@ void Entity::MovementController(const float & deltaTime) {
 	else {
 		newVelocity.y = currentFallingSpeed * deltaTime;
 	}
-	newPosition += newVelocity;
+	newPosition.y += newVelocity.y;
 	newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
 	newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
 
-	BoundingBox* bottomLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
-	BoundingBox* bottomRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
+	bottomLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
+	bottomRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
 
 	if (bottomLeftOverlap != nullptr && bottomRightOverlap != nullptr) {
 		bool isBottomLeftIntersecting = newBoundingBox.Intersect(*bottomLeftOverlap);
@@ -86,6 +92,7 @@ void Entity::MovementController(const float & deltaTime) {
 	else {
 		// If neither of the level position could be found, stop the entity falling due to them going outside world bounds.
 		isFalling = false;
+		newVelocity = glm::vec2(0.0f);
 	}
 
 	// If the entity is falling
@@ -113,8 +120,74 @@ void Entity::MovementController(const float & deltaTime) {
 		currentFallingSpeed = 0.0f;
 	}
 }
+void Entity::Jumping(const float & deltaTime) {
+
+}
+void Entity::Movement(const float & deltaTime) {
+	glm::vec2 newVelocity = glm::vec2(0.0f);
+	glm::vec2 newPosition = glm::vec2(position);
+	glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
+	BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+
+	BoundingBox* topLeftOverlap = nullptr;
+	BoundingBox* topRightOverlap = nullptr;
+	BoundingBox* bottomLeftOverlap = nullptr;
+	BoundingBox* bottomRightOverlap = nullptr;
+
+	Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel];
+
+	// Left & Right
+	if (movementDirection == Directions::Left) {
+		newVelocity.x = -baseMovementSpeed * deltaTime;
+		newPosition.x += newVelocity.x;
+		newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
+		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+
+		topLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
+		bottomLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
+		bool isColliding = true;
+
+		if (topLeftOverlap != nullptr && bottomLeftOverlap != nullptr) {
+			bool isTopLeftIntersecting = newBoundingBox.Intersect(*topLeftOverlap);
+			bool isBottomLeftIntersecting = newBoundingBox.Intersect(*bottomLeftOverlap);
+			isColliding = (isTopLeftIntersecting || isBottomLeftIntersecting);
+		}
+
+		if (!isColliding) {
+			velocity.x = newVelocity.x;
+			newVelocity = glm::vec2(0.0f);
+		}
+	}
+	else if (movementDirection == Directions::Right) {
+		newVelocity.x = baseMovementSpeed * deltaTime;
+		newPosition.x += newVelocity.x;
+		newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
+		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+
+		topRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
+		bottomRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
+		bool isColliding = true;
+
+		if (topRightOverlap != nullptr && bottomRightOverlap != nullptr) {
+			bool isTopRightIntersecting = newBoundingBox.Intersect(*topRightOverlap);
+			bool isBottomRightIntersecting = newBoundingBox.Intersect(*bottomRightOverlap);
+			isColliding = (isTopRightIntersecting || isBottomRightIntersecting);
+		}
+
+		if (!isColliding) {
+			velocity.x = newVelocity.x;
+			newVelocity = glm::vec2(0.0f);
+		}
+	}
+}
+void Entity::ActionController(const float & deltaTime) {
+	Falling(deltaTime);
+	Jumping(deltaTime);
+	Movement(deltaTime);
+
+}
 void Entity::UpdateAnimationState(void) {
-	switch (movementDirection) {
+	switch (spriteDirection) {
 	case Directions::Up:
 		animationState = AnimationState::AnimationJumping;
 		break;
@@ -122,10 +195,10 @@ void Entity::UpdateAnimationState(void) {
 		animationState = AnimationState::AnimationFalling;
 		break;
 	case Directions::Left:
-		(velocity != glm::vec2(0.0f, 0.0f)) ? animationState = AnimationState::AnimationMoveLeft : animationState = AnimationState::AnimationIdleLeft;
+		(velocity.x != 0.0f) ? animationState = AnimationState::AnimationMoveLeft : animationState = AnimationState::AnimationIdleLeft;
 		break;
 	case Directions::Right:
-		(velocity != glm::vec2(0.0f, 0.0f)) ? animationState = AnimationState::AnimationMoveRight : animationState = AnimationState::AnimationIdleRight;
+		(velocity.x != 0.0f) ? animationState = AnimationState::AnimationMoveRight : animationState = AnimationState::AnimationIdleRight;
 		break;
 	default:
 		break;
