@@ -123,7 +123,7 @@ void Entity::Falling(const float & deltaTime) {
 void Entity::Jumping(const float & deltaTime) {
 
 }
-void Entity::Movement(const float & deltaTime) {
+void Entity::Walking(const float & deltaTime) {
 	glm::vec2 newVelocity = glm::vec2(0.0f);
 	glm::vec2 newPosition = glm::vec2(position);
 	glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
@@ -183,7 +183,7 @@ void Entity::Movement(const float & deltaTime) {
 void Entity::ActionController(const float & deltaTime) {
 	Falling(deltaTime);
 	Jumping(deltaTime);
-	Movement(deltaTime);
+	Walking(deltaTime);
 
 }
 void Entity::UpdateAnimationState(void) {

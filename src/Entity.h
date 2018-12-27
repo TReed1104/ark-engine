@@ -28,7 +28,7 @@ protected:
 
 	void Falling(const float& deltaTime);
 	void Jumping(const float& deltaTime);
-	void Movement(const float& deltaTime);
+	void Walking(const float& deltaTime);
 	void ActionController(const float& deltaTime);	// Executes the movements specified by EntityController
 	void UpdateAnimationState(void);
 	void UpdateAnimationIndex(void);
