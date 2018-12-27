@@ -28,6 +28,14 @@ void Player::HandleInputKeyboard(void) {
 		movementDirection = Directions::Left;
 		spriteDirection = Directions::Left;
 	}
+
+	// Crouching
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Keyboard::LeftShift)) {
+		isCrouching = true;
+	}
+	else {
+		isCrouching = false;
+	}
 }
 void Player::HandleInputGameController(void) {
 	// TODO: Implement Controller support when Keyboard input is finished
