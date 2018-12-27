@@ -44,7 +44,6 @@ void Player::HandleInputKeyboard(void) {
 	else {
 		currentMovementSpeed = baseMovementSpeed;
 	}
-	std::cout << currentMovementSpeed << std::endl;
 }
 void Player::HandleInputGameController(void) {
 	// TODO: Implement Controller support when Keyboard input is finished
