@@ -30,8 +30,6 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 		drawOffset = glm::ivec2(script->Get<int>("entity.draw_offset.x"), script->Get<int>("entity.draw_offset.y"));
 		drawPosition = this->position + glm::vec3(this->drawOffset, 0);
 
-		baseMovementSpeed = script->Get<float>("entity.movement_speed");
-		currentMovementSpeed = baseMovementSpeed;
 		boundingBoxOffset = glm::vec2(script->Get<int>("entity.bounding_box_offset.x"), script->Get<int>("entity.bounding_box_offset.y"));
 		glm::vec2 boundingBoxDimensions = glm::vec2(script->Get<int>("entity.bounding_box_dimensions.width"), script->Get<int>("entity.bounding_box_dimensions.height"));
 		boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset, boundingBoxDimensions);
