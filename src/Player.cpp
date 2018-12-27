@@ -36,6 +36,15 @@ void Player::HandleInputKeyboard(void) {
 	else {
 		isCrouching = false;
 	}
+
+	// Sprinting
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Keyboard::o)) {
+		currentMovementSpeed = baseMovementSpeed * 2;
+	}
+	else {
+		currentMovementSpeed = baseMovementSpeed;
+	}
+	std::cout << currentMovementSpeed << std::endl;
 }
 void Player::HandleInputGameController(void) {
 	// TODO: Implement Controller support when Keyboard input is finished

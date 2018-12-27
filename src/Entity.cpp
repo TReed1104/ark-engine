@@ -153,7 +153,7 @@ void Entity::ActionHandlerWalking(const float& deltaTime) {
 
 	// Left & Right
 	if (movementDirection == Directions::Left) {
-		newVelocity.x = -baseMovementSpeed * deltaTime;
+		newVelocity.x = -currentMovementSpeed * deltaTime;
 		newPosition.x += newVelocity.x;
 		newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
 		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
@@ -174,7 +174,7 @@ void Entity::ActionHandlerWalking(const float& deltaTime) {
 		}
 	}
 	else if (movementDirection == Directions::Right) {
-		newVelocity.x = baseMovementSpeed * deltaTime;
+		newVelocity.x = currentMovementSpeed * deltaTime;
 		newPosition.x += newVelocity.x;
 		newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
 		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
