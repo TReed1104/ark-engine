@@ -30,7 +30,7 @@ void Player::HandleInputKeyboard(void) {
 	}
 
 	// Crouching
-	if (Engine_Pointer->deviceKeyboard->GetKeyState(Keyboard::LeftShift)) {
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Keyboard::LeftCtrl)) {
 		isCrouching = true;
 	}
 	else {
