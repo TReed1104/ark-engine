@@ -58,7 +58,13 @@ void Entity::Update(const float& deltaTime) {
 	GameObject::Update(deltaTime);
 }
 void Entity::ActionHandlerCrouching(const float& deltaTime) {
+	if (isCrouching) {
+		// Amend Bounding Box size and positions
 
+	}
+	else {
+		// Check the position above the entity, if the position is a collision set crouching to true
+	}
 }
 void Entity::ActionHandlerJumping(const float& deltaTime) {
 	if (!isCrouching) {
