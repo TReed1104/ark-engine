@@ -127,8 +127,6 @@ void Entity::ActionHandlerFalling(const float& deltaTime) {
 		if (currentFallingSpeed > maxFallingSpeed) {
 			currentFallingSpeed = maxFallingSpeed;
 		}
-
-		std::cout << currentFallingSpeed << std::endl;
 	}
 	else {
 		// If the entity is not falling, reset the current falling speed to nothing
