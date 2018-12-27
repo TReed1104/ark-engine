@@ -35,7 +35,7 @@ GameObject::GameObject(const std::string & scriptPath) {
 	// Physics Setup
 	velocity = glm::vec2(0.0f);
 
-	baseMovementSpeed = 60.0f;
+	baseMovementSpeed = 80.0f;
 	maxMovementSpeed = 150.0f;
 	currentMovementSpeed = baseMovementSpeed;
 
