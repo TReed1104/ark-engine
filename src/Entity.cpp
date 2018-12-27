@@ -5,6 +5,7 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	// Default values
 	movementDirection = Directions::NotSet;
 	spriteDirection = Directions::Right;
+	isCrouching = false;
 	isJumping = false;
 	isFalling = false;
 
@@ -56,7 +57,15 @@ void Entity::Update(const float& deltaTime) {
 	// Calls the base class update.
 	GameObject::Update(deltaTime);
 }
-void Entity::ActionHandlerFalling(const float & deltaTime) {
+void Entity::ActionHandlerCrouching(const float& deltaTime) {
+
+}
+void Entity::ActionHandlerJumping(const float& deltaTime) {
+	if (!isCrouching) {
+
+	}
+}
+void Entity::ActionHandlerFalling(const float& deltaTime) {
 	glm::vec2 newVelocity = glm::vec2(0.0f);
 	glm::vec2 newPosition = glm::vec2(position);
 	glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
@@ -120,10 +129,7 @@ void Entity::ActionHandlerFalling(const float & deltaTime) {
 		currentFallingSpeed = 0.0f;
 	}
 }
-void Entity::ActionHandlerJumping(const float & deltaTime) {
-
-}
-void Entity::ActionHandlerWalking(const float & deltaTime) {
+void Entity::ActionHandlerWalking(const float& deltaTime) {
 	glm::vec2 newVelocity = glm::vec2(0.0f);
 	glm::vec2 newPosition = glm::vec2(position);
 	glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
@@ -180,9 +186,10 @@ void Entity::ActionHandlerWalking(const float & deltaTime) {
 		}
 	}
 }
-void Entity::ActionController(const float & deltaTime) {
-	ActionHandlerFalling(deltaTime);
+void Entity::ActionController(const float& deltaTime) {
+	ActionHandlerCrouching(deltaTime);
 	ActionHandlerJumping(deltaTime);
+	ActionHandlerFalling(deltaTime);
 	ActionHandlerWalking(deltaTime);
 
 }

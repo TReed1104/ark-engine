@@ -23,11 +23,13 @@ public:
 private:
 
 protected:
+	bool isCrouching;
 	bool isJumping;
 	bool isFalling;
 
-	void ActionHandlerFalling(const float& deltaTime);
+	void ActionHandlerCrouching(const float& deltaTime);
 	void ActionHandlerJumping(const float& deltaTime);
+	void ActionHandlerFalling(const float& deltaTime);
 	void ActionHandlerWalking(const float& deltaTime);
 	void ActionController(const float& deltaTime);	// Executes the movements specified by EntityController
 	void UpdateAnimationState(void);
