@@ -56,7 +56,7 @@ void Entity::Update(const float& deltaTime) {
 	// Calls the base class update.
 	GameObject::Update(deltaTime);
 }
-void Entity::Falling(const float & deltaTime) {
+void Entity::ActionHandlerFalling(const float & deltaTime) {
 	glm::vec2 newVelocity = glm::vec2(0.0f);
 	glm::vec2 newPosition = glm::vec2(position);
 	glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
@@ -120,10 +120,10 @@ void Entity::Falling(const float & deltaTime) {
 		currentFallingSpeed = 0.0f;
 	}
 }
-void Entity::Jumping(const float & deltaTime) {
+void Entity::ActionHandlerJumping(const float & deltaTime) {
 
 }
-void Entity::Walking(const float & deltaTime) {
+void Entity::ActionHandlerWalking(const float & deltaTime) {
 	glm::vec2 newVelocity = glm::vec2(0.0f);
 	glm::vec2 newPosition = glm::vec2(position);
 	glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
@@ -181,9 +181,9 @@ void Entity::Walking(const float & deltaTime) {
 	}
 }
 void Entity::ActionController(const float & deltaTime) {
-	Falling(deltaTime);
-	Jumping(deltaTime);
-	Walking(deltaTime);
+	ActionHandlerFalling(deltaTime);
+	ActionHandlerJumping(deltaTime);
+	ActionHandlerWalking(deltaTime);
 
 }
 void Entity::UpdateAnimationState(void) {

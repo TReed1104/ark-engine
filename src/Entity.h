@@ -26,9 +26,9 @@ protected:
 	bool isJumping;
 	bool isFalling;
 
-	void Falling(const float& deltaTime);
-	void Jumping(const float& deltaTime);
-	void Walking(const float& deltaTime);
+	void ActionHandlerFalling(const float& deltaTime);
+	void ActionHandlerJumping(const float& deltaTime);
+	void ActionHandlerWalking(const float& deltaTime);
 	void ActionController(const float& deltaTime);	// Executes the movements specified by EntityController
 	void UpdateAnimationState(void);
 	void UpdateAnimationIndex(void);
