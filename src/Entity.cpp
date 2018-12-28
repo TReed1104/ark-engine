@@ -69,7 +69,6 @@ void Entity::ActionHandlerJumping(const float& deltaTime) {
 	if (!isCrouching && !isFalling && isJumping ) {
 		glm::vec2 newVelocity = glm::vec2(0.0f);
 		glm::vec2 newPosition = glm::vec2(position);
-		glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
 		BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
 
 		BoundingBox* topLeftOverlap = nullptr;
@@ -82,7 +81,6 @@ void Entity::ActionHandlerJumping(const float& deltaTime) {
 		newVelocity.y = currentJumpingSpeed * deltaTime;
 
 		newPosition.y += newVelocity.y;
-		newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
 		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
 
 		topLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
@@ -123,7 +121,6 @@ void Entity::ActionHandlerFalling(const float& deltaTime) {
 	if (!isJumping) {
 		glm::vec2 newVelocity = glm::vec2(0.0f);
 		glm::vec2 newPosition = glm::vec2(position);
-		glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
 		BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
 
 		BoundingBox* topLeftOverlap = nullptr;
@@ -141,7 +138,6 @@ void Entity::ActionHandlerFalling(const float& deltaTime) {
 			newVelocity.y = currentFallingSpeed * deltaTime;
 		}
 		newPosition.y += newVelocity.y;
-		newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
 		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
 
 		bottomLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
@@ -186,7 +182,6 @@ void Entity::ActionHandlerFalling(const float& deltaTime) {
 void Entity::ActionHandlerWalking(const float& deltaTime) {
 	glm::vec2 newVelocity = glm::vec2(0.0f);
 	glm::vec2 newPosition = glm::vec2(position);
-	glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
 	BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
 
 	BoundingBox* topLeftOverlap = nullptr;
@@ -200,7 +195,6 @@ void Entity::ActionHandlerWalking(const float& deltaTime) {
 	if (movementDirection == Directions::Left) {
 		newVelocity.x = -currentMovementSpeed * deltaTime;
 		newPosition.x += newVelocity.x;
-		newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
 		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
 
 		topLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
@@ -215,13 +209,11 @@ void Entity::ActionHandlerWalking(const float& deltaTime) {
 
 		if (!isColliding) {
 			velocity.x = newVelocity.x;
-			newVelocity = glm::vec2(0.0f);
 		}
 	}
 	else if (movementDirection == Directions::Right) {
 		newVelocity.x = currentMovementSpeed * deltaTime;
 		newPosition.x += newVelocity.x;
-		newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
 		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
 
 		topRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
@@ -236,7 +228,6 @@ void Entity::ActionHandlerWalking(const float& deltaTime) {
 
 		if (!isColliding) {
 			velocity.x = newVelocity.x;
-			newVelocity = glm::vec2(0.0f);
 		}
 	}
 }
