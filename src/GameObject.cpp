@@ -36,14 +36,14 @@ GameObject::GameObject(const std::string & scriptPath) {
 	velocity = glm::vec2(0.0f);
 
 	baseMovementSpeed = 80.0f;
-	maxMovementSpeed = 150.0f;
+	maxMovementSpeed = 120.0f;
 	currentMovementSpeed = baseMovementSpeed;
 
-	baseFallingSpeed = 75.0f;
-	maxFallingSpeed = 250.0f;
+	baseFallingSpeed = 1.0f;
+	maxFallingSpeed = 150.0f;
 	currentFallingSpeed = 0.0f;
 
-	baseJumpingSpeed = -80.0f;
+	baseJumpingSpeed = -150.0f;
 	currentJumpingSpeed = 0.0f;
 	maxJumpingSpeed = -250.0f;
 
