@@ -33,8 +33,15 @@ void Player::HandleInputKeyboard(void) {
 		if (!isJumping && !isFalling) {
 			isJumping = true;
 			currentJumpingSpeed = baseJumpingSpeed;
+			std::cout << "Initialised Jump" << std::endl;
+		}	
+	}
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Keyboard::s)) {
+		if (isJumping) {
+			isJumping = false;
+			currentJumpingSpeed = 0.0f;
+			std::cout << "Initialised Fall" << std::endl;
 		}
-		
 	}
 
 	// Crouching

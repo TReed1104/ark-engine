@@ -111,8 +111,6 @@ void Entity::ActionHandlerJumping(const float& deltaTime) {
 				isJumping = false;
 				currentJumpingSpeed = 0.0f;
 			}
-
-			std::cout << currentJumpingSpeed << std::endl;
 		}
 		else {
 			// If the entity is not falling, reset the current falling speed to nothing
