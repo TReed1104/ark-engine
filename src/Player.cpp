@@ -34,6 +34,7 @@ void Player::HandleInputKeyboard(void) {
 			isJumping = true;
 			currentJumpingSpeed = baseJumpingSpeed;
 			std::cout << "Initialised Jump" << std::endl;
+			movementDirection = Directions::Up;
 		}	
 	}
 	if (Engine_Pointer->deviceKeyboard->GetKeyState(Keyboard::s)) {
@@ -41,6 +42,7 @@ void Player::HandleInputKeyboard(void) {
 			isJumping = false;
 			currentJumpingSpeed = 0.0f;
 			std::cout << "Initialised Fall" << std::endl;
+			movementDirection = Directions::Down;
 		}
 	}
 
