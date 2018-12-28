@@ -104,7 +104,7 @@ void Entity::ActionHandlerJumping(const float& deltaTime) {
 		if (!isCollding) {
 			
 			velocity.y = newVelocity.y;
-			currentJumpingSpeed +=2;
+			currentJumpingSpeed++;
 			if (currentJumpingSpeed >= 0) {
 				isJumping = false;
 				currentJumpingSpeed = 0.0f;
@@ -166,7 +166,7 @@ void Entity::ActionHandlerFalling(const float& deltaTime) {
 			}
 
 			// Increment the falling speed
-			currentFallingSpeed +=2;
+			currentFallingSpeed++;
 
 			// If the falling speed has gone past the max falling speed, set it back to max
 			if (currentFallingSpeed > maxFallingSpeed) {
