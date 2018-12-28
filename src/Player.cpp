@@ -29,6 +29,14 @@ void Player::HandleInputKeyboard(void) {
 		spriteDirection = Directions::Left;
 	}
 
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementJump)) {
+		if (!isJumping && !isFalling) {
+			isJumping = true;
+			currentJumpingSpeed = baseJumpingSpeed;
+		}
+		
+	}
+
 	// Crouching
 	if (Engine_Pointer->deviceKeyboard->GetKeyState(Keyboard::LeftCtrl)) {
 		isCrouching = true;
