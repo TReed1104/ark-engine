@@ -610,17 +610,17 @@ void Engine::Run(void) {
 	// FPS variables
 	int fpsCounter = 0;
 	float secondsCounter = 0;
-	float maxDeltatime = 0.016f;	// Equivalent to 60 FPS timer
+	float maxDeltatime = 0.05f;	// Equivalent to 60 FPS timer
 
 	while (isRunning) {
 		// DeltaTime math
 		currentFrameTime = (float)SDL_GetTicks();
 		float deltaTime = ((currentFrameTime - oldFrameTime) / 1000);
 
-
 		// This caps out deltaTime to prevent the insanely high deltaTime caused by moving the window or game loading
 		if (deltaTime > maxDeltatime) {
 			deltaTime = maxDeltatime;
+			std::cout << "capped deltaTime" << std::endl;
 		}
 
 		// Main Game loop
