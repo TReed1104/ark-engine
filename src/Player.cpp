@@ -48,7 +48,9 @@ void Player::HandleInputKeyboard(void) {
 
 	// Crouching
 	if (Engine_Pointer->deviceKeyboard->GetKeyState(Keyboard::LeftCtrl)) {
-		isCrouching = true;
+		if (!isJumping && !isFalling) {
+			isCrouching = true;
+		}
 	}
 	else {
 		isCrouching = false;
@@ -56,7 +58,9 @@ void Player::HandleInputKeyboard(void) {
 
 	// Sprinting
 	if (Engine_Pointer->deviceKeyboard->GetKeyState(Keyboard::o)) {
-		currentMovementSpeed = baseMovementSpeed * 2;
+		if (!isJumping && !isFalling) {
+			currentMovementSpeed = maxMovementSpeed;
+		}
 	}
 	else {
 		currentMovementSpeed = baseMovementSpeed;
