@@ -66,10 +66,59 @@ void Entity::ActionHandlerCrouching(const float& deltaTime) {
 }
 void Entity::ActionHandlerJumping(const float& deltaTime) {
 	// If the entity is now crouched or falling, try and jump
-	if (!isCrouching && !isFalling) {
+	if (!isCrouching && !isFalling && isJumping ) {
+		glm::vec2 newVelocity = glm::vec2(0.0f);
+		glm::vec2 newPosition = glm::vec2(position);
+		glm::vec2 newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
+		BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+
+		BoundingBox* topLeftOverlap = nullptr;
+		BoundingBox* topRightOverlap = nullptr;
+		BoundingBox* bottomLeftOverlap = nullptr;
+		BoundingBox* bottomRightOverlap = nullptr;
+
+		Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel];
+
+		newVelocity.y = currentJumpingSpeed * deltaTime;
+
+		newPosition.y += newVelocity.y;
+		newGridPosition = Engine_Pointer->ConvertToGridPosition(newPosition);
+		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+
+		topLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
+		topRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
+
 		// Check above the entity, top left + top right
+		bool isCollding = true;
+		if (topLeftOverlap != nullptr && topRightOverlap != nullptr) {
+			bool isTopLeftIntersecting = newBoundingBox.Intersect(*topLeftOverlap);
+			bool isTopRightIntersecting = newBoundingBox.Intersect(*topRightOverlap);
+
+			isCollding = (isTopLeftIntersecting || isTopRightIntersecting);
+		}
+		else {
+			// If neither of the level position could be found, stop the entity falling due to them going outside world bounds.
+			isJumping = false;
+			newVelocity = glm::vec2(0.0f);
+		}
+
 		// If empty, initialise the jump, start with a high velocity upwards and decrease til 0
-		// at 0, set isJumping to false, which will trigger the falling code
+		if (!isCollding) {
+			
+			velocity.y = newVelocity.y;
+			currentJumpingSpeed +=2;
+			if (currentJumpingSpeed >= 0) {
+				isJumping = false;
+				currentJumpingSpeed = 0.0f;
+			}
+
+			std::cout << currentJumpingSpeed << std::endl;
+		}
+		else {
+			// If the entity is not falling, reset the current falling speed to nothing
+			currentJumpingSpeed = 0.0f;
+			isJumping = false;
+		}
 	}
 }
 void Entity::ActionHandlerFalling(const float& deltaTime) {
@@ -123,7 +172,7 @@ void Entity::ActionHandlerFalling(const float& deltaTime) {
 			}
 
 			// Increment the falling speed
-			currentFallingSpeed++;
+			currentFallingSpeed +=2;
 
 			// If the falling speed has gone past the max falling speed, set it back to max
 			if (currentFallingSpeed > maxFallingSpeed) {
