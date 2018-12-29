@@ -137,6 +137,7 @@ void GameObject::UpdatePosition() {
 	position += glm::vec3(velocity, 0.0f);
 	gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(position.x, position.y));
 	drawPosition = (position + glm::vec3(drawOffset, 0.0f));
+	drawPosition = glm::vec3((int)drawPosition.x, (int)drawPosition.y, drawPosition.z);	// Floor the x and y values of the drawPosition to cap it to pixel grid
 	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
 	model.Translate(drawPosition);
 }
