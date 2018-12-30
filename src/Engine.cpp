@@ -537,9 +537,9 @@ void Engine::EventHandler(void) {
 }
 void Engine::Update(const float& deltaTime) {
 	// Check the current level has been initialised
-	if (levelRegister[indexOfCurrentLevel] != nullptr) {
+	if (GetCurrentLevel() != nullptr) {
 		// Run the current Level's update function
-		levelRegister[indexOfCurrentLevel]->Update(deltaTime);
+		GetCurrentLevel()->Update(deltaTime);
 	}
 
 	// Check the player has been initialised
@@ -569,8 +569,8 @@ void Engine::Render(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Draw the level
-	if (levelRegister[indexOfCurrentLevel] != nullptr) {
-		levelRegister[indexOfCurrentLevel]->Draw();
+	if (GetCurrentLevel() != nullptr) {
+		GetCurrentLevel()->Draw();
 	}
 
 	// Draw the player
