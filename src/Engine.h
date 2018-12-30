@@ -76,7 +76,7 @@ public:
 	// Indexers
 	int indexOfPlayerController;
 	int indexOfDefaultShader;
-	int indexCurrentLevel;
+	int indexOfCurrentLevel;
 	int indexOfTileModel;
 	int indexOfSpriteModel;
 	int indexOfDefaultTexture;
@@ -113,6 +113,7 @@ public:
 	const int GetIndexOfTileset(const std::string& tilesetName);
 	const int GetIndexOfEntity(const std::string& entityName);
 	const int GetIndexOfLevel(const std::string& levelName);
+	const Level* GetCurrentLevel(void);
 
 private:
 	// GL variables

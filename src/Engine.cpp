@@ -10,7 +10,7 @@ Engine::Engine(char* gameName) {
 	contentDirectory = "content/";
 
 	indexOfDefaultShader = 0;
-	indexCurrentLevel = -1;
+	indexOfCurrentLevel = -1;
 
 	nameOfDefaultTileModel = "";
 	nameOfDefaultSpriteModel = "";
@@ -424,7 +424,7 @@ void Engine::LoadLevels(void) {
 	for (size_t i = 0; i < listOfLevelFilesSize; i++) {
 		levelRegister.push_back(new Level(listOfLevelFiles[i]));
 	}
-	indexCurrentLevel = 0;
+	indexOfCurrentLevel = 0;
 
 	std::cout << ">> 12 - COMPLETE" << std::endl;
 }
@@ -537,9 +537,9 @@ void Engine::EventHandler(void) {
 }
 void Engine::Update(const float& deltaTime) {
 	// Check the current level has been initialised
-	if (levelRegister[indexCurrentLevel] != nullptr) {
+	if (levelRegister[indexOfCurrentLevel] != nullptr) {
 		// Run the current Level's update function
-		levelRegister[indexCurrentLevel]->Update(deltaTime);
+		levelRegister[indexOfCurrentLevel]->Update(deltaTime);
 	}
 
 	// Check the player has been initialised
@@ -569,8 +569,8 @@ void Engine::Render(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Draw the level
-	if (levelRegister[indexCurrentLevel] != nullptr) {
-		levelRegister[indexCurrentLevel]->Draw();
+	if (levelRegister[indexOfCurrentLevel] != nullptr) {
+		levelRegister[indexOfCurrentLevel]->Draw();
 	}
 
 	// Draw the player
@@ -727,4 +727,12 @@ const int Engine::GetIndexOfLevel(const std::string& levelName) {
 		}
 	}
 	return indexOfDesiredLevel;
+}
+const Level* Engine::GetCurrentLevel(void) {
+	if (indexOfCurrentLevel != -1) {
+		return levelRegister[indexOfCurrentLevel];
+	}
+	else {
+		return nullptr;
+	}
 }

@@ -76,7 +76,7 @@ void Entity::ActionHandlerJumping(const float& deltaTime) {
 		BoundingBox* bottomLeftOverlap = nullptr;
 		BoundingBox* bottomRightOverlap = nullptr;
 
-		Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel];
+		Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexOfCurrentLevel];
 
 		newVelocity.y = currentJumpingSpeed * deltaTime;
 
@@ -128,7 +128,7 @@ void Entity::ActionHandlerFalling(const float& deltaTime) {
 		BoundingBox* bottomLeftOverlap = nullptr;
 		BoundingBox* bottomRightOverlap = nullptr;
 
-		Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel];
+		Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexOfCurrentLevel];
 
 		// Falling
 		newVelocity.y = currentFallingSpeed * deltaTime;
@@ -176,7 +176,7 @@ void Entity::ActionHandlerWalking(const float& deltaTime) {
 	BoundingBox* bottomLeftOverlap = nullptr;
 	BoundingBox* bottomRightOverlap = nullptr;
 
-	Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel];
+	Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexOfCurrentLevel];
 
 	// Left & Right
 	if (movementDirection == Directions::Left) {
