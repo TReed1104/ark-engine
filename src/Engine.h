@@ -113,7 +113,7 @@ public:
 	const int GetIndexOfTileset(const std::string& tilesetName);
 	const int GetIndexOfEntity(const std::string& entityName);
 	const int GetIndexOfLevel(const std::string& levelName);
-	const Level* GetCurrentLevel(void);
+	Level* GetCurrentLevel(void);
 
 private:
 	// GL variables

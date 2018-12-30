@@ -728,7 +728,7 @@ const int Engine::GetIndexOfLevel(const std::string& levelName) {
 	}
 	return indexOfDesiredLevel;
 }
-const Level* Engine::GetCurrentLevel(void) {
+Level* Engine::GetCurrentLevel(void) {
 	if (indexOfCurrentLevel != -1) {
 		return levelRegister[indexOfCurrentLevel];
 	}
