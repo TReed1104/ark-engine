@@ -54,10 +54,14 @@ public:
 	float baseFallingSpeed;
 	float maxFallingSpeed;
 	float currentFallingSpeed;
+	float fallTimer;
+	float timeForMaxFallSpeed;
 
 	float baseJumpingSpeed;
 	float currentJumpingSpeed;
 	float maxJumpingSpeed;
+	float jumpingTimer;
+	float timeForMaxJumpSpeed;
 	
 	// Transformations
 	float rotation;
