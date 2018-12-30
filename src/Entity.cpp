@@ -65,154 +65,136 @@ void Entity::ActionHandlerCrouching(const float& deltaTime) {
 	}
 }
 void Entity::ActionHandlerJumping(const float& deltaTime) {
-	// If the entity is now crouched or falling, try and jump
+	// If the entity is not crouched or falling, try and jump
 	if (!isCrouching && !isFalling && isJumping ) {
+		// Declare the variables used for the calculations
 		glm::vec2 newVelocity = glm::vec2(0.0f);
 		glm::vec2 newPosition = glm::vec2(position);
 		BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
-
 		BoundingBox* topLeftOverlap = nullptr;
 		BoundingBox* topRightOverlap = nullptr;
-		BoundingBox* bottomLeftOverlap = nullptr;
-		BoundingBox* bottomRightOverlap = nullptr;
 
-		Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexOfCurrentLevel];
-
+		// Set the values used for the calculations
 		newVelocity.y = currentJumpingSpeed * deltaTime;
-
 		newPosition.y += newVelocity.y;
 		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+		topLeftOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
+		topRightOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
 
-		topLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
-		topRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
-
-		// Check above the entity, top left + top right
-		bool isCollding = true;
+		// Check for a collision
+		bool isColliding = true;
 		if (topLeftOverlap != nullptr && topRightOverlap != nullptr) {
 			bool isTopLeftIntersecting = newBoundingBox.Intersect(*topLeftOverlap);
 			bool isTopRightIntersecting = newBoundingBox.Intersect(*topRightOverlap);
-
-			isCollding = (isTopLeftIntersecting || isTopRightIntersecting);
-		}
-		else {
-			// If neither of the level position could be found, stop the entity falling due to them going outside world bounds.
-			isJumping = false;
-			newVelocity = glm::vec2(0.0f);
+			isColliding = (isTopLeftIntersecting || isTopRightIntersecting);
 		}
 
-		// If empty, initialise the jump, start with a high velocity upwards and decrease til 0
-		if (!isCollding) {
-			
+		// If there is no collision, Fall
+		if (!isColliding) {
 			velocity.y = newVelocity.y;
 			currentJumpingSpeed++;
+			std::cout << currentJumpingSpeed << std::endl;
+
 			if (currentJumpingSpeed >= 0) {
 				isJumping = false;
 				currentJumpingSpeed = 0.0f;
 			}
 		}
 		else {
-			// If the entity is not falling, reset the current falling speed to nothing
-			currentJumpingSpeed = 0.0f;
+			// If there was a collision, reset the jump variables
+			currentJumpingSpeed = baseJumpingSpeed;
 			isJumping = false;
 		}
 	}
 }
 void Entity::ActionHandlerFalling(const float& deltaTime) {
+	// If the entity is not jumping
 	if (!isJumping) {
+		// Declare the variables used for the calculations
 		glm::vec2 newVelocity = glm::vec2(0.0f);
 		glm::vec2 newPosition = glm::vec2(position);
 		BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
-
-		BoundingBox* topLeftOverlap = nullptr;
-		BoundingBox* topRightOverlap = nullptr;
 		BoundingBox* bottomLeftOverlap = nullptr;
 		BoundingBox* bottomRightOverlap = nullptr;
 
-		Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexOfCurrentLevel];
-
-		// Falling
+		// Set the values used for the calculations
 		newVelocity.y = currentFallingSpeed * deltaTime;
 		newPosition.y += newVelocity.y;
 		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+		bottomLeftOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
+		bottomRightOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
 
-		bottomLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
-		bottomRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
-
+		// Check for a collision
+		bool isColliding = true;
 		if (bottomLeftOverlap != nullptr && bottomRightOverlap != nullptr) {
 			bool isBottomLeftIntersecting = newBoundingBox.Intersect(*bottomLeftOverlap);
 			bool isBottomRightIntersecting = newBoundingBox.Intersect(*bottomRightOverlap);
-
-			isFalling = !(isBottomLeftIntersecting || isBottomRightIntersecting);
-		}
-		else {
-			// If neither of the level position could be found, stop the entity falling due to them going outside world bounds.
-			isFalling = false;
-			newVelocity = glm::vec2(0.0f);
+			isColliding = (isBottomLeftIntersecting || isBottomRightIntersecting);
 		}
 
-		// If the entity is falling
-		if (isFalling) {
-			// Set the velocity, to the new calculated velocity
+		// If there is no collision, Jump
+		if (!isColliding) {
+			isFalling = true;
 			velocity.y = newVelocity.y;
-
-			// Increment the falling speed
 			currentFallingSpeed += 2;
 			currentFallingSpeed = glm::clamp(currentFallingSpeed, baseFallingSpeed, maxFallingSpeed);
-			std::cout << currentFallingSpeed << std::endl;
 		}
 		else {
-			// If the entity is not falling, reset the current falling speed to nothing
+			// If there was a collision, reset the fall variables
+			isFalling = false;
 			currentFallingSpeed = baseFallingSpeed;
 		}
 	}
 }
 void Entity::ActionHandlerWalking(const float& deltaTime) {
+	// Declare the variables used for the calculations
 	glm::vec2 newVelocity = glm::vec2(0.0f);
 	glm::vec2 newPosition = glm::vec2(position);
 	BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
-
 	BoundingBox* topLeftOverlap = nullptr;
 	BoundingBox* topRightOverlap = nullptr;
 	BoundingBox* bottomLeftOverlap = nullptr;
 	BoundingBox* bottomRightOverlap = nullptr;
 
-	Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexOfCurrentLevel];
-
 	// Left & Right
 	if (movementDirection == Directions::Left) {
+		// Set the values used for the calculations
 		newVelocity.x = -currentMovementSpeed * deltaTime;
 		newPosition.x += newVelocity.x;
 		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+		topLeftOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
+		bottomLeftOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
 
-		topLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
-		bottomLeftOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
+		// Check for a collision
 		bool isColliding = true;
-
 		if (topLeftOverlap != nullptr && bottomLeftOverlap != nullptr) {
 			bool isTopLeftIntersecting = newBoundingBox.Intersect(*topLeftOverlap);
 			bool isBottomLeftIntersecting = newBoundingBox.Intersect(*bottomLeftOverlap);
 			isColliding = (isTopLeftIntersecting || isBottomLeftIntersecting);
 		}
 
+		// If there is no collision, Move Left
 		if (!isColliding) {
 			velocity.x = newVelocity.x;
 		}
 	}
 	else if (movementDirection == Directions::Right) {
+		// Set the values used for the calculations
 		newVelocity.x = currentMovementSpeed * deltaTime;
 		newPosition.x += newVelocity.x;
 		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+		topRightOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
+		bottomRightOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
 
-		topRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
-		bottomRightOverlap = currentLevel->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
+		// Check for a collision
 		bool isColliding = true;
-
 		if (topRightOverlap != nullptr && bottomRightOverlap != nullptr) {
 			bool isTopRightIntersecting = newBoundingBox.Intersect(*topRightOverlap);
 			bool isBottomRightIntersecting = newBoundingBox.Intersect(*bottomRightOverlap);
 			isColliding = (isTopRightIntersecting || isBottomRightIntersecting);
 		}
 
+		// If there is no collision, Move Right
 		if (!isColliding) {
 			velocity.x = newVelocity.x;
 		}
