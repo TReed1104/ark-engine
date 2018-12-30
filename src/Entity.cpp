@@ -131,12 +131,7 @@ void Entity::ActionHandlerFalling(const float& deltaTime) {
 		Level* currentLevel = Engine_Pointer->levelRegister[Engine_Pointer->indexCurrentLevel];
 
 		// Falling
-		if (currentFallingSpeed < baseFallingSpeed) {
-			newVelocity.y = baseFallingSpeed * deltaTime;
-		}
-		else {
-			newVelocity.y = currentFallingSpeed * deltaTime;
-		}
+		newVelocity.y = currentFallingSpeed * deltaTime;
 		newPosition.y += newVelocity.y;
 		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
 
@@ -160,22 +155,14 @@ void Entity::ActionHandlerFalling(const float& deltaTime) {
 			// Set the velocity, to the new calculated velocity
 			velocity.y = newVelocity.y;
 
-			// If the currentFallingSpeed hasn't yet been set to the base value
-			if (currentFallingSpeed < baseFallingSpeed) {
-				currentFallingSpeed = baseFallingSpeed;
-			}
-
 			// Increment the falling speed
-			currentFallingSpeed++;
-
-			// If the falling speed has gone past the max falling speed, set it back to max
-			if (currentFallingSpeed > maxFallingSpeed) {
-				currentFallingSpeed = maxFallingSpeed;
-			}
+			currentFallingSpeed += 2;
+			currentFallingSpeed = glm::clamp(currentFallingSpeed, baseFallingSpeed, maxFallingSpeed);
+			std::cout << currentFallingSpeed << std::endl;
 		}
 		else {
 			// If the entity is not falling, reset the current falling speed to nothing
-			currentFallingSpeed = 0.0f;
+			currentFallingSpeed = baseFallingSpeed;
 		}
 	}
 }

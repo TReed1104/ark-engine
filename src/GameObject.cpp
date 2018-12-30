@@ -39,11 +39,11 @@ GameObject::GameObject(const std::string & scriptPath) {
 	maxMovementSpeed = 120.0f;
 	currentMovementSpeed = baseMovementSpeed;
 
-	baseFallingSpeed = 1.0f;
+	baseFallingSpeed = 2.0f;
 	maxFallingSpeed = 150.0f;
-	currentFallingSpeed = 0.0f;
+	currentFallingSpeed = baseFallingSpeed;
 
-	baseJumpingSpeed = -150.0f;
+	baseJumpingSpeed = -50.0f;
 	currentJumpingSpeed = 0.0f;
 	maxJumpingSpeed = -250.0f;
 
