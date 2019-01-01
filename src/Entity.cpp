@@ -50,12 +50,12 @@ Entity::~Entity(void) {
 
 void Entity::Update(const float& deltaTime) {
 	EntityController();
-	ActionController(deltaTime);
+	PhysicsController(deltaTime);
 
 	// Calls the base class update.
 	GameObject::Update(deltaTime);
 }
-void Entity::ActionHandlerCrouching(const float& deltaTime) {
+void Entity::PhysicsHandlerCrouching(const float& deltaTime) {
 	if (isCrouching) {
 		// Amend Bounding Box size and positions
 
@@ -64,7 +64,7 @@ void Entity::ActionHandlerCrouching(const float& deltaTime) {
 		// Check the position above the entity, if the position is a collision set crouching to true
 	}
 }
-void Entity::ActionHandlerJumping(const float& deltaTime) {
+void Entity::PhysicsHandlerJumping(const float& deltaTime) {
 	// If the entity is not crouched or falling, try and jump
 	if (!isCrouching && !isFalling && isJumping ) {
 		// Declare the variables used for the calculations
@@ -115,7 +115,7 @@ void Entity::ActionHandlerJumping(const float& deltaTime) {
 		}
 	}
 }
-void Entity::ActionHandlerFalling(const float& deltaTime) {
+void Entity::PhysicsHandlerFalling(const float& deltaTime) {
 	// If the entity is not jumping
 	if (!isJumping) {
 		// Declare the variables used for the calculations
@@ -162,7 +162,7 @@ void Entity::ActionHandlerFalling(const float& deltaTime) {
 		}
 	}
 }
-void Entity::ActionHandlerWalking(const float& deltaTime) {
+void Entity::PhysicsHandlerMovement(const float& deltaTime) {
 	// Declare the variables used for the calculations
 	glm::vec2 newVelocity = glm::vec2(0.0f);
 	glm::vec2 newPosition = glm::vec2(position);
@@ -216,12 +216,11 @@ void Entity::ActionHandlerWalking(const float& deltaTime) {
 		}
 	}
 }
-void Entity::ActionController(const float& deltaTime) {
-	ActionHandlerCrouching(deltaTime);
-	ActionHandlerJumping(deltaTime);
-	ActionHandlerFalling(deltaTime);
-	ActionHandlerWalking(deltaTime);
-
+void Entity::PhysicsController(const float& deltaTime) {
+	PhysicsHandlerCrouching(deltaTime);
+	PhysicsHandlerJumping(deltaTime);
+	PhysicsHandlerFalling(deltaTime);
+	PhysicsHandlerMovement(deltaTime);
 }
 void Entity::UpdateAnimationState(void) {
 	switch (spriteDirection) {

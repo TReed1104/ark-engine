@@ -27,11 +27,11 @@ protected:
 	bool isJumping;
 	bool isFalling;
 
-	void ActionHandlerCrouching(const float& deltaTime);
-	void ActionHandlerJumping(const float& deltaTime);
-	void ActionHandlerFalling(const float& deltaTime);
-	void ActionHandlerWalking(const float& deltaTime);
-	void ActionController(const float& deltaTime);	// Executes the movements specified by EntityController
+	void PhysicsHandlerCrouching(const float& deltaTime);
+	void PhysicsHandlerJumping(const float& deltaTime);
+	void PhysicsHandlerFalling(const float& deltaTime);
+	void PhysicsHandlerMovement(const float& deltaTime);
+	void PhysicsController(const float& deltaTime);	// Executes the movements specified by EntityController
 	void UpdateAnimationState(void);
 	void UpdateAnimationIndex(void);
 };
