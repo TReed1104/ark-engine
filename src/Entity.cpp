@@ -98,7 +98,7 @@ void Entity::ActionHandlerJumping(const float& deltaTime) {
 			jumpingTimer += deltaTime;
 			if (jumpingTimer >= Engine_Pointer->physicsInterval) {
 				float forceIncrement = (timeForMaxJump / Engine_Pointer->physicsInterval);	// Increment the Jumping force is applied at
-				currentJumpingSpeed += -(baseJumpingSpeed / forceIncrement);
+				currentJumpingSpeed -= (baseJumpingSpeed / forceIncrement);
 				jumpingTimer = 0.0f;
 			}
 
