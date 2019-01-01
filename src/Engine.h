@@ -49,6 +49,7 @@ public:
 	int thumbStickDeadZone;
 	int triggerDeadZone;
 	int pressedStateFlag;
+	const float physicsInterval = 0.1f;
 
 	// Input Interfaces
 	Keyboard* deviceKeyboard;

@@ -47,7 +47,6 @@ public:
 
 	// Movement Physics
 	glm::vec2 velocity;
-	const float physicsInterval = 0.1f;
 	const float baseMovementSpeed = 80.0f;
 	const float maxMovementSpeed = 120.0f;
 	float currentMovementSpeed;

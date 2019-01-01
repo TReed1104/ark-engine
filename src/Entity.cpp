@@ -91,12 +91,13 @@ void Entity::ActionHandlerJumping(const float& deltaTime) {
 
 		// If there is no collision, Fall
 		if (!isColliding) {
+			// Apply physics
 			velocity.y = newVelocity.y;
 
-			// Physic Timing
+			// Work out the objects Jumping speed for the next update cycle
 			jumpingTimer += deltaTime;
-			if (jumpingTimer >= physicsInterval) {
-				float forceIncrement = (timeForMaxJump / physicsInterval);	// Increment the Jumping force is applied at
+			if (jumpingTimer >= Engine_Pointer->physicsInterval) {
+				float forceIncrement = (timeForMaxJump / Engine_Pointer->physicsInterval);	// Increment the Jumping force is applied at
 				currentJumpingSpeed += -(baseJumpingSpeed / forceIncrement);
 				jumpingTimer = 0.0f;
 			}
@@ -141,13 +142,14 @@ void Entity::ActionHandlerFalling(const float& deltaTime) {
 
 		// If there is no collision, Jump
 		if (!isColliding) {
+			// Apply physics
 			isFalling = true;
 			velocity.y = newVelocity.y;
 
-			// Physic Timing
+			// Work out the objects falling speed for the next update cycle
 			fallTimer += deltaTime;
-			if (fallTimer >= physicsInterval) {
-				float forceIncrement = (timeForMaxFall / physicsInterval);	// Increment the Falling force is applied at
+			if (fallTimer >= Engine_Pointer->physicsInterval) {
+				float forceIncrement = (timeForMaxFall / Engine_Pointer->physicsInterval);	// Increment the Falling force is applied at
 				currentFallingSpeed += (maxFallingSpeed / forceIncrement);
 				fallTimer = 0.0f;
 			}
