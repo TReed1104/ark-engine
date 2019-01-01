@@ -96,8 +96,8 @@ void Entity::ActionHandlerJumping(const float& deltaTime) {
 			// Physic Timing
 			jumpingTimer += deltaTime;
 			if (jumpingTimer >= physicsInterval) {
-				float increment = (timeForMaxJump / physicsInterval);	// Increment the Jumping force is applied at
-				currentJumpingSpeed += -(baseJumpingSpeed / increment);
+				float forceIncrement = (timeForMaxJump / physicsInterval);	// Increment the Jumping force is applied at
+				currentJumpingSpeed += -(baseJumpingSpeed / forceIncrement);
 				jumpingTimer = 0.0f;
 			}
 
@@ -147,8 +147,8 @@ void Entity::ActionHandlerFalling(const float& deltaTime) {
 			// Physic Timing
 			fallTimer += deltaTime;
 			if (fallTimer >= physicsInterval) {
-				float increment = (timeForMaxFall / physicsInterval);	// Increment the Falling force is applied at
-				currentFallingSpeed += (maxFallingSpeed / increment);
+				float forceIncrement = (timeForMaxFall / physicsInterval);	// Increment the Falling force is applied at
+				currentFallingSpeed += (maxFallingSpeed / forceIncrement);
 				fallTimer = 0.0f;
 			}
 			currentFallingSpeed = glm::clamp(currentFallingSpeed, baseFallingSpeed, maxFallingSpeed);
