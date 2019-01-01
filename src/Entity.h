@@ -24,14 +24,10 @@ private:
 
 protected:
 	bool isCrouching;
-	bool isJumping;
-	bool isFalling;
 
 	void PhysicsHandlerCrouching(const float& deltaTime);
-	void PhysicsHandlerJumping(const float& deltaTime);
-	void PhysicsHandlerFalling(const float& deltaTime);
 	void PhysicsHandlerMovement(const float& deltaTime);
-	void PhysicsController(const float& deltaTime);	// Executes the movements specified by EntityController
+	void PhysicsController(const float& deltaTime);
 	void UpdateAnimationState(void);
 	void UpdateAnimationIndex(void);
 };

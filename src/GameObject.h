@@ -81,6 +81,14 @@ private:
 	void HandleAnimations(const float& deltaTime);
 
 protected:
+	bool isJumping;
+	bool isFalling;
+	bool canJump;
+	bool canFall;
+
+	void PhysicsHandlerJumping(const float& deltaTime);
+	void PhysicsHandlerFalling(const float& deltaTime);
+	virtual void PhysicsController(const float& deltaTime);
 	virtual void UpdateAnimationState(void);
 	virtual void UpdateAnimationIndex(void);
 

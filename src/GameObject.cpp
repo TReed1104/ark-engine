@@ -48,6 +48,11 @@ GameObject::GameObject(const std::string & scriptPath) {
 	model.Scale(scale);
 
 	sourceFrameSize = Engine_Pointer->tileTextureFrameSize;
+
+	isJumping = false;
+	isFalling = false;
+	canJump = false;
+	canFall = false;
 }
 GameObject::~GameObject(void) {
 	if (script != nullptr) {
@@ -57,6 +62,8 @@ GameObject::~GameObject(void) {
 
 // Game Run Time.
 void GameObject::Update(const float& deltaTime) {
+	// Handle Physics
+	PhysicsController(deltaTime);
 
 	// Apply transformations
 	UpdatePosition();
@@ -177,6 +184,108 @@ void GameObject::HandleAnimations(const float& deltaTime) {
 		sourceFramePosition = animations[animationIndex].Run(deltaTime);
 	}
 
+}
+void GameObject::PhysicsHandlerJumping(const float& deltaTime) {
+	// If the entity is not crouched or falling, try and jump
+	if (canJump && !isFalling && isJumping) {
+		// Declare the variables used for the calculations
+		glm::vec2 newVelocity = glm::vec2(0.0f);
+		glm::vec2 newPosition = glm::vec2(position);
+		BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+		BoundingBox* topLeftOverlap = nullptr;
+		BoundingBox* topRightOverlap = nullptr;
+
+		// Set the values used for the calculations
+		newVelocity.y = currentJumpingSpeed * deltaTime;
+		newPosition.y += newVelocity.y;
+		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+		topLeftOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
+		topRightOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
+
+		// Check for a collision
+		bool isColliding = true;
+		if (topLeftOverlap != nullptr && topRightOverlap != nullptr) {
+			bool isTopLeftIntersecting = newBoundingBox.Intersect(*topLeftOverlap);
+			bool isTopRightIntersecting = newBoundingBox.Intersect(*topRightOverlap);
+			isColliding = (isTopLeftIntersecting || isTopRightIntersecting);
+		}
+
+		// If there is no collision, Fall
+		if (!isColliding) {
+			// Apply physics
+			velocity.y = newVelocity.y;
+
+			// Work out the objects Jumping speed for the next update cycle
+			jumpingTimer += deltaTime;
+			if (jumpingTimer >= Engine_Pointer->physicsInterval) {
+				float forceIncrement = (timeForMaxJump / Engine_Pointer->physicsInterval);	// Increment the Jumping force is applied at
+				currentJumpingSpeed -= (baseJumpingSpeed / forceIncrement);
+				jumpingTimer = 0.0f;
+			}
+
+			// The jumping upwards force has reached 0, allow a fall to begin
+			if (currentJumpingSpeed >= 0) {
+				currentJumpingSpeed = baseJumpingSpeed;
+				isJumping = false;
+			}
+		}
+		else {
+			// If there was a collision, reset the jump variables
+			currentJumpingSpeed = baseJumpingSpeed;
+			isJumping = false;
+		}
+	}
+}
+void GameObject::PhysicsHandlerFalling(const float& deltaTime) {
+	// If the entity is not jumping
+	if (canFall && !isJumping) {
+		// Declare the variables used for the calculations
+		glm::vec2 newVelocity = glm::vec2(0.0f);
+		glm::vec2 newPosition = glm::vec2(position);
+		BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+		BoundingBox* bottomLeftOverlap = nullptr;
+		BoundingBox* bottomRightOverlap = nullptr;
+
+		// Set the values used for the calculations
+		newVelocity.y = currentFallingSpeed * deltaTime;
+		newPosition.y += newVelocity.y;
+		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+		bottomLeftOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
+		bottomRightOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
+
+		// Check for a collision
+		bool isColliding = true;
+		if (bottomLeftOverlap != nullptr && bottomRightOverlap != nullptr) {
+			bool isBottomLeftIntersecting = newBoundingBox.Intersect(*bottomLeftOverlap) && (bottomLeftOverlap->GetGridPosition() != gridPosition);
+			bool isBottomRightIntersecting = newBoundingBox.Intersect(*bottomRightOverlap) && (bottomRightOverlap->GetGridPosition() != gridPosition);
+			isColliding = (isBottomLeftIntersecting || isBottomRightIntersecting);
+		}
+
+		// If there is no collision, Jump
+		if (!isColliding) {
+			// Apply physics
+			isFalling = true;
+			velocity.y = newVelocity.y;
+
+			// Work out the objects falling speed for the next update cycle
+			fallTimer += deltaTime;
+			if (fallTimer >= Engine_Pointer->physicsInterval) {
+				float forceIncrement = (timeForMaxFall / Engine_Pointer->physicsInterval);	// Increment the Falling force is applied at
+				currentFallingSpeed += (maxFallingSpeed / forceIncrement);
+				fallTimer = 0.0f;
+			}
+			currentFallingSpeed = glm::clamp(currentFallingSpeed, baseFallingSpeed, maxFallingSpeed);
+		}
+		else {
+			// If there was a collision, reset the fall variables
+			isFalling = false;
+			currentFallingSpeed = baseFallingSpeed;
+		}
+	}
+}
+void GameObject::PhysicsController(const float& deltaTime) {
+	PhysicsHandlerJumping(deltaTime);
+	PhysicsHandlerFalling(deltaTime);
 }
 void GameObject::UpdateAnimationState(void) {
 }
