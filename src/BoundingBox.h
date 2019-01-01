@@ -18,16 +18,16 @@ public:
 	void UpdatePosition(glm::vec2 newPosition);
 	
 	glm::vec2 GetPosition(void);
-	glm::vec2 GetGridPosition(void);
-	glm::vec2 GetDimensions(void);
-	glm::vec2 TopLeftPosition(void);
-	glm::vec2 TopRightPosition(void);
-	glm::vec2 BottomLeftPosition(void);
-	glm::vec2 BottomRightPosition(void);
-	glm::vec2 TopLeftGridPosition(void);
-	glm::vec2 TopRightGridPosition(void);
-	glm::vec2 BottomLeftGridPosition(void);
-	glm::vec2 BottomRightGridPosition(void);
+	glm::ivec2 GetGridPosition(void);
+	glm::ivec2 GetDimensions(void);
+	glm::ivec2 TopLeftPosition(void);
+	glm::ivec2 TopRightPosition(void);
+	glm::ivec2 BottomLeftPosition(void);
+	glm::ivec2 BottomRightPosition(void);
+	glm::ivec2 TopLeftGridPosition(void);
+	glm::ivec2 TopRightGridPosition(void);
+	glm::ivec2 BottomLeftGridPosition(void);
+	glm::ivec2 BottomRightGridPosition(void);
 
 private:
 	float x;

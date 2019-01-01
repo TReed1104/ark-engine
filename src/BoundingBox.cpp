@@ -40,33 +40,33 @@ void BoundingBox::UpdatePosition(glm::vec2 newPosition) {
 glm::vec2 BoundingBox::GetPosition(void) {
 	return glm::vec2(x, y);
 }
-glm::vec2 BoundingBox::GetGridPosition(void) {
-	return Engine_Pointer->ConvertToGridPosition(glm::vec2(x, y));
+glm::ivec2 BoundingBox::GetGridPosition(void) {
+	return Engine_Pointer->ConvertToGridPosition(glm::ivec2(x, y));
 }
-glm::vec2 BoundingBox::GetDimensions(void) {
-	return glm::vec2(width, height);
+glm::ivec2 BoundingBox::GetDimensions(void) {
+	return glm::ivec2(width, height);
 }
-glm::vec2 BoundingBox::TopLeftPosition(void) {
-	return glm::vec2(x, y);
+glm::ivec2 BoundingBox::TopLeftPosition(void) {
+	return glm::ivec2(x, y);
 }
-glm::vec2 BoundingBox::TopRightPosition(void) {
-	return (glm::vec2(x, y) + glm::vec2(width - 1, 0));
+glm::ivec2 BoundingBox::TopRightPosition(void) {
+	return (glm::ivec2(x, y) + glm::ivec2(width - 1, 0));
 }
-glm::vec2 BoundingBox::BottomLeftPosition(void) {
-	return (glm::vec2(x, y) + glm::vec2(0, height - 1));
+glm::ivec2 BoundingBox::BottomLeftPosition(void) {
+	return (glm::ivec2(x, y) + glm::ivec2(0, height - 1));
 }
-glm::vec2 BoundingBox::BottomRightPosition(void) {
-	return (glm::vec2(x, y) + glm::vec2(width - 1, height - 1));
+glm::ivec2 BoundingBox::BottomRightPosition(void) {
+	return (glm::ivec2(x, y) + glm::ivec2(width - 1, height - 1));
 }
-glm::vec2 BoundingBox::TopLeftGridPosition(void) {
-	return Engine_Pointer->ConvertToGridPosition(glm::vec2(x, y));
+glm::ivec2 BoundingBox::TopLeftGridPosition(void) {
+	return Engine_Pointer->ConvertToGridPosition(glm::ivec2(x, y));
 }
-glm::vec2 BoundingBox::TopRightGridPosition(void) {
-	return Engine_Pointer->ConvertToGridPosition((glm::vec2(x, y) + glm::vec2(width - 1, 0)));
+glm::ivec2 BoundingBox::TopRightGridPosition(void) {
+	return Engine_Pointer->ConvertToGridPosition((glm::ivec2(x, y) + glm::ivec2(width - 1, 0)));
 }
-glm::vec2 BoundingBox::BottomLeftGridPosition(void) {
-	return Engine_Pointer->ConvertToGridPosition((glm::vec2(x, y) + glm::vec2(0, height - 1)));
+glm::ivec2 BoundingBox::BottomLeftGridPosition(void) {
+	return Engine_Pointer->ConvertToGridPosition((glm::ivec2(x, y) + glm::ivec2(0, height - 1)));
 }
-glm::vec2 BoundingBox::BottomRightGridPosition(void) {
-	return Engine_Pointer->ConvertToGridPosition((glm::vec2(x, y) + glm::vec2(width - 1, height - 1)));
+glm::ivec2 BoundingBox::BottomRightGridPosition(void) {
+	return Engine_Pointer->ConvertToGridPosition((glm::ivec2(x, y) + glm::ivec2(width - 1, height - 1)));
 }
