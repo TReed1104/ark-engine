@@ -47,21 +47,21 @@ public:
 
 	// Movement Physics
 	glm::vec2 velocity;
-	float baseMovementSpeed;
-	float maxMovementSpeed;
+	const float physicsInterval = 0.1f;
+	const float baseMovementSpeed = 80.0f;
+	const float maxMovementSpeed = 120.0f;
 	float currentMovementSpeed;
 
-	float baseFallingSpeed;
-	float maxFallingSpeed;
+	const float timeForMaxFall = 2.0f;
+	const float baseFallingSpeed = 2.0f;
+	const float maxFallingSpeed = 150.0f;
 	float currentFallingSpeed;
 	float fallTimer;
-	float timeForMaxFallSpeed;
 
-	float baseJumpingSpeed;
+	const float timeForMaxJump = 0.8f;
+	const float baseJumpingSpeed = -120.0f;
 	float currentJumpingSpeed;
-	float maxJumpingSpeed;
 	float jumpingTimer;
-	float timeForMaxJumpSpeed;
 	
 	// Transformations
 	float rotation;

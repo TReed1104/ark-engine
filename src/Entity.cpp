@@ -92,12 +92,19 @@ void Entity::ActionHandlerJumping(const float& deltaTime) {
 		// If there is no collision, Fall
 		if (!isColliding) {
 			velocity.y = newVelocity.y;
-			currentJumpingSpeed++;
-			std::cout << currentJumpingSpeed << std::endl;
 
+			// Physic Timing
+			jumpingTimer += deltaTime;
+			if (jumpingTimer >= physicsInterval) {
+				float increment = (timeForMaxJump / physicsInterval);	// Increment the Jumping force is applied at
+				currentJumpingSpeed += -(baseJumpingSpeed / increment);
+				jumpingTimer = 0.0f;
+			}
+
+			// The jumping upwards force has reached 0, allow a fall to begin
 			if (currentJumpingSpeed >= 0) {
+				currentJumpingSpeed = baseJumpingSpeed;
 				isJumping = false;
-				currentJumpingSpeed = 0.0f;
 			}
 		}
 		else {
@@ -136,7 +143,14 @@ void Entity::ActionHandlerFalling(const float& deltaTime) {
 		if (!isColliding) {
 			isFalling = true;
 			velocity.y = newVelocity.y;
-			currentFallingSpeed += 2;
+
+			// Physic Timing
+			fallTimer += deltaTime;
+			if (fallTimer >= physicsInterval) {
+				float increment = (timeForMaxFall / physicsInterval);	// Increment the Falling force is applied at
+				currentFallingSpeed += (maxFallingSpeed / increment);
+				fallTimer = 0.0f;
+			}
 			currentFallingSpeed = glm::clamp(currentFallingSpeed, baseFallingSpeed, maxFallingSpeed);
 		}
 		else {
