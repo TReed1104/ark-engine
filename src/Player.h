@@ -8,16 +8,13 @@ class Engine;
 class Player : public Entity
 {
 public:
-	
 	Player(const std::string& scriptPath);
 	~Player(void);
-	
-	void EntityController(void);
-	void HandleInputKeyboard(void);
-	void HandleInputGameController(void);
 
 private:
+	void HandleInputGameController(void);
+	void HandleInputKeyboard(void);
+	void EntityController(void);
 
 };
-
 #endif

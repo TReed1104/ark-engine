@@ -6,8 +6,8 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	movementDirection = Directions::NotSet;
 	spriteDirection = Directions::Right;
 	isCrouching = false;
-	canFall = true;
-	canJump = true;
+	isJumping = false;
+	isAffectedByGravity = true;
 
 	if (script->isScriptLoaded) {
 		animationState = AnimationState::AnimationIdleRight;
@@ -50,8 +50,6 @@ Entity::~Entity(void) {
 
 void Entity::Update(const float& deltaTime) {
 	EntityController();
-
-	// Calls the base class update.
 	GameObject::Update(deltaTime);
 }
 void Entity::PhysicsHandlerCrouching(const float& deltaTime) {
@@ -61,6 +59,62 @@ void Entity::PhysicsHandlerCrouching(const float& deltaTime) {
 	}
 	else {
 		// Check the position above the entity, if the position is a collision set crouching to true
+	}
+}
+void Entity::PhysicsHandlerJumping(const float& deltaTime) {
+	// If the entity is not crouched or falling, try and jump
+	if (!isFalling && isJumping) {
+		// Declare the variables used for the calculations
+		glm::vec2 newVelocity = glm::vec2(0.0f);
+		glm::vec2 newPosition = glm::vec2(position);
+		BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+		BoundingBox* topLeftOverlap = nullptr;
+		BoundingBox* topRightOverlap = nullptr;
+
+		// Set the values used for the calculations
+		newVelocity.y = currentJumpingSpeed * deltaTime;
+		newPosition.y += newVelocity.y;
+		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
+		topLeftOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
+		topRightOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
+
+		// Check for a collision
+		bool isColliding = true;
+		if (topLeftOverlap != nullptr && topRightOverlap != nullptr) {
+			bool isTopLeftIntersecting = newBoundingBox.Intersect(*topLeftOverlap);
+			bool isTopRightIntersecting = newBoundingBox.Intersect(*topRightOverlap);
+			isColliding = (isTopLeftIntersecting || isTopRightIntersecting);
+		}
+
+		// If there is no collision, Fall
+		if (!isColliding) {
+			// Apply physics
+			velocity.y = newVelocity.y;
+
+			// Work out the objects Jumping speed for the next update cycle
+			jumpingTimer += deltaTime;
+			if (jumpingTimer >= Engine_Pointer->physicsInterval) {
+				float forceIncrement = (timeForMaxJump / Engine_Pointer->physicsInterval);	// Increment the Jumping force is applied at
+				currentJumpingSpeed -= (baseJumpingSpeed / forceIncrement);
+				jumpingTimer = 0.0f;
+			}
+
+			// The jumping upwards force has reached 0, allow a fall to begin
+			if (currentJumpingSpeed >= 0) {
+				currentJumpingSpeed = baseJumpingSpeed;
+				isJumping = false;
+			}
+		}
+		else {
+			// If there was a collision, reset the jump variables
+			currentJumpingSpeed = baseJumpingSpeed;
+			isJumping = false;
+		}
+	}
+}
+void Entity::PhysicsHandlerFalling(const float& deltaTime) {
+	if (!isJumping) {
+		GameObject::PhysicsHandlerFalling(deltaTime);
 	}
 }
 void Entity::PhysicsHandlerMovement(const float& deltaTime) {

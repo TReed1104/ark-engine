@@ -49,10 +49,8 @@ GameObject::GameObject(const std::string & scriptPath) {
 
 	sourceFrameSize = Engine_Pointer->tileTextureFrameSize;
 
-	isJumping = false;
 	isFalling = false;
-	canJump = false;
-	canFall = false;
+	isAffectedByGravity = false;
 }
 GameObject::~GameObject(void) {
 	if (script != nullptr) {
@@ -62,19 +60,10 @@ GameObject::~GameObject(void) {
 
 // Game Run Time.
 void GameObject::Update(const float& deltaTime) {
-	// Handle Physics
+	// Base update takes place after the derived class update has executed
 	PhysicsController(deltaTime);
-
-	// Apply transformations
-	UpdatePosition();
-	UpdateRotation();
-	UpdateScale();
-
-	// Animate the object
 	AnimationController(deltaTime);
-
-	// Reset the velocities.
-	velocity = glm::vec2(0, 0);
+	TransformationController();
 }
 void GameObject::Draw(void) {
 	glEnable(GL_BLEND);
@@ -135,6 +124,7 @@ void GameObject::Reposition(const glm::vec2& newPosition) {
 }
 void GameObject::UpdatePosition() {
 	position += glm::vec3(velocity, 0.0f);
+	velocity = glm::vec2(0, 0);		// Reset Velocity, because the movement has taken place
 	gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(position.x, position.y));
 	drawPosition = (position + glm::vec3(drawOffset, 0.0f));
 	drawPosition = glm::vec3((int)drawPosition.x, (int)drawPosition.y, drawPosition.z);	// Floor the x and y values of the drawPosition to cap it to pixel grid
@@ -147,98 +137,14 @@ void GameObject::UpdateRotation() {
 void GameObject::UpdateScale() {
 	model.Scale(scale);
 }
-void GameObject::LoadAnimations() {
-	animations.clear();
-	bool areAnimationsPresent = script->Get<bool>("entity.has_animations");
-	if (areAnimationsPresent) {
-		int numberOfAnimations = script->Get<int>("entity.animations.number_of_animations");
-		for (int i = 0; i < numberOfAnimations; i++) {
-			std::string animationName = script->Get<std::string>("entity.animations.animation_" + std::to_string(i) + ".name");
-			int numberOfFrames = script->Get<int>("entity.animations.animation_" + std::to_string(i) + ".number_of_frames");
-			Animation newAnimation = Animation(animationName);
-			for (int j = 0; j < numberOfFrames; j++) {
-				int frameX = script->Get<int>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".x");
-				int frameY = script->Get<int>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".y");
-				float frameLength = script->Get<float>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".length");
-				newAnimation.AddFrame(glm::ivec2(frameX, frameY), frameLength);
-			}
-			animations.push_back(newAnimation);
-		}
-	}
-}
-void GameObject::AnimationController(const float& deltaTime) {
-	if (animations.size() > 0) {
-		// Store the old animation index for checking if it changes, this is needed for resetting the old animation.
-		int oldAnimationIndex = animationIndex;
-
-		// Call the Derived handler function
-		AnimationStateHandler();
-		AnimationIndexHandler();
-
-		// If the animation has changed, reset the old animation for its next use.
-		if (animationIndex != oldAnimationIndex) {
-			animations[oldAnimationIndex].Reset();
-		}
-
-		// Run the animation
-		sourceFramePosition = animations[animationIndex].Run(deltaTime);
-	}
-
-}
-void GameObject::PhysicsHandlerJumping(const float& deltaTime) {
-	// If the entity is not crouched or falling, try and jump
-	if (canJump && !isFalling && isJumping) {
-		// Declare the variables used for the calculations
-		glm::vec2 newVelocity = glm::vec2(0.0f);
-		glm::vec2 newPosition = glm::vec2(position);
-		BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
-		BoundingBox* topLeftOverlap = nullptr;
-		BoundingBox* topRightOverlap = nullptr;
-
-		// Set the values used for the calculations
-		newVelocity.y = currentJumpingSpeed * deltaTime;
-		newPosition.y += newVelocity.y;
-		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
-		topLeftOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
-		topRightOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
-
-		// Check for a collision
-		bool isColliding = true;
-		if (topLeftOverlap != nullptr && topRightOverlap != nullptr) {
-			bool isTopLeftIntersecting = newBoundingBox.Intersect(*topLeftOverlap);
-			bool isTopRightIntersecting = newBoundingBox.Intersect(*topRightOverlap);
-			isColliding = (isTopLeftIntersecting || isTopRightIntersecting);
-		}
-
-		// If there is no collision, Fall
-		if (!isColliding) {
-			// Apply physics
-			velocity.y = newVelocity.y;
-
-			// Work out the objects Jumping speed for the next update cycle
-			jumpingTimer += deltaTime;
-			if (jumpingTimer >= Engine_Pointer->physicsInterval) {
-				float forceIncrement = (timeForMaxJump / Engine_Pointer->physicsInterval);	// Increment the Jumping force is applied at
-				currentJumpingSpeed -= (baseJumpingSpeed / forceIncrement);
-				jumpingTimer = 0.0f;
-			}
-
-			// The jumping upwards force has reached 0, allow a fall to begin
-			if (currentJumpingSpeed >= 0) {
-				currentJumpingSpeed = baseJumpingSpeed;
-				isJumping = false;
-			}
-		}
-		else {
-			// If there was a collision, reset the jump variables
-			currentJumpingSpeed = baseJumpingSpeed;
-			isJumping = false;
-		}
-	}
+void GameObject::TransformationController(void) {
+	UpdatePosition();
+	UpdateRotation();
+	UpdateScale();
 }
 void GameObject::PhysicsHandlerFalling(const float& deltaTime) {
 	// If the entity is not jumping
-	if (canFall && !isJumping) {
+	if (isAffectedByGravity) {
 		// Declare the variables used for the calculations
 		glm::vec2 newVelocity = glm::vec2(0.0f);
 		glm::vec2 newPosition = glm::vec2(position);
@@ -284,10 +190,47 @@ void GameObject::PhysicsHandlerFalling(const float& deltaTime) {
 	}
 }
 void GameObject::PhysicsController(const float& deltaTime) {
-	PhysicsHandlerJumping(deltaTime);
 	PhysicsHandlerFalling(deltaTime);
+}
+void GameObject::LoadAnimations() {
+	animations.clear();
+	bool areAnimationsPresent = script->Get<bool>("entity.has_animations");
+	if (areAnimationsPresent) {
+		int numberOfAnimations = script->Get<int>("entity.animations.number_of_animations");
+		for (int i = 0; i < numberOfAnimations; i++) {
+			std::string animationName = script->Get<std::string>("entity.animations.animation_" + std::to_string(i) + ".name");
+			int numberOfFrames = script->Get<int>("entity.animations.animation_" + std::to_string(i) + ".number_of_frames");
+			Animation newAnimation = Animation(animationName);
+			for (int j = 0; j < numberOfFrames; j++) {
+				int frameX = script->Get<int>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".x");
+				int frameY = script->Get<int>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".y");
+				float frameLength = script->Get<float>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".length");
+				newAnimation.AddFrame(glm::ivec2(frameX, frameY), frameLength);
+			}
+			animations.push_back(newAnimation);
+		}
+	}
 }
 void GameObject::AnimationStateHandler(void) {
 }
 void GameObject::AnimationIndexHandler(void) {
+}
+void GameObject::AnimationController(const float& deltaTime) {
+	if (animations.size() > 0) {
+		// Store the old animation index for checking if it changes, this is needed for resetting the old animation.
+		int oldAnimationIndex = animationIndex;
+
+		// Call the Derived handler function
+		AnimationStateHandler();
+		AnimationIndexHandler();
+
+		// If the animation has changed, reset the old animation for its next use.
+		if (animationIndex != oldAnimationIndex) {
+			animations[oldAnimationIndex].Reset();
+		}
+
+		// Run the animation
+		sourceFramePosition = animations[animationIndex].Run(deltaTime);
+	}
+
 }
