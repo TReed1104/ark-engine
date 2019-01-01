@@ -71,7 +71,7 @@ void GameObject::Update(const float& deltaTime) {
 	UpdateScale();
 
 	// Animate the object
-	HandleAnimations(deltaTime);
+	AnimationController(deltaTime);
 
 	// Reset the velocities.
 	velocity = glm::vec2(0, 0);
@@ -166,14 +166,14 @@ void GameObject::LoadAnimations() {
 		}
 	}
 }
-void GameObject::HandleAnimations(const float& deltaTime) {
+void GameObject::AnimationController(const float& deltaTime) {
 	if (animations.size() > 0) {
 		// Store the old animation index for checking if it changes, this is needed for resetting the old animation.
 		int oldAnimationIndex = animationIndex;
 
 		// Call the Derived handler function
-		UpdateAnimationState();
-		UpdateAnimationIndex();
+		AnimationStateHandler();
+		AnimationIndexHandler();
 
 		// If the animation has changed, reset the old animation for its next use.
 		if (animationIndex != oldAnimationIndex) {
@@ -287,7 +287,7 @@ void GameObject::PhysicsController(const float& deltaTime) {
 	PhysicsHandlerJumping(deltaTime);
 	PhysicsHandlerFalling(deltaTime);
 }
-void GameObject::UpdateAnimationState(void) {
+void GameObject::AnimationStateHandler(void) {
 }
-void GameObject::UpdateAnimationIndex(void) {
+void GameObject::AnimationIndexHandler(void) {
 }

@@ -78,7 +78,7 @@ private:
 	void UpdateRotation(void);
 	void UpdateScale(void);
 	void LoadAnimations(void);
-	void HandleAnimations(const float& deltaTime);
+	void AnimationController(const float& deltaTime);
 
 protected:
 	bool isJumping;
@@ -89,8 +89,8 @@ protected:
 	void PhysicsHandlerJumping(const float& deltaTime);
 	void PhysicsHandlerFalling(const float& deltaTime);
 	virtual void PhysicsController(const float& deltaTime);
-	virtual void UpdateAnimationState(void);
-	virtual void UpdateAnimationIndex(void);
+	virtual void AnimationStateHandler(void);
+	virtual void AnimationIndexHandler(void);
 
 };
 

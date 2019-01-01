@@ -28,8 +28,8 @@ protected:
 	void PhysicsHandlerCrouching(const float& deltaTime);
 	void PhysicsHandlerMovement(const float& deltaTime);
 	void PhysicsController(const float& deltaTime);
-	void UpdateAnimationState(void);
-	void UpdateAnimationIndex(void);
+	void AnimationStateHandler(void);
+	void AnimationIndexHandler(void);
 };
 
 #endif

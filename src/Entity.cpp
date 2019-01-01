@@ -123,7 +123,7 @@ void Entity::PhysicsController(const float& deltaTime) {
 	PhysicsHandlerFalling(deltaTime);
 	PhysicsHandlerMovement(deltaTime);
 }
-void Entity::UpdateAnimationState(void) {
+void Entity::AnimationStateHandler(void) {
 	switch (spriteDirection) {
 	case Directions::Up:
 		animationState = AnimationState::AnimationJumping;
@@ -141,7 +141,7 @@ void Entity::UpdateAnimationState(void) {
 		break;
 	}
 }
-void Entity::UpdateAnimationIndex(void) {
+void Entity::AnimationIndexHandler(void) {
 	// Using the current animaiton state, work out which animation in the list to use.
 	switch (animationState) {
 	case AnimationState::AnimationIdleLeft:
