@@ -122,10 +122,6 @@ void Entity::PhysicsHandlerMovement(const float& deltaTime) {
 	glm::vec2 newVelocity = glm::vec2(0.0f);
 	glm::vec2 newPosition = glm::vec2(position);
 	BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
-	BoundingBox* topLeftOverlap = nullptr;
-	BoundingBox* topRightOverlap = nullptr;
-	BoundingBox* bottomLeftOverlap = nullptr;
-	BoundingBox* bottomRightOverlap = nullptr;
 
 	// Left & Right
 	if (movementDirection == Directions::Left) {
@@ -133,15 +129,20 @@ void Entity::PhysicsHandlerMovement(const float& deltaTime) {
 		newVelocity.x = -currentMovementSpeed * deltaTime;
 		newPosition.x += newVelocity.x;
 		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
-		topLeftOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.TopLeftGridPosition());
-		bottomLeftOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
+		bool isColliding = false;
 
-		// Check for a collision
-		bool isColliding = true;
-		if (topLeftOverlap != nullptr && bottomLeftOverlap != nullptr) {
-			bool isTopLeftIntersecting = newBoundingBox.Intersect(*topLeftOverlap);
-			bool isBottomLeftIntersecting = newBoundingBox.Intersect(*bottomLeftOverlap);
-			isColliding = (isTopLeftIntersecting || isBottomLeftIntersecting);
+		// Calculate the difference in grid cells between the top of the AABB and the bottom
+		int deltaGridY = abs(newBoundingBox.TopLeftGridPosition().y - newBoundingBox.BottomLeftGridPosition().y);
+		// For every delta, do another check until we run out of checks or find a collision
+		for (size_t i = 0; i <= deltaGridY; i++) {
+			glm::ivec2 gridPositionToCheck = newBoundingBox.TopLeftGridPosition() + glm::ivec2(0, i);	// Position of the overlap
+			BoundingBox* overLapToCheck = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(gridPositionToCheck);	// The AABB of the position
+			isColliding = newBoundingBox.Intersect(*overLapToCheck);	// Do the actual intersection check
+			//std::cout << "Collision Check: " << gridPositionToCheck.x << ", " << gridPositionToCheck.y << " isColliding: " << isColliding << std::endl;
+			if (isColliding) {
+				// If we have found a collision, break out the loop because no more checks are needed
+				break;
+			}
 		}
 
 		// If there is no collision, Move Left
@@ -154,15 +155,19 @@ void Entity::PhysicsHandlerMovement(const float& deltaTime) {
 		newVelocity.x = currentMovementSpeed * deltaTime;
 		newPosition.x += newVelocity.x;
 		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
-		topRightOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.TopRightGridPosition());
-		bottomRightOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
+		bool isColliding = false;
 
-		// Check for a collision
-		bool isColliding = true;
-		if (topRightOverlap != nullptr && bottomRightOverlap != nullptr) {
-			bool isTopRightIntersecting = newBoundingBox.Intersect(*topRightOverlap);
-			bool isBottomRightIntersecting = newBoundingBox.Intersect(*bottomRightOverlap);
-			isColliding = (isTopRightIntersecting || isBottomRightIntersecting);
+		// Calculate the difference in grid cells between the top of the AABB and the bottom
+		int deltaGridY = abs(newBoundingBox.TopRightGridPosition().y - newBoundingBox.BottomRightGridPosition().y);
+		// For every delta, do another check until we run out of checks or find a collision
+		for (size_t i = 0; i <= deltaGridY; i++) {
+			glm::ivec2 gridPositionToCheck = newBoundingBox.TopRightGridPosition() + glm::ivec2(0, i);	// Position of the overlap
+			BoundingBox* overLapToCheck = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(gridPositionToCheck);	// The AABB of the position
+			isColliding = newBoundingBox.Intersect(*overLapToCheck);	// Do the actual intersection check
+			if (isColliding) {
+				// If we have found a collision, break out the loop because no more checks are needed
+				break;
+			}
 		}
 
 		// If there is no collision, Move Right
