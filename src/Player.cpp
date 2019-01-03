@@ -33,7 +33,6 @@ void Player::HandleInputKeyboard(void) {
 		if (!isJumping && !isFalling && !isCrouching) {
 			isJumping = true;
 			currentJumpingSpeed = baseJumpingSpeed;
-			std::cout << "Initialised Jump" << std::endl;
 			movementDirection = Directions::Up;
 		}	
 	}
@@ -41,7 +40,6 @@ void Player::HandleInputKeyboard(void) {
 		if (isJumping) {
 			isJumping = false;
 			currentJumpingSpeed = 0.0f;
-			std::cout << "Initialised Fall" << std::endl;
 			movementDirection = Directions::Down;
 		}
 	}
