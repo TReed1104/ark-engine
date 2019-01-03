@@ -27,7 +27,7 @@ public:
 	glm::ivec2 sourceFrameSize;
 	glm::ivec2 sourceFramePosition;
 	glm::vec3 drawPosition;
-	glm::ivec2 drawOffset;		// The offset the sprite is to be drawn in relation to the world position.
+	glm::ivec2 drawOffset;
 	
 	// Bounding Box variables
 	BoundingBox boundingBox;
@@ -52,24 +52,21 @@ private:
 	virtual void AnimationIndexHandler(void);
 
 protected:
-	LuaScript* script;	// The script attached to the object
+	LuaScript* script;
 
 	// Animations
-	std::vector<Animation> animations;
 	int animationIndex;
+	std::vector<Animation> animations;
 
 	// Shader indexer
 	int indexOfCurrentShader;
 
-	// Model variables
-	Model model;
-
 	// Transformations
-	glm::vec3 position;			// The world position of the object
-	glm::ivec2 gridPosition;	// The current grid cell the top-left of the object is within
-	float rotation;				// Rotation of the object
-	glm::vec3 scale;			// Scale of the object
-
+	glm::vec3 position;
+	glm::ivec2 gridPosition;
+	Model model;
+	float rotation;
+	glm::vec3 scale;
 
 	// Movement Physics
 	bool isFalling;
