@@ -138,7 +138,6 @@ void Entity::PhysicsHandlerMovement(const float& deltaTime) {
 			glm::ivec2 gridPositionToCheck = newBoundingBox.TopLeftGridPosition() + glm::ivec2(0, i);	// Position of the overlap
 			BoundingBox* overLapToCheck = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(gridPositionToCheck);	// The AABB of the position
 			isColliding = newBoundingBox.Intersect(*overLapToCheck);	// Do the actual intersection check
-			//std::cout << "Collision Check: " << gridPositionToCheck.x << ", " << gridPositionToCheck.y << " isColliding: " << isColliding << std::endl;
 			if (isColliding) {
 				// If we have found a collision, break out the loop because no more checks are needed
 				break;
