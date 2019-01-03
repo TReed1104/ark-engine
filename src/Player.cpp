@@ -48,10 +48,12 @@ void Player::HandleInputKeyboard(void) {
 	if (Engine_Pointer->deviceKeyboard->GetKeyState(Keyboard::LeftCtrl)) {
 		if (!isJumping && !isFalling) {
 			isCrouching = true;
+			std::cout << "Crouching: " << isCrouching << std::endl;
 		}
 	}
 	else {
 		isCrouching = false;
+		std::cout << "Crouching: " << isCrouching << std::endl;
 	}
 
 	// Sprinting
