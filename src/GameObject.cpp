@@ -157,9 +157,15 @@ void GameObject::PhysicsHandlerFalling(const float& deltaTime) {
 		for (size_t i = 0; i <= deltaGridX; i++) {
 			glm::ivec2 gridPositionToCheck = newBoundingBox.BottomLeftGridPosition() + glm::ivec2(i, 0);				// Position of the overlap
 			BoundingBox* overlapToCheck = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(gridPositionToCheck);	// The AABB of the grid cell
-			isColliding = newBoundingBox.Intersect(*overlapToCheck);													// Do the actual intersection check
-			if (isColliding) {
-				// If we have found a collision, break out the loop because no more checks are needed
+			if (overlapToCheck != nullptr) {
+				isColliding = newBoundingBox.Intersect(*overlapToCheck);												// Do the actual intersection check
+				if (isColliding) {
+					// If we have found a collision, break out the loop because no more checks are needed
+					break;
+				}
+			}
+			else {
+				isColliding = true;
 				break;
 			}
 		}
