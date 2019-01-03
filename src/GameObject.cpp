@@ -146,25 +146,22 @@ void GameObject::PhysicsHandlerFalling(const float& deltaTime) {
 	// If the entity is not jumping
 	if (isAffectedByGravity) {
 		// Declare the variables used for the calculations
-		glm::vec2 newVelocity = glm::vec2(0.0f);
-		glm::vec2 newPosition = glm::vec2(position);
+		glm::vec2 newVelocity = glm::vec2(0.0f, currentFallingSpeed * deltaTime);
+		glm::vec2 newPosition = glm::vec2(position) + newVelocity;
 		BoundingBox newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
-		BoundingBox* bottomLeftOverlap = nullptr;
-		BoundingBox* bottomRightOverlap = nullptr;
+		bool isColliding = false;
 
-		// Set the values used for the calculations
-		newVelocity.y = currentFallingSpeed * deltaTime;
-		newPosition.y += newVelocity.y;
-		newBoundingBox = BoundingBox(newPosition + boundingBoxOffset, boundingBox.GetDimensions());
-		bottomLeftOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.BottomLeftGridPosition());
-		bottomRightOverlap = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(newBoundingBox.BottomRightGridPosition());
-
-		// Check for a collision
-		bool isColliding = true;
-		if (bottomLeftOverlap != nullptr && bottomRightOverlap != nullptr) {
-			bool isBottomLeftIntersecting = newBoundingBox.Intersect(*bottomLeftOverlap) && (bottomLeftOverlap->GetGridPosition() != gridPosition);
-			bool isBottomRightIntersecting = newBoundingBox.Intersect(*bottomRightOverlap) && (bottomRightOverlap->GetGridPosition() != gridPosition);
-			isColliding = (isBottomLeftIntersecting || isBottomRightIntersecting);
+		// Calculate the difference in grid cells between the top left of the AABB and the top right, giving us the AABB width in cells
+		int deltaGridX = abs(newBoundingBox.BottomLeftGridPosition().x - newBoundingBox.BottomRightGridPosition().x);
+		// For every delta, do another check until we run out of checks or find a collision
+		for (size_t i = 0; i <= deltaGridX; i++) {
+			glm::ivec2 gridPositionToCheck = newBoundingBox.BottomLeftGridPosition() + glm::ivec2(i, 0);				// Position of the overlap
+			BoundingBox* overlapToCheck = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(gridPositionToCheck);	// The AABB of the grid cell
+			isColliding = newBoundingBox.Intersect(*overlapToCheck);													// Do the actual intersection check
+			if (isColliding) {
+				// If we have found a collision, break out the loop because no more checks are needed
+				break;
+			}
 		}
 
 		// If there is no collision, Jump
