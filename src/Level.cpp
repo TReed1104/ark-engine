@@ -57,6 +57,11 @@ bool Level::IsTileSolid(const glm::vec2 & gridPosition) {
 	return tileMap[index]->type == Tile::Type::Solid;
 }
 BoundingBox* Level::GetTileBoundingBox(const glm::vec2 & gridPosition) {
+	if ((int)gridPosition.x < 0) return nullptr;
+	if ((int)gridPosition.x >= tileGridSize.x) return nullptr;
+	if ((int)gridPosition.y < 0) return nullptr;
+	if ((int)gridPosition.y >= tileGridSize.y) return nullptr;
+
 	int index = (int)gridPosition.y * (int)tileGridSize.x + (int)gridPosition.x;
 	size_t sizeOftileMap = tileMap.size();
 	if (index < sizeOftileMap) {
