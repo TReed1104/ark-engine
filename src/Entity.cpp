@@ -13,7 +13,7 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	jumpingTimer = 0.0f;
 
 	if (script->isScriptLoaded) {
-		animationState = AnimationState::AnimationIdleRight;
+		animationState = AnimationState::AnimationIdleStandingRight;
 
 		// Texture Setup
 		int indexOfTexture = -1;
@@ -40,12 +40,12 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 		standingBoundingBoxOffset = glm::vec2(script->Get<int>("entity.bounding_box_offset.x"), script->Get<int>("entity.bounding_box_offset.y"));
 		glm::vec2 standingBoundingBoxDimensions = glm::vec2(script->Get<int>("entity.bounding_box_dimensions.width"), script->Get<int>("entity.bounding_box_dimensions.height"));
 		standingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + standingBoundingBoxOffset, standingBoundingBoxDimensions);
-		
+
 		canCrawl = script->Get<bool>("entity.can_crawl");
 		if (canCrawl) {
 			crawlingBoundingBoxOffset = glm::vec2(script->Get<int>("entity.crawling_bounding_box_offset.x"), script->Get<int>("entity.crawling_bounding_box_offset.y"));
-			glm::vec2 crouchingBoundingBoxDimensions = glm::vec2(script->Get<int>("entity.crawling_bounding_box_dimensions.width"), script->Get<int>("entity.crawling_bounding_box_dimensions.height"));
-			crawlingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + crawlingBoundingBoxOffset, crouchingBoundingBoxDimensions);
+			glm::vec2 crawlingBoundingBoxDimensions = glm::vec2(script->Get<int>("entity.crawling_bounding_box_dimensions.width"), script->Get<int>("entity.crawling_bounding_box_dimensions.height"));
+			crawlingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + crawlingBoundingBoxOffset, crawlingBoundingBoxDimensions);
 		}
 
 		// Model Setup
@@ -226,35 +226,89 @@ void Entity::PhysicsController(const float& deltaTime) {
 void Entity::AnimationStateHandler(void) {
 	switch (spriteDirection) {
 	case Directions::Up:
-		animationState = AnimationState::AnimationJumping;
+		animationState = AnimationState::AnimationJumpingLeft;
 		break;
 	case Directions::Down:
-		animationState = AnimationState::AnimationFalling;
+		animationState = AnimationState::AnimationFallingLeft;
 		break;
 	case Directions::Left:
-		(velocity.x != 0.0f) ? animationState = AnimationState::AnimationMoveLeft : animationState = AnimationState::AnimationIdleLeft;
+		if (velocity.x != 0.0f) {
+			if (isCrawling) {
+				animationState = AnimationState::AnimationMovingCrawlingLeft;
+			}
+			else {
+				animationState = AnimationState::AnimationMovingStandingLeft;
+			}
+		}
+		else {
+			if (isCrawling) {
+				animationState = AnimationState::AnimationIdleCrawlingLeft;
+			}
+			else {
+				animationState = AnimationState::AnimationIdleStandingLeft;
+			}
+		}
 		break;
 	case Directions::Right:
-		(velocity.x != 0.0f) ? animationState = AnimationState::AnimationMoveRight : animationState = AnimationState::AnimationIdleRight;
+		if (velocity.x != 0.0f) {
+			if (isCrawling) {
+				animationState = AnimationState::AnimationMovingCrawlingRight;
+			}
+			else {
+				animationState = AnimationState::AnimationMovingStandingRight;
+			}
+		}
+		else {
+			if (isCrawling) {
+				animationState = AnimationState::AnimationIdleCrawlingRight;
+			}
+			else {
+				animationState = AnimationState::AnimationIdleStandingRight;
+			}
+		}
 		break;
 	default:
 		break;
 	}
-}	
+}
 void Entity::AnimationIndexHandler(void) {
 	// Using the current animaiton state, work out which animation in the list to use.
 	switch (animationState) {
-	case AnimationState::AnimationIdleLeft:
+	case Entity::AnimationIdleStandingLeft:
 		animationIndex = 0;
 		break;
-	case AnimationState::AnimationIdleRight:
+	case Entity::AnimationIdleStandingRight:
 		animationIndex = 1;
 		break;
-	case AnimationState::AnimationMoveLeft:
+	case Entity::AnimationMovingStandingLeft:
 		animationIndex = 2;
 		break;
-	case AnimationState::AnimationMoveRight:
+	case Entity::AnimationMovingStandingRight:
 		animationIndex = 3;
+		break;
+	case Entity::AnimationIdleCrawlingLeft:
+		animationIndex = 4;
+		break;
+	case Entity::AnimationIdleCrawlingRight:
+		animationIndex = 5;
+		break;
+	case Entity::AnimationMovingCrawlingLeft:
+		animationIndex = 6;
+		break;
+	case Entity::AnimationMovingCrawlingRight:
+		animationIndex = 7;
+		break;
+	case Entity::AnimationJumpingLeft:
+		animationIndex = 0;
+		break;
+	case Entity::AnimationJumpingRight:
+		animationIndex = 0;
+		break;
+	case Entity::AnimationFallingLeft:
+		animationIndex = 0;
+		break;
+	case Entity::AnimationFallingRight:
+		animationIndex = 0;
 		break;
 	default:
 		break;

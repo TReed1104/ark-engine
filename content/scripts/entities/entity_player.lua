@@ -27,28 +27,50 @@ entity = {
 	-- Animations
 	has_animations = true,
 	animations = {
-		number_of_animations = 4,
+		number_of_animations = 8,
 		animation_0 = {
-			name = "Idle Left",
+			name = "Idle Standing Left",
 			number_of_frames = 1,
 			frame_0 = { x = 001, y = 000, length = 0.2, },
 		},
 		animation_1 = {
-			name = "Idle Right",
+			name = "Idle Standing Right",
 			number_of_frames = 1,
-			frame_0 = { x = 003, y = 000, length = 0.2, },
+			frame_0 = { x = 004, y = 000, length = 0.2, },
 		},
 		animation_2 = {
-			name = "Walk Left",
+			name = "Moving Standing Left",
 			number_of_frames = 2,
 			frame_0 = { x = 001, y = 000, length = 0.2, },
 			frame_1 = { x = 002, y = 000, length = 0.2, },
 		},
 		animation_3 = {
-			name = "Walk Right",
+			name = "Moving Standing Right",
 			number_of_frames = 2,
-			frame_0 = { x = 003, y = 000, length = 0.2, },
-			frame_1 = { x = 004, y = 000, length = 0.2, },
+			frame_0 = { x = 004, y = 000, length = 0.2, },
+			frame_1 = { x = 003, y = 000, length = 0.2, },
+		},
+		animation_4 = {
+			name = "Idle Crawl Left",
+			number_of_frames = 1,
+			frame_0 = { x = 005, y = 000, length = 0.2, },
+		},
+		animation_5 = {
+			name = "Idle Crawl Right",
+			number_of_frames = 1,
+			frame_0 = { x = 008, y = 000, length = 0.2, },
+		},
+		animation_6 = {
+			name = "Moving Crawl Left",
+			number_of_frames = 2,
+			frame_0 = { x = 005, y = 000, length = 0.2, },
+			frame_1 = { x = 006, y = 000, length = 0.2, },
+		},
+		animation_7 = {
+			name = "Moving Crawl Right",
+			number_of_frames = 2,
+			frame_0 = { x = 008, y = 000, length = 0.2, },
+			frame_1 = { x = 007, y = 000, length = 0.2, },
 		},
 	},
 }

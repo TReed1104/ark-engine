@@ -44,12 +44,10 @@ void Player::HandleInputKeyboard(void) {
 		}
 		else if (!isJumping && !isFalling) {
 			isCrawling = true;
-			std::cout << "Crawling: " << isCrawling << std::endl;
 		}
 	}
 	else {
 		isCrawling = false;
-		std::cout << "Crawling: " << isCrawling << std::endl;
 	}
 
 	// Sprinting
