@@ -34,5 +34,6 @@ private:
 	LuaScript* script;
 
 	void Load(void);
+	bool IsTileValid(const glm::vec2& gridPosition);
 };
 #endif

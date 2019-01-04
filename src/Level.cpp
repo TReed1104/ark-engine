@@ -48,23 +48,18 @@ void Level::Draw(void) {
 		}
 	}
 }
-bool Level::IsTileSolid(const glm::vec2 & gridPosition) {
-	int index = (int)gridPosition.y * (int)tileGridSize.x + (int)gridPosition.x;
-	if ((int)gridPosition.x < 0) return true;
-	if ((int)gridPosition.x >= tileGridSize.x) return true;
-	if ((int)gridPosition.y < 0) return true;
-	if ((int)gridPosition.y >= tileGridSize.y) return true;
-	return tileMap[index]->type == Tile::Type::Solid;
+bool Level::IsTileSolid(const glm::vec2& gridPosition) {
+	if (IsTileValid(gridPosition)) {
+		int index = (int)gridPosition.y * (int)tileGridSize.x + (int)gridPosition.x;
+		return tileMap[index]->type == Tile::Type::Solid;
+	}
+	else {
+		return true;
+	}
 }
-BoundingBox* Level::GetTileBoundingBox(const glm::vec2 & gridPosition) {
-	if ((int)gridPosition.x < 0) return nullptr;
-	if ((int)gridPosition.x >= tileGridSize.x) return nullptr;
-	if ((int)gridPosition.y < 0) return nullptr;
-	if ((int)gridPosition.y >= tileGridSize.y) return nullptr;
-
-	int index = (int)gridPosition.y * (int)tileGridSize.x + (int)gridPosition.x;
-	size_t sizeOftileMap = tileMap.size();
-	if (index < sizeOftileMap) {
+BoundingBox* Level::GetTileBoundingBox(const glm::vec2& gridPosition) {
+	if (IsTileValid(gridPosition)) {
+		int index = (int)gridPosition.y * (int)tileGridSize.x + (int)gridPosition.x;
 		return &tileMap[index]->boundingBox;
 	}
 	else {
@@ -120,4 +115,12 @@ void Level::Load(void) {
 		}
 
 	}
+}
+
+bool Level::IsTileValid(const glm::vec2& gridPosition) {
+	if ((int)gridPosition.x < 0) return false;
+	if ((int)gridPosition.x >= tileGridSize.x) return false;
+	if ((int)gridPosition.y < 0) return false;
+	if ((int)gridPosition.y >= tileGridSize.y) return false;
+	return true;
 }
