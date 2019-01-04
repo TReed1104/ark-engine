@@ -41,15 +41,11 @@ public:
 	void Reposition(const glm::vec2& newPosition);
 
 private:
-	void UpdatePosition(void);
 	void UpdateRotation(void);
 	void UpdateScale(void);
 	void TransformationController(void);
 	void LoadAnimations(void);
 	void AnimationController(const float& deltaTime);
-	virtual void PhysicsController(const float& deltaTime);
-	virtual void AnimationStateHandler(void);
-	virtual void AnimationIndexHandler(void);
 
 protected:
 	LuaScript* script;
@@ -78,7 +74,11 @@ protected:
 	float currentFallingSpeed;
 	float fallTimer;
 
-	void PhysicsHandlerFalling(const float& deltaTime);
+	virtual void UpdatePosition(void);
+	virtual void PhysicsHandlerFalling(const float& deltaTime);
+	virtual void PhysicsController(const float& deltaTime);
+	virtual void AnimationStateHandler(void);
+	virtual void AnimationIndexHandler(void);
 };
 
 #endif
