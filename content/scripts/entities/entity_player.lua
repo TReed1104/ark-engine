@@ -7,13 +7,23 @@ entity = {
 	position = { x = 90, y = 30, z = 0, },
 	-- Draw Offset
 	draw_offset = { x = -24, y = -24, },
+
 	-- Bounding box Dimensions
 	bounding_box_dimensions = { width = 10, height = 36, },
 	-- Bounding box offset
 	bounding_box_offset = { x = 3, y = 4, },
+
+	-- Crouching
+	can_crouch = true,
+	-- Crouching Bounding box Dimensions
+	crouching_bounding_box_dimensions = { width = 10, height = 16, },
+	-- Crouching Bounding box offset
+	crouching_bounding_box_offset = { x = 3, y = 24, },
+
 	-- Stats
 	health = 10.0,
 	movement_speed = 60.0,
+	
 	-- Animations
 	has_animations = true,
 	animations = {

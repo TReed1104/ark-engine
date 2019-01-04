@@ -41,8 +41,8 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 		glm::vec2 standingBoundingBoxDimensions = glm::vec2(script->Get<int>("entity.bounding_box_dimensions.width"), script->Get<int>("entity.bounding_box_dimensions.height"));
 		standingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + standingBoundingBoxOffset, standingBoundingBoxDimensions);
 
-		crouchingBoundingBoxOffset = glm::vec2(3, 24);
-		glm::vec2 crouchingBoundingBoxDimensions = glm::vec2(10, 16);
+		crouchingBoundingBoxOffset = glm::vec2(script->Get<int>("entity.crouching_bounding_box_offset.x"), script->Get<int>("entity.crouching_bounding_box_offset.y"));
+		glm::vec2 crouchingBoundingBoxDimensions = glm::vec2(script->Get<int>("entity.crouching_bounding_box_dimensions.width"), script->Get<int>("entity.crouching_bounding_box_dimensions.height"));
 		crouchingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + crouchingBoundingBoxOffset, crouchingBoundingBoxDimensions);
 
 		// Model Setup
@@ -235,7 +235,7 @@ void Entity::AnimationStateHandler(void) {
 	default:
 		break;
 	}
-}
+}	
 void Entity::AnimationIndexHandler(void) {
 	// Using the current animaiton state, work out which animation in the list to use.
 	switch (animationState) {
