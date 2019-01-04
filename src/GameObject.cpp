@@ -34,11 +34,8 @@ GameObject::GameObject(const std::string & scriptPath) {
 
 	// Physics Setup
 	velocity = glm::vec2(0.0f);
-	currentMovementSpeed = baseMovementSpeed;
 	currentFallingSpeed = baseFallingSpeed;
 	fallTimer = 0.0f;
-	currentJumpingSpeed = 0.0f;
-	jumpingTimer = 0.0f;
 
 	boundingBoxOffset = glm::vec2(0.0f);
 	boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset);

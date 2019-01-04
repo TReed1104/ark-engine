@@ -24,6 +24,13 @@ private:
 protected:
 	bool isCrouching;
 	bool isJumping;
+	const float baseMovementSpeed = 80.0f;
+	const float maxMovementSpeed = 120.0f;
+	float currentMovementSpeed;
+	const float timeForMaxJump = 0.8f;
+	const float baseJumpingSpeed = -120.0f;
+	float currentJumpingSpeed;
+	float jumpingTimer;
 
 	virtual void EntityController(void) {}	// The AI or Player Controller, gets overriden by the derived classes
 	void PhysicsHandlerCrouching(const float& deltaTime);

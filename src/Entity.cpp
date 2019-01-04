@@ -5,9 +5,12 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	// Default values
 	movementDirection = Directions::NotSet;
 	spriteDirection = Directions::Right;
+	isAffectedByGravity = true;
 	isCrouching = false;
 	isJumping = false;
-	isAffectedByGravity = true;
+	currentMovementSpeed = baseMovementSpeed;
+	currentJumpingSpeed = 0.0f;
+	jumpingTimer = 0.0f;
 
 	if (script->isScriptLoaded) {
 		animationState = AnimationState::AnimationIdleRight;
