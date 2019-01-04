@@ -37,6 +37,14 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 		glm::vec2 boundingBoxDimensions = glm::vec2(script->Get<int>("entity.bounding_box_dimensions.width"), script->Get<int>("entity.bounding_box_dimensions.height"));
 		boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset, boundingBoxDimensions);
 
+		standingBoundingBoxOffset = glm::vec2(script->Get<int>("entity.bounding_box_offset.x"), script->Get<int>("entity.bounding_box_offset.y"));
+		glm::vec2 standingBoundingBoxDimensions = glm::vec2(script->Get<int>("entity.bounding_box_dimensions.width"), script->Get<int>("entity.bounding_box_dimensions.height"));
+		standingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + standingBoundingBoxOffset, standingBoundingBoxDimensions);
+
+		crouchingBoundingBoxOffset = glm::vec2(3, 24);
+		glm::vec2 crouchingBoundingBoxDimensions = glm::vec2(10, 16);
+		crouchingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + crouchingBoundingBoxOffset, crouchingBoundingBoxDimensions);
+
 		// Model Setup
 		model = Engine_Pointer->modelRegister[Engine_Pointer->indexOfSpriteModel];
 		model.SetMeshParents();
@@ -55,13 +63,22 @@ void Entity::Update(const float& deltaTime) {
 	EntityController();
 	GameObject::Update(deltaTime);
 }
+void Entity::UpdatePosition(void) {
+	GameObject::UpdatePosition();
+	standingBoundingBox.UpdatePosition(glm::vec2(position.x, position.y) + standingBoundingBoxOffset);
+	crouchingBoundingBox.UpdatePosition(glm::vec2(position.x, position.y) + crouchingBoundingBoxOffset);
+
+}
 void Entity::PhysicsHandlerCrouching(const float& deltaTime) {
 	if (isCrouching) {
 		// Amend Bounding Box size and positions
-
+		boundingBox = crouchingBoundingBox;
+		boundingBoxOffset = crouchingBoundingBoxOffset;
 	}
 	else {
 		// Check the position above the entity, if the position is a collision set crouching to true
+		boundingBox = standingBoundingBox;
+		boundingBoxOffset = standingBoundingBoxOffset;
 	}
 }
 void Entity::PhysicsHandlerJumping(const float& deltaTime) {

@@ -32,7 +32,13 @@ protected:
 	float currentJumpingSpeed;
 	float jumpingTimer;
 
+	BoundingBox standingBoundingBox;
+	glm::vec2 standingBoundingBoxOffset;
+	BoundingBox crouchingBoundingBox;
+	glm::vec2 crouchingBoundingBoxOffset;
+
 	virtual void EntityController(void) {}	// The AI or Player Controller, gets overriden by the derived classes
+	void UpdatePosition(void);
 	void PhysicsHandlerCrouching(const float& deltaTime);
 	void PhysicsHandlerJumping(const float& deltaTime);
 	void PhysicsHandlerFalling(const float & deltaTime);
