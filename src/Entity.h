@@ -22,8 +22,8 @@ public:
 private:
 
 protected:
-	bool canCrouch;
-	bool isCrouching;
+	bool canCrawl;
+	bool isCrawling;
 	bool isJumping;
 	const float baseMovementSpeed = 80.0f;
 	const float maxMovementSpeed = 120.0f;
@@ -35,12 +35,12 @@ protected:
 
 	BoundingBox standingBoundingBox;
 	glm::vec2 standingBoundingBoxOffset;
-	BoundingBox crouchingBoundingBox;
-	glm::vec2 crouchingBoundingBoxOffset;
+	BoundingBox crawlingBoundingBox;
+	glm::vec2 crawlingBoundingBoxOffset;
 
 	virtual void EntityController(void) {}	// The AI or Player Controller, gets overriden by the derived classes
 	void UpdatePosition(void);
-	void PhysicsHandlerCrouching(const float& deltaTime);
+	void PhysicsHandlerCrawling(const float& deltaTime);
 	void PhysicsHandlerJumping(const float& deltaTime);
 	void PhysicsHandlerFalling(const float & deltaTime);
 	void PhysicsHandlerMovement(const float& deltaTime);

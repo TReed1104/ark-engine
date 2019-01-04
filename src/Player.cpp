@@ -30,7 +30,7 @@ void Player::HandleInputKeyboard(void) {
 	}
 
 	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementJump)) {
-		if (!isJumping && !isFalling && !isCrouching) {
+		if (!isJumping && !isFalling && !isCrawling) {
 			isJumping = true;
 			currentJumpingSpeed = baseJumpingSpeed;
 			movementDirection = Directions::Up;
@@ -43,13 +43,13 @@ void Player::HandleInputKeyboard(void) {
 			movementDirection = Directions::Down;
 		}
 		else if (!isJumping && !isFalling) {
-			isCrouching = true;
-			std::cout << "Crouching: " << isCrouching << std::endl;
+			isCrawling = true;
+			std::cout << "Crawling: " << isCrawling << std::endl;
 		}
 	}
 	else {
-		isCrouching = false;
-		std::cout << "Crouching: " << isCrouching << std::endl;
+		isCrawling = false;
+		std::cout << "Crawling: " << isCrawling << std::endl;
 	}
 
 	// Sprinting

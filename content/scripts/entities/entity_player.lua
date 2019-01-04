@@ -13,17 +13,17 @@ entity = {
 	-- Bounding box offset
 	bounding_box_offset = { x = 3, y = 4, },
 
-	-- Crouching
-	can_crouch = true,
-	-- Crouching Bounding box Dimensions
-	crouching_bounding_box_dimensions = { width = 10, height = 16, },
-	-- Crouching Bounding box offset
-	crouching_bounding_box_offset = { x = 3, y = 24, },
+	-- Crawling
+	can_crawl = true,
+	-- Crawling Bounding box Dimensions
+	crawling_bounding_box_dimensions = { width = 10, height = 16, },
+	-- Crawling Bounding box offset
+	crawling_bounding_box_offset = { x = 3, y = 24, },
 
 	-- Stats
 	health = 10.0,
 	movement_speed = 60.0,
-	
+
 	-- Animations
 	has_animations = true,
 	animations = {

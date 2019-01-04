@@ -6,7 +6,7 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	movementDirection = Directions::NotSet;
 	spriteDirection = Directions::Right;
 	isAffectedByGravity = true;
-	isCrouching = false;
+	isCrawling = false;
 	isJumping = false;
 	currentMovementSpeed = baseMovementSpeed;
 	currentJumpingSpeed = 0.0f;
@@ -41,11 +41,11 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 		glm::vec2 standingBoundingBoxDimensions = glm::vec2(script->Get<int>("entity.bounding_box_dimensions.width"), script->Get<int>("entity.bounding_box_dimensions.height"));
 		standingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + standingBoundingBoxOffset, standingBoundingBoxDimensions);
 		
-		canCrouch = script->Get<bool>("entity.can_crouch");
-		if (canCrouch) {
-			crouchingBoundingBoxOffset = glm::vec2(script->Get<int>("entity.crouching_bounding_box_offset.x"), script->Get<int>("entity.crouching_bounding_box_offset.y"));
-			glm::vec2 crouchingBoundingBoxDimensions = glm::vec2(script->Get<int>("entity.crouching_bounding_box_dimensions.width"), script->Get<int>("entity.crouching_bounding_box_dimensions.height"));
-			crouchingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + crouchingBoundingBoxOffset, crouchingBoundingBoxDimensions);
+		canCrawl = script->Get<bool>("entity.can_crawl");
+		if (canCrawl) {
+			crawlingBoundingBoxOffset = glm::vec2(script->Get<int>("entity.crawling_bounding_box_offset.x"), script->Get<int>("entity.crawling_bounding_box_offset.y"));
+			glm::vec2 crouchingBoundingBoxDimensions = glm::vec2(script->Get<int>("entity.crawling_bounding_box_dimensions.width"), script->Get<int>("entity.crawling_bounding_box_dimensions.height"));
+			crawlingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + crawlingBoundingBoxOffset, crouchingBoundingBoxDimensions);
 		}
 
 		// Model Setup
@@ -69,25 +69,25 @@ void Entity::Update(const float& deltaTime) {
 void Entity::UpdatePosition(void) {
 	GameObject::UpdatePosition();
 	standingBoundingBox.UpdatePosition(glm::vec2(position.x, position.y) + standingBoundingBoxOffset);
-	crouchingBoundingBox.UpdatePosition(glm::vec2(position.x, position.y) + crouchingBoundingBoxOffset);
+	crawlingBoundingBox.UpdatePosition(glm::vec2(position.x, position.y) + crawlingBoundingBoxOffset);
 
 }
-void Entity::PhysicsHandlerCrouching(const float& deltaTime) {
-	if (canCrouch) {
-		if (isCrouching) {
+void Entity::PhysicsHandlerCrawling(const float& deltaTime) {
+	if (canCrawl) {
+		if (isCrawling) {
 			// Amend Bounding Box size and positions
-			boundingBox = crouchingBoundingBox;
-			boundingBoxOffset = crouchingBoundingBoxOffset;
+			boundingBox = crawlingBoundingBox;
+			boundingBoxOffset = crawlingBoundingBoxOffset;
 		}
 		else {
-			// Check the position above the entity, if the position is a collision set crouching to true
+			// Check the position above the entity, if the position is a collision set crawling to true
 			boundingBox = standingBoundingBox;
 			boundingBoxOffset = standingBoundingBoxOffset;
 		}
 	}
 }
 void Entity::PhysicsHandlerJumping(const float& deltaTime) {
-	// If the entity is not crouched or falling, try and jump
+	// If the entity is not crawling or falling, try and jump
 	if (!isFalling && isJumping) {
 		// Declare the variables used for the calculations
 		glm::vec2 newVelocity = glm::vec2(0.0f, currentJumpingSpeed * deltaTime);
@@ -218,7 +218,7 @@ void Entity::PhysicsHandlerMovement(const float& deltaTime) {
 	}
 }
 void Entity::PhysicsController(const float& deltaTime) {
-	PhysicsHandlerCrouching(deltaTime);
+	PhysicsHandlerCrawling(deltaTime);
 	PhysicsHandlerJumping(deltaTime);
 	PhysicsHandlerFalling(deltaTime);
 	PhysicsHandlerMovement(deltaTime);
