@@ -72,6 +72,14 @@ BoundingBox* Level::GetTileBoundingBox(const glm::vec2 & gridPosition) {
 	}
 }
 void Level::Reload(void) {
+	std::cout << ">> RELOADING MAP FILE" << std::endl;
+	if (script->isScriptLoaded) {
+		delete script;
+		for (int i = 0; i < tileMap.size(); i++) {
+			delete tileMap[i];
+		}
+		tileMap.clear();
+	}
 	Load();
 }
 void Level::Load(void) {
@@ -85,8 +93,7 @@ void Level::Load(void) {
 		pixelGridSize = tileGridSize * Engine_Pointer->tileSize;
 		playerStartPosition = glm::vec2(script->Get<int>("map.player_start_grid_position.x"), script->Get<int>("map.player_start_grid_position.y"));
 		std::vector<int> rawMapData = script->GetVector<int>("map.map_data");
-		tileMap.clear();
-
+		
 		// Find the index of tileset to use for this level in the Engines tileset register.
 		indexOfTileset = -1;
 		for (size_t i = 0; i < Engine_Pointer->tilesetRegister.size(); i++) {
