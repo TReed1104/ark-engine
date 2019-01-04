@@ -536,6 +536,9 @@ void Engine::EventHandler(void) {
 	}
 }
 void Engine::Update(const float& deltaTime) {
+	if (deviceKeyboard->GetKeyState(Keyboard::P)) {
+		GetCurrentLevel()->Reload();
+	}
 	// Check the current level has been initialised
 	if (GetCurrentLevel() != nullptr) {
 		// Run the current Level's update function
