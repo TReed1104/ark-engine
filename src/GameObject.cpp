@@ -186,6 +186,7 @@ void GameObject::PhysicsHandlerFalling(const float& deltaTime) {
 			// If there was a collision, reset the fall variables
 			isFalling = false;
 			currentFallingSpeed = baseFallingSpeed;
+			fallTimer = 0.0f;
 		}
 	}
 }
