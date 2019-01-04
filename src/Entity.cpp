@@ -109,12 +109,14 @@ void Entity::PhysicsHandlerJumping(const float& deltaTime) {
 			if (currentJumpingSpeed >= 0) {
 				currentJumpingSpeed = baseJumpingSpeed;
 				isJumping = false;
+				jumpingTimer = 0.0f;
 			}
 		}
 		else {
 			// If there was a collision, reset the jump variables
 			currentJumpingSpeed = baseJumpingSpeed;
 			isJumping = false;
+			jumpingTimer = 0.0f;
 		}
 	}
 }
