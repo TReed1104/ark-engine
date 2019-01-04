@@ -76,44 +76,39 @@ void Entity::UpdatePosition(void) {
 }
 void Entity::PhysicsHandlerCrawling(const float& deltaTime) {
 	if (canCrawl) {
-		// Collision checks for standing up
+		// Only run the standing up collision checks if we are actually crawling
 		if (isCrawling) {
-			// Check for a collision above the crawling entity
+			// If we are crawling, Check for a collision above the crawling entity
 			bool isColliding = false;
+			bool doubleBreak = false;	// Hacky way to break out of a double for-loop
+			int deltaGridX = abs(boundingBox.TopLeftGridPosition().x - boundingBox.TopRightGridPosition().x);					// Calculate the difference between the topleft and topright
+			int deltaGridY = abs(crawlingBoundingBox.TopLeftGridPosition().y - standingBoundingBox.TopLeftGridPosition().y);	// Calculate the difference between the crouching AABB and the Standing AABB
 
-			// Calculate the difference in grid cells between the top left of the AABB and the top right, giving us the AABB width in cells
-			int deltaGridX = abs(boundingBox.TopLeftGridPosition().x - boundingBox.TopRightGridPosition().x);
-			int deltaGridY = abs(crawlingBoundingBox.TopLeftGridPosition().y - standingBoundingBox.TopLeftGridPosition().y);
-
-			bool doubleBreak = false;
 			for (int x = 0; x <= deltaGridX && !doubleBreak; x++) {
 				for (int y = 0; y <= deltaGridY; y++) {
 					glm::ivec2 gridPositionToCheck = boundingBox.TopLeftGridPosition() + glm::ivec2(x, -y);
-					bool isAboveSolid = Engine_Pointer->GetCurrentLevel()->IsTileSolid(gridPositionToCheck);
-					//std::cout << "Grid: " << gridPositionToCheck.x << ", " << gridPositionToCheck.y << " - isSolid: " << isAboveSolid << std::endl;
-					if (isAboveSolid) {
-						isColliding = true;
-						doubleBreak = true;
-						break;
-					}
-					else {
-						isColliding = false;
+					isColliding = Engine_Pointer->GetCurrentLevel()->IsTileSolid(gridPositionToCheck);
+					if (isColliding) {
+						doubleBreak = true;	// Break out both for-loops
+						break;				// Break out this nested for-loop
 					}
 				}
 			}
-			// If there is no collision, Fall
+			// If there is a collision, decide if we should force a crawl 
 			if (isColliding) {
 				if (isTryingToCrawl) {
 					isCrawling = true;
 				}
 			}
 			else {
+				// If there is no collision and the entity isn't trying to crawl, let them stand up
 				if (!isTryingToCrawl) {
 					isCrawling = false;
 				}
 			}
 		}
 
+		// Toggle between the AABB sizes and positions for crawling and standing
 		if (isCrawling) {
 			// Amend Bounding Box size and positions
 			boundingBox = crawlingBoundingBox;
