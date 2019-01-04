@@ -22,6 +22,7 @@ public:
 private:
 
 protected:
+	bool canCrouch;
 	bool isCrouching;
 	bool isJumping;
 	const float baseMovementSpeed = 80.0f;

@@ -41,7 +41,7 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 		glm::vec2 standingBoundingBoxDimensions = glm::vec2(script->Get<int>("entity.bounding_box_dimensions.width"), script->Get<int>("entity.bounding_box_dimensions.height"));
 		standingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + standingBoundingBoxOffset, standingBoundingBoxDimensions);
 		
-		bool canCrouch = script->Get<bool>("entity.can_crouch");
+		canCrouch = script->Get<bool>("entity.can_crouch");
 		if (canCrouch) {
 			crouchingBoundingBoxOffset = glm::vec2(script->Get<int>("entity.crouching_bounding_box_offset.x"), script->Get<int>("entity.crouching_bounding_box_offset.y"));
 			glm::vec2 crouchingBoundingBoxDimensions = glm::vec2(script->Get<int>("entity.crouching_bounding_box_dimensions.width"), script->Get<int>("entity.crouching_bounding_box_dimensions.height"));
@@ -73,15 +73,17 @@ void Entity::UpdatePosition(void) {
 
 }
 void Entity::PhysicsHandlerCrouching(const float& deltaTime) {
-	if (isCrouching) {
-		// Amend Bounding Box size and positions
-		boundingBox = crouchingBoundingBox;
-		boundingBoxOffset = crouchingBoundingBoxOffset;
-	}
-	else {
-		// Check the position above the entity, if the position is a collision set crouching to true
-		boundingBox = standingBoundingBox;
-		boundingBoxOffset = standingBoundingBoxOffset;
+	if (canCrouch) {
+		if (isCrouching) {
+			// Amend Bounding Box size and positions
+			boundingBox = crouchingBoundingBox;
+			boundingBoxOffset = crouchingBoundingBoxOffset;
+		}
+		else {
+			// Check the position above the entity, if the position is a collision set crouching to true
+			boundingBox = standingBoundingBox;
+			boundingBoxOffset = standingBoundingBoxOffset;
+		}
 	}
 }
 void Entity::PhysicsHandlerJumping(const float& deltaTime) {
