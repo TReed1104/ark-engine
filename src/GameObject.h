@@ -74,7 +74,7 @@ protected:
 	glm::vec2 velocity;
 	const float timeForMaxFall = 1.5f;
 	const float baseFallingSpeed = 2.0f;
-	const float maxFallingSpeed = 200.0f;
+	const float maxFallingSpeed = 250.0f;
 	float currentFallingSpeed;
 	float fallTimer;
 
