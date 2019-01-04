@@ -7,7 +7,7 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	spriteDirection = Directions::Right;
 	isAffectedByGravity = true;
 	canCrawl = false;
-	canStand = true;
+	isTryingToCrawl = false;
 	isCrawling = false;
 	isJumping = false;
 	currentMovementSpeed = baseMovementSpeed;
@@ -76,46 +76,53 @@ void Entity::UpdatePosition(void) {
 }
 void Entity::PhysicsHandlerCrawling(const float& deltaTime) {
 	if (canCrawl) {
+		// Collision checks for standing up
 		if (isCrawling) {
 			// Check for a collision above the crawling entity
-
 			bool isColliding = false;
 
 			// Calculate the difference in grid cells between the top left of the AABB and the top right, giving us the AABB width in cells
 			int deltaGridX = abs(boundingBox.TopLeftGridPosition().x - boundingBox.TopRightGridPosition().x);
+			int deltaGridY = abs(crawlingBoundingBox.TopLeftGridPosition().y - standingBoundingBox.TopLeftGridPosition().y);
 
-			// For every delta, do another check until we run out of checks or find a collision
-			for (size_t i = 0; i <= deltaGridX; i++) {
-				glm::ivec2 gridPositionToCheck = boundingBox.TopLeftGridPosition() + glm::ivec2(i, -1);
-				bool isAboveSolid = Engine_Pointer->GetCurrentLevel()->IsTileSolid(gridPositionToCheck);
-				if (isAboveSolid) {
-					// If we have found a collision, break out the loop because no more checks are needed
-					isColliding = true;
-					break;
-				}
-				else {
-					isColliding = false;
+			bool doubleBreak = false;
+			for (int x = 0; x <= deltaGridX && !doubleBreak; x++) {
+				for (int y = 0; y <= deltaGridY; y++) {
+					glm::ivec2 gridPositionToCheck = boundingBox.TopLeftGridPosition() + glm::ivec2(x, -y);
+					bool isAboveSolid = Engine_Pointer->GetCurrentLevel()->IsTileSolid(gridPositionToCheck);
+					//std::cout << "Grid: " << gridPositionToCheck.x << ", " << gridPositionToCheck.y << " - isSolid: " << isAboveSolid << std::endl;
+					if (isAboveSolid) {
+						isColliding = true;
+						doubleBreak = true;
+						break;
+					}
+					else {
+						isColliding = false;
+					}
 				}
 			}
 			// If there is no collision, Fall
-			if (!isColliding) {
-				canStand = true;
+			if (isColliding) {
+				if (isTryingToCrawl) {
+					isCrawling = true;
+				}
 			}
 			else {
-				canStand = false;
-				isCrawling = true;
+				if (!isTryingToCrawl) {
+					isCrawling = false;
+				}
 			}
+		}
 
+		if (isCrawling) {
 			// Amend Bounding Box size and positions
 			boundingBox = crawlingBoundingBox;
 			boundingBoxOffset = crawlingBoundingBoxOffset;
 		}
 		else {
-			if (canStand) {
-				// Check the position above the entity, if the position is a collision set crawling to true
-				boundingBox = standingBoundingBox;
-				boundingBoxOffset = standingBoundingBoxOffset;
-			}
+			// Check the position above the entity, if the position is a collision set crawling to true
+			boundingBox = standingBoundingBox;
+			boundingBoxOffset = standingBoundingBoxOffset;
 		}
 	}
 }

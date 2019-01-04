@@ -25,7 +25,7 @@ private:
 
 protected:
 	bool canCrawl;
-	bool canStand;
+	bool isTryingToCrawl;
 	bool isCrawling;
 	bool isJumping;
 	const float baseMovementSpeed = 80.0f;

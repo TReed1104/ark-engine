@@ -43,13 +43,12 @@ void Player::HandleInputKeyboard(void) {
 			movementDirection = Directions::Down;
 		}
 		else if (!isJumping && !isFalling) {
+			isTryingToCrawl = true;
 			isCrawling = true;
 		}
 	}
 	else {
-		if (canStand) {
-			isCrawling = false;
-		}
+		isTryingToCrawl = false;
 	}
 
 	// Sprinting
