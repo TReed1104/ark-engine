@@ -6,6 +6,8 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	movementDirection = Directions::NotSet;
 	spriteDirection = Directions::Right;
 	isAffectedByGravity = true;
+	canCrawl = false;
+	canStand = true;
 	isCrawling = false;
 	isJumping = false;
 	currentMovementSpeed = baseMovementSpeed;
@@ -75,14 +77,45 @@ void Entity::UpdatePosition(void) {
 void Entity::PhysicsHandlerCrawling(const float& deltaTime) {
 	if (canCrawl) {
 		if (isCrawling) {
+			// Check for a collision above the crawling entity
+
+			bool isColliding = false;
+
+			// Calculate the difference in grid cells between the top left of the AABB and the top right, giving us the AABB width in cells
+			int deltaGridX = abs(boundingBox.TopLeftGridPosition().x - boundingBox.TopRightGridPosition().x);
+
+			// For every delta, do another check until we run out of checks or find a collision
+			for (size_t i = 0; i <= deltaGridX; i++) {
+				glm::ivec2 gridPositionToCheck = boundingBox.TopLeftGridPosition() + glm::ivec2(i, -1);
+				bool isAboveSolid = Engine_Pointer->GetCurrentLevel()->IsTileSolid(gridPositionToCheck);
+				if (isAboveSolid) {
+					// If we have found a collision, break out the loop because no more checks are needed
+					isColliding = true;
+					break;
+				}
+				else {
+					isColliding = false;
+				}
+			}
+			// If there is no collision, Fall
+			if (!isColliding) {
+				canStand = true;
+			}
+			else {
+				canStand = false;
+				isCrawling = true;
+			}
+
 			// Amend Bounding Box size and positions
 			boundingBox = crawlingBoundingBox;
 			boundingBoxOffset = crawlingBoundingBoxOffset;
 		}
 		else {
-			// Check the position above the entity, if the position is a collision set crawling to true
-			boundingBox = standingBoundingBox;
-			boundingBoxOffset = standingBoundingBoxOffset;
+			if (canStand) {
+				// Check the position above the entity, if the position is a collision set crawling to true
+				boundingBox = standingBoundingBox;
+				boundingBoxOffset = standingBoundingBoxOffset;
+			}
 		}
 	}
 }

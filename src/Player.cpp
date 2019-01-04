@@ -47,7 +47,9 @@ void Player::HandleInputKeyboard(void) {
 		}
 	}
 	else {
-		isCrawling = false;
+		if (canStand) {
+			isCrawling = false;
+		}
 	}
 
 	// Sprinting
