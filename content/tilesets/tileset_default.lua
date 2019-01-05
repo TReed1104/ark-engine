@@ -8,7 +8,7 @@ tileset = {
 	tile_0   = { type = 0, source_frame_position = { x = 00, y = 00, }, },
 	tile_1   = { type = 1, source_frame_position = { x = 01, y = 00, }, },
 	tile_2   = { type = 1, source_frame_position = { x = 02, y = 00, }, },
-	tile_3   = { type = 0, source_frame_position = { x = 03, y = 00, }, },
+	tile_3   = { type = 1, source_frame_position = { x = 03, y = 00, }, },
 	tile_4   = { type = 0, source_frame_position = { x = 04, y = 00, }, },
 	tile_5   = { type = 0, source_frame_position = { x = 05, y = 00, }, },
 	tile_6   = { type = 0, source_frame_position = { x = 06, y = 00, }, },
