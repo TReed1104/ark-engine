@@ -3,6 +3,7 @@
 
 Tile::Tile(const Texture& texture, const int& tileType, const glm::ivec2& sourceFramePosition, const glm::vec3& position) : GameObject() {
 	this->type = (Type)tileType;
+	this->isSlope = false;
 	this->texture = &texture;
 	this->sourceFramePosition = sourceFramePosition;
 	this->position = position;
