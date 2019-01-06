@@ -15,7 +15,8 @@ public:
 	~BoundingBox(void);
 
 	bool Intersect(BoundingBox otherBB);
-	void UpdatePosition(glm::vec2 newPosition);
+	void UpdatePosition(const glm::vec2& newPosition);
+	void Resize(const glm::vec2& newDimensions);
 	
 	glm::vec2 GetPosition(void);
 	glm::ivec2 GetGridPosition(void);

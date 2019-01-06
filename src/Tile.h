@@ -9,7 +9,7 @@ public:
 	Type type;
 	bool isSlope;
 
-	Tile(const Texture& texture, const int& tileType, const bool& isSlope = false, const glm::ivec2& sourceFramePosition = glm::ivec2(0), const glm::vec3& position = glm::vec3(0.0f));
+	Tile(const Texture& texture, const int& tileType, const bool& isSlope = false, const glm::ivec2& sourceFramePosition = glm::ivec2(0), const glm::vec3& position = glm::vec3(0.0f), const BoundingBox& boundingBox = BoundingBox(glm::ivec2(0)), const glm::ivec2& boundingBoxOffset = glm::ivec2(0));
 	~Tile(void);
 
 	void Update(const float& deltaTime);

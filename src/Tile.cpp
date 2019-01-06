@@ -1,18 +1,16 @@
 #include "Tile.h"
 #include "Engine.h"
 
-Tile::Tile(const Texture& texture, const int& tileType, const bool& isSlope, const glm::ivec2& sourceFramePosition, const glm::vec3& position) : GameObject() {
+Tile::Tile(const Texture& texture, const int& tileType, const bool& isSlope, const glm::ivec2& sourceFramePosition, const glm::vec3& position, const BoundingBox& boundingBox, const glm::ivec2& boundingBoxOffset) : GameObject() {
 	this->type = (Type)tileType;
 	this->isSlope = isSlope;
 	this->texture = &texture;
 	this->sourceFramePosition = sourceFramePosition;
 	this->position = position;
-	this->drawOffset = glm::vec2(0.0f);
 	this->drawPosition = this->position + glm::vec3(this->drawOffset, 0);
 	this->gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
-	this->boundingBoxOffset = glm::vec2(0.0f);
-	this->boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset);
-
+	this->boundingBox = boundingBox;
+	this->boundingBoxOffset = boundingBoxOffset;
 	// Model Setup
 	this->model = Engine_Pointer->modelRegister[Engine_Pointer->indexOfTileModel];
 	this->model.SetMeshParents();

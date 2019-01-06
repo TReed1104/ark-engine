@@ -33,9 +33,13 @@ bool BoundingBox::Intersect(BoundingBox otherBB) {
 		return ((x < otherBB.x + otherBB.width) && (x + width > otherBB.x) && (y < otherBB.y + otherBB.height) && (y + height > otherBB.y));
 	}
 }
-void BoundingBox::UpdatePosition(glm::vec2 newPosition) {
+void BoundingBox::UpdatePosition(const glm::vec2& newPosition) {
 	this->x = roundf(newPosition.x);
 	this->y = roundf(newPosition.y);
+}
+void BoundingBox::Resize(const glm::vec2& newDimensions) {
+	this->width = newDimensions.x;
+	this->height = newDimensions.y;
 }
 glm::vec2 BoundingBox::GetPosition(void) {
 	return glm::vec2(x, y);

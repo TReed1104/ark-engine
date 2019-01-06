@@ -33,11 +33,14 @@ void Tileset::Load(const std::string& tilesetScript) {
 			int sourceFrameY = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.y");
 			glm::ivec2 sourceFramePosition = glm::ivec2(sourceFrameX, sourceFrameY);
 
+			glm::ivec2 aabbOffset = glm::ivec2(tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".bounding_box.x_offset"), tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".bounding_box.y_offset"));
+			glm::ivec2 aabbDimensions = glm::ivec2(tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".bounding_box.width"), tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".bounding_box.height"));
+
 			if (indexOfTileSetTexture != -1) {
-				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, isSlope, sourceFramePosition));
+				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, isSlope, sourceFramePosition, glm::vec3(0.0f), BoundingBox(glm::ivec2(0), aabbDimensions), aabbOffset));
 			}
 			else {
-				tileList.push_back(Tile(Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture], (Tile::Type)tileType, isSlope, sourceFramePosition));
+				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, isSlope, sourceFramePosition, glm::vec3(0.0f), BoundingBox(glm::ivec2(0), aabbDimensions), aabbOffset));
 			}
 		}
 	}

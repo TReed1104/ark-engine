@@ -116,23 +116,19 @@ void GameObject::Reposition(const glm::vec2& newPosition) {
 	position = glm::vec3(newPosition.x, newPosition.y, position.z);
 	velocity = glm::vec2(0, 0);																			// Reset Velocity, because the movement has taken place
 	gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(position.x, position.y));
-
 	drawPosition = (position + glm::vec3(drawOffset, 0.0f));
 	drawPosition = glm::vec3(glm::floor(drawPosition.x), glm::floor(drawPosition.y), drawPosition.z);	// Floor the x and y values of the drawPosition to cap it to pixel grid
 	model.Translate(drawPosition);
-
-	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
+	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);					// Update the bounding box to match the new positions
 }
 void GameObject::UpdatePosition() {
 	position += glm::vec3(velocity, 0.0f);
 	velocity = glm::vec2(0, 0);																			// Reset Velocity, because the movement has taken place
 	gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(position.x, position.y));
-
 	drawPosition = (position + glm::vec3(drawOffset, 0.0f));
 	drawPosition = glm::vec3(glm::floor(drawPosition.x), glm::floor(drawPosition.y), drawPosition.z);	// Floor the x and y values of the drawPosition to cap it to pixel grid
 	model.Translate(drawPosition);
-
-	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);
+	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);					// Update the bounding box to match the new positions
 }
 void GameObject::UpdateRotation() {
 	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));

@@ -30,7 +30,6 @@ void Level::Update(const float& deltaTime) {
 			tileMap[index]->Update(deltaTime);
 		}
 	}
-
 }
 void Level::Draw(void) {
 	// Use the cameras position (top left of its viewport) to calculate where to update
@@ -111,10 +110,11 @@ void Level::Load(void) {
 				bool isSlope = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].isSlope;
 				glm::ivec2 sourceFramePosition = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].sourceFramePosition;
 				glm::vec3 position = glm::vec3(x * Engine_Pointer->tileSize.x, y * Engine_Pointer->tileSize.y, -0.01f);
-				tileMap.push_back(new Tile(*texture, type, isSlope, sourceFramePosition, position));
+				BoundingBox boundingBox = BoundingBox(glm::vec2(position) + Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].boundingBoxOffset, Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].boundingBox.GetDimensions());
+				glm::ivec2 boundingBoxOffset = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].boundingBoxOffset;
+				tileMap.push_back(new Tile(*texture, type, isSlope, sourceFramePosition, position, boundingBox, boundingBoxOffset));
 			}
 		}
-
 	}
 }
 
