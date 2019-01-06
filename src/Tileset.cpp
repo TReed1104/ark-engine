@@ -28,15 +28,16 @@ void Tileset::Load(const std::string& tilesetScript) {
 		// Load each of the Tiles from the current Tileset script.
 		for (int i = 0; i < numberOfTiles; i++) {
 			int tileType = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".type");
+			bool isSlope = tileConfigScript.Get<bool>("tileset.tile_" + std::to_string(i) + ".isSlope");
 			int sourceFrameX = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.x");
 			int sourceFrameY = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.y");
 			glm::ivec2 sourceFramePosition = glm::ivec2(sourceFrameX, sourceFrameY);
 
 			if (indexOfTileSetTexture != -1) {
-				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, sourceFramePosition));
+				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, isSlope, sourceFramePosition));
 			}
 			else {
-				tileList.push_back(Tile(Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture], (Tile::Type)tileType, sourceFramePosition));
+				tileList.push_back(Tile(Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture], (Tile::Type)tileType, isSlope, sourceFramePosition));
 			}
 		}
 	}
