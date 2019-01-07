@@ -67,6 +67,7 @@ Entity::~Entity(void) {
 void Entity::Update(const float& deltaTime) {
 	EntityController();
 	GameObject::Update(deltaTime);
+	Engine_Pointer->textObjectRegister[2]->UpdateText("GRID(" + std::to_string(gridPosition.x) + " " + std::to_string(gridPosition.y) + ")");
 }
 void Entity::UpdatePosition(void) {
 	GameObject::UpdatePosition();
