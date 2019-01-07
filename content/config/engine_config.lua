@@ -9,7 +9,7 @@ config = {
 		-- Window Size in Tiles
 		grid_size = { x = 20, y = 15, },
 		-- Window Scaler
-		scale = { x = 1.0, y = 1.0, },
+		scale = { x = 2.0, y = 2.0, },
 	},
 	-- Engine Directory Settings
 	directories = {
