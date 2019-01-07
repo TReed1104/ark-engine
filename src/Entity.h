@@ -28,7 +28,7 @@ protected:
 	bool isTryingToCrawl;
 	bool isCrawling;
 	bool isJumping;
-	const float baseMovementSpeed = 80.0f;
+	const float baseMovementSpeed = 90.0f;
 	const float maxMovementSpeed = 120.0f;
 	float currentMovementSpeed;
 	const float timeForMaxJump = 0.4f;
