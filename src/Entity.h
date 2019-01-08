@@ -31,7 +31,7 @@ protected:
 	const float baseMovementSpeed = 90.0f;
 	const float maxMovementSpeed = 120.0f;
 	float currentMovementSpeed;
-	const float timeForMaxJump = 0.4f;
+	const float timeForMaxJump = 0.3f;
 	const float baseJumpingSpeed = -200.0f;
 	float currentJumpingSpeed;
 	float jumpingTimer;
