@@ -9,9 +9,9 @@ entity = {
 	draw_offset = { x = -24, y = -24, },
 
 	-- Bounding box Dimensions
-	bounding_box_dimensions = { width = 10, height = 36, },
+	bounding_box_dimensions = { width = 10, height = 32, },
 	-- Bounding box offset
-	bounding_box_offset = { x = 3, y = 4, },
+	bounding_box_offset = { x = 3, y = 8, },
 
 	-- Crawling
 	can_crawl = true,
