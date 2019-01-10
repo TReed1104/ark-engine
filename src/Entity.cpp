@@ -254,10 +254,10 @@ void Entity::PhysicsHandlerMovement(const float& deltaTime) {
 	}
 }
 void Entity::PhysicsController(const float& deltaTime) {
+	PhysicsHandlerMovement(deltaTime);
 	PhysicsHandlerCrawling(deltaTime);
 	PhysicsHandlerJumping(deltaTime);
 	PhysicsHandlerFalling(deltaTime);
-	PhysicsHandlerMovement(deltaTime);
 }
 void Entity::AnimationStateHandler(void) {
 	switch (spriteDirection) {
