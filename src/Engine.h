@@ -49,6 +49,7 @@ public:
 	int thumbStickDeadZone;
 	int triggerDeadZone;
 	int pressedStateFlag;
+	const float Pi = 3.14159;
 	const float physicsInterval = 0.1f;
 
 	// Input Interfaces
