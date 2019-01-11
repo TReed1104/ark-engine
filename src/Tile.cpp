@@ -1,10 +1,7 @@
 #include "Tile.h"
 #include "Engine.h"
 
-Tile::Tile(const Texture& texture, const int& tileType, const glm::ivec2& sourceFramePosition, const glm::vec3& position, 
-			const BoundingBox& boundingBox, const glm::ivec2& boundingBoxOffset, 
-				const bool& isSlope, const glm::ivec2& slopeOffset) : GameObject() {
-
+Tile::Tile(const Texture& texture, const int& tileType, const glm::ivec2& sourceFramePosition, const glm::vec3& position, const BoundingBox& boundingBox, const glm::ivec2& boundingBoxOffset, const bool& isSlope, const glm::ivec2& slopeOffset) : GameObject() {
 	this->type = (Type)tileType;
 	this->isSlope = isSlope;
 	if (this->isSlope) {
@@ -28,7 +25,7 @@ Tile::Tile(const Texture& texture, const int& tileType, const glm::ivec2& source
 	// Collisions
 	this->boundingBox = boundingBox;
 	this->boundingBoxOffset = boundingBoxOffset;
-	
+
 	// Model Setup
 	model = Engine_Pointer->modelRegister[Engine_Pointer->indexOfTileModel];
 	model.SetMeshParents();
@@ -43,7 +40,6 @@ Tile::~Tile(void) {
 void Tile::Update(const float& deltaTime) {
 	GameObject::Update(deltaTime);
 }
-
 float Tile::CalculateSlope(const glm::ivec2& slopeOffset) {
 	glm::ivec2 left = glm::ivec2(position) + glm::ivec2(0, slopeOffset.x);
 	glm::ivec2 right = glm::ivec2(position.x + Engine_Pointer->tileSize.x, position.y) + glm::ivec2(0, slopeOffset.y);
