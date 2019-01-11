@@ -30,11 +30,7 @@ void Tileset::Load(const std::string& tilesetScript) {
 			int tileType = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".type");
 			bool isSlope = tileConfigScript.Get<bool>("tileset.tile_" + std::to_string(i) + ".slope.is_slope");
 			glm::ivec2 slopeOffset = glm::ivec2(tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".slope.slope_offset.left"), tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".slope.slope_offset.right"));
-
-			int sourceFrameX = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.x");
-			int sourceFrameY = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.y");
-			glm::ivec2 sourceFramePosition = glm::ivec2(sourceFrameX, sourceFrameY);
-
+			glm::ivec2 sourceFramePosition = glm::ivec2(tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.x"), tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.y"));
 			glm::ivec2 aabbOffset = glm::ivec2(tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".bounding_box.x_offset"), tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".bounding_box.y_offset"));
 			glm::ivec2 aabbDimensions = glm::ivec2(tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".bounding_box.width"), tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".bounding_box.height"));
 
