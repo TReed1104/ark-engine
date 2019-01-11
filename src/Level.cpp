@@ -47,6 +47,13 @@ void Level::Draw(void) {
 		}
 	}
 }
+bool Level::IsTileValid(const glm::vec2& gridPosition) {
+	if ((int)gridPosition.x < 0) return false;
+	if ((int)gridPosition.x >= tileGridSize.x) return false;
+	if ((int)gridPosition.y < 0) return false;
+	if ((int)gridPosition.y >= tileGridSize.y) return false;
+	return true;
+}
 bool Level::IsTileSolid(const glm::vec2& gridPosition) {
 	if (IsTileValid(gridPosition)) {
 		int index = (int)gridPosition.y * (int)tileGridSize.x + (int)gridPosition.x;
@@ -112,17 +119,10 @@ void Level::Load(void) {
 				BoundingBox boundingBox = BoundingBox(glm::vec2(position) + Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].boundingBoxOffset, Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].boundingBox.GetDimensions());
 				glm::ivec2 boundingBoxOffset = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].boundingBoxOffset;
 				bool isSlope = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].isSlope;
+				glm::ivec2 slopeOffset = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].slopeOffset;
 
-				tileMap.push_back(new Tile(*texture, type, sourceFramePosition, position, boundingBox, boundingBoxOffset, isSlope));
+				tileMap.push_back(new Tile(*texture, type, sourceFramePosition, position, boundingBox, boundingBoxOffset, isSlope, slopeOffset));
 			}
 		}
 	}
-}
-
-bool Level::IsTileValid(const glm::vec2& gridPosition) {
-	if ((int)gridPosition.x < 0) return false;
-	if ((int)gridPosition.x >= tileGridSize.x) return false;
-	if ((int)gridPosition.y < 0) return false;
-	if ((int)gridPosition.y >= tileGridSize.y) return false;
-	return true;
 }
