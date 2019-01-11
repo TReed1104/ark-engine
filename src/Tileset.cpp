@@ -29,6 +29,7 @@ void Tileset::Load(const std::string& tilesetScript) {
 		for (int i = 0; i < numberOfTiles; i++) {
 			int tileType = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".type");
 			bool isSlope = tileConfigScript.Get<bool>("tileset.tile_" + std::to_string(i) + ".isSlope");
+
 			int sourceFrameX = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.x");
 			int sourceFrameY = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.y");
 			glm::ivec2 sourceFramePosition = glm::ivec2(sourceFrameX, sourceFrameY);
@@ -37,10 +38,10 @@ void Tileset::Load(const std::string& tilesetScript) {
 			glm::ivec2 aabbDimensions = glm::ivec2(tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".bounding_box.width"), tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".bounding_box.height"));
 
 			if (indexOfTileSetTexture != -1) {
-				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, isSlope, sourceFramePosition, glm::vec3(0.0f), BoundingBox(glm::ivec2(0), aabbDimensions), aabbOffset));
+				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, sourceFramePosition, glm::vec3(0.0f), BoundingBox(glm::ivec2(0), aabbDimensions), aabbOffset, isSlope));
 			}
 			else {
-				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, isSlope, sourceFramePosition, glm::vec3(0.0f), BoundingBox(glm::ivec2(0), aabbDimensions), aabbOffset));
+				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, sourceFramePosition, glm::vec3(0.0f), BoundingBox(glm::ivec2(0), aabbDimensions), aabbOffset, isSlope));
 			}
 		}
 	}
