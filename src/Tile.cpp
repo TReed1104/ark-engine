@@ -7,7 +7,14 @@ Tile::Tile(const Texture& texture, const int& tileType, const glm::ivec2& source
 
 	this->type = (Type)tileType;
 	this->isSlope = isSlope;
-	this->slopeOffset = slopeOffset;
+	if (this->isSlope) {
+		this->slopeOffset = slopeOffset;
+		this->slopeAngle = CalculateSlope(this->slopeOffset);
+	}
+	else {
+		this->slopeOffset = glm::ivec2(0);
+		this->slopeAngle = 0.0f;
+	}
 
 	// Texturess
 	this->texture = &texture;
@@ -35,4 +42,15 @@ Tile::~Tile(void) {
 
 void Tile::Update(const float& deltaTime) {
 	GameObject::Update(deltaTime);
+}
+
+float Tile::CalculateSlope(const glm::ivec2& slopeOffset) {
+	glm::ivec2 left = glm::ivec2(position) + glm::ivec2(0, slopeOffset.x);
+	glm::ivec2 right = glm::ivec2(position.x + Engine_Pointer->tileSize.x, position.y) + glm::ivec2(0, slopeOffset.y);
+
+	// Delta of each side where the slope is
+	int deltaX = glm::abs(left.x - right.x);
+	int deltaY = glm::abs(left.y - right.y);
+	float slopeAngle = std::atan2(deltaY, deltaX) * 180 / M_PI;	// Calculate the slope
+	return slopeAngle;
 }

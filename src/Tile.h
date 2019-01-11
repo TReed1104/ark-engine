@@ -19,6 +19,6 @@ public:
 	void Update(const float& deltaTime);
 
 private:
-
+	float CalculateSlope(const glm::ivec2& slopeOffset);
 };
 #endif
