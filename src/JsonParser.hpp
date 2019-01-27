@@ -21,8 +21,8 @@ public:
 		delete jsonDocument;
 	}
 
-	// Functions Exposed by the API
-	// Import and Export functions
+
+	// Import and Export functions exposed by the API
 	bool Load(const std::string& fileName) {
 		this->fileName = fileName;
 		if (fileName != "NOT GIVEN") {
@@ -73,10 +73,94 @@ public:
 			return false;
 		}
 	}
+
+	// general functions exposed by the API
 	const bool IsLoaded(void) {
 		return isFileLoaded;
 	}
-	// Get Functions
+	const size_t SizeOfObjectArray(const std::string& objectName) {
+		// Check we've been given a key
+		if (objectName != "") {
+			// check the file is actually loaded
+			if (isFileLoaded) {
+				std::vector<std::string> splitString = SplitString(objectName, '.');	// this gives us the stack of node names to use to traverse the json file's structure, e.g. root.head.value
+				rapidjson::Value* jsonValue = nullptr;
+				// Iterate through our substrings to traverse the JSON DOM
+				const size_t sizeOfSplitString = splitString.size();
+				for (size_t i = 0; i < sizeOfSplitString; i++) {
+					if (i == 0) {
+						if (!jsonDocument->HasMember(splitString.front().c_str())) {
+							std::cout << "JsonFile.hpp >>>> Could not find key: " << splitString.front() << std::endl;
+							return 0;
+						}
+						jsonValue = &(*jsonDocument)[splitString.front().c_str()];	// Get our root key
+					}
+					else {
+						if (!jsonValue->IsArray()) {
+							if (jsonValue->HasMember(splitString[i].c_str())) {
+								jsonValue = &(*jsonValue)[splitString[i].c_str()];
+							}
+							else {
+								std::cout << "JsonFile.hpp >>>> Could not find key: " << splitString[i] << std::endl;
+								return 0;
+							}
+						}
+						else {
+							// Point to the object/key/array at the indicated index in the array
+							int arraySize = jsonValue->Size();
+							int indexOfValue = 0;
+							// try and convert the substring to an int, if not return default
+							try {
+								indexOfValue = std::stoi(splitString[i]);	// convert from our substring to our indexer
+							}
+							catch (...) {
+								std::cout << "JsonFile.hpp >>>> " << objectName << " " << splitString[i] << " is invalid as an index value" << std::endl;
+								return 0;
+							}
+							// Check the value is accessible in the bounds of the array
+							if (arraySize > 0) {
+								if (arraySize > indexOfValue) {
+									jsonValue = &(*jsonValue)[indexOfValue];
+								}
+								else {
+									std::cout << "JsonFile.hpp >>>> " << objectName << " index: " << indexOfValue << " is out of bounds" << std::endl;
+									return 0;
+								}
+							}
+							else {
+								std::cout << "JsonFile.hpp >>>> " << objectName << " Array is empty" << std::endl;
+								return 0;
+							}
+						}
+					}
+				}
+				// Check we haven't ended up with a JSON object instead of a value
+				if (jsonValue->IsObject()) {
+					std::cout << "JsonFile.hpp >>>> " << objectName << " is an object" << std::endl;
+					return 0;
+				}
+
+				// Check we haven't ended up with a key that isn't an array
+				if (!jsonValue->IsArray()) {
+					std::cout << "JsonFile.hpp >>>> " << objectName << " is not an array" << std::endl;
+					return 0;
+				}
+
+				// Return the size of the array
+				return jsonValue->Size();
+			}
+			else {
+				std::cout << "JsonFile.hpp >>>> File is not loaded, cannot call Get<T>()" << std::endl;
+				return 0;
+			}
+		}
+		else {
+			std::cout << "JsonFile.hpp >>>> No key was defined for SizeOfObjectArray() to use" << std::endl;
+			return 0;
+		}
+	}
+	
+	// Get Functions exposed by the API
 	template<typename T> inline T Get(const std::string& objectName) {
 		// Check we've been given a key
 		if (objectName != "") {
@@ -237,7 +321,8 @@ public:
 			return std::vector<T>();
 		}
 	}
-	// Set Functions
+	
+	// Set Functions exposed by the API
 	template<typename T> inline void Set(const std::string& objectName, const T& inputValue) {
 		// Check we've been given a key
 		if (objectName != "") {
@@ -405,7 +490,8 @@ public:
 			return;
 		}
 	}
-	// Inserts Functions
+	
+	// Inserts Functions exposed by the API
 	template<typename T> inline void Insert(const std::string& positionToInsert, const std::string& keyName, const T& inputValue) {
 		// Check the file is loaded
 		if (isFileLoaded) {
@@ -544,7 +630,8 @@ public:
 			return;
 		}
 	}
-	// Remove Functions
+	
+	// Remove Functions exposed by the API
 	inline void Remove(const std::string& objectName) {
 		// Check we've been given a key
 		if (objectName != "") {
@@ -659,7 +746,6 @@ private:
 	bool isFileLoaded = false;
 	rapidjson::Document* jsonDocument = nullptr;
 
-
 	// Splits a string using the given splitToken, E.g. ""The.Cat.Sat.On.The.Mat" splits with token '.' into Vector[6] = {The, Cat, Sat, On, The, Mat};
 	std::vector<std::string> JsonFile::SplitString(const std::string& stringToSplit, const char& splitToken) {
 
@@ -685,6 +771,7 @@ private:
 
 		return splitString;
 	}
+	
 	// Get Default value Functions, uses Templating
 	template<typename T> inline T GetDefaultValue() {
 		return 0;
@@ -692,6 +779,7 @@ private:
 	template<> inline std::string GetDefaultValue() {
 		return "";
 	}
+	
 	// Get value functions, uses Templating overrides
 	template<typename T> inline T GetValue(const rapidjson::Value& jsonValue) {
 		return GetDefaultValue<T>();
@@ -741,6 +829,7 @@ private:
 			return GetDefaultValue<bool>();
 		}
 	}
+	
 	// Set value functions, uses Templating overrides to check typing per data type
 	template<typename T> inline bool SetValue(rapidjson::Value& jsonValue, const T& inputValue) {
 		return false;
@@ -795,6 +884,7 @@ private:
 			return false;
 		}
 	}
+	
 	// Set Array functions, uses templating to get round issues with std::string
 	template<typename T> inline void SetVectorOfValues(rapidjson::Value& jsonValue, const std::vector<T>& inputValueVector) {
 		// Clear the array
@@ -812,6 +902,7 @@ private:
 			jsonValue.PushBack(rapidjson::StringRef(item.c_str()), jsonDocument->GetAllocator());
 		}
 	}
+	
 	// Insert value functions, uses templting to get round issues with std::string
 	template<typename T> inline void InsertValue(rapidjson::Value& jsonValue, const std::string& keyName, const T& inputValue) {
 		// Check the json node we are at is an object, otherwise we can't insert a value
@@ -861,6 +952,7 @@ private:
 			return;
 		}
 	}
+	
 	// Insert value array functions, uses templting to get round issues with std::string
 	template<typename T> inline void InsertVectorOfValues(rapidjson::Value& jsonValue, const std::string& keyName, const std::vector<T>& inputValueVector) {
 		// Check the json node we are at is an object, otherwise we can't insert a value
