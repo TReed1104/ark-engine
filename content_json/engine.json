@@ -1,0 +1,142 @@
+{
+	"engine": {
+		"program id": "ArkEngine",
+		"developer": "Tom reed",
+		"version": "0.01",
+		"vsync": false,
+		"window": {
+			"title": "ArkEngine",
+			"tile size": {
+				"width": 16,
+				"height": 16
+			},
+			"grid size": {
+				"width": 20,
+				"height": 15
+			},
+			"scalar": {
+				"x": 2,
+				"y": 2
+			}
+		},
+		"content": {
+			"default content": {
+				"tile": "tile.obj",
+				"sprite": "sprite.obj",
+				"texture": "default.png"
+			},
+			"directories": {
+				"shaders": "shaders",
+				"fonts": "fonts",
+				"text": "text",
+				"textures": "textures",
+				"models": "models",
+				"tilesets": "tilesets",
+				"levels": "levels",
+				"items": "items",
+				"entities": "entities",
+				"cameras": "cameras"
+			},
+			"texture config": {
+				"texture border size": {
+					"width": 1,
+					"height": 1
+				},
+				"tile frame dimensions": {
+					"width": 16,
+					"height": 16
+				},
+				"sprite frame dimensions": {
+					"width": 16,
+					"height": 16
+				}
+			}
+		},
+		"key bindings": [
+			{
+				"binding": {
+					"id": "movement_left",
+					"friendly name": "Move Left",
+					"key value": 10
+				}
+			},
+			{
+				"binding": {
+					"id": "movement_right",
+					"friendly name": "Move Right",
+					"key value": 13
+				}
+			},
+			{
+				"binding": {
+					"id": "movement_up",
+					"friendly name": "Jump",
+					"key value": 32
+				}
+			},
+			{
+				"binding": {
+					"id": "movement_down",
+					"friendly name": "Crouch",
+					"key value": 115
+				}
+			},
+			{
+				"binding": {
+					"id": "movement_sprint",
+					"friendly name": "Sprint",
+					"key value": 111
+				}
+			}
+		],
+		"game controller": {
+			"max number of controllers": 4,
+			"index of player": 0,
+			"thumb stick dead zone": 8000.0,
+			"trigger dead zone": 8000.0,
+			"pressed state flag": 1
+		},
+		"shaders": [
+			{
+				"shader": {
+					"id": "default",
+					"vertex": "default.vert",
+					"fragment": "texture_array.frag",
+					"tesselation": "DO NOT LOAD"
+				}
+			},
+			{
+				"shader": {
+					"id": "text renderer",
+					"vertex": "text_objects.vert",
+					"fragment": "text_objects.frag",
+					"tesselation": "DO NOT LOAD"
+				}
+			},
+			{
+				"shader": {
+					"id": "textureless",
+					"vertex": "default.vert",
+					"fragment": "default.frag",
+					"tesselation": "DO NOT LOAD"
+				}
+			}
+		],
+		"fonts": [
+			{
+				"font": {
+					"id": "Arial",
+					"source": "arial.ttf",
+					"size": 18
+				}
+			},
+			{
+				"font": {
+					"id": "Digital",
+					"source": "digital-7.ttf",
+					"size": 18
+				}
+			}
+		]
+	}
+}

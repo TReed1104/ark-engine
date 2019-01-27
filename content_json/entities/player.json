@@ -1,0 +1,202 @@
+{
+  "entity": {
+    "id": "player",
+    "health": 100,
+    "start_position": {
+      "x": 250,
+      "y": 75,
+      "z": 0
+    },
+    "texture": "entity_player.png",
+    "draw offset": {
+      "x": -24,
+      "y": -24
+    },
+    "is affected by gravity": true,
+    "can sprint": true,
+    "can crawl": true,
+    "movement speed": 90,
+    "sprint speed": 120,
+    "bounding boxes": [
+      {
+        "bounding box": {
+          "id": "standing",
+          "type": "aabb",
+          "dimensions": {
+            "width": 10,
+            "height": 32
+          },
+          "offset": {
+            "x": 3,
+            "y": 8
+          }
+        }
+      },
+      {
+        "bounding box": {
+          "id": "crawling",
+          "type": "aabb",
+          "dimensions": {
+            "width": 10,
+            "height": 16
+          },
+          "offset": {
+            "x": 3,
+            "y": 24
+          }
+        }
+      }
+    ],
+    "has animations": true,
+    "animations": [
+      {
+        "animation": {
+          "id": "Idle Standing Left",
+          "number of frames": 1,
+          "frames": [
+            {
+              "frame": {
+                "x": 1,
+                "y": 0,
+                "length": 0.2
+              }
+            }
+          ]
+        }
+      },
+      {
+        "animation": {
+          "id": "Idle Standing Right",
+          "number of frames": 1,
+          "frames": [
+            {
+              "frame": {
+                "x": 4,
+                "y": 0,
+                "length": 0.2
+              }
+            }
+          ]
+        }
+      },
+      {
+        "animation": {
+          "id": "Moving Standing Left",
+          "number of frames": 1,
+          "frames": [
+            {
+              "frame": {
+                "x": 1,
+                "y": 0,
+                "length": 0.2
+              }
+            },
+            {
+              "frame": {
+                "x": 2,
+                "y": 0,
+                "length": 0.2
+              }
+            }
+          ]
+        }
+      },
+      {
+        "animation": {
+          "id": "Moving Standing Right",
+          "number of frames": 1,
+          "frames": [
+            {
+              "frame": {
+                "x": 4,
+                "y": 0,
+                "length": 0.2
+              }
+            },
+            {
+              "frame": {
+                "x": 3,
+                "y": 0,
+                "length": 0.2
+              }
+            }
+          ]
+        }
+      },
+      {
+        "animation": {
+          "id": "Idle Crawling Left",
+          "number of frames": 1,
+          "frames": [
+            {
+              "frame": {
+                "x": 5,
+                "y": 0,
+                "length": 0.2
+              }
+            }
+          ]
+        }
+      },
+      {
+        "animation": {
+          "id": "Idle Standing Right",
+          "number of Crawling": 1,
+          "frames": [
+            {
+              "frame": {
+                "x": 0,
+                "y": 0,
+                "length": 0.2
+              }
+            }
+          ]
+        }
+      },
+      {
+        "animation": {
+          "id": "Moving Crawling Left",
+          "number of frames": 1,
+          "frames": [
+            {
+              "frame": {
+                "x": 5,
+                "y": 0,
+                "length": 0.2
+              }
+            },
+            {
+              "frame": {
+                "x": 6,
+                "y": 0,
+                "length": 0.2
+              }
+            }
+          ]
+        }
+      },
+      {
+        "animation": {
+          "id": "Moving Crawling Right",
+          "number of frames": 1,
+          "frames": [
+            {
+              "frame": {
+                "x": 0,
+                "y": 0,
+                "length": 0.2
+              }
+            },
+            {
+              "frame": {
+                "x": 7,
+                "y": 0,
+                "length": 0.2
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

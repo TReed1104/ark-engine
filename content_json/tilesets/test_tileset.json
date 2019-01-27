@@ -1,0 +1,294 @@
+{
+	"tileset": [
+		{
+			"tile": {
+				"id": 0,
+				"type": 0,
+				"slope": {
+					"is slope": false,
+					"slope offset": {
+						"left": 0,
+						"right": 0
+					}
+				},
+				"bounding box": {
+					"offset": {
+						"x": 0,
+						"y": 0
+					},
+					"dimensions": {
+						"width": 16,
+						"height": 16
+					}
+				},
+				"source frame": {
+					"position": {
+						"x": 0,
+						"y": 0
+					}
+				}
+			}
+		},
+		{
+			"tile": {
+				"id": 1,
+				"type": 1,
+				"slope": {
+					"is slope": false,
+					"slope offset": {
+						"left": 0,
+						"right": 0
+					}
+				},
+				"bounding box": {
+					"offset": {
+						"x": 0,
+						"y": 0
+					},
+					"dimensions": {
+						"width": 16,
+						"height": 16
+					}
+				},
+				"source frame": {
+					"position": {
+						"x": 1,
+						"y": 0
+					}
+				}
+			}
+		},
+		{
+			"tile": {
+				"id": 2,
+				"type": 1,
+				"slope": {
+					"is slope": false,
+					"slope offset": {
+						"left": 0,
+						"right": 0
+					}
+				},
+				"bounding box": {
+					"offset": {
+						"x": 0,
+						"y": 0
+					},
+					"dimensions": {
+						"width": 16,
+						"height": 16
+					}
+				},
+				"source frame": {
+					"position": {
+						"x": 2,
+						"y": 0
+					}
+				}
+			}
+		},
+		{
+			"tile": {
+				"id": 3,
+				"type": 1,
+				"slope": {
+					"is slope": true,
+					"slope offset": {
+						"left": 0,
+						"right": 16
+					}
+				},
+				"bounding box": {
+					"offset": {
+						"x": 0,
+						"y": 0
+					},
+					"dimensions": {
+						"width": 16,
+						"height": 16
+					}
+				},
+				"source frame": {
+					"position": {
+						"x": 3,
+						"y": 0
+					}
+				}
+			}
+		},
+		{
+			"tile": {
+				"id": 4,
+				"type": 0,
+				"slope": {
+					"is slope": true,
+					"slope offset": {
+						"left": 0,
+						"right": 0
+					}
+				},
+				"bounding box": {
+					"offset": {
+						"x": 0,
+						"y": 0
+					},
+					"dimensions": {
+						"width": 16,
+						"height": 16
+					}
+				},
+				"source frame": {
+					"position": {
+						"x": 4,
+						"y": 0
+					}
+				}
+			}
+		},
+		{
+			"tile": {
+				"id": 5,
+				"type": 0,
+				"slope": {
+					"is slope": true,
+					"slope offset": {
+						"left": 0,
+						"right": 0
+					}
+				},
+				"bounding box": {
+					"offset": {
+						"x": 0,
+						"y": 0
+					},
+					"dimensions": {
+						"width": 16,
+						"height": 16
+					}
+				},
+				"source frame": {
+					"position": {
+						"x": 5,
+						"y": 0
+					}
+				}
+			}
+		},
+		{
+			"tile": {
+				"id": 6,
+				"type": 0,
+				"slope": {
+					"is slope": true,
+					"slope offset": {
+						"left": 0,
+						"right": 0
+					}
+				},
+				"bounding box": {
+					"offset": {
+						"x": 0,
+						"y": 0
+					},
+					"dimensions": {
+						"width": 16,
+						"height": 16
+					}
+				},
+				"source frame": {
+					"position": {
+						"x": 6,
+						"y": 0
+					}
+				}
+			}
+		},
+		{
+			"tile": {
+				"id": 7,
+				"type": 0,
+				"slope": {
+					"is slope": true,
+					"slope offset": {
+						"left": 0,
+						"right": 0
+					}
+				},
+				"bounding box": {
+					"offset": {
+						"x": 0,
+						"y": 0
+					},
+					"dimensions": {
+						"width": 16,
+						"height": 16
+					}
+				},
+				"source frame": {
+					"position": {
+						"x": 7,
+						"y": 0
+					}
+				}
+			}
+		},
+		{
+			"tile": {
+				"id": 8,
+				"type": 0,
+				"slope": {
+					"is slope": true,
+					"slope offset": {
+						"left": 0,
+						"right": 0
+					}
+				},
+				"bounding box": {
+					"offset": {
+						"x": 0,
+						"y": 0
+					},
+					"dimensions": {
+						"width": 16,
+						"height": 16
+					}
+				},
+				"source frame": {
+					"position": {
+						"x": 0,
+						"y": 0
+					}
+				}
+			}
+		},
+		{
+			"tile": {
+				"id": 9,
+				"type": 0,
+				"slope": {
+					"is slope": true,
+					"slope offset": {
+						"left": 0,
+						"right": 0
+					}
+				},
+				"bounding box": {
+					"offset": {
+						"x": 0,
+						"y": 0
+					},
+					"dimensions": {
+						"width": 16,
+						"height": 16
+					}
+				},
+				"source frame": {
+					"position": {
+						"x": 0,
+						"y": 0
+					}
+				}
+			}
+		}
+	]
+}
