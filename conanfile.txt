@@ -6,6 +6,7 @@ glm/0.9.8.5@bincrafters/stable
 Assimp/4.1.0@jacmoe/stable
 lua/5.3.4@zimmerk/stable
 freetype/2.9.0@bincrafters/stable
+rapidjson/1.1.0@bincrafters/stable
 
 [options]
 Assimp:shared=True
