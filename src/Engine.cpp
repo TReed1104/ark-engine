@@ -2,6 +2,8 @@
 
 // Constructors
 Engine::Engine(char* gameName) {
+	configFile = nullptr;
+
 	windowTitle = gameName;
 	defaultWindowTitle = gameName;
 	oldFrameTime = 0.0f;
@@ -31,6 +33,11 @@ Engine::~Engine(void) {
 // Clean Up functions
 void Engine::CleanUp(void) {
 	std::cout << "Cleanup - Begun" << std::endl;
+
+	// Clear the config file from memory
+	if (configFile != nullptr) {
+		delete configFile;
+	}
 
 	// Delete all the levels.
 	const size_t levelRegisterSize = levelRegister.size();
@@ -113,32 +120,32 @@ void Engine::Close(bool isClean) {
 // Engine config related functions
 void Engine::LoadEngineConfig(void) {
 	std::cout << ">> 1 - Loading Engine Configs" << std::endl;
-	JsonFile configFile = JsonFile("content_json/engine.json");
-	if (configFile.IsLoaded()) {
+	configFile = new JsonFile("content_json/engine.json");
+	if (configFile->IsLoaded()) {
 		// Core Engine setup
-		windowTitle = configFile.Get<std::string>("engine.window.title");
-		defaultWindowTitle = configFile.Get<std::string>("engine.window.title");
-		tileSize = glm::vec2(configFile.Get<int>("engine.window.tile size.width"), configFile.Get<int>("engine.window.tile size.height"));
-		windowGridSize = glm::vec2(configFile.Get<int>("engine.window.grid size.width"), configFile.Get<int>("engine.window.grid size.height"));
-		windowScaler = glm::vec2(configFile.Get<int>("engine.window.scalar.x"), configFile.Get<int>("engine.window.scalar.y"));
+		windowTitle = configFile->Get<std::string>("engine.window.title");
+		defaultWindowTitle = configFile->Get<std::string>("engine.window.title");
+		tileSize = glm::vec2(configFile->Get<int>("engine.window.tile size.width"), configFile->Get<int>("engine.window.tile size.height"));
+		windowGridSize = glm::vec2(configFile->Get<int>("engine.window.grid size.width"), configFile->Get<int>("engine.window.grid size.height"));
+		windowScaler = glm::vec2(configFile->Get<int>("engine.window.scalar.x"), configFile->Get<int>("engine.window.scalar.y"));
 		windowDimensions = (tileSize * windowGridSize) * windowScaler;
 
 		// Texture Source Frame setup
-		textureBorderSize = glm::ivec2(configFile.Get<int>("engine.content.texture config.texture border size.width"), configFile.Get<int>("engine.content.texture config.texture border size.height"));
-		tileTextureFrameSize = glm::ivec2(configFile.Get<int>("engine.content.texture config.tile frame dimensions.width"), configFile.Get<int>("engine.content.texture config.tile frame dimensions.height"));
-		entityTextureFrameSize = glm::ivec2(configFile.Get<int>("engine.content.texture config.sprite frame dimensions.width"), configFile.Get<int>("engine.content.texture config.sprite frame dimensions.height"));
+		textureBorderSize = glm::ivec2(configFile->Get<int>("engine.content.texture config.texture border size.width"), configFile->Get<int>("engine.content.texture config.texture border size.height"));
+		tileTextureFrameSize = glm::ivec2(configFile->Get<int>("engine.content.texture config.tile frame dimensions.width"), configFile->Get<int>("engine.content.texture config.tile frame dimensions.height"));
+		entityTextureFrameSize = glm::ivec2(configFile->Get<int>("engine.content.texture config.sprite frame dimensions.width"), configFile->Get<int>("engine.content.texture config.sprite frame dimensions.height"));
 
 		// Default content setup
-		nameOfDefaultTileModel = configFile.Get<std::string>("engine.content.default content.tile");
-		nameOfDefaultSpriteModel = configFile.Get<std::string>("engine.content.default content.sprite");
-		nameOfDefaultTexture = configFile.Get<std::string>("engine.content.default content.default");
+		nameOfDefaultTileModel = configFile->Get<std::string>("engine.content.default content.tile");
+		nameOfDefaultSpriteModel = configFile->Get<std::string>("engine.content.default content.sprite");
+		nameOfDefaultTexture = configFile->Get<std::string>("engine.content.default content.default");
 
 		// Controller setup
-		maxNumberOfControllers = configFile.Get<int>("engine.game controller.max number of controllers");
-		indexOfPlayerController = configFile.Get<int>("engine.game controller.index of player");
-		thumbStickDeadZone = configFile.Get<int>("engine.game controller.thumb stick dead zone");
-		triggerDeadZone = configFile.Get<int>("engine.game controller.trigger dead zone");
-		pressedStateFlag = configFile.Get<int>("engine.game controller.pressed state flag");
+		maxNumberOfControllers = configFile->Get<int>("engine.game controller.max number of controllers");
+		indexOfPlayerController = configFile->Get<int>("engine.game controller.index of player");
+		thumbStickDeadZone = configFile->Get<int>("engine.game controller.thumb stick dead zone");
+		triggerDeadZone = configFile->Get<int>("engine.game controller.trigger dead zone");
+		pressedStateFlag = configFile->Get<int>("engine.game controller.pressed state flag");
 
 	}
 	else {

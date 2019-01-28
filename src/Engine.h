@@ -122,6 +122,7 @@ private:
 	SDL_Window* sdlWindow;
 	SDL_GLContext glContext;
 	bool isRunning;
+	JsonFile* configFile;
 
 	// DeltaTime math
 	float oldFrameTime;
