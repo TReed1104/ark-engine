@@ -138,7 +138,7 @@ void Engine::LoadEngineConfig(void) {
 		// Default content setup
 		nameOfDefaultTileModel = configFile->Get<std::string>("engine.content.default content.tile");
 		nameOfDefaultSpriteModel = configFile->Get<std::string>("engine.content.default content.sprite");
-		nameOfDefaultTexture = configFile->Get<std::string>("engine.content.default content.default");
+		nameOfDefaultTexture = configFile->Get<std::string>("engine.content.default content.texture");
 
 		// Controller setup
 		maxNumberOfControllers = configFile->Get<int>("engine.game controller.max number of controllers");
