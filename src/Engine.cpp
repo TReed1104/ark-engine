@@ -10,6 +10,7 @@ Engine::Engine(char* gameName) {
 	currentFrameTime = 0.0f;
 
 	contentDirectory = "content/";
+	contentLocation = "content_json/";
 
 	indexOfDefaultShader = 0;
 	indexOfCurrentLevel = -1;
@@ -120,7 +121,7 @@ void Engine::Close(bool isClean) {
 // Engine config related functions
 void Engine::LoadEngineConfig(void) {
 	std::cout << ">> 1 - Loading Engine Configs" << std::endl;
-	configFile = new JsonFile("content_json/engine.json");	// Load the config file into memory
+	configFile = new JsonFile(contentLocation + "engine.json");	// Load the config file into memory
 	if (configFile->IsLoaded()) {
 		// Core Engine setup
 		windowTitle = configFile->Get<std::string>("engine.window.title");
