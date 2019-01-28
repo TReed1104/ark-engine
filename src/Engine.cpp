@@ -159,11 +159,29 @@ void Engine::LoadEngineConfig(void) {
 void Engine::LoadKeyBindings(void) {
 	std::cout << ">> 2 - Loading Keybinds" << std::endl;
 
-	LuaScript keybindScript = LuaScript(contentDirectory + "config/key_bindings.lua");
-	if (keybindScript.isScriptLoaded) {
-		keybindMovementJump = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_jump");
-		keybindMovementLeft = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_left");
-		keybindMovementRight = (Keyboard::Keys)keybindScript.Get<int>("keybindings.movement_right");
+	if (configFile->IsLoaded()) {
+		size_t numberOfKeybinds = configFile->SizeOfObjectArray("engine.key bindings");
+		for (size_t i = 0; i < numberOfKeybinds; i++) {
+			std::string nameOfBinding = configFile->Get<std::string>("engine.key bindings." + std::to_string(i) + ".binding.id");
+			if (nameOfBinding == "movement_left") {
+				keybindMovementLeft = (Keyboard::Keys)configFile->Get<int>("engine.key bindings." + std::to_string(i) + ".binding.key value");
+			}
+			else if (nameOfBinding == "movement_right") {
+				keybindMovementRight = (Keyboard::Keys)configFile->Get<int>("engine.key bindings." + std::to_string(i) + ".binding.key value");
+			}
+			else if (nameOfBinding == "movement_up") {
+				keybindMovementUp = (Keyboard::Keys)configFile->Get<int>("engine.key bindings." + std::to_string(i) + ".binding.key value");
+			}
+			else if (nameOfBinding == "movement_down") {
+				keybindMovementDown = (Keyboard::Keys)configFile->Get<int>("engine.key bindings." + std::to_string(i) + ".binding.key value");
+			}
+			else if (nameOfBinding == "movement_sprint") {
+				keybindMovementSprint = (Keyboard::Keys)configFile->Get<int>("engine.key bindings." + std::to_string(i) + ".binding.key value");
+			}
+			else {
+				std::cout << ">>>> 2 - FAILED - Unknown keybinding ID" << std::endl;
+			}
+		}
 	}
 	else {
 		// Config failed to load.
