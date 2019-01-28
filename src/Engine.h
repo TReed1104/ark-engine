@@ -20,7 +20,6 @@
 
 // Engine Source
 #include "Shader.h"
-#include "LuaScript.h"
 #include "JsonParser.hpp"
 #include "Keyboard.h"
 #include "GameController.h"
