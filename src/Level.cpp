@@ -98,7 +98,7 @@ void Level::Load(void) {
 		// Find the index of tileset to use for this level in the Engines tileset register.
 		indexOfTileset = -1;
 		for (size_t i = 0; i < Engine_Pointer->tilesetRegister.size(); i++) {
-			if (Engine_Pointer->tilesetRegister[i].name == nameOfTilest) {
+			if (Engine_Pointer->tilesetRegister[i].GetName() == nameOfTilest) {
 				indexOfTileset = (int)i;
 			}
 		}
@@ -108,20 +108,13 @@ void Level::Load(void) {
 		}
 
 		// Populate the tilemap.
+		const std::vector<Tile>* tileSet = Engine_Pointer->tilesetRegister[indexOfTileset].GetTiles();
 		for (int y = 0; y < (int)tileGridSize.y; y++) {
 			for (int x = 0; x < (int)tileGridSize.x; x++) {
-				int index = y * (int)tileGridSize.x + x;
-
-				const Texture* texture = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].texture;
-				Tile::Type type = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].type;
-				glm::ivec2 sourceFramePosition = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].sourceFramePosition;
+				Tile currentTile = tileSet->at(rawMapData[(y * (int)tileGridSize.x + x)]);
 				glm::vec3 position = glm::vec3(x * Engine_Pointer->tileSize.x, y * Engine_Pointer->tileSize.y, -0.01f);
-				BoundingBox boundingBox = BoundingBox(glm::vec2(position) + Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].boundingBoxOffset, Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].boundingBox.GetDimensions());
-				glm::ivec2 boundingBoxOffset = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].boundingBoxOffset;
-				bool isSlope = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].isSlope;
-				glm::ivec2 slopeOffset = Engine_Pointer->tilesetRegister[indexOfTileset].tileList[rawMapData[index]].slopeOffset;
-
-				tileMap.push_back(new Tile(*texture, type, sourceFramePosition, position, boundingBox, boundingBoxOffset, isSlope, slopeOffset));
+				BoundingBox boundingBox = BoundingBox(glm::vec2(position) + currentTile.boundingBoxOffset, currentTile.boundingBox.GetDimensions());
+				tileMap.push_back(new Tile(*currentTile.texture, currentTile.type, currentTile.sourceFramePosition, position, boundingBox, currentTile.boundingBoxOffset, currentTile.isSlope, currentTile.slopeOffset));
 			}
 		}
 	}
