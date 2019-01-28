@@ -320,7 +320,7 @@ void Engine::LoadShaders(void) {
 
 			// Create and Load the shader
 			Shader* newShader = new Shader(nameOfShader, vertexShaderName, fragmentShaderName);
-			if (newShader->Load()) {
+			if (newShader->IsLoaded()) {
 				// Loaded successfully, storing it for use
 				shaderRegister.push_back(newShader);
 			}
@@ -701,7 +701,7 @@ const int Engine::GetIndexOfShader(const std::string& shaderName) {
 	int indexOfDesiredShader = -1;
 	const size_t shaderRegisterSize = shaderRegister.size();
 	for (size_t i = 0; i < shaderRegisterSize; i++) {
-		if (shaderRegister[i]->name.find(shaderName) != std::string::npos) {
+		if (shaderRegister[i]->Name().find(shaderName) != std::string::npos) {
 			indexOfDesiredShader = (int)i;
 		}
 	}
