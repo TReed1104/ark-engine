@@ -140,10 +140,9 @@ void Shader::Activate(void) {
 const bool Shader::IsLoaded(void) {
 	return isLoaded;
 }
-const std::string Shader::Name(void) {
+const std::string Shader::GetName(void) {
 	return this->name;
 }
-
 const GLuint* Shader::GetShader(void) {
 	return &this->program;
 }

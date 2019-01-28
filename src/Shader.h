@@ -16,7 +16,7 @@ public:
 
 	// Public Functions
 	void Activate(void);
-	const std::string Name(void);
+	const std::string GetName(void);
 	const GLuint* GetShader(void);
 	const bool IsLoaded(void);
 
