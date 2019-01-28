@@ -78,14 +78,14 @@
 				"binding": {
 					"id": "movement_down",
 					"friendly name": "Crawling",
-					"key value": 115
+					"key value": 28
 				}
 			},
 			{
 				"binding": {
 					"id": "movement_sprint",
 					"friendly name": "Sprint",
-					"key value": 111
+					"key value": 24
 				}
 			}
 		],
