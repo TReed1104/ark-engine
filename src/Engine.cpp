@@ -151,6 +151,7 @@ void Engine::LoadEngineConfig(void) {
 	}
 	else {
 		// Config failed to load.
+		std::cout << ">>>> ERROR!!!! - Engine config wasn't loaded " << std::endl;
 		std::cout << ">> 1 - FAILED" << std::endl;
 		this->Close();
 	}
@@ -186,6 +187,7 @@ void Engine::LoadKeyBindings(void) {
 	}
 	else {
 		// Config failed to load.
+		std::cout << ">>>> ERROR!!!! - Engine config wasn't loaded " << std::endl;
 		std::cout << ">> 2 - FAILED" << std::endl;
 		this->Close();
 	}
@@ -328,6 +330,11 @@ void Engine::LoadShaders(void) {
 				this->Close();
 			}
 		}
+	}
+	else {
+		std::cout << ">>>> ERROR!!!! - Engine config wasn't loaded " << std::endl;
+		std::cout << ">> 5 - FAILED" << std::endl;
+		this->Close();
 	}
 
 	std::cout << ">> 5 - COMPLETE" << std::endl;
