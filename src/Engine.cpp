@@ -751,7 +751,7 @@ const int Engine::GetIndexOfTileset(const std::string& tilesetName) {
 	int indexOfDesiredTileset = -1;
 	const size_t tilesetRegisterSize = tilesetRegister.size();
 	for (size_t i = 0; i < tilesetRegisterSize; i++) {
-		if (tilesetRegister[i].name.find(tilesetName) != std::string::npos) {
+		if (tilesetRegister[i].GetName().find(tilesetName) != std::string::npos) {
 			indexOfDesiredTileset = (int)i;
 		}
 	}
@@ -761,7 +761,7 @@ const int Engine::GetIndexOfEntity(const std::string& entityName) {
 	int indexOfDesiredEntity = -1;
 	const size_t entityRegisterSize = entityRegister.size();
 	for (size_t i = 0; i < entityRegisterSize; i++) {
-		if (tilesetRegister[i].name.find(entityName) != std::string::npos) {
+		if (tilesetRegister[i].GetName().find(entityName) != std::string::npos) {
 			indexOfDesiredEntity = (int)i;
 		}
 	}
