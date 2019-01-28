@@ -761,7 +761,7 @@ const int Engine::GetIndexOfEntity(const std::string& entityName) {
 	int indexOfDesiredEntity = -1;
 	const size_t entityRegisterSize = entityRegister.size();
 	for (size_t i = 0; i < entityRegisterSize; i++) {
-		if (tilesetRegister[i].GetName().find(entityName) != std::string::npos) {
+		if (entityRegister[i]->GetName().find(entityName) != std::string::npos) {
 			indexOfDesiredEntity = (int)i;
 		}
 	}

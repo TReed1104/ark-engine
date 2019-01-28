@@ -113,6 +113,10 @@ void GameObject::Draw(void) {
 	glDisable(GL_BLEND);
 }
 
+const std::string GameObject::GetName(void) {
+	return this->name;
+}
+
 // Position control functions
 void GameObject::Reposition(const glm::vec2& newPosition) {
 	position = glm::vec3(newPosition.x, newPosition.y, position.z);

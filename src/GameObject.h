@@ -38,6 +38,7 @@ public:
 
 	virtual void Update(const float& deltaTime);
 	void Draw(void);
+	const std::string GetName(void);
 	void Reposition(const glm::vec2& newPosition);
 
 private:
@@ -49,6 +50,7 @@ private:
 
 protected:
 	LuaScript* script;
+	std::string name;
 
 	// Animations
 	int animationIndex;
