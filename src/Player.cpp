@@ -20,6 +20,7 @@ void Player::EntityController() {
 void Player::HandleInputKeyboard(void) {
 	movementDirection = Directions::NotSet;
 
+	// Move Left/Right
 	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementRight)) {
 		movementDirection = Directions::Right;
 		spriteDirection = Directions::Right;
@@ -29,14 +30,17 @@ void Player::HandleInputKeyboard(void) {
 		spriteDirection = Directions::Left;
 	}
 
-	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementJump)) {
+	// Jumping
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementUp)) {
 		if (!isJumping && !isFalling && !isCrawling) {
 			isJumping = true;
 			currentJumpingSpeed = baseJumpingSpeed;
 			movementDirection = Directions::Up;
 		}	
 	}
-	if (Engine_Pointer->deviceKeyboard->GetKeyState(Keyboard::s)) {
+
+	// Crawling
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementDown)) {
 		if (isJumping) {
 			isJumping = false;
 			currentJumpingSpeed = 0.0f;
@@ -52,7 +56,7 @@ void Player::HandleInputKeyboard(void) {
 	}
 
 	// Sprinting
-	if (Engine_Pointer->deviceKeyboard->GetKeyState(Keyboard::o)) {
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementSprint)) {
 		if (!isJumping && !isFalling) {
 			currentMovementSpeed = maxMovementSpeed;
 		}
