@@ -147,40 +147,6 @@ void Engine::LoadEngineConfig(void) {
 		this->Close();
 	}
 
-
-	LuaScript configScript = LuaScript(contentDirectory + "config/engine_config.lua");
-	if (configScript.isScriptLoaded) {
-		// Core setup
-		windowTitle = configScript.Get<std::string>("config.window.title");
-		defaultWindowTitle = configScript.Get<std::string>("config.window.title");
-		tileSize = glm::vec2(configScript.Get<int>("config.window.tile_size.x"), configScript.Get<int>("config.window.tile_size.y"));
-		windowGridSize = glm::vec2(configScript.Get<int>("config.window.grid_size.x"), configScript.Get<int>("config.window.grid_size.y"));
-		windowScaler = glm::vec2(configScript.Get<int>("config.window.scale.x"), configScript.Get<int>("config.window.scale.y"));
-		windowDimensions = (tileSize * windowGridSize) * windowScaler;
-
-		// Texture Source Frame setup
-		textureBorderSize = glm::ivec2(configScript.Get<int>("config.spritesheet_source_frames.texture_border_size.width"), configScript.Get<int>("config.spritesheet_source_frames.texture_border_size.height"));
-		tileTextureFrameSize = glm::ivec2(configScript.Get<int>("config.spritesheet_source_frames.tile_frame_dimensions.width"), configScript.Get<int>("config.spritesheet_source_frames.tile_frame_dimensions.height"));
-		entityTextureFrameSize = glm::ivec2(configScript.Get<int>("config.spritesheet_source_frames.entity_frame_dimensions.width"), configScript.Get<int>("config.spritesheet_source_frames.entity_frame_dimensions.height"));
-
-		// Default content setup
-		nameOfDefaultTileModel = configScript.Get<std::string>("config.default_content.tile");
-		nameOfDefaultSpriteModel = configScript.Get<std::string>("config.default_content.sprite");
-		nameOfDefaultTexture = configScript.Get<std::string>("config.default_content.texture");
-
-		// Controller setup
-		maxNumberOfControllers = configScript.Get<int>("config.game_controller.max_number_of_controllers");
-		indexOfPlayerController = configScript.Get<int>("config.game_controller.index_of_player_controller");
-		thumbStickDeadZone = configScript.Get<int>("config.game_controller.thumb_stick_dead_zone");
-		triggerDeadZone = configScript.Get<int>("config.game_controller.trigger_dead_zone");
-		pressedStateFlag = configScript.Get<int>("config.game_controller.press_state_flag");
-	}
-	else {
-		// Config failed to load.
-		std::cout << ">> 1 - FAILED" << std::endl;
-		this->Close();
-	}
-
 	std::cout << ">> 1 - COMPLETE" << std::endl;
 }
 void Engine::LoadKeyBindings(void) {
