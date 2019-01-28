@@ -115,6 +115,7 @@ void Engine::LoadEngineConfig(void) {
 	std::cout << ">> 1 - Loading Engine Configs" << std::endl;
 	JsonFile configFile = JsonFile("content_json/engine.json");
 	if (configFile.IsLoaded()) {
+		// Core Engine setup
 		windowTitle = configFile.Get<std::string>("engine.window.title");
 		defaultWindowTitle = configFile.Get<std::string>("engine.window.title");
 		tileSize = glm::vec2(configFile.Get<int>("engine.window.tile size.width"), configFile.Get<int>("engine.window.tile size.height"));
@@ -122,6 +123,10 @@ void Engine::LoadEngineConfig(void) {
 		windowScaler = glm::vec2(configFile.Get<int>("engine.window.scalar.x"), configFile.Get<int>("engine.window.scalar.y"));
 		windowDimensions = (tileSize * windowGridSize) * windowScaler;
 
+		// Texture Source Frame setup
+		textureBorderSize = glm::ivec2(configFile.Get<int>("engine.content.texture config.texture border size.width"), configFile.Get<int>("engine.content.texture config.texture border size.height"));
+		tileTextureFrameSize = glm::ivec2(configFile.Get<int>("engine.content.texture config.tile frame dimensions.width"), configFile.Get<int>("engine.content.texture config.tile frame dimensions.height"));
+		entityTextureFrameSize = glm::ivec2(configFile.Get<int>("engine.content.texture config.sprite frame dimensions.width"), configFile.Get<int>("engine.content.texture config.sprite frame dimensions.height"));
 
 	}
 	else {
