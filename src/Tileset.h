@@ -4,19 +4,24 @@
 #include "Tile.h"
 class Engine;
 
-class Tileset
-{
+class Tileset {
 public:
 	static Engine* Engine_Pointer;
-	std::string name;
-	std::vector<Tile> tileList;
 
-	Tileset(const std::string& tilesetScript);
+	Tileset(const std::string& tilesetConfig);
 	~Tileset();
+
+	const std::string GetName(void);
+	const bool IsLoaded(void);
+	const std::vector<Tile>* GetTiles(void);
+	std::vector<Tile> tileList;
 
 
 private:
-	void Load(const std::string& tilesetScript);
+	std::string name;
+	bool isLoaded;
+
+	bool Load(const std::string& tilesetConfig);
 };
 
 #endif

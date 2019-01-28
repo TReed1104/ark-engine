@@ -4,15 +4,23 @@
 
 Engine* Tileset::Engine_Pointer;
 
-Tileset::Tileset(const std::string& tilesetScript) {
-	Load(tilesetScript);
+Tileset::Tileset(const std::string& tilesetConfig) {
+	isLoaded = Load(tilesetConfig);
 }
-
 Tileset::~Tileset() {
 }
 
-void Tileset::Load(const std::string& tilesetScript) {
-	LuaScript tileConfigScript = LuaScript(tilesetScript);
+const std::string Tileset::GetName(void) {
+	return name;
+}
+const bool Tileset::IsLoaded(void) {
+	return isLoaded;
+}
+const std::vector<Tile>* Tileset::GetTiles(void) {
+	return &tileList;
+}
+bool Tileset::Load(const std::string& tilesetConfig) {
+	LuaScript tileConfigScript = LuaScript(tilesetConfig);
 	if (tileConfigScript.isScriptLoaded) {
 		// Get the config script values
 		name = tileConfigScript.Get<std::string>("tileset.name");
@@ -41,5 +49,9 @@ void Tileset::Load(const std::string& tilesetScript) {
 				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, sourceFramePosition, glm::vec3(0.0f), BoundingBox(glm::ivec2(0), aabbDimensions), aabbOffset, isSlope, slopeOffset));
 			}
 		}
+		return true;
+	}
+	else {
+		return false;
 	}
 }
