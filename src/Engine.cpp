@@ -115,6 +115,13 @@ void Engine::LoadEngineConfig(void) {
 	std::cout << ">> 1 - Loading Engine Configs" << std::endl;
 	JsonFile configFile = JsonFile("content_json/engine.json");
 	if (configFile.IsLoaded()) {
+		windowTitle = configFile.Get<std::string>("engine.window.title");
+		defaultWindowTitle = configFile.Get<std::string>("engine.window.title");
+		tileSize = glm::vec2(configFile.Get<int>("engine.window.tile size.width"), configFile.Get<int>("engine.window.tile size.height"));
+		windowGridSize = glm::vec2(configFile.Get<int>("engine.window.grid size.width"), configFile.Get<int>("engine.window.grid size.height"));
+		windowScaler = glm::vec2(configFile.Get<int>("engine.window.scalar.x"), configFile.Get<int>("engine.window.scalar.y"));
+		windowDimensions = (tileSize * windowGridSize) * windowScaler;
+
 
 	}
 	else {
