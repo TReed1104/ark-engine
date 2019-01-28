@@ -53,17 +53,18 @@ void TextObject::Draw(void) {
 			Model::Mesh &currentMesh = model.meshes[i];
 			glBindVertexArray(currentMesh.vertexArrayObject);
 
-			glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
-			glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
-			glUniformMatrix4fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
+			const GLuint* shader = Engine_Pointer->shaderRegister[indexOfTextShader]->GetShader();
+			glUniformMatrix4fv(glGetUniformLocation(*shader, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
+			glUniformMatrix4fv(glGetUniformLocation(*shader, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
+			glUniformMatrix4fv(glGetUniformLocation(*shader, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 
 			bool useTextures = (glyphs[i].texture.id != -1 && currentMesh.isSetupForTextures);
-			glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "hasTexture"), useTextures);
+			glUniform1i(glGetUniformLocation(*shader, "hasTexture"), useTextures);
 			if (useTextures) {
 				glActiveTexture(GL_TEXTURE0);
 				glBindTexture(GL_TEXTURE_2D, glyphs[i].texture.id);
-				glUniform1i(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "textureSampler"), 0);
-				glUniform3fv(glGetUniformLocation(Engine_Pointer->shaderRegister[indexOfTextShader]->program, "textColour"), 1, glm::value_ptr(colour));
+				glUniform1i(glGetUniformLocation(*shader, "textureSampler"), 0);
+				glUniform3fv(glGetUniformLocation(*shader, "textColour"), 1, glm::value_ptr(colour));
 			}
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
 			glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
