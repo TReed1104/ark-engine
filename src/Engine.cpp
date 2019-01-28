@@ -309,28 +309,27 @@ void Engine::LoadExternalLibraries(void) {
 void Engine::LoadShaders(void) {
 	std::cout << ">> 5 - Loading Shaders" << std::endl;
 
-	std::vector<std::string> listOfShaders = FileSystemUtilities::GetFileList(contentDirectory + "shaders/");
-	for (size_t i = 0; i < listOfShaders.size(); i++) {
-		LuaScript currentShaderConfig = LuaScript(listOfShaders[i]);
-		if (currentShaderConfig.isScriptLoaded) {
-			// Grab the variables from the config script
-			std::string vertexShaderName = contentDirectory + "shaders/source/" + currentShaderConfig.Get<std::string>("shader_config.vertex");
-			std::string fragmentShaderName = contentDirectory + "shaders/source/" + currentShaderConfig.Get<std::string>("shader_config.fragment");
-			std::string shaderName = currentShaderConfig.Get<std::string>("shader_config.name");
+	if (configFile->IsLoaded()) {
+		size_t numberOfShaders = configFile->SizeOfObjectArray("engine.shaders");
+		for (size_t i = 0; i < numberOfShaders; i++) {
+			std::string nameOfShader = contentLocation + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.id");
+			std::string vertexShaderName = contentLocation + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.vertex");
+			std::string fragmentShaderName = contentLocation + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.fragment");
 
 			// Create and Load the shader
-			Shader* newShader = new Shader(shaderName, vertexShaderName, fragmentShaderName);
+			Shader* newShader = new Shader(nameOfShader, vertexShaderName, fragmentShaderName);
 			if (newShader->Load()) {
 				// Loaded successfully, storing it for use
 				shaderRegister.push_back(newShader);
 			}
 			else {
-				std::cout << ">>>> ERROR!!!! - Failed to load Shader " << shaderName << std::endl;
+				std::cout << ">>>> ERROR!!!! - Failed to load Shader " << nameOfShader << std::endl;
 				std::cout << ">> 5 - FAILED" << std::endl;
 				this->Close();
 			}
 		}
 	}
+
 	std::cout << ">> 5 - COMPLETE" << std::endl;
 }
 void Engine::LoadInputDevices(void) {
