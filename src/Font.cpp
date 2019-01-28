@@ -4,36 +4,24 @@
 
 Engine* Font::Engine_Pointer;
 
-Font::Font(const std::string& scriptPath) {
-	this->script = nullptr;
-	path = "NOT LOADED";
-	fontSize = 12;
-	name = "NOT LOADED";
-	isLoaded = false;
+Font::Font(const std::string& fontName, const std::string& fontPath, const int& fontSize) {
+	this->name = fontName;
+	this->path = fontPath;
+	this->fontSize = fontSize;
+	this->isLoaded = false;
 
-	if (scriptPath != "NO SCRIPT") {
-		this->script = new LuaScript(scriptPath);
-		if (script->isScriptLoaded) {
-			// Get the fonts settings from the script
-			path = script->Get<std::string>("font.file_name");
-			fontSize = script->Get<int>("font.size");
-
-			// Try and load the font face
-			if (!FT_New_Face(Engine_Pointer->freeTypeLibrary, (Engine_Pointer->contentDirectory + "fonts/source/" + path).c_str(), 0, &fontFace)) {
-				name = fontFace->family_name;				// The friendly name for the font
-				FT_Set_Pixel_Sizes(fontFace, 0, fontSize);	// Set the size of the font face
-				isLoaded = LoadGlyphs();						// Split the loaded font face into its glyphs for rendering
-			}
-			else {
-				isLoaded = false;
-			}
+	if (name != "NOT LOADED") {
+		// Try and load the font face
+		if (!FT_New_Face(Engine_Pointer->freeTypeLibrary, path.c_str(), 0, &fontFace)) {
+			FT_Set_Pixel_Sizes(fontFace, 0, this->fontSize);	// Set the size of the font face
+			isLoaded = LoadGlyphs();							// Split the loaded font face into its glyphs for rendering
+		}
+		else {
+			isLoaded = false;
 		}
 	}
 }
 Font::~Font() {
-	if (script->isScriptLoaded) {
-		delete script;
-	}
 	if (fontFace != NULL) {
 		FT_Done_Face(fontFace);
 	}
@@ -44,7 +32,7 @@ bool Font::LoadGlyphs(void) {
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	for (size_t i = 32; i <= 126; i++) {
 		char charToLoad = char(i);	// Convert the ASCII Decima value to its character format
-		
+
 		// If FT_Get_Char_Index returns anything other than 0, the character is present
 		if (FT_Get_Char_Index(fontFace, charToLoad) != 0) {
 			// Try and load the Character into the FontFace's glyph slot for use
@@ -58,7 +46,7 @@ bool Font::LoadGlyphs(void) {
 				newGlyph.advance = glm::vec2(fontFace->glyph->metrics.horiAdvance >> 6, fontFace->glyph->metrics.vertAdvance >> 6) / Engine_Pointer->windowScaler;
 				newGlyph.horizontalBearing = glm::vec2(fontFace->glyph->metrics.horiBearingX >> 6, fontFace->glyph->metrics.horiBearingY >> 6) / Engine_Pointer->windowScaler;
 				newGlyph.verticalBearing = glm::vec2(fontFace->glyph->metrics.vertBearingX >> 6, fontFace->glyph->metrics.vertBearingY >> 6) / Engine_Pointer->windowScaler;
-				
+
 				// Create Mesh object for the Glyph
 				newGlyph.mesh = Model::Mesh();
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -97,7 +85,6 @@ bool Font::LoadGlyphs(void) {
 				// Filtering settings
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-				
 
 				newGlyph.texture.dimensionsInPixels = glm::ivec2(fontFace->glyph->bitmap.width, fontFace->glyph->bitmap.rows);
 				newGlyph.texture.dimensionsInFrames = glm::ivec2(1, 1);
@@ -123,7 +110,7 @@ bool Font::LoadGlyphs(void) {
 	std::cout << ">>>> Font Loaded! - " << name << " (Size - " << fontSize << "}" << std::endl;
 	return true;
 }
-Glyph Font::GetGlyph(const char& character){
+Glyph Font::GetGlyph(const char& character) {
 	if (glyphs.count(character) == 1) {
 		return glyphs[character];
 	}

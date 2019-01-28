@@ -8,7 +8,6 @@
 #include FT_FREETYPE_H
 #include <GL/glew.h>
 #include <glm/glm.hpp>
-#include "LuaScript.h"
 #include "Texture.h"
 #include "Model.h"
 #include "Glyph.h"
@@ -17,13 +16,12 @@ class Font {
 public:
 	static Engine* Engine_Pointer;
 
-	LuaScript* script;
 	std::string path;
 	int fontSize;
 	std::string name;
 	bool isLoaded;
 
-	Font(const std::string& scriptPath = "NO SCRIPT");
+	Font(const std::string& fontName = "NOT LOADED", const std::string& fontPath = "NOT LOADED", const int& fontSize = 12);
 	~Font();
 
 	bool LoadGlyphs(void);
