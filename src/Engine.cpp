@@ -113,6 +113,16 @@ void Engine::Close(bool isClean) {
 // Engine config related functions
 void Engine::LoadEngineConfig(void) {
 	std::cout << ">> 1 - Loading Engine Configs" << std::endl;
+	JsonFile configFile = JsonFile("content_json/engine.json");
+	if (configFile.IsLoaded()) {
+
+	}
+	else {
+		// Config failed to load.
+		std::cout << ">> 1 - FAILED" << std::endl;
+		this->Close();
+	}
+
 
 	LuaScript configScript = LuaScript(contentDirectory + "config/engine_config.lua");
 	if (configScript.isScriptLoaded) {
