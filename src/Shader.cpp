@@ -4,6 +4,7 @@ Shader::Shader(const std::string& name, const std::string& vertexShaderPath, con
 	this->name = name;
 	this->vertexFilePath = vertexShaderPath;
 	this->fragmentFilePath = fragmentShaderPath;
+	isLoaded = Load();
 }
 Shader::~Shader() {
 
@@ -135,4 +136,14 @@ bool Shader::Load(void) {
 void Shader::Activate(void) {
 	// Tells the engine to use this shader for the Current Draw.
 	glUseProgram(program);
+}
+const bool Shader::IsLoaded(void) {
+	return isLoaded;
+}
+const std::string Shader::Name(void) {
+	return this->name;
+}
+
+const GLuint* Shader::GetShader(void) {
+	return &this->program;
 }
