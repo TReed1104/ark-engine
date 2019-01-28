@@ -17,37 +17,34 @@ class TextObject {
 public:
 	static Engine* Engine_Pointer;
 
-	std::string name;			// id of the text
-	std::string text;			// String the class will represent
-	Font* font;
-	glm::vec3 colour;
-	std::vector<Glyph> glyphs;	// The glyphs making up the text
-	Model model;
-
-	// Indexers
-	int indexOfTextShader;
-
-	// Positions
-	glm::vec3 position;
-	bool useCamera;
-
-	// Transformations
-	float rotation;
-	glm::vec3 scale;
-
 	TextObject(const std::string& name, const std::string& text, Font* font, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& colour = glm::vec3(1.0f), const bool& isEnabled = false, const bool& useCamera = false);
 	~TextObject();
 
 	void Update(const float& deltaTime);
 	void Draw(void);
 
+	const std::string GetName(void);
+	void IsEnabled(const bool& enableState);
 	void UpdateText(const std::string& newText);
 	void UpdateFont(Font* font);
-	void Enable(void);
-	void Disable(void);
 
 private:
+	// General
+	std::string name;			// id of the text
 	bool isEnabled;
+	std::string text;			// String the class will represent
+	Font* font;
+	
+	// Rendering
+	bool useCamera;
+	int indexOfTextShader;
+	glm::vec3 colour;
+	std::vector<Glyph> glyphs;	// The glyphs making up the text
+	Model model;
+	// Transformations
+	glm::vec3 position;
+	float rotation;
+	glm::vec3 scale;
 
 	void LoadText();
 	void UpdatePosition(void);

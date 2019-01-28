@@ -701,7 +701,7 @@ const int Engine::GetIndexOfShader(const std::string& shaderName) {
 	int indexOfDesiredShader = -1;
 	const size_t shaderRegisterSize = shaderRegister.size();
 	for (size_t i = 0; i < shaderRegisterSize; i++) {
-		if (shaderRegister[i]->Name().find(shaderName) != std::string::npos) {
+		if (shaderRegister[i]->GetName().find(shaderName) != std::string::npos) {
 			indexOfDesiredShader = (int)i;
 		}
 	}
@@ -741,7 +741,7 @@ const int Engine::GetIndexOfRenderableText(const std::string& renderableTextName
 	int indexOfDesiredRenderableText = -1;
 	const size_t renderableTextRegisterSize = textObjectRegister.size();
 	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
-		if (textObjectRegister[i]->name.find(renderableTextName) != std::string::npos) {
+		if (textObjectRegister[i]->GetName().find(renderableTextName) != std::string::npos) {
 			indexOfDesiredRenderableText = (int)i;
 		}
 	}

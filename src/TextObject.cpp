@@ -86,11 +86,11 @@ void TextObject::UpdateFont(Font* font) {
 	this->font = font;
 	LoadText();
 }
-void TextObject::Enable(void) {
-	this->isEnabled = true;
+const std::string TextObject::GetName(void) {
+	return this->name;
 }
-void TextObject::Disable(void) {
-	this->isEnabled = false;
+void TextObject::IsEnabled(const bool& enableState) {
+	this->isEnabled = enableState;
 }
 void TextObject::LoadText() {
 	glyphs.clear();
