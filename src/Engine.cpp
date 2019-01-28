@@ -373,15 +373,28 @@ void Engine::LoadInputDevices(void) {
 void Engine::LoadFonts(void) {
 	std::cout << ">> 7 - Loading Fonts" << std::endl;
 
-	std::vector<std::string> listOfFonts = FileSystemUtilities::GetFileList(contentDirectory + "fonts");
-	const size_t fontFileListSize = listOfFonts.size();
-	for (size_t i = 0; i < fontFileListSize; i++) {
-		fontRegister.push_back(new Font(listOfFonts[i]));
-		if (!fontRegister.back()->isLoaded) {
-			std::cout << ">>>> ERROR!!!! - Failed to load Font: " << listOfFonts[i] << std::endl;
-			std::cout << ">>>> 7 - FAILED" << std::endl;
-			this->Close();
+	if (configFile->IsLoaded()) {
+		size_t numberOfFonts = configFile->SizeOfObjectArray("engine.fonts");
+		for (size_t i = 0; i < numberOfFonts; i++) {
+			std::string fontName = configFile->Get<std::string>("engine.fonts." + std::to_string(i) + ".font.id");
+			std::string fontPath = contentLocation + "fonts/" + configFile->Get<std::string>("engine.fonts." + std::to_string(i) + ".font.source");
+			int fontSize = configFile->Get<int>("engine.fonts." + std::to_string(i) + ".font.size");
+			Font* newFont = new Font(fontName, fontPath, fontSize);
+			if (newFont->isLoaded) {
+				fontRegister.push_back(newFont);
+			}
+			else {
+				std::cout << ">>>> ERROR!!!! - Failed to load Font: " << fontPath << std::endl;
+				std::cout << ">>>> 7 - FAILED" << std::endl;
+				this->Close();
+			}
 		}
+	}
+	else {
+		// Config failed to load.
+		std::cout << ">>>> ERROR!!!! - Engine config wasn't loaded " << std::endl;
+		std::cout << ">> 7 - FAILED" << std::endl;
+		this->Close();
 	}
 
 	std::cout << ">> 7 - COMPLETE" << std::endl;
