@@ -128,6 +128,18 @@ void Engine::LoadEngineConfig(void) {
 		tileTextureFrameSize = glm::ivec2(configFile.Get<int>("engine.content.texture config.tile frame dimensions.width"), configFile.Get<int>("engine.content.texture config.tile frame dimensions.height"));
 		entityTextureFrameSize = glm::ivec2(configFile.Get<int>("engine.content.texture config.sprite frame dimensions.width"), configFile.Get<int>("engine.content.texture config.sprite frame dimensions.height"));
 
+		// Default content setup
+		nameOfDefaultTileModel = configFile.Get<std::string>("engine.content.default content.tile");
+		nameOfDefaultSpriteModel = configFile.Get<std::string>("engine.content.default content.sprite");
+		nameOfDefaultTexture = configFile.Get<std::string>("engine.content.default content.default");
+
+		// Controller setup
+		maxNumberOfControllers = configFile.Get<int>("engine.game controller.max number of controllers");
+		indexOfPlayerController = configFile.Get<int>("engine.game controller.index of player");
+		thumbStickDeadZone = configFile.Get<int>("engine.game controller.thumb stick dead zone");
+		triggerDeadZone = configFile.Get<int>("engine.game controller.trigger dead zone");
+		pressedStateFlag = configFile.Get<int>("engine.game controller.pressed state flag");
+
 	}
 	else {
 		// Config failed to load.
