@@ -15,6 +15,7 @@
 #include "Animation.h"
 #include "BoundingBox.h"
 #include "LuaScript.h"
+#include "JsonParser.hpp"
 
 class Engine;
 
