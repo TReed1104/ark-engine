@@ -18,10 +18,11 @@ public:
 
 
 private:
+	JsonFile* configFile = nullptr;
 	std::string name;
 	bool isLoaded;
 
-	bool Load(const std::string& tilesetConfig);
+	bool Load(void);
 };
 
 #endif

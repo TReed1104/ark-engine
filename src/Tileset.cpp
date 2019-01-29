@@ -1,13 +1,16 @@
 #include "Tileset.h"
 #include "Engine.h"
-#include "LuaScript.h"
 
 Engine* Tileset::Engine_Pointer;
 
 Tileset::Tileset(const std::string& tilesetConfig) {
-	isLoaded = Load(tilesetConfig);
+	configFile = new JsonFile(tilesetConfig);
+	isLoaded = Load();
 }
 Tileset::~Tileset() {
+	if (configFile != nullptr) {
+		delete configFile;
+	}
 }
 
 const std::string Tileset::GetName(void) {
@@ -19,28 +22,20 @@ const bool Tileset::IsLoaded(void) {
 const std::vector<Tile>* Tileset::GetTiles(void) {
 	return &tileList;
 }
-bool Tileset::Load(const std::string& tilesetConfig) {
-	LuaScript tileConfigScript = LuaScript(tilesetConfig);
-	if (tileConfigScript.isScriptLoaded) {
-		// Get the config script values
-		name = tileConfigScript.Get<std::string>("tileset.name");
-		int numberOfTiles = tileConfigScript.Get<int>("tileset.number_of_tiles");
-
-		// Find the Texture for this Tileset.
+bool Tileset::Load() {
+	if (configFile->IsLoaded()) {
+		name = configFile->Get<std::string>("tileset.id");
 		int indexOfTileSetTexture = -1;
-		std::string tilesetTextureName = tileConfigScript.Get<std::string>("tileset.texture");
-
-		// Get the index of theTileset's texture.
-		indexOfTileSetTexture = Engine_Pointer->GetIndexOfTexture(tilesetTextureName);
-
-		// Load each of the Tiles from the current Tileset script.
-		for (int i = 0; i < numberOfTiles; i++) {
-			int tileType = tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".type");
-			bool isSlope = tileConfigScript.Get<bool>("tileset.tile_" + std::to_string(i) + ".slope.is_slope");
-			glm::ivec2 slopeOffset = glm::ivec2(tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".slope.slope_offset.left"), tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".slope.slope_offset.right"));
-			glm::ivec2 sourceFramePosition = glm::ivec2(tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.x"), tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".source_frame_position.y"));
-			glm::ivec2 aabbOffset = glm::ivec2(tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".bounding_box.x_offset"), tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".bounding_box.y_offset"));
-			glm::ivec2 aabbDimensions = glm::ivec2(tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".bounding_box.width"), tileConfigScript.Get<int>("tileset.tile_" + std::to_string(i) + ".bounding_box.height"));
+		std::string textureName = configFile->Get<std::string>("tileset.texture");
+		indexOfTileSetTexture = Engine_Pointer->GetIndexOfTexture(textureName);
+		size_t numberOfTiles = configFile->SizeOfObjectArray("tileset.tiles");
+		for (size_t i = 0; i < numberOfTiles; i++) {
+			int tileType = configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.type");
+			bool isSlope = configFile->Get<bool>("tileset.tiles." + std::to_string(i) + ".tile.slope.is slope");
+			glm::ivec2 slopeOffset = glm::ivec2(configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.slope.slope offset.left"), configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.slope.slope offset.right"));
+			glm::ivec2 aabbOffset = glm::ivec2(configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.bounding box.offset.x"), configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.bounding box.offset.y"));
+			glm::ivec2 aabbDimensions = glm::ivec2(configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.bounding box.dimensions.width"), configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.bounding box.dimensions.height"));
+			glm::ivec2 sourceFramePosition = glm::ivec2(configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.source frame.position.x"), configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.source frame.position.y"));
 
 			if (indexOfTileSetTexture != -1) {
 				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, sourceFramePosition, glm::vec3(0.0f), BoundingBox(glm::ivec2(0), aabbDimensions), aabbOffset, isSlope, slopeOffset));
@@ -49,9 +44,11 @@ bool Tileset::Load(const std::string& tilesetConfig) {
 				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, sourceFramePosition, glm::vec3(0.0f), BoundingBox(glm::ivec2(0), aabbDimensions), aabbOffset, isSlope, slopeOffset));
 			}
 		}
+
 		return true;
 	}
 	else {
+		std::cout << ">>>> 11 - ERROR: Tileset config file wasn't loaded" << std::endl;
 		return false;
 	}
 }
