@@ -16,7 +16,7 @@ public:
 								AnimationJumpingLeft, AnimationJumpingRight, AnimationFallingLeft, AnimationFallingRight };
 	AnimationState animationState;
 
-	Entity(const std::string& scriptPath);
+	Entity(const std::string& filePath);
 	~Entity(void);
 
 	void Update(const float& deltaTime);

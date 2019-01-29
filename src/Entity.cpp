@@ -1,7 +1,7 @@
 #include "Entity.h"
 #include "Engine.h"
 
-Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
+Entity::Entity(const std::string& filePath) : GameObject(filePath) {
 	// Default values
 	movementDirection = Directions::NotSet;
 	spriteDirection = Directions::Right;
@@ -14,12 +14,12 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 	currentJumpingSpeed = 0.0f;
 	jumpingTimer = 0.0f;
 
-	if (script->isScriptLoaded) {
+	if (configFile->IsLoaded()) {
 		animationState = AnimationState::AnimationIdleStandingRight;
 
 		// Texture Setup
 		int indexOfTexture = -1;
-		std::string textureName = script->Get<std::string>("entity.texture");
+		std::string textureName = configFile->Get<std::string>("entity.texture");
 		// Find the Texture for the Player.
 		if ((indexOfTexture = Engine_Pointer->GetIndexOfTexture(textureName)) != -1) {
 			// Desired text was found, set the texture.
@@ -30,25 +30,32 @@ Entity::Entity(const std::string & scriptPath) : GameObject(scriptPath) {
 			texture = &Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture];
 		}
 
-		position = glm::vec3(script->Get<float>("entity.position.x"), script->Get<float>("entity.position.y"), script->Get<float>("entity.position.z"));
+		position = glm::vec3(configFile->Get<int>("entity.start position.x"), configFile->Get<int>("entity.start position.y"), configFile->Get<int>("entity.start position.z"));
 		gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
-		drawOffset = glm::ivec2(script->Get<int>("entity.draw_offset.x"), script->Get<int>("entity.draw_offset.y"));
+		drawOffset = glm::ivec2(configFile->Get<int>("entity.draw offset.x"), configFile->Get<int>("entity.draw offset.y"));
 		drawPosition = this->position + glm::vec3(this->drawOffset, 0);
 
-		boundingBoxOffset = glm::vec2(script->Get<int>("entity.bounding_box_offset.x"), script->Get<int>("entity.bounding_box_offset.y"));
-		glm::vec2 boundingBoxDimensions = glm::vec2(script->Get<int>("entity.bounding_box_dimensions.width"), script->Get<int>("entity.bounding_box_dimensions.height"));
-		boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset, boundingBoxDimensions);
-
-		standingBoundingBoxOffset = glm::vec2(script->Get<int>("entity.bounding_box_offset.x"), script->Get<int>("entity.bounding_box_offset.y"));
-		glm::vec2 standingBoundingBoxDimensions = glm::vec2(script->Get<int>("entity.bounding_box_dimensions.width"), script->Get<int>("entity.bounding_box_dimensions.height"));
-		standingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + standingBoundingBoxOffset, standingBoundingBoxDimensions);
-
-		canCrawl = script->Get<bool>("entity.can_crawl");
-		if (canCrawl) {
-			crawlingBoundingBoxOffset = glm::vec2(script->Get<int>("entity.crawling_bounding_box_offset.x"), script->Get<int>("entity.crawling_bounding_box_offset.y"));
-			glm::vec2 crawlingBoundingBoxDimensions = glm::vec2(script->Get<int>("entity.crawling_bounding_box_dimensions.width"), script->Get<int>("entity.crawling_bounding_box_dimensions.height"));
-			crawlingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + crawlingBoundingBoxOffset, crawlingBoundingBoxDimensions);
+		size_t numberOfBoundingBoxes = configFile->SizeOfObjectArray("entity.bounding boxes");
+		for (size_t i = 0; i < numberOfBoundingBoxes; i++) {
+			std::string nameOfBoundingBoxes = configFile->Get<std::string>("entity.bounding boxes." + std::to_string(i) + ".bounding box.id");
+			if (nameOfBoundingBoxes == "default") {
+				boundingBoxOffset = glm::vec2(configFile->Get<int>("entity.bounding boxes." + std::to_string(i) + ".bounding box.offset.x"), configFile->Get<int>("entity.bounding boxes." + std::to_string(i) + ".bounding box.offset.y"));
+				glm::vec2 boundingBoxDimensions = glm::vec2(configFile->Get<int>("entity.bounding boxes." + std::to_string(i) + ".bounding box.dimensions.width"), configFile->Get<int>("entity.bounding boxes." + std::to_string(i) + ".bounding box.dimensions.height"));
+				boundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + boundingBoxOffset, boundingBoxDimensions);
+			}
+			else if (nameOfBoundingBoxes == "standing") {
+				standingBoundingBoxOffset = glm::vec2(configFile->Get<int>("entity.bounding boxes." + std::to_string(i) + ".bounding box.offset.x"), configFile->Get<int>("entity.bounding boxes." + std::to_string(i) + ".bounding box.offset.y"));
+				glm::vec2 boundingBoxDimensions = glm::vec2(configFile->Get<int>("entity.bounding boxes." + std::to_string(i) + ".bounding box.dimensions.width"), configFile->Get<int>("entity.bounding boxes." + std::to_string(i) + ".bounding box.dimensions.height"));
+				standingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + standingBoundingBoxOffset, boundingBoxDimensions);
+			}
+			else if (nameOfBoundingBoxes == "crawling") {
+				canCrawl = true;
+				crawlingBoundingBoxOffset = glm::vec2(configFile->Get<int>("entity.bounding boxes." + std::to_string(i) + ".bounding box.offset.x"), configFile->Get<int>("entity.bounding boxes." + std::to_string(i) + ".bounding box.offset.y"));
+				glm::vec2 boundingBoxDimensions = glm::vec2(configFile->Get<int>("entity.bounding boxes." + std::to_string(i) + ".bounding box.dimensions.width"), configFile->Get<int>("entity.bounding boxes." + std::to_string(i) + ".bounding box.dimensions.height"));
+				crawlingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + crawlingBoundingBoxOffset, boundingBoxDimensions);
+			}
 		}
+
 
 		// Model Setup
 		model = Engine_Pointer->modelRegister[Engine_Pointer->indexOfSpriteModel];
