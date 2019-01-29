@@ -511,7 +511,7 @@ void Engine::LoadItems(void) {
 void Engine::LoadPlayer(void) {
 	std::cout << ">> 14 - Loading Players" << std::endl;
 
-	player = new Player(contentDirectory + "scripts/entities/entity_player.lua");
+	player = new Player(contentLocation + "entities/player.json");
 
 	std::cout << ">> 14 - COMPLETE" << std::endl;
 }
