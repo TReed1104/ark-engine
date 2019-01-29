@@ -4,14 +4,14 @@
 Engine* GameObject::Engine_Pointer;
 
 GameObject::GameObject(const std::string& filePath) {
-	// Load from Script
+	// Load the Config File
 	if (filePath != "NOT LOADED") {
 		configFile = new JsonFile(filePath);
 		if (configFile->IsLoaded()) {
 			LoadAnimations();
 		}
 		else {
-			std::cout << ">>>> Object failed to load script: " << filePath << std::endl;
+			std::cout << ">>>> Object failed to load Config File: " << filePath << std::endl;
 		}
 	}
 	else {
