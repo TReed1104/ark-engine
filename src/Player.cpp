@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "Engine.h"
 
-Player::Player(const std::string& scriptPath) : Entity(scriptPath) {
+Player::Player(const std::string& filePath) : Entity(filePath) {
 
 }
 Player::~Player(void) {
@@ -36,7 +36,7 @@ void Player::HandleInputKeyboard(void) {
 			isJumping = true;
 			currentJumpingSpeed = baseJumpingSpeed;
 			movementDirection = Directions::Up;
-		}	
+		}
 	}
 
 	// Crawling

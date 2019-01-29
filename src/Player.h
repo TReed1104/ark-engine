@@ -8,7 +8,7 @@ class Engine;
 class Player : public Entity
 {
 public:
-	Player(const std::string& scriptPath);
+	Player(const std::string& filePath);
 	~Player(void);
 
 private:
