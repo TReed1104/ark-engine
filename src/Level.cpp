@@ -4,12 +4,14 @@
 
 Engine* Level::Engine_Pointer;
 
-Level::Level(const std::string & filePath) {
+Level::Level(const std::string& filePath) {
 	this->filePath = filePath;
-	Load();
+	isLoaded = Load();
 }
 Level::~Level(void) {
-	delete script;
+	if (configFile != nullptr) {
+		delete configFile;
+	}
 	for (int i = 0; i < tileMap.size(); i++) {
 		delete tileMap[i];
 	}
@@ -47,6 +49,9 @@ void Level::Draw(void) {
 		}
 	}
 }
+const bool Level::IsLoaded(void) {
+	return isLoaded;
+}
 bool Level::IsTileValid(const glm::vec2& gridPosition) {
 	if ((int)gridPosition.x < 0) return false;
 	if ((int)gridPosition.x >= tileGridSize.x) return false;
@@ -74,31 +79,29 @@ BoundingBox* Level::GetTileBoundingBox(const glm::vec2& gridPosition) {
 }
 void Level::Reload(void) {
 	std::cout << ">> RELOADING MAP FILE" << std::endl;
-	if (script->isScriptLoaded) {
-		delete script;
+	if (configFile->IsLoaded()) {
+		delete configFile;
 		for (int i = 0; i < tileMap.size(); i++) {
 			delete tileMap[i];
 		}
 		tileMap.clear();
 	}
-	Load();
+	isLoaded = Load();
 }
-void Level::Load(void) {
-	// Load the information from the script
-	script = new LuaScript(filePath);
-	if (script->isScriptLoaded) {
-		// Grab the data from the script.
-		name = script->Get<std::string>("map.level_name");
-		nameOfTilest = script->Get<std::string>("map.tileset_name");
-		tileGridSize = glm::vec2(script->Get<int>("map.tile_grid_size.x"), script->Get<int>("map.tile_grid_size.y"));
+bool Level::Load(void) {
+	configFile = new JsonFile(filePath);
+	if (configFile->IsLoaded()) {
+		name = configFile->Get<std::string>("level.id");
+		nameOfTilest = configFile->Get<std::string>("level.tileset");
+		tileGridSize = glm::vec2(configFile->Get<int>("level.dimensions.width"), configFile->Get<int>("level.dimensions.height"));
 		pixelGridSize = tileGridSize * Engine_Pointer->tileSize;
-		playerStartPosition = glm::vec2(script->Get<int>("map.player_start_grid_position.x"), script->Get<int>("map.player_start_grid_position.y"));
-		std::vector<int> rawMapData = script->GetVector<int>("map.map_data");
-		
+		playerStartPosition = glm::vec2(configFile->Get<int>("level.player start position.x"), configFile->Get<int>("level.player start position.y"));
+		std::vector<int> rawMapData = configFile->GetVector<int>("level.tile grid");
+
 		// Find the index of tileset to use for this level in the Engines tileset register.
 		indexOfTileset = -1;
 		for (size_t i = 0; i < Engine_Pointer->tilesetRegister.size(); i++) {
-			if (Engine_Pointer->tilesetRegister[i].GetName() == nameOfTilest) {
+			if (Engine_Pointer->tilesetRegister[i]->GetName() == nameOfTilest) {
 				indexOfTileset = (int)i;
 			}
 		}
@@ -108,7 +111,7 @@ void Level::Load(void) {
 		}
 
 		// Populate the tilemap.
-		const std::vector<Tile>* tileSet = Engine_Pointer->tilesetRegister[indexOfTileset].GetTiles();
+		const std::vector<Tile>* tileSet = Engine_Pointer->tilesetRegister[indexOfTileset]->GetTiles();
 		for (int y = 0; y < (int)tileGridSize.y; y++) {
 			for (int x = 0; x < (int)tileGridSize.x; x++) {
 				Tile currentTile = tileSet->at(rawMapData[(y * (int)tileGridSize.x + x)]);
@@ -117,5 +120,11 @@ void Level::Load(void) {
 				tileMap.push_back(new Tile(*currentTile.texture, currentTile.type, currentTile.sourceFramePosition, position, boundingBox, currentTile.boundingBoxOffset, currentTile.isSlope, currentTile.slopeOffset));
 			}
 		}
+
+		return true;
+	}
+	else {
+		std::cout << ">>>> 12 - ERROR: Could not load level: " << name << std::endl;
+		return false;
 	}
 }

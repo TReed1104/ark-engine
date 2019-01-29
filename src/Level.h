@@ -2,7 +2,7 @@
 #define ARKENGINE_LEVEL_H_
 #include <string>
 #include <glm/glm.hpp>
-#include "LuaScript.h"
+#include "JsonParser.hpp"
 #include "Tile.h"
 
 class Engine;
@@ -26,14 +26,16 @@ public:
 
 	void Update(const float& deltaTime);
 	void Draw(void);
+	const bool IsLoaded(void);
 	bool IsTileSolid(const glm::vec2& gridPosition);
 	BoundingBox* GetTileBoundingBox(const glm::vec2& gridPosition);
 	void Reload(void);
 
 private:
-	LuaScript* script;
+	JsonFile* configFile = nullptr;
+	bool isLoaded;
 
-	void Load(void);
+	bool Load(void);
 	bool IsTileValid(const glm::vec2& gridPosition);
 };
 #endif
