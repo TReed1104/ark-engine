@@ -39,7 +39,6 @@ class Engine {
 public:
 	// Core Engine Variables
 	std::string contentDirectory;
-	std::string contentLocation;
 	glm::vec2 tileSize;
 	std::string defaultWindowTitle;
 	std::string windowTitle;

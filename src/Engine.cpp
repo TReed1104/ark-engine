@@ -10,7 +10,6 @@ Engine::Engine(char* gameName) {
 	currentFrameTime = 0.0f;
 
 	contentDirectory = "content/";
-	contentLocation = "content_json/";
 
 	indexOfDefaultShader = 0;
 	indexOfCurrentLevel = -1;
@@ -127,7 +126,7 @@ void Engine::Close(bool isClean) {
 // Engine config related functions
 void Engine::LoadEngineConfig(void) {
 	std::cout << ">> 1 - Loading Engine Configs" << std::endl;
-	configFile = new JsonFile(contentLocation + "engine.json");	// Load the config file into memory
+	configFile = new JsonFile(contentDirectory + "engine.json");	// Load the config file into memory
 	if (configFile->IsLoaded()) {
 		// Core Engine setup
 		windowTitle = configFile->Get<std::string>("engine.window.title");
@@ -320,9 +319,9 @@ void Engine::LoadShaders(void) {
 	if (configFile->IsLoaded()) {
 		size_t numberOfShaders = configFile->SizeOfObjectArray("engine.shaders");
 		for (size_t i = 0; i < numberOfShaders; i++) {
-			std::string nameOfShader = contentLocation + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.id");
-			std::string vertexShaderName = contentLocation + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.vertex");
-			std::string fragmentShaderName = contentLocation + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.fragment");
+			std::string nameOfShader = contentDirectory + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.id");
+			std::string vertexShaderName = contentDirectory + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.vertex");
+			std::string fragmentShaderName = contentDirectory + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.fragment");
 
 			// Create and Load the shader
 			Shader* newShader = new Shader(nameOfShader, vertexShaderName, fragmentShaderName);
@@ -383,7 +382,7 @@ void Engine::LoadFonts(void) {
 		size_t numberOfFonts = configFile->SizeOfObjectArray("engine.fonts");
 		for (size_t i = 0; i < numberOfFonts; i++) {
 			std::string fontName = configFile->Get<std::string>("engine.fonts." + std::to_string(i) + ".font.id");
-			std::string fontPath = contentLocation + "fonts/" + configFile->Get<std::string>("engine.fonts." + std::to_string(i) + ".font.source");
+			std::string fontPath = contentDirectory + "fonts/" + configFile->Get<std::string>("engine.fonts." + std::to_string(i) + ".font.source");
 			int fontSize = configFile->Get<int>("engine.fonts." + std::to_string(i) + ".font.size");
 			Font* newFont = new Font(fontName, fontPath, fontSize);
 			if (newFont->isLoaded) {
@@ -460,7 +459,7 @@ void Engine::LoadModels(void) {
 void Engine::LoadTilesets(void) {
 	std::cout << ">> 11 - Loading Tilesets" << std::endl;
 
-	std::vector<std::string> listOfTilesets = FileSystemUtilities::GetFileList(contentLocation + "tilesets");
+	std::vector<std::string> listOfTilesets = FileSystemUtilities::GetFileList(contentDirectory + "tilesets");
 	const size_t listOfTilesetsSize = listOfTilesets.size();
 	for (size_t i = 0; i < listOfTilesetsSize; i++) {
 		Tileset* newTileSet = new Tileset(listOfTilesets[i]);
@@ -479,7 +478,7 @@ void Engine::LoadTilesets(void) {
 void Engine::LoadLevels(void) {
 	std::cout << ">> 12 - Loading Levels" << std::endl;
 
-	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList(contentLocation + "levels");
+	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList(contentDirectory + "levels");
 	const size_t listOfLevelFilesSize = listOfLevelFiles.size();
 	for (size_t i = 0; i < listOfLevelFilesSize; i++) {
 		Level* newLevel = new Level(listOfLevelFiles[i]);
@@ -511,7 +510,7 @@ void Engine::LoadItems(void) {
 void Engine::LoadPlayer(void) {
 	std::cout << ">> 14 - Loading Players" << std::endl;
 
-	player = new Player(contentLocation + "entities/player.json");
+	player = new Player(contentDirectory + "entities/player.json");
 
 	std::cout << ">> 14 - COMPLETE" << std::endl;
 }
