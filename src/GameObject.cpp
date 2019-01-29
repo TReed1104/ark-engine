@@ -3,17 +3,21 @@
 
 Engine* GameObject::Engine_Pointer;
 
-GameObject::GameObject(const std::string& scriptPath) {
-	// Load the script if given
-	if (scriptPath != "NO SCRIPT") {
-		script = new LuaScript(scriptPath);
-		if (script->isScriptLoaded) {
+GameObject::GameObject(const std::string& filePath) {
+	// Load from Script
+	if (filePath != "NOT LOADED") {
+		configFile = new JsonFile(filePath);
+		if (configFile->IsLoaded()) {
 			LoadAnimations();
+		}
+		else {
+			std::cout << ">>>> Object failed to load script: " << filePath << std::endl;
 		}
 	}
 	else {
-		script = nullptr;
+		configFile = nullptr;
 	}
+
 	name = "Unnamed";
 	indexOfCurrentShader = Engine_Pointer->GetIndexOfShader("default");
 
@@ -50,8 +54,9 @@ GameObject::GameObject(const std::string& scriptPath) {
 	isAffectedByGravity = false;
 }
 GameObject::~GameObject(void) {
-	if (script != nullptr) {
-		delete script;
+	// Delete the config file
+	if (configFile != nullptr) {
+		delete configFile;
 	}
 }
 
@@ -203,20 +208,26 @@ void GameObject::PhysicsController(const float& deltaTime) {
 }
 void GameObject::LoadAnimations() {
 	animations.clear();
-	bool areAnimationsPresent = script->Get<bool>("entity.has_animations");
-	if (areAnimationsPresent) {
-		int numberOfAnimations = script->Get<int>("entity.animations.number_of_animations");
-		for (int i = 0; i < numberOfAnimations; i++) {
-			std::string animationName = script->Get<std::string>("entity.animations.animation_" + std::to_string(i) + ".name");
-			int numberOfFrames = script->Get<int>("entity.animations.animation_" + std::to_string(i) + ".number_of_frames");
-			Animation newAnimation = Animation(animationName);
-			for (int j = 0; j < numberOfFrames; j++) {
-				int frameX = script->Get<int>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".x");
-				int frameY = script->Get<int>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".y");
-				float frameLength = script->Get<float>("entity.animations.animation_" + std::to_string(i) + ".frame_" + std::to_string(j) + ".length");
-				newAnimation.AddFrame(glm::ivec2(frameX, frameY), frameLength);
+
+	if (configFile->IsLoaded()) {
+		bool hasAnimations = configFile->Get<bool>("entity.has animations");
+		if (hasAnimations) {
+			size_t numberOfAnimations = configFile->SizeOfObjectArray("entity.animations");
+			for (size_t animationIterator = 0; animationIterator < numberOfAnimations; animationIterator++) {
+				std::string animationName = configFile->Get<std::string>("entity.animations." + std::to_string(animationIterator) + ".animation.id");
+				Animation newAnimation = Animation(animationName);
+				size_t numberOfFrames = configFile->SizeOfObjectArray("entity.animations." + std::to_string(animationIterator) + ".animation.frames");
+				for (size_t frameIterator = 0; frameIterator < numberOfFrames; frameIterator++) {
+					int frameX = configFile->Get<int>("entity.animations." + std::to_string(animationIterator) + ".animation.frames." + std::to_string(frameIterator) + ".frame.x");
+					int frameY = configFile->Get<int>("entity.animations." + std::to_string(animationIterator) + ".animation.frames." + std::to_string(frameIterator) + ".frame.y");
+					float frameLength = configFile->Get<float>("entity.animations." + std::to_string(animationIterator) + ".animation.frames." + std::to_string(frameIterator) + ".frame.length");
+					newAnimation.AddFrame(glm::ivec2(frameX, frameY), frameLength);
+				}
+				animations.push_back(newAnimation);
 			}
-			animations.push_back(newAnimation);
+		}
+		else {
+			std::cout << ">>>> No animations were present" << std::endl;
 		}
 	}
 }

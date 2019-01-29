@@ -14,7 +14,6 @@
 #include "Texture.h"
 #include "Animation.h"
 #include "BoundingBox.h"
-#include "LuaScript.h"
 #include "JsonParser.hpp"
 
 class Engine;
@@ -34,7 +33,7 @@ public:
 	BoundingBox boundingBox;
 	glm::vec2 boundingBoxOffset;
 	
-	GameObject(const std::string& scriptPath = "NO SCRIPT");
+	GameObject(const std::string& filePath = "NOT LOADED");
 	~GameObject(void);
 
 	virtual void Update(const float& deltaTime);
@@ -50,7 +49,7 @@ private:
 	void AnimationController(const float& deltaTime);
 
 protected:
-	LuaScript* script;
+	JsonFile* configFile = nullptr;
 	std::string name;
 
 	// Animations
