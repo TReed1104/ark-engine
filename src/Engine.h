@@ -19,8 +19,8 @@
 #include <assimp/postprocess.h>
 
 // Engine Source
-#include "Shader.h"
 #include "JsonParser.hpp"
+#include "Shader.h"
 #include "Keyboard.h"
 #include "GameController.h"
 #include "Texture.h"
@@ -29,8 +29,8 @@
 #include "TextObject.h"
 #include "GameObject.h"
 #include "Camera.h"
-#include "Tileset.h"
 #include "Tile.h"
+#include "Tileset.h"
 #include "Level.h"
 #include "Entity.h"
 #include "Player.h"
