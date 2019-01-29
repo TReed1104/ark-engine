@@ -46,6 +46,12 @@ void Engine::CleanUp(void) {
 		delete levelRegister[i];
 	}
 
+	// Delete all the Tileset
+	const size_t tilesetRegisterSize = tilesetRegister.size();
+	for (size_t i = 0; i < tilesetRegisterSize; i++) {
+		delete tilesetRegister[i];
+	}
+
 	// Delete all the items loaded.
 	const size_t itemRegisterSize = itemRegister.size();
 	for (size_t i = 0; i < itemRegisterSize; i++) {
@@ -454,10 +460,18 @@ void Engine::LoadModels(void) {
 void Engine::LoadTilesets(void) {
 	std::cout << ">> 11 - Loading Tilesets" << std::endl;
 
-	std::vector<std::string> listOfTilesets = FileSystemUtilities::GetFileList(contentDirectory + "tilesets");
+	std::vector<std::string> listOfTilesets = FileSystemUtilities::GetFileList(contentLocation + "tilesets");
 	const size_t listOfTilesetsSize = listOfTilesets.size();
 	for (size_t i = 0; i < listOfTilesetsSize; i++) {
-		tilesetRegister.push_back(Tileset(listOfTilesets[i]));
+		Tileset* newTileSet = new Tileset(listOfTilesets[i]);
+		if (newTileSet->IsLoaded()) {
+			tilesetRegister.push_back(newTileSet);
+		}
+		else {
+			std::cout << ">>>> ERROR!!!! - Failed to load Shader " << listOfTilesets[i] << std::endl;
+			std::cout << ">> 11 - FAILED" << std::endl;
+			this->Close();
+		}
 	}
 
 	std::cout << ">> 11 - COMPLETE" << std::endl;
@@ -465,10 +479,18 @@ void Engine::LoadTilesets(void) {
 void Engine::LoadLevels(void) {
 	std::cout << ">> 12 - Loading Levels" << std::endl;
 
-	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList(contentDirectory + "levels");
+	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList(contentLocation + "levels");
 	const size_t listOfLevelFilesSize = listOfLevelFiles.size();
 	for (size_t i = 0; i < listOfLevelFilesSize; i++) {
-		levelRegister.push_back(new Level(listOfLevelFiles[i]));
+		Level* newLevel = new Level(listOfLevelFiles[i]);
+		if (newLevel->IsLoaded()) {
+			levelRegister.push_back(newLevel);
+		}
+		else {
+			std::cout << ">>>> ERROR!!!! - Failed to load Shader " << listOfLevelFiles[i] << std::endl;
+			std::cout << ">> 12 - FAILED" << std::endl;
+			this->Close();
+		}
 	}
 	indexOfCurrentLevel = 0;
 
@@ -751,7 +773,7 @@ const int Engine::GetIndexOfTileset(const std::string& tilesetName) {
 	int indexOfDesiredTileset = -1;
 	const size_t tilesetRegisterSize = tilesetRegister.size();
 	for (size_t i = 0; i < tilesetRegisterSize; i++) {
-		if (tilesetRegister[i].GetName().find(tilesetName) != std::string::npos) {
+		if (tilesetRegister[i]->GetName().find(tilesetName) != std::string::npos) {
 			indexOfDesiredTileset = (int)i;
 		}
 	}
