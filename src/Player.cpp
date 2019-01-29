@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "Engine.h"
 
-Player::Player(const std::string & scriptPath) : Entity(scriptPath) {
+Player::Player(const std::string& scriptPath) : Entity(scriptPath) {
 
 }
 Player::~Player(void) {
