@@ -67,14 +67,14 @@ protected:
 	glm::vec3 scale;
 
 	// Movement Physics
-	bool isFalling;
-	bool isAffectedByGravity;
-	glm::vec2 velocity;
-	const float timeForMaxFall = 0.4f;
-	const float baseFallingSpeed = 75.0f;
-	const float maxFallingSpeed = 300.0f;
-	float currentFallingSpeed;
-	float fallTimer;
+	bool isFalling = false;
+	bool isAffectedByGravity = false;
+	glm::vec2 velocity = glm::vec2(0.0f);
+	float timeForMaxFall = 0.4f;
+	float baseFallingSpeed = 75.0f;
+	float maxFallingSpeed = 300.0f;
+	float currentFallingSpeed = 0.0f;
+	float fallTimer = 0.0f;
 
 	virtual void UpdatePosition(void);
 	virtual void PhysicsHandlerFalling(const float& deltaTime);
