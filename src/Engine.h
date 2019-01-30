@@ -93,6 +93,10 @@ public:
 	Keyboard::Keys keybindMovementUp;
 	Keyboard::Keys keybindMovementDown;
 	Keyboard::Keys keybindMovementSprint;
+	Keyboard::Keys keybindActionOne;
+	Keyboard::Keys keybindActionTwo;
+	Keyboard::Keys keybindAttackThree;
+	Keyboard::Keys keybindAttackFour;
 
 	// Texture frame sizes
 	glm::ivec2 textureBorderSize;
