@@ -2,24 +2,13 @@
 #include "Engine.h"
 
 Entity::Entity(const std::string& filePath) : GameObject(filePath) {
-	// Default values
-	movementDirection = Directions::NotSet;
-	spriteDirection = Directions::Right;
-	isAffectedByGravity = true;
-	canCrawl = false;
-	isTryingToCrawl = false;
-	isCrawling = false;
-	isJumping = false;
-	currentMovementSpeed = baseMovementSpeed;
-	currentJumpingSpeed = 0.0f;
-	jumpingTimer = 0.0f;
-
+	// Load values from our config
 	if (configFile->IsLoaded()) {
-		animationState = AnimationState::AnimationIdleStandingRight;
+		name = configFile->Get<std::string>("entity.id");
 
 		// Texture Setup
 		int indexOfTexture = -1;
-		std::string textureName = configFile->Get<std::string>("entity.texture");
+		std::string textureName = configFile->Get<std::string>("entity.rendering.texture");
 		// Find the Texture for the Player.
 		if ((indexOfTexture = Engine_Pointer->GetIndexOfTexture(textureName)) != -1) {
 			// Desired text was found, set the texture.
@@ -30,11 +19,26 @@ Entity::Entity(const std::string& filePath) : GameObject(filePath) {
 			texture = &Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture];
 		}
 
+		// Positions
 		position = glm::vec3(configFile->Get<int>("entity.start position.x"), configFile->Get<int>("entity.start position.y"), configFile->Get<int>("entity.start position.z"));
 		gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
-		drawOffset = glm::ivec2(configFile->Get<int>("entity.draw offset.x"), configFile->Get<int>("entity.draw offset.y"));
+		drawOffset = glm::ivec2(configFile->Get<int>("entity.rendering.draw offset.x"), configFile->Get<int>("entity.rendering.draw offset.y"));
 		drawPosition = this->position + glm::vec3(this->drawOffset, 0);
 
+		//health = configFile->Get<int>("entity.attributes.health");
+
+		// Physics
+		isAffectedByGravity = configFile->Get<bool>("entity.physics.use gravity");
+		timeForMaxFall = configFile->Get<float>("entity.physics.falling.timer");
+		baseFallingSpeed = configFile->Get<float>("entity.physics.falling.base speed");
+		maxFallingSpeed = configFile->Get<float>("entity.physics.falling.max speed");
+		baseMovementSpeed = configFile->Get<float>("entity.physics.movement.base speed");
+		maxMovementSpeed = configFile->Get<float>("entity.physics.movement.max speed");
+		currentMovementSpeed = baseMovementSpeed;
+		timeForMaxJump = configFile->Get<float>("entity.physics.jumping.timer");
+		baseJumpingSpeed = configFile->Get<float>("entity.physics.jumping.base speed");
+
+		// Bounding boxes
 		size_t numberOfBoundingBoxes = configFile->SizeOfObjectArray("entity.bounding boxes");
 		for (size_t i = 0; i < numberOfBoundingBoxes; i++) {
 			std::string nameOfBoundingBoxes = configFile->Get<std::string>("entity.bounding boxes." + std::to_string(i) + ".bounding box.id");
@@ -55,8 +59,6 @@ Entity::Entity(const std::string& filePath) : GameObject(filePath) {
 				crawlingBoundingBox = BoundingBox(glm::vec2(this->position.x, this->position.y) + crawlingBoundingBoxOffset, boundingBoxDimensions);
 			}
 		}
-
-
 		// Model Setup
 		model = Engine_Pointer->modelRegister[Engine_Pointer->indexOfSpriteModel];
 		model.SetMeshParents();

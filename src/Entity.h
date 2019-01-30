@@ -9,12 +9,13 @@ class Entity : public GameObject
 {
 public:
 	enum Directions { NotSet, Left, Right, Up, Down };
-	Directions movementDirection;
-	Directions spriteDirection;
 	enum AnimationState { AnimationIdleStandingLeft, AnimationIdleStandingRight, AnimationMovingStandingLeft, AnimationMovingStandingRight, 
 							AnimationIdleCrawlingLeft, AnimationIdleCrawlingRight, AnimationMovingCrawlingLeft, AnimationMovingCrawlingRight, 
 								AnimationJumpingLeft, AnimationJumpingRight, AnimationFallingLeft, AnimationFallingRight };
-	AnimationState animationState;
+	
+	Directions movementDirection = Directions::NotSet;
+	Directions spriteDirection = Directions::Right;
+	AnimationState animationState = AnimationState::AnimationIdleStandingRight;;
 
 	Entity(const std::string& filePath);
 	~Entity(void);
@@ -24,17 +25,17 @@ public:
 private:
 
 protected:
-	bool canCrawl;
-	bool isTryingToCrawl;
-	bool isCrawling;
-	bool isJumping;
-	const float baseMovementSpeed = 90.0f;
-	const float maxMovementSpeed = 120.0f;
-	float currentMovementSpeed;
-	const float timeForMaxJump = 0.4f;
-	const float baseJumpingSpeed = -220.0f;
-	float currentJumpingSpeed;
-	float jumpingTimer;
+	bool canCrawl = false;
+	bool isTryingToCrawl = false;
+	bool isCrawling = false;
+	bool isJumping = false;
+	float baseMovementSpeed = 90.0f;
+	float maxMovementSpeed = 120.0f;
+	float currentMovementSpeed = 90.0f;
+	float timeForMaxJump = 0.4f;
+	float baseJumpingSpeed = -220.0f;
+	float currentJumpingSpeed = 0.0f;
+	float jumpingTimer = 0.0f;
 
 	BoundingBox standingBoundingBox;
 	glm::vec2 standingBoundingBoxOffset;
