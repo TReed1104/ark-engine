@@ -41,14 +41,16 @@ void Player::HandleInputKeyboard(void) {
 
 	// Crawling
 	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementDown)) {
-		if (isJumping) {
-			isJumping = false;
-			currentJumpingSpeed = 0.0f;
-			movementDirection = Directions::Down;
-		}
-		else if (!isJumping && !isFalling) {
-			isTryingToCrawl = true;
-			isCrawling = true;
+		if (canCrawl) {
+			if (isJumping) {
+				isJumping = false;
+				currentJumpingSpeed = 0.0f;
+				movementDirection = Directions::Down;
+			}
+			else if (!isJumping && !isFalling) {
+				isTryingToCrawl = true;
+				isCrawling = true;
+			}
 		}
 	}
 	else {
