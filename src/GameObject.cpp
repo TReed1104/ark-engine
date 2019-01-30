@@ -208,11 +208,9 @@ void GameObject::PhysicsController(const float& deltaTime) {
 }
 void GameObject::LoadAnimations() {
 	animations.clear();
-
 	if (configFile->IsLoaded()) {
-		bool hasAnimations = configFile->Get<bool>("entity.has animations");
-		if (hasAnimations) {
-			size_t numberOfAnimations = configFile->SizeOfObjectArray("entity.animations");
+		size_t numberOfAnimations = configFile->SizeOfObjectArray("entity.animations");
+		if (numberOfAnimations > 0) {
 			for (size_t animationIterator = 0; animationIterator < numberOfAnimations; animationIterator++) {
 				std::string animationName = configFile->Get<std::string>("entity.animations." + std::to_string(animationIterator) + ".animation.id");
 				Animation newAnimation = Animation(animationName);
