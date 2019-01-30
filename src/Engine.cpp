@@ -499,12 +499,6 @@ void Engine::LoadItems(void) {
 	std::cout << ">> 13 - Loading Items" << std::endl;
 	std::cout << ">>>> NOT IMPLEMENTED" << std::endl;
 
-	/*std::vector<std::string> listOfItemFiles = FileSystemUtilities::GetFileList(contentDirectory + "scripts/items");
-	const size_t listOfItemFilesSize = listOfItemFiles.size();
-	for (size_t i = 0; i < listOfItemFilesSize; i++) {
-
-	}*/
-
 	std::cout << ">> 13 - COMPLETE" << std::endl;
 }
 void Engine::LoadPlayer(void) {
@@ -517,12 +511,6 @@ void Engine::LoadPlayer(void) {
 void Engine::LoadEntities(void) {
 	std::cout << ">> 15 - Loading Entities" << std::endl;
 	std::cout << ">>>> NOT IMPLEMENTED" << std::endl;
-
-	/*std::vector<std::string> listOfEntityFiles = FileSystemUtilities::GetFileList(contentDirectory + "scripts/entities");
-	const size_t listOfEntityFilesSize = listOfEntityFiles.size();
-	for (size_t i = 0; i < listOfEntityFilesSize; i++) {
-
-	}*/
 
 	std::cout << ">> 15 - COMPLETE" << std::endl;
 }
