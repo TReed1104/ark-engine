@@ -91,7 +91,7 @@
 				"tile": {
 					"type": 1,
 					"slope": {
-						"is slope": true,
+						"is slope": false,
 						"slope offset": {
 							"left": 0,
 							"right": 16
@@ -119,7 +119,7 @@
 				"tile": {
 					"type": 0,
 					"slope": {
-						"is slope": true,
+						"is slope": false,
 						"slope offset": {
 							"left": 0,
 							"right": 0
@@ -147,7 +147,7 @@
 				"tile": {
 					"type": 0,
 					"slope": {
-						"is slope": true,
+						"is slope": false,
 						"slope offset": {
 							"left": 0,
 							"right": 0
@@ -175,7 +175,7 @@
 				"tile": {
 					"type": 0,
 					"slope": {
-						"is slope": true,
+						"is slope": false,
 						"slope offset": {
 							"left": 0,
 							"right": 0
@@ -203,7 +203,7 @@
 				"tile": {
 					"type": 0,
 					"slope": {
-						"is slope": true,
+						"is slope": false,
 						"slope offset": {
 							"left": 0,
 							"right": 0
@@ -231,7 +231,7 @@
 				"tile": {
 					"type": 0,
 					"slope": {
-						"is slope": true,
+						"is slope": false,
 						"slope offset": {
 							"left": 0,
 							"right": 0
@@ -259,7 +259,7 @@
 				"tile": {
 					"type": 0,
 					"slope": {
-						"is slope": true,
+						"is slope": false,
 						"slope offset": {
 							"left": 0,
 							"right": 0
