@@ -36,7 +36,6 @@ bool Tileset::Load() {
 			glm::ivec2 aabbOffset = glm::ivec2(configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.bounding box.offset.x"), configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.bounding box.offset.y"));
 			glm::ivec2 aabbDimensions = glm::ivec2(configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.bounding box.dimensions.width"), configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.bounding box.dimensions.height"));
 			glm::ivec2 sourceFramePosition = glm::ivec2(configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.source frame.position.x"), configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.source frame.position.y"));
-
 			if (indexOfTileSetTexture != -1) {
 				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, sourceFramePosition, glm::vec3(0.0f), BoundingBox(glm::ivec2(0), aabbDimensions), aabbOffset, isSlope, slopeOffset));
 			}
@@ -44,7 +43,6 @@ bool Tileset::Load() {
 				tileList.push_back(Tile(Engine_Pointer->textureRegister[indexOfTileSetTexture], (Tile::Type)tileType, sourceFramePosition, glm::vec3(0.0f), BoundingBox(glm::ivec2(0), aabbDimensions), aabbOffset, isSlope, slopeOffset));
 			}
 		}
-
 		return true;
 	}
 	else {
