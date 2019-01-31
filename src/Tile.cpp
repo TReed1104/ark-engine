@@ -2,9 +2,19 @@
 #include "Engine.h"
 
 Tile::Tile(const Texture& texture, const int& tileType, const glm::ivec2& sourceFramePosition, const glm::vec3& position, const BoundingBox& boundingBox, const glm::ivec2& boundingBoxOffset, const bool& isSlope, const glm::ivec2& slopeOffset) : GameObject() {
+	this->name = "Tile";
 	this->type = (Type)tileType;
+	// Set the tile name
+	if (type == Type::Solid) {
+		this->name += " - Solid";
+	}
+	else {
+		this->name += " - Walkable";
+	}
+
 	this->isSlope = isSlope;
 	if (this->isSlope) {
+		this->name += " - Sloped";
 		this->slopeOffset = slopeOffset;
 		this->slopeAngle = CalculateSlope(this->slopeOffset);
 	}
