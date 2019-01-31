@@ -5,7 +5,6 @@
 		"tiles": [
 			{
 				"tile": {
-					"id": 0,
 					"type": 0,
 					"slope": {
 						"is slope": false,
@@ -34,7 +33,6 @@
 			},
 			{
 				"tile": {
-					"id": 1,
 					"type": 1,
 					"slope": {
 						"is slope": false,
@@ -63,7 +61,6 @@
 			},
 			{
 				"tile": {
-					"id": 2,
 					"type": 1,
 					"slope": {
 						"is slope": false,
@@ -92,7 +89,6 @@
 			},
 			{
 				"tile": {
-					"id": 3,
 					"type": 1,
 					"slope": {
 						"is slope": true,
@@ -121,7 +117,6 @@
 			},
 			{
 				"tile": {
-					"id": 4,
 					"type": 0,
 					"slope": {
 						"is slope": true,
@@ -150,7 +145,6 @@
 			},
 			{
 				"tile": {
-					"id": 5,
 					"type": 0,
 					"slope": {
 						"is slope": true,
@@ -179,7 +173,6 @@
 			},
 			{
 				"tile": {
-					"id": 6,
 					"type": 0,
 					"slope": {
 						"is slope": true,
@@ -208,7 +201,6 @@
 			},
 			{
 				"tile": {
-					"id": 7,
 					"type": 0,
 					"slope": {
 						"is slope": true,
@@ -237,7 +229,6 @@
 			},
 			{
 				"tile": {
-					"id": 8,
 					"type": 0,
 					"slope": {
 						"is slope": true,
@@ -258,7 +249,7 @@
 					},
 					"source frame": {
 						"position": {
-							"x": 0,
+							"x": 8,
 							"y": 0
 						}
 					}
@@ -266,7 +257,6 @@
 			},
 			{
 				"tile": {
-					"id": 9,
 					"type": 0,
 					"slope": {
 						"is slope": true,
@@ -287,7 +277,7 @@
 					},
 					"source frame": {
 						"position": {
-							"x": 0,
+							"x": 9,
 							"y": 0
 						}
 					}
