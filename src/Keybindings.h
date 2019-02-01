@@ -10,4 +10,18 @@ struct Keybind {
 	Keyboard::Keys bindingValue;
 };
 
+class KeybindingHandler {
+public:
+	KeybindingHandler();
+	~KeybindingHandler();
+
+	Keyboard::Keys GetKeybind(const std::string& bindingName);
+	bool AddKeybinding(const Keybind& newBinding);
+
+private:
+	std::map<std::string, Keybind> bindings;
+	std::map<std::string, std::string> friendlyNames;
+
+};
+
 #endif
