@@ -89,16 +89,7 @@ public:
 	std::string nameOfDefaultTexture;
 
 	// Keybinding store
-	KeybindingHandler keybindings;
-	Keyboard::Keys keybindMovementLeft;
-	Keyboard::Keys keybindMovementRight;
-	Keyboard::Keys keybindMovementUp;
-	Keyboard::Keys keybindMovementDown;
-	Keyboard::Keys keybindMovementSprint;
-	Keyboard::Keys keybindActionOne;
-	Keyboard::Keys keybindActionTwo;
-	Keyboard::Keys keybindAttackThree;
-	Keyboard::Keys keybindAttackFour;
+	KeybindingHandler keybindingHandler;
 
 	// Texture frame sizes
 	glm::ivec2 textureBorderSize;
