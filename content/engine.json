@@ -77,7 +77,7 @@
 			{
 				"binding": {
 					"id": "movement_down",
-					"friendly name": "Crawling",
+					"friendly name": "Crawl",
 					"key value": 28
 				}
 			},
