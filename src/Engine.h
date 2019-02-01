@@ -22,6 +22,7 @@
 #include "JsonParser.hpp"
 #include "Shader.h"
 #include "Keyboard.h"
+#include "Keybindings.h"
 #include "GameController.h"
 #include "Texture.h"
 #include "Model.h"
@@ -87,7 +88,8 @@ public:
 	std::string nameOfDefaultSpriteModel;
 	std::string nameOfDefaultTexture;
 
-	// Keybinding stores
+	// Keybinding store
+	KeybindingHandler keybindings;
 	Keyboard::Keys keybindMovementLeft;
 	Keyboard::Keys keybindMovementRight;
 	Keyboard::Keys keybindMovementUp;
