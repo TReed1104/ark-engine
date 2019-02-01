@@ -21,17 +21,17 @@ void Player::HandleInputKeyboard(void) {
 	movementDirection = Directions::NotSet;
 
 	// Move Left/Right
-	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementRight)) {
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindingHandler.GetKeybind("Move Right"))) {
 		movementDirection = Directions::Right;
 		spriteDirection = Directions::Right;
 	}
-	else if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementLeft)) {
+	else if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindingHandler.GetKeybind("Move Left"))) {
 		movementDirection = Directions::Left;
 		spriteDirection = Directions::Left;
 	}
 
 	// Jumping
-	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementUp)) {
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindingHandler.GetKeybind("Jump"))) {
 		if (!isJumping && !isFalling && !isCrawling) {
 			isJumping = true;
 			currentJumpingSpeed = baseJumpingSpeed;
@@ -40,7 +40,7 @@ void Player::HandleInputKeyboard(void) {
 	}
 
 	// Crawling
-	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementDown)) {
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindingHandler.GetKeybind("Crawl"))) {
 		if (canCrawl) {
 			if (isJumping) {
 				isJumping = false;
@@ -58,7 +58,7 @@ void Player::HandleInputKeyboard(void) {
 	}
 
 	// Sprinting
-	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindMovementSprint)) {
+	if (Engine_Pointer->deviceKeyboard->GetKeyState(Engine_Pointer->keybindingHandler.GetKeybind("Sprint"))) {
 		if (!isJumping && !isFalling) {
 			currentMovementSpeed = maxMovementSpeed;
 		}
