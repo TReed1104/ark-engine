@@ -1,6 +1,8 @@
 #ifndef ARKENGINE_KEYBINDINGS_H_
 #define ARKENGINE_KEYBINDINGS_H_
 
+#include <iostream>
+#include <string>
 #include <map>
 #include "Keyboard.h"
 
