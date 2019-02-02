@@ -5,9 +5,8 @@ KeybindingHandler::KeybindingHandler() {
 KeybindingHandler::~KeybindingHandler() {
 }
 
-Keyboard::Keys KeybindingHandler::GetKeybind(const std::string& bindingName) {
-	// TODO: Rewrite to use ASCII table value, no Enum index
-	return (Keyboard::Keys)bindings[friendlyNames[bindingName]].bindingValue;
+Keyboard::Keys KeybindingHandler::GetKeybind(const std::string& bindingFriendlyName) {
+	return (Keyboard::Keys)bindings[friendlyNames[bindingFriendlyName]].bindingValue;
 }
 bool KeybindingHandler::AddKeybinding(const Keybind& newBinding) {
 	// Check fi the binding exists

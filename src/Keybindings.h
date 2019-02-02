@@ -17,7 +17,7 @@ public:
 	KeybindingHandler();
 	~KeybindingHandler();
 
-	Keyboard::Keys GetKeybind(const std::string& bindingName);
+	Keyboard::Keys GetKeybind(const std::string& bindingFriendlyName);
 	bool AddKeybinding(const Keybind& newBinding);
 
 private:
