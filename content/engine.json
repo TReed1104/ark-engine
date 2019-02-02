@@ -57,35 +57,35 @@
 				"binding": {
 					"id": "movement_left",
 					"friendly name": "Move Left",
-					"key value": 10
+					"key id": 10
 				}
 			},
 			{
 				"binding": {
 					"id": "movement_right",
 					"friendly name": "Move Right",
-					"key value": 13
+					"key id": 13
 				}
 			},
 			{
 				"binding": {
 					"id": "movement_up",
 					"friendly name": "Jump",
-					"key value": 32
+					"key id": 32
 				}
 			},
 			{
 				"binding": {
 					"id": "movement_down",
 					"friendly name": "Crawl",
-					"key value": 28
+					"key id": 28
 				}
 			},
 			{
 				"binding": {
 					"id": "movement_sprint",
 					"friendly name": "Sprint",
-					"key value": 24
+					"key id": 24
 				}
 			}
 		],
