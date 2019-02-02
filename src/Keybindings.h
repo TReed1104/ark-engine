@@ -21,7 +21,7 @@ public:
 	bool AddKeybinding(const Keybind& newBinding);
 
 private:
-	std::map<std::string, Keybind> bindings;
+	std::map<std::string, Keybind> keybinds;
 	std::map<std::string, std::string> friendlyNames;
 
 };

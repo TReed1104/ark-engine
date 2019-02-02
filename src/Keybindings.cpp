@@ -6,13 +6,13 @@ KeybindingHandler::~KeybindingHandler() {
 }
 
 Keyboard::Keys KeybindingHandler::GetKeybind(const std::string& bindingFriendlyName) {
-	return (Keyboard::Keys)bindings[friendlyNames[bindingFriendlyName]].bindingValue;
+	return (Keyboard::Keys)keybinds[friendlyNames[bindingFriendlyName]].bindingValue;
 }
 bool KeybindingHandler::AddKeybinding(const Keybind& newBinding) {
 	// Check fi the binding exists
-	if (bindings.find(newBinding.id) == bindings.end()) {
+	if (keybinds.find(newBinding.id) == keybinds.end()) {
 		// If it doesn't already exist, add it
-		bindings[newBinding.id] = newBinding;
+		keybinds[newBinding.id] = newBinding;
 		friendlyNames[newBinding.friendlyName] = newBinding.id;	// Map the friendly name to the id
 		return true;
 	}
