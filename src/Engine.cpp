@@ -123,7 +123,7 @@ void Engine::Close(bool isClean) {
 	}
 }
 
-// Engine config related functions
+// Core Engine Loading
 void Engine::LoadEngineConfig(void) {
 	std::cout << ">> 1 - Loading Engine Configs" << std::endl;
 	configFile = new JsonFile(contentDirectory + "engine.json");	// Load the config file into memory
@@ -209,7 +209,7 @@ void Engine::LoadEnginePointers(void) {
 	std::cout << ">> 3 - COMPLETE" << std::endl;
 }
 
-// Loading Functions
+// Library setup
 void Engine::CreateSDLWindow(void) {
 	std::cout << ">>>>>> 4.1.1 - Creating SDL Window" << std::endl;
 
@@ -303,6 +303,8 @@ void Engine::LoadExternalLibraries(void) {
 
 	std::cout << ">> 4 - COMPLETE" << std::endl;
 }
+
+// Loading Functions
 void Engine::LoadShaders(void) {
 	std::cout << ">> 5 - Loading Shaders" << std::endl;
 
@@ -548,7 +550,19 @@ void Engine::LoadEngine(void) {
 	std::cout << "#### ARKENGINE LOAD COMPLETE" << std::endl;
 }
 
-// Game loop related functions
+// Events
+void Engine::WindowResize(const glm::vec2& newScaler) {
+	// Resizes the window
+	windowScaler = newScaler;
+	windowDimensions = (tileSize * windowGridSize) * windowScaler;
+	SDL_SetWindowSize(sdlWindow, (int)windowDimensions.x, (int)windowDimensions.y);
+}
+void Engine::WindowRename(const std::string& newName) {
+	windowTitle = newName;
+	SDL_SetWindowTitle(sdlWindow, windowTitle.c_str());
+}
+
+// Core game loop steps
 void Engine::EventHandler(void) {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
@@ -636,18 +650,8 @@ void Engine::Render(void) {
 	// Post-Render
 	SDL_GL_SwapWindow(sdlWindow);	// Gives the frame buffer to the display (swapBuffers).
 }
-void Engine::WindowResize(const glm::vec2& newScaler) {
-	// Resizes the window
-	windowScaler = newScaler;
-	windowDimensions = (tileSize * windowGridSize) * windowScaler;
-	SDL_SetWindowSize(sdlWindow, (int)windowDimensions.x, (int)windowDimensions.y);
-}
-void Engine::WindowRename(const std::string& newName) {
-	windowTitle = newName;
-	SDL_SetWindowTitle(sdlWindow, windowTitle.c_str());
-}
 
-// Core Engine function
+// Game Loop
 void Engine::Run(void) {
 
 	// Loads all the configs, the game content and initialises everything needed by the engine to run.
