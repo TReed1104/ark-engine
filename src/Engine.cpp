@@ -636,7 +636,7 @@ void Engine::Render(void) {
 	// Post-Render
 	SDL_GL_SwapWindow(sdlWindow);	// Gives the frame buffer to the display (swapBuffers).
 }
-void Engine::WindowResize(const glm::vec2 & newScaler) {
+void Engine::WindowResize(const glm::vec2& newScaler) {
 	// Resizes the window
 	windowScaler = newScaler;
 	windowDimensions = (tileSize * windowGridSize) * windowScaler;
