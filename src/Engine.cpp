@@ -174,7 +174,7 @@ void Engine::LoadKeyBindings(void) {
 			Keybind bind { 
 				configFile->Get<std::string>("engine.key bindings." + std::to_string(i) + ".binding.id"),
 				configFile->Get<std::string>("engine.key bindings." + std::to_string(i) + ".binding.friendly name"),
-				(Keyboard::Keys)configFile->Get<int>("engine.key bindings." + std::to_string(i) + ".binding.key value")
+				(Keyboard::Keys)configFile->Get<int>("engine.key bindings." + std::to_string(i) + ".binding.key id")
 			};
 
 			keybindingHandler.AddKeybinding(bind);
