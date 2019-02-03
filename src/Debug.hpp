@@ -4,21 +4,21 @@
 #include <iostream>
 #include <string>
 
-class Debug {
+namespace Debug {
 	static bool isDebuggingEnabled;
 	static bool isLoggingEnabled;
 	static std::string loggingFileName;
 
+	static void Log(const std::string& output) {
+		// TODO: Write line to output file
+	}
 	static void Print(const std::string& output) {
 		if (isDebuggingEnabled) {
 			std::cout << output << std::endl;
 			if (isLoggingEnabled) {
-				Log(output);
+				Debug::Log(output);
 			}
 		}
-	}
-	static void Log(const std::string& output) {
-		// TODO: Write line to output file
 	}
 };
 
