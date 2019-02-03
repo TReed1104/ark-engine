@@ -19,6 +19,7 @@
 #include <assimp/postprocess.h>
 
 // Engine Source
+#include "Debug.hpp"
 #include "JsonParser.hpp"
 #include "Shader.h"
 #include "Keyboard.h"
