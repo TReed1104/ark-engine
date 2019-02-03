@@ -122,7 +122,7 @@ void Engine::Close(bool isClean) {
 		exit(1);
 	}
 }
-Engine* GameObject::Engine_Pointer;
+
 // Core Engine Loading
 void Engine::LoadEngineConfig(void) {
 	std::cout << ">> 1 - Loading Engine Configs" << std::endl;
