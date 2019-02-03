@@ -122,13 +122,18 @@ void Engine::Close(bool isClean) {
 		exit(1);
 	}
 }
-
+Engine* GameObject::Engine_Pointer;
 // Core Engine Loading
 void Engine::LoadEngineConfig(void) {
 	std::cout << ">> 1 - Loading Engine Configs" << std::endl;
 	configFile = new JsonFile(contentDirectory + "engine.json");	// Load the config file into memory
 	if (configFile->IsLoaded()) {
-		// Core Engine setup
+		// Debugging setup
+		Debug::isDebuggingEnabled = configFile->Get<bool>("engine.debugging.debugging enabled");
+		Debug::isLoggingEnabled = configFile->Get<bool>("engine.debugging.logging enabled");
+		Debug::loggingFileName = configFile->Get<std::string>("engine.debugging.log file");
+
+		// Window Engine setup
 		windowTitle = configFile->Get<std::string>("engine.window.title");
 		defaultWindowTitle = configFile->Get<std::string>("engine.window.title");
 		tileSize = glm::vec2(configFile->Get<int>("engine.window.tile size.width"), configFile->Get<int>("engine.window.tile size.height"));
