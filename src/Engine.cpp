@@ -129,9 +129,9 @@ void Engine::LoadEngineConfig(void) {
 	configFile = new JsonFile(contentDirectory + "engine.json");	// Load the config file into memory
 	if (configFile->IsLoaded()) {
 		// Debugging setup
-		Debug::isDebuggingEnabled = configFile->Get<bool>("engine.debugging.debugging enabled");
-		Debug::isLoggingEnabled = configFile->Get<bool>("engine.debugging.logging enabled");
-		Debug::loggingFileName = configFile->Get<std::string>("engine.debugging.log file");
+		engineDebugger.SetDebuggingState(configFile->Get<bool>("engine.debugging.debugging enabled"));
+		engineDebugger.SetLoggingState(configFile->Get<bool>("engine.debugging.logging enabled"));
+		engineDebugger.SetLoggingFilePath(configFile->Get<std::string>("engine.debugging.log file"));
 
 		// Window Engine setup
 		windowTitle = configFile->Get<std::string>("engine.window.title");
