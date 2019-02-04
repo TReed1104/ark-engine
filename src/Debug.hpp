@@ -5,41 +5,54 @@
 #include <string>
 
 namespace Debug {
-	static bool isDebuggingEnabled = false;
-	static bool isLoggingEnabled = false;
-	static std::string loggingFileName = "";
+	class Debugger {
+	public:
 
-	static void Log(const std::string& output) {
-		// TODO: Write line to output file
-	}
-	static void Print(const std::string& output) {
-		if (isDebuggingEnabled) {
-			std::cout << output << std::endl;
-			if (isLoggingEnabled) {
-				Debug::Log(output);
+		// Constructors
+		Debugger() {
+
+		}
+		~Debugger() {
+
+		}
+
+		// Outputs
+		void LogLine(const std::string& output) {
+			// TODO: Write line to output file
+		}
+		void WriteLine(const std::string& output) {
+			if (isDebuggerEnabled) {
+				std::cout << output << std::endl;
+				if (isLoggingEnabled) {
+					LogLine(output);
+				}
 			}
 		}
-	}
-};
 
-class Debugger {
-public:
+		// Set States
+		void SetDebuggingState(const bool& isEnabled) {
+			this->isDebuggerEnabled = isEnabled;
 
-	Debugger() {
+		}
+		void SetLoggingState(const bool& isEnabled) {
+			this->isLoggingEnabled = isEnabled;
+		}
 
-	}
-	~Debugger() {
+		// Get States
+		const bool GetDebuggingState() {
+			return isDebuggerEnabled;
+		}
+		const bool GetLoggingState() {
+			return isLoggingEnabled;
+		}
 
-	}
+	private:
+		// Private Variables
+		bool isDebuggerEnabled = false;
+		bool isLoggingEnabled = false;
+		std::string loggingFilePath = "";
 
-
-
-private:
-
-	bool isEnabled = false;
-	bool isLoggingEnabled = false;
-	std::string loggingFilePath = "";
-
+	};
 };
 
 #endif
