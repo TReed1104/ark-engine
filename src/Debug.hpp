@@ -29,6 +29,17 @@ namespace Debug {
 			}
 		}
 
+		// Get States
+		const bool GetDebuggingState() {
+			return isDebuggerEnabled;
+		}
+		const bool GetLoggingState() {
+			return isLoggingEnabled;
+		}
+		const std::string GetLoggingFilePath() {
+			return loggingFilePath;
+		}
+
 		// Set States
 		void SetDebuggingState(const bool& isEnabled) {
 			this->isDebuggerEnabled = isEnabled;
@@ -37,15 +48,10 @@ namespace Debug {
 		void SetLoggingState(const bool& isEnabled) {
 			this->isLoggingEnabled = isEnabled;
 		}
-
-		// Get States
-		const bool GetDebuggingState() {
-			return isDebuggerEnabled;
+		void SetLoggingFilePath(const std::string& newFilePath) {
+			this->loggingFilePath = newFilePath;
 		}
-		const bool GetLoggingState() {
-			return isLoggingEnabled;
-		}
-
+		
 	private:
 		// Private Variables
 		bool isDebuggerEnabled = false;
