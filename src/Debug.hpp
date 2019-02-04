@@ -5,9 +5,9 @@
 #include <string>
 
 namespace Debug {
-	static bool isDebuggingEnabled;
-	static bool isLoggingEnabled;
-	static std::string loggingFileName;
+	static bool isDebuggingEnabled = false;
+	static bool isLoggingEnabled = false;
+	static std::string loggingFileName = "";
 
 	static void Log(const std::string& output) {
 		// TODO: Write line to output file
