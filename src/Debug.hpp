@@ -22,4 +22,24 @@ namespace Debug {
 	}
 };
 
+class Debugger {
+public:
+
+	Debugger() {
+
+	}
+	~Debugger() {
+
+	}
+
+
+
+private:
+
+	bool isEnabled = false;
+	bool isLoggingEnabled = false;
+	std::string loggingFilePath = "";
+
+};
+
 #endif
