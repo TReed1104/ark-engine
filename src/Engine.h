@@ -39,6 +39,9 @@
 
 class Engine {
 public:
+	// Debuggers
+	Debug::Debugger engineDebugger;
+
 	// Core Engine Variables
 	std::string contentDirectory;
 	glm::vec2 tileSize;
