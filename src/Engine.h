@@ -124,6 +124,7 @@ private:
 	SDL_Window* sdlWindow;
 	SDL_GLContext glContext;
 	bool isRunning;
+	JsonFile* debuggingFile;
 	JsonFile* configFile;
 
 	// DeltaTime math

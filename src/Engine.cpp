@@ -2,7 +2,12 @@
 
 // Constructors
 Engine::Engine(char* gameName) {
+	debuggingFile = nullptr;
 	configFile = nullptr;
+	mainCamera = nullptr;
+	mainCameraFocus = nullptr;
+	player = nullptr;
+	deviceKeyboard = nullptr;
 
 	windowTitle = gameName;
 	defaultWindowTitle = gameName;
@@ -20,11 +25,6 @@ Engine::Engine(char* gameName) {
 	indexOfTileModel = -1;
 	indexOfDefaultTexture = -1;
 	indexOfSpriteModel = -1;
-
-	mainCamera = nullptr;
-	mainCameraFocus = nullptr;
-	player = nullptr;
-	deviceKeyboard = nullptr;
 }
 Engine::~Engine(void) {
 
@@ -33,6 +33,11 @@ Engine::~Engine(void) {
 // Clean Up functions
 void Engine::CleanUp(void) {
 	std::cout << "Cleanup - Begun" << std::endl;
+
+	// Clear the Debugging config file from memory
+	if (debuggingFile != nullptr) {
+		delete debuggingFile;
+	}
 
 	// Clear the config file from memory
 	if (configFile != nullptr) {
