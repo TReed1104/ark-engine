@@ -131,7 +131,7 @@ void Engine::Close(bool isClean) {
 
 // Core Engine Loading
 void Engine::ConfigureDebugging(void) {
-	debuggingFile = new JsonFile(contentDirectory + "debudg.json");
+	debuggingFile = new JsonFile(contentDirectory + "debug.json");
 	if (debuggingFile->IsLoaded()) {
 		// Debugging setup
 		engineDebugger.SetDebuggingState(configFile->Get<bool>("debug.core engine debug.debugging enabled"));
@@ -139,8 +139,10 @@ void Engine::ConfigureDebugging(void) {
 		engineDebugger.SetLoggingFilePath(configFile->Get<std::string>("debug.core engine debug.log file"));
 	}
 	else {
-		//TODO: Throw error
-		this->Close();
+		// No debug config was found, disable the engine debugger
+		engineDebugger.SetDebuggingState(false);
+		engineDebugger.SetLoggingState(false);
+		engineDebugger.SetLoggingFilePath("");
 	}
 }
 void Engine::LoadEngineConfig(void) {
