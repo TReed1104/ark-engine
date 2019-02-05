@@ -132,7 +132,7 @@ private:
 	float currentFrameTime;
 
 	// Core engine loading
-	void LoadDebugging(void);
+	void ConfigureDebugging(void);
 	void LoadEngineConfig(void);
 	void LoadKeyBindings(void);
 	void LoadEnginePointers(void);
