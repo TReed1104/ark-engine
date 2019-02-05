@@ -25,6 +25,8 @@ Engine::Engine(char* gameName) {
 	indexOfTileModel = -1;
 	indexOfDefaultTexture = -1;
 	indexOfSpriteModel = -1;
+
+	freeTypeLibrary = NULL;
 }
 Engine::~Engine(void) {
 
@@ -32,8 +34,6 @@ Engine::~Engine(void) {
 
 // Clean Up functions
 void Engine::CleanUp(void) {
-	std::cout << "Cleanup - Begun" << std::endl;
-
 	// Clear the Debugging config file from memory
 	if (debuggingFile != nullptr) {
 		delete debuggingFile;
@@ -110,10 +110,11 @@ void Engine::CleanUp(void) {
 		}
 	}
 
-	FT_Done_FreeType(freeTypeLibrary);
+	if (freeTypeLibrary != NULL) {
+		FT_Done_FreeType(freeTypeLibrary);
+	}
 	SDL_GL_DeleteContext(glContext);
 	SDL_DestroyWindow(sdlWindow);
-	std::cout << "Cleanup - Complete" << std::endl;
 }
 void Engine::Close(bool isClean) {
 	// Clear up and close the engine.
@@ -184,7 +185,7 @@ void Engine::LoadKeyBindings(void) {
 		for (size_t i = 0; i < numberOfKeybinds; i++) {
 			std::string nameOfBinding = configFile->Get<std::string>("engine.key bindings." + std::to_string(i) + ".binding.id");
 
-			Keybind bind { 
+			Keybind bind {
 				configFile->Get<std::string>("engine.key bindings." + std::to_string(i) + ".binding.id"),
 				configFile->Get<std::string>("engine.key bindings." + std::to_string(i) + ".binding.friendly name"),
 				(Keyboard::Keys)configFile->Get<int>("engine.key bindings." + std::to_string(i) + ".binding.key id")
