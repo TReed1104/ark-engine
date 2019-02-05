@@ -147,11 +147,6 @@ void Engine::LoadEngineConfig(void) {
 	std::cout << ">> 1 - Loading Engine Configs" << std::endl;
 	configFile = new JsonFile(contentDirectory + "engine.json");	// Load the config file into memory
 	if (configFile->IsLoaded()) {
-		// Debugging setup
-		engineDebugger.SetDebuggingState(configFile->Get<bool>("engine.debugging.debugging enabled"));
-		engineDebugger.SetLoggingState(configFile->Get<bool>("engine.debugging.logging enabled"));
-		engineDebugger.SetLoggingFilePath(configFile->Get<std::string>("engine.debugging.log file"));
-
 		// Window Engine setup
 		windowTitle = configFile->Get<std::string>("engine.window.title");
 		defaultWindowTitle = configFile->Get<std::string>("engine.window.title");
