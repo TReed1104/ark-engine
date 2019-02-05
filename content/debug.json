@@ -1,6 +1,6 @@
 {
     "debug": {
-        "core engine debugger": {
+        "core engine debug": {
             "debugging enabled": true,
 			"logging enabled": true,
 			"log file": "engine log.txt"
