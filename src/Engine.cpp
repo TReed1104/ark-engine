@@ -130,8 +130,8 @@ void Engine::Close(bool isClean) {
 }
 
 // Core Engine Loading
-void Engine::LoadDebugging(void) {
-
+void Engine::ConfigureDebugging(void) {
+	
 }
 void Engine::LoadEngineConfig(void) {
 	std::cout << ">> 1 - Loading Engine Configs" << std::endl;
@@ -534,6 +534,7 @@ void Engine::LoadEngine(void) {
 	std::cout << "#### ARKENGINE LOAD BEGINNING" << std::endl;
 
 	// Load Engine Core configs
+	ConfigureDebugging();
 	LoadEngineConfig();
 	LoadKeyBindings();
 	LoadEnginePointers();
