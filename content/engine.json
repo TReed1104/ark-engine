@@ -4,11 +4,6 @@
 		"developer": "Tom reed",
 		"version": "0.01",
 		"vsync": false,
-		"debugging": {
-			"debugging enabled": true,
-			"logging enabled": true,
-			"log file": "outputlog.txt"
-		},
 		"window": {
 			"title": "ArkEngine",
 			"tile size": {
