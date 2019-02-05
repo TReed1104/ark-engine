@@ -124,6 +124,9 @@ void Engine::Close(bool isClean) {
 }
 
 // Core Engine Loading
+void Engine::LoadDebugging(void) {
+
+}
 void Engine::LoadEngineConfig(void) {
 	std::cout << ">> 1 - Loading Engine Configs" << std::endl;
 	configFile = new JsonFile(contentDirectory + "engine.json");	// Load the config file into memory
