@@ -146,7 +146,7 @@ void Engine::ConfigureDebugging(void) {
 	}
 }
 void Engine::LoadEngineConfig(void) {
-	std::cout << ">> 1 - Loading Engine Configs" << std::endl;
+	engineDebugger.WriteLine(">> 1 - Loading Engine Configs");
 	configFile = new JsonFile(contentDirectory + "engine.json");	// Load the config file into memory
 	if (configFile->IsLoaded()) {
 		// Window Engine setup
@@ -177,12 +177,11 @@ void Engine::LoadEngineConfig(void) {
 	}
 	else {
 		// Config failed to load.
-		std::cout << ">>>> ERROR!!!! - Engine config wasn't loaded " << std::endl;
-		std::cout << ">> 1 - FAILED" << std::endl;
+		engineDebugger.WriteLine(">>>> ERROR!!!! - Engine config wasn't loaded");
+		engineDebugger.WriteLine(">> 1 - FAILED");
 		this->Close();
 	}
-
-	std::cout << ">> 1 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 1 - COMPLETE");
 }
 void Engine::LoadKeyBindings(void) {
 	std::cout << ">> 2 - Loading Keybinds" << std::endl;
