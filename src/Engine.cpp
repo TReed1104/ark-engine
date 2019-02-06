@@ -267,17 +267,17 @@ void Engine::CreateSDLContext(void) {
 	engineDebugger.WriteLine(">>>>>> 4.1.2 - COMPLETE");
 }
 void Engine::LoadSDL(void) {
-	std::cout << ">>>> 4.1 - Loading Library - SDL2" << std::endl;
+	engineDebugger.WriteLine(">>>> 4.1 - Loading Library - SDL2");
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-		std::cout << ">>>> ERROR!!!! - SDL_Init Error: " << SDL_GetError() << std::endl;
-		std::cout << ">>>> 4.1 - FAILED" << std::endl;
+		engineDebugger.WriteLine(">>>> ERROR!!!! - SDL_Init Error: " + (std::string)SDL_GetError());
+		engineDebugger.WriteLine(">>>> 4.1 - FAILED");
 		this->Close();
 	}
 	CreateSDLWindow();
 	CreateSDLContext();
 
-	std::cout << ">>>> 4.1 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">>>> 4.1 - COMPLETE");
 }
 void Engine::LoadGLEW(void) {
 	std::cout << ">>>> 4.2 - Loading Library - GLEW" << std::endl;
