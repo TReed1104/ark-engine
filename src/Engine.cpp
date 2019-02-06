@@ -231,19 +231,19 @@ void Engine::LoadEnginePointers(void) {
 
 // Library setup
 void Engine::CreateSDLWindow(void) {
-	std::cout << ">>>>>> 4.1.1 - Creating SDL Window" << std::endl;
+	engineDebugger.WriteLine(">>>>>> 4.1.1 - Creating SDL Window");
 
 	// Create window
 	sdlWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)windowDimensions.x, (int)windowDimensions.y, SDL_WINDOW_OPENGL);
 
 	// Error handling for the SDL Window.
 	if (sdlWindow == nullptr) {
-		std::cout << ">> SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
-		std::cout << ">>>>>> 4.1.1 - FAILED" << std::endl;
+		engineDebugger.WriteLine(">> SDL_CreateWindow Error: " + (std::string)SDL_GetError());
+		engineDebugger.WriteLine(">>>>>> 4.1.1 - FAILED");
 		this->Close();
 	}
 
-	std::cout << ">>>>>> 4.1.1 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">>>>>> 4.1.1 - COMPLETE");
 }
 void Engine::CreateSDLContext(void) {
 	std::cout << ">>>>>> 4.1.2 - Loading SDL_GL Context" << std::endl;
