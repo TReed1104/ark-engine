@@ -307,7 +307,7 @@ void Engine::LoadFreeType(void) {
 	engineDebugger.WriteLine(">>>> 4.3 - COMPLETE");
 }
 void Engine::LoadExternalLibraries(void) {
-	std::cout << ">> 4 - Loading External Libraries" << std::endl;
+	engineDebugger.WriteLine(">> 4 - Loading External Libraries");
 
 	// Load the Libraries
 	LoadSDL();
@@ -322,7 +322,7 @@ void Engine::LoadExternalLibraries(void) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBlendEquation(GL_FUNC_ADD);
 
-	std::cout << ">> 4 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 4 - COMPLETE");
 }
 
 // Loading Functions
