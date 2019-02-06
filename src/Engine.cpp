@@ -246,7 +246,7 @@ void Engine::CreateSDLWindow(void) {
 	engineDebugger.WriteLine(">>>>>> 4.1.1 - COMPLETE");
 }
 void Engine::CreateSDLContext(void) {
-	std::cout << ">>>>>> 4.1.2 - Loading SDL_GL Context" << std::endl;
+	engineDebugger.WriteLine(">>>>>> 4.1.2 - Loading SDL_GL Context");
 
 	// Sets up the OpenGL context for OpenGL version 3.3 - This is for 32bit Windows.
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -257,13 +257,14 @@ void Engine::CreateSDLContext(void) {
 	if (glContext == nullptr) {
 		// If setup for OpenGL 3.3 and OpenGL 2.0 both failed, The program will display an error and close.
 		SDL_DestroyWindow(sdlWindow);
-		std::cout << ">>>>>> ERROR!!!! - SDL_GL_CreateContext Error: " << SDL_GetError() << std::endl;	// Print the error.
-		std::cout << ">>>>>> 4.1.2 - FAILED" << std::endl;
+		engineDebugger.WriteLine(">>>>>> ERROR!!!! - SDL_GL_CreateContext Error: " + (std::string)SDL_GetError());
+		engineDebugger.WriteLine(">>>>>> 4.1.2 - FAILED");
 		this->Close();
 	}
+
 	SDL_GL_SetSwapInterval(0);	// Toggles V-Sync on and off for the SDL Window
 
-	std::cout << ">>>>>> 4.1.2 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">>>>>> 4.1.2 - COMPLETE");
 }
 void Engine::LoadSDL(void) {
 	std::cout << ">>>> 4.1 - Loading Library - SDL2" << std::endl;
