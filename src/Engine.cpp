@@ -280,19 +280,19 @@ void Engine::LoadSDL(void) {
 	engineDebugger.WriteLine(">>>> 4.1 - COMPLETE");
 }
 void Engine::LoadGLEW(void) {
-	std::cout << ">>>> 4.2 - Loading Library - GLEW" << std::endl;
+	engineDebugger.WriteLine(">>>> 4.2 - Loading Library - GLEW");
 
 	GLenum rev;
 	glewExperimental = GL_TRUE;
 	rev = glewInit();
 	if (GLEW_OK != rev) {
 		// If GLEW fails, close the program.
-		std::cout << ">>>> ERROR!!!! - GLEW Error: " << glewGetErrorString(rev) << std::endl;
-		std::cout << ">>>> 4.2 - FAILED" << std::endl;
+		engineDebugger.WriteLine(">>>> ERROR!!!! - GLEW Error: " + *((const char*)glewGetErrorString(rev)));
+		engineDebugger.WriteLine(">>>> 4.2 - FAILED");
 		this->Close();
 	}
 
-	std::cout << ">>>> 4.2 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">>>> 4.2 - COMPLETE");
 }
 void Engine::LoadFreeType(void) {
 	std::cout << ">>>> 4.3 - Loading Library - FreeType2" << std::endl;
