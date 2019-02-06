@@ -210,7 +210,7 @@ void Engine::LoadKeyBindings(void) {
 	engineDebugger.WriteLine(">> 2 - COMPLETE");
 }
 void Engine::LoadEnginePointers(void) {
-	std::cout << ">> 3 - Loading Engine Pointer" << std::endl;
+	engineDebugger.WriteLine(">> 3 - Loading Engine Pointers");
 
 	Texture::Engine_Pointer = this;
 	Model::Engine_Pointer = this;
@@ -226,7 +226,7 @@ void Engine::LoadEnginePointers(void) {
 	Tileset::Engine_Pointer = this;
 	Level::Engine_Pointer = this;
 
-	std::cout << ">> 3 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 3 - COMPLETE");
 }
 
 // Library setup
