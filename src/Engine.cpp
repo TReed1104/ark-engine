@@ -295,16 +295,16 @@ void Engine::LoadGLEW(void) {
 	engineDebugger.WriteLine(">>>> 4.2 - COMPLETE");
 }
 void Engine::LoadFreeType(void) {
-	std::cout << ">>>> 4.3 - Loading Library - FreeType2" << std::endl;
+	engineDebugger.WriteLine(">>>> 4.3 - Loading Library - FreeType2");
 
 	// Initialise the FreeType library
 	if (FT_Init_FreeType(&freeTypeLibrary)) {
-		std::cout << ">>>> ERROR!!!! - FreeType Failed to Initialise" << std::endl;
-		std::cout << ">>>> 4.3 - FAILED" << std::endl;
+		engineDebugger.WriteLine(">>>> ERROR!!!! - FreeType Failed to Initialise");
+		engineDebugger.WriteLine(">>>> 4.3 - FAILED");
 		this->Close();
 	}
 
-	std::cout << ">>>> 4.3 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">>>> 4.3 - COMPLETE");
 }
 void Engine::LoadExternalLibraries(void) {
 	std::cout << ">> 4 - Loading External Libraries" << std::endl;
