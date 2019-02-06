@@ -297,7 +297,7 @@ void Engine::LoadGLEW(void) {
 void Engine::LoadFreeType(void) {
 	engineDebugger.WriteLine(">>>> 4.3 - Loading Library - FreeType2");
 
-	// Initialise the FreeType library
+	// Initialise the FreeType library, return is "are there errors, true = errors"
 	if (FT_Init_FreeType(&freeTypeLibrary)) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - FreeType Failed to Initialise");
 		engineDebugger.WriteLine(">>>> 4.3 - FAILED");
