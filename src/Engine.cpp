@@ -184,7 +184,7 @@ void Engine::LoadEngineConfig(void) {
 	engineDebugger.WriteLine(">> 1 - COMPLETE");
 }
 void Engine::LoadKeyBindings(void) {
-	std::cout << ">> 2 - Loading Keybinds" << std::endl;
+	engineDebugger.WriteLine(">> 2 - Loading Keybinds");
 
 	if (configFile->IsLoaded()) {
 		size_t numberOfKeybinds = configFile->SizeOfObjectArray("engine.key bindings");
@@ -202,12 +202,12 @@ void Engine::LoadKeyBindings(void) {
 	}
 	else {
 		// Config failed to load.
-		std::cout << ">>>> ERROR!!!! - Engine config wasn't loaded " << std::endl;
-		std::cout << ">> 2 - FAILED" << std::endl;
+		engineDebugger.WriteLine(">>>> ERROR!!!! - Engine config wasn't loaded ");
+		engineDebugger.WriteLine(">> 2 - FAILED");
 		this->Close();
 	}
 
-	std::cout << ">> 2 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 2 - COMPLETE");
 }
 void Engine::LoadEnginePointers(void) {
 	std::cout << ">> 3 - Loading Engine Pointer" << std::endl;
