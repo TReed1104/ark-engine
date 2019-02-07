@@ -355,8 +355,7 @@ void Engine::LoadShaders(void) {
 		this->Close();
 	}
 
-	engineDebugger.WriteLine("");
-	std::cout << ">> 5 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 5 - COMPLETE");
 }
 void Engine::LoadInputDevices(void) {
 	engineDebugger.WriteLine(">> 6 - Loading Input Devices");
