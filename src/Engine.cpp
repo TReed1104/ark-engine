@@ -359,35 +359,33 @@ void Engine::LoadShaders(void) {
 	std::cout << ">> 5 - COMPLETE" << std::endl;
 }
 void Engine::LoadInputDevices(void) {
-	std::cout << ">> 6 - Loading Input Devices" << std::endl;
+	engineDebugger.WriteLine(">> 6 - Loading Input Devices");
 
 	// Initialise the keyboard instance
-	std::cout << ">>>> 6.1 - Keyboard Initialised..." << std::endl;
+	engineDebugger.WriteLine(">>>> 6.1 - Keyboard Initialised...");
 	deviceKeyboard = new Keyboard();
 
-
 	// Search for any Keyboards.
-	int numberOfConnectedControllers = SDL_NumJoysticks();
+	const int numberOfConnectedControllers = SDL_NumJoysticks();
 	if (numberOfConnectedControllers < 1) {
-		//deviceGameController = nullptr;
-		std::cout << ">>>> 6.2 - No Controllers were found..." << std::endl;
+		engineDebugger.WriteLine(">>>> 6.2 - No Controllers were found...");
 	}
 	else {
 		for (int i = 0; i < numberOfConnectedControllers; i++) {
 			if (i < maxNumberOfControllers) {
 				deviceGameControllerRegister.push_back(new GameController(SDL_GameControllerOpen(i)));
 				if (deviceGameControllerRegister[i]->GetSDLHook() != NULL) {
-					std::cout << ">>>> 6.2 - Game controller found: Controller has been opened for input" << std::endl;
+					engineDebugger.WriteLine(">>>> 6.2 - Game controller found: Controller has been opened for input");
 				}
 				else {
-					std::cout << ">>>> ERROR!!!! - Unable to Open game controller for use! SDL Error: " << SDL_GetError() << std::endl;
+					engineDebugger.WriteLine(">>>> ERROR!!!! - Unable to Open game controller for use! SDL Error: " + (std::string)SDL_GetError());
 				}
 			}
 		}
 
 	}
 
-	std::cout << ">> 6 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 6 - COMPLETE");
 }
 void Engine::LoadFonts(void) {
 	std::cout << ">> 7 - Loading Fonts" << std::endl;
