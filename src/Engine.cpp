@@ -509,10 +509,9 @@ void Engine::LoadLevels(void) {
 	engineDebugger.WriteLine(">> 12 - COMPLETE");
 }
 void Engine::LoadItems(void) {
-	std::cout << ">> 13 - Loading Items" << std::endl;
-	std::cout << ">>>> NOT IMPLEMENTED" << std::endl;
-
-	std::cout << ">> 13 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 13 - Loading Items");
+	engineDebugger.WriteLine(">>>> NOT IMPLEMENTED");
+	engineDebugger.WriteLine(">> 13 - COMPLETE");
 }
 void Engine::LoadPlayer(void) {
 	std::cout << ">> 14 - Loading Players" << std::endl;
