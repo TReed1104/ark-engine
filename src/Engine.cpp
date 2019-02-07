@@ -387,7 +387,7 @@ void Engine::LoadInputDevices(void) {
 	engineDebugger.WriteLine(">> 6 - COMPLETE");
 }
 void Engine::LoadFonts(void) {
-	std::cout << ">> 7 - Loading Fonts" << std::endl;
+	engineDebugger.WriteLine(">> 7 - Loading Fonts");
 
 	if (configFile->IsLoaded()) {
 		size_t numberOfFonts = configFile->SizeOfObjectArray("engine.fonts");
@@ -400,8 +400,8 @@ void Engine::LoadFonts(void) {
 				fontRegister.push_back(newFont);
 			}
 			else {
-				std::cout << ">>>> ERROR!!!! - Failed to load Font: " << fontPath << std::endl;
-				std::cout << ">>>> 7 - FAILED" << std::endl;
+				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Font: " + fontPath );
+				engineDebugger.WriteLine(">> 7 - FAILED");
 				this->Close();
 			}
 		}
@@ -409,11 +409,12 @@ void Engine::LoadFonts(void) {
 	else {
 		// Config failed to load.
 		std::cout << ">>>> ERROR!!!! - Engine config wasn't loaded " << std::endl;
-		std::cout << ">> 7 - FAILED" << std::endl;
+		engineDebugger.WriteLine("");
+		engineDebugger.WriteLine(">> 7 - FAILED");
 		this->Close();
 	}
 
-	std::cout << ">> 7 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 7 - COMPLETE");
 }
 void Engine::LoadTextObjects(void) {
 	std::cout << ">> 8 - Loading Text Objects" << std::endl;
