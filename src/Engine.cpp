@@ -489,7 +489,7 @@ void Engine::LoadTilesets(void) {
 	engineDebugger.WriteLine(">> 11 - COMPLETE");
 }
 void Engine::LoadLevels(void) {
-	std::cout << ">> 12 - Loading Levels" << std::endl;
+	engineDebugger.WriteLine(">> 12 - Loading Levels");
 
 	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList(contentDirectory + "levels");
 	const size_t listOfLevelFilesSize = listOfLevelFiles.size();
@@ -499,14 +499,14 @@ void Engine::LoadLevels(void) {
 			levelRegister.push_back(newLevel);
 		}
 		else {
-			std::cout << ">>>> ERROR!!!! - Failed to load Shader " << listOfLevelFiles[i] << std::endl;
-			std::cout << ">> 12 - FAILED" << std::endl;
+			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Shader " + listOfLevelFiles[i]);
+			engineDebugger.WriteLine(">> 12 - FAILED");
 			this->Close();
 		}
 	}
 	indexOfCurrentLevel = 0;
 
-	std::cout << ">> 12 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 12 - COMPLETE");
 }
 void Engine::LoadItems(void) {
 	std::cout << ">> 13 - Loading Items" << std::endl;
