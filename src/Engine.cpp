@@ -514,11 +514,11 @@ void Engine::LoadItems(void) {
 	engineDebugger.WriteLine(">> 13 - COMPLETE");
 }
 void Engine::LoadPlayer(void) {
-	std::cout << ">> 14 - Loading Players" << std::endl;
+	engineDebugger.WriteLine(">> 14 - Loading Players");
 
 	player = new Player(contentDirectory + "entities/player.json");
 
-	std::cout << ">> 14 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 14 - COMPLETE");
 }
 void Engine::LoadEntities(void) {
 	std::cout << ">> 15 - Loading Entities" << std::endl;
