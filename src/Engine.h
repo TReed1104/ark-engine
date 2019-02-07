@@ -2,7 +2,6 @@
 #define ARKENGINE_ENGINE_H_
 
 // C++ libraries
-#include <iostream>
 #include <algorithm>
 #include <vector>
 #include <string>
