@@ -536,7 +536,7 @@ void Engine::LoadCameras(void) {
 
 // Master Load Function, calls all the other individual loads
 void Engine::LoadEngine(void) {
-	std::cout << "#### ARKENGINE LOAD BEGINNING" << std::endl;
+	engineDebugger.WriteLine("#### ARKENGINE LOAD BEGINNING");
 
 	// Load Engine Core configs
 	ConfigureDebugging();
@@ -567,7 +567,7 @@ void Engine::LoadEngine(void) {
 
 	// Load complete
 	isRunning = true;	// Allows the game loop to run
-	std::cout << "#### ARKENGINE LOAD COMPLETE" << std::endl;
+	engineDebugger.WriteLine("#### ARKENGINE LOAD COMPLETE");
 }
 
 // Events
