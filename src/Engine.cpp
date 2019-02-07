@@ -677,7 +677,7 @@ void Engine::Run(void) {
 	// Loads all the configs, the game content and initialises everything needed by the engine to run.
 	LoadEngine();
 
-	std::cout << "\n## Game Runtime - Begun" << std::endl;
+	engineDebugger.WriteLine("\n## Game Runtime - Begun");
 
 	// FPS variables
 	int fpsCounter = 0;
@@ -692,7 +692,7 @@ void Engine::Run(void) {
 		// This caps out deltaTime to prevent the insanely high deltaTime caused by moving the window or game loading
 		if (deltaTime > maxDeltatime) {
 			deltaTime = maxDeltatime;
-			std::cout << "capped deltaTime" << std::endl;
+			engineDebugger.WriteLine("CAPPED DELTATIME");
 		}
 
 		// Main Game loop
@@ -712,7 +712,8 @@ void Engine::Run(void) {
 		}
 		oldFrameTime = currentFrameTime;
 	}
-	std::cout << "## Game Runtime - Finished" << std::endl;
+
+	engineDebugger.WriteLine("## Game Runtime - Finished");
 	this->Close(true);
 }
 
