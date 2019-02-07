@@ -425,27 +425,27 @@ void Engine::LoadTextObjects(void) {
 	engineDebugger.WriteLine(">> 8 - COMPLETE");
 }
 void Engine::LoadTextures(void) {
-	std::cout << ">> 9 - Loading Textures" << std::endl;
-
+	engineDebugger.WriteLine(">> 9 - Loading Textures");
+	
 	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
 	const size_t textureFileListSize = listOfTextures.size();
 	for (size_t i = 0; i < textureFileListSize; i++) {
 		textureRegister.push_back(Texture(listOfTextures[i], true, true));
 		if (!textureRegister.back().isLoaded) {
-			std::cout << ">>>> ERROR!!!! - Failed to load texture" << listOfTextures[i] << std::endl;
-			std::cout << ">>>> 9 - FAILED" << std::endl;
+			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load texture" + listOfTextures[i]);
+			engineDebugger.WriteLine(">>>> 9 - FAILED");
 			this->Close();
 		}
 	}
 
 	// Find the default texture for when textures are failed to be found.
 	if ((indexOfDefaultTexture = GetIndexOfTexture(nameOfDefaultTexture)) == -1) {
-		std::cout << ">>>> ERROR!!!! - Unable to find default texture" << std::endl;
-		std::cout << ">>>> 9 - FAILED" << std::endl;
+		engineDebugger.WriteLine(">>>> ERROR!!!! - Unable to find default texture");
+		engineDebugger.WriteLine(">>>> 9 - FAILED");
 		this->Close();
 	}
 
-	std::cout << ">> 9 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 9 - COMPLETE");
 }
 void Engine::LoadModels(void) {
 	std::cout << ">> 10 - Loading Models" << std::endl;
