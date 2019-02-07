@@ -521,10 +521,9 @@ void Engine::LoadPlayer(void) {
 	engineDebugger.WriteLine(">> 14 - COMPLETE");
 }
 void Engine::LoadEntities(void) {
-	std::cout << ">> 15 - Loading Entities" << std::endl;
-	std::cout << ">>>> NOT IMPLEMENTED" << std::endl;
-
-	std::cout << ">> 15 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 15 - Loading Entities");
+	engineDebugger.WriteLine(">>>> NOT IMPLEMENTED");
+	engineDebugger.WriteLine(">> 15 - COMPLETE");
 }
 void Engine::LoadCameras(void) {
 	std::cout << ">> 16 - Loading Cameras" << std::endl;
