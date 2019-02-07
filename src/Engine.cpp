@@ -448,7 +448,7 @@ void Engine::LoadTextures(void) {
 	engineDebugger.WriteLine(">> 9 - COMPLETE");
 }
 void Engine::LoadModels(void) {
-	std::cout << ">> 10 - Loading Models" << std::endl;
+	engineDebugger.WriteLine(">> 10 - Loading Models");
 
 	std::vector<std::string> listOfModels = FileSystemUtilities::GetFileList(contentDirectory + "models");
 	const size_t listOfModelSize = listOfModels.size();
@@ -458,15 +458,16 @@ void Engine::LoadModels(void) {
 
 	// Find the default models
 	if ((indexOfTileModel = GetIndexOfModel(nameOfDefaultTileModel)) == -1) {
-		std::cout << ">>>> ERROR!!!! - Unable to find default model" << std::endl;
-		std::cout << ">>>> 10 - FAILED" << std::endl;
+		engineDebugger.WriteLine(">>>> ERROR!!!! - Unable to find default model");
+		engineDebugger.WriteLine(">>>> 10 - FAILED");
 		this->Close();
 	}
+	// If we can't find the default sprite model, use the tile model
 	if ((indexOfSpriteModel = GetIndexOfModel(nameOfDefaultSpriteModel)) == -1) {
 		indexOfSpriteModel = indexOfTileModel;
 	}
 
-	std::cout << ">> 10 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 10 - COMPLETE");
 }
 void Engine::LoadTilesets(void) {
 	std::cout << ">> 11 - Loading Tilesets" << std::endl;
