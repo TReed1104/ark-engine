@@ -417,12 +417,12 @@ void Engine::LoadFonts(void) {
 	engineDebugger.WriteLine(">> 7 - COMPLETE");
 }
 void Engine::LoadTextObjects(void) {
-	std::cout << ">> 8 - Loading Text Objects" << std::endl;
+	engineDebugger.WriteLine(">> 8 - Loading Text Objects");
 	const int indexOfFont = GetIndexOfFont("Arial");
 	textObjectRegister.push_back(new TextObject("UI: Health", "Health: 100%", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 255 / 255.0f, 255 / 255.0f), true));
 	textObjectRegister.push_back(new TextObject("DEBUG: FPS Counter", "FPS: 0", fontRegister[indexOfFont], glm::vec3(20.0f, 30.0f, 0.02f), glm::vec3(255 / 255.0f, 255 / 255.0f, 255 / 255.0f), true));
 	textObjectRegister.push_back(new TextObject("DEBUG: Grid Position", "GridPos: (0, 0)", fontRegister[indexOfFont], glm::vec3(20.0f, 40.0f, 0.02f), glm::vec3(255 / 255.0f, 255 / 255.0f, 255 / 255.0f), true));
-	std::cout << ">> 8 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 8 - COMPLETE");
 }
 void Engine::LoadTextures(void) {
 	std::cout << ">> 9 - Loading Textures" << std::endl;
