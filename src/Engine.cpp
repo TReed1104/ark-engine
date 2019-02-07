@@ -328,6 +328,7 @@ void Engine::LoadExternalLibraries(void) {
 // Loading Functions
 void Engine::LoadShaders(void) {
 	std::cout << ">> 5 - Loading Shaders" << std::endl;
+	engineDebugger.WriteLine(">> 5 - Loading Shaders");
 
 	if (configFile->IsLoaded()) {
 		size_t numberOfShaders = configFile->SizeOfObjectArray("engine.shaders");
@@ -336,25 +337,25 @@ void Engine::LoadShaders(void) {
 			std::string vertexShaderName = contentDirectory + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.vertex");
 			std::string fragmentShaderName = contentDirectory + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.fragment");
 
-			// Create and Load the shader
+			// Compile the shader
 			Shader* newShader = new Shader(nameOfShader, vertexShaderName, fragmentShaderName);
 			if (newShader->IsLoaded()) {
-				// Loaded successfully, storing it for use
-				shaderRegister.push_back(newShader);
+				shaderRegister.push_back(newShader);	// Loaded successfully, storing it for use
 			}
 			else {
-				std::cout << ">>>> ERROR!!!! - Failed to load Shader " << nameOfShader << std::endl;
-				std::cout << ">> 5 - FAILED" << std::endl;
+				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to compile Shader " + nameOfShader);
+				engineDebugger.WriteLine(">> 5 - FAILED");
 				this->Close();
 			}
 		}
 	}
 	else {
-		std::cout << ">>>> ERROR!!!! - Engine config wasn't loaded " << std::endl;
-		std::cout << ">> 5 - FAILED" << std::endl;
+		engineDebugger.WriteLine(">>>> ERROR!!!! - Engine config wasn't loaded");
+		engineDebugger.WriteLine(">> 5 - FAILED");
 		this->Close();
 	}
 
+	engineDebugger.WriteLine("");
 	std::cout << ">> 5 - COMPLETE" << std::endl;
 }
 void Engine::LoadInputDevices(void) {
