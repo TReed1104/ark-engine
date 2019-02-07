@@ -470,7 +470,7 @@ void Engine::LoadModels(void) {
 	engineDebugger.WriteLine(">> 10 - COMPLETE");
 }
 void Engine::LoadTilesets(void) {
-	std::cout << ">> 11 - Loading Tilesets" << std::endl;
+	engineDebugger.WriteLine(">> 11 - Loading Tilesets");
 
 	std::vector<std::string> listOfTilesets = FileSystemUtilities::GetFileList(contentDirectory + "tilesets");
 	const size_t listOfTilesetsSize = listOfTilesets.size();
@@ -480,13 +480,13 @@ void Engine::LoadTilesets(void) {
 			tilesetRegister.push_back(newTileSet);
 		}
 		else {
-			std::cout << ">>>> ERROR!!!! - Failed to load Shader " << listOfTilesets[i] << std::endl;
-			std::cout << ">> 11 - FAILED" << std::endl;
+			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Shader " + listOfTilesets[i]);
+			engineDebugger.WriteLine(">> 11 - FAILED");
 			this->Close();
 		}
 	}
 
-	std::cout << ">> 11 - COMPLETE" << std::endl;
+	engineDebugger.WriteLine(">> 11 - COMPLETE");
 }
 void Engine::LoadLevels(void) {
 	std::cout << ">> 12 - Loading Levels" << std::endl;
