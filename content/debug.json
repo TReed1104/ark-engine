@@ -1,7 +1,7 @@
 {
     "debug": {
         "core engine debug": {
-            "id": "",
+            "id": "core engine debugger",
             "debugging enabled": true,
             "logging enabled": true,
             "log file": "engine log.txt"
