@@ -1,9 +1,20 @@
 {
     "debug": {
         "core engine debug": {
+            "id": "",
             "debugging enabled": true,
-			"logging enabled": true,
-			"log file": "engine log.txt"
-        }
+            "logging enabled": true,
+            "log file": "engine log.txt"
+        },
+        "additional debuggers": [
+            {
+                "debugger": {
+                    "id": "test additional debugger 1",
+                    "debugging enabled": true,
+                    "logging enabled": true,
+                    "log file": "test addition log.txt"
+                }
+            }
+        ]
     }
 }
