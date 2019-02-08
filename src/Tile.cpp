@@ -57,7 +57,7 @@ float Tile::CalculateSlope(const glm::ivec2& slopeOffset) {
 	// Delta of each side where the slope is
 	int deltaX = right.x - left.x;
 	int deltaY = right.y - left.y;
-	float slopeAngle = std::atan2(deltaY, deltaX) * 180 / 3.14159f;	// Calculate the slope
+	float slopeAngle = (float)(std::atan2(deltaY, deltaX)) * 180.0f / 3.14159f;		// Calculate the slope
 
 	return slopeAngle;
 }
