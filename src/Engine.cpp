@@ -138,6 +138,13 @@ void Engine::ConfigureDebugging(void) {
 		engineDebugger.SetDebuggingState(debugConfigurationFile->Get<bool>("debug.core engine debug.debugging enabled"));
 		engineDebugger.SetLoggingState(debugConfigurationFile->Get<bool>("debug.core engine debug.logging enabled"));
 		engineDebugger.SetLoggingFilePath(debugConfigurationFile->Get<std::string>("debug.core engine debug.log file"));
+
+		// TODO: Load additional debuggers from the config
+		size_t numberOfAdditionalDebuggers = debugConfigurationFile->SizeOfObjectArray("debug.additional debuggers");
+		if (numberOfAdditionalDebuggers > 0) {
+			// Load additional Debuggers
+			engineDebugger.WriteLine(">>>> NOT IMPLEMENTED - Addition Debugger loading");
+		}
 	}
 	else {
 		// No debug config was found, disable the engine debugger
