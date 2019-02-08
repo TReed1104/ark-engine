@@ -134,12 +134,14 @@ void Engine::ConfigureDebugging(void) {
 	debuggingFile = new JsonFile(contentDirectory + "debug.json");
 	if (debuggingFile->IsLoaded()) {
 		// Debugging setup
+		engineDebugger.SetName(debuggingFile->Get<std::string>("debug.core engine debug.id"));
 		engineDebugger.SetDebuggingState(debuggingFile->Get<bool>("debug.core engine debug.debugging enabled"));
 		engineDebugger.SetLoggingState(debuggingFile->Get<bool>("debug.core engine debug.logging enabled"));
 		engineDebugger.SetLoggingFilePath(debuggingFile->Get<std::string>("debug.core engine debug.log file"));
 	}
 	else {
 		// No debug config was found, disable the engine debugger
+		engineDebugger.SetName("NOT LOADED");
 		engineDebugger.SetDebuggingState(false);
 		engineDebugger.SetLoggingState(false);
 		engineDebugger.SetLoggingFilePath("");
