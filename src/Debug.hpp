@@ -30,6 +30,9 @@ namespace Debug {
 		}
 
 		// Get States
+		const std::string GetName() {
+			return name;
+		}
 		const bool GetDebuggingState() {
 			return isDebuggerEnabled;
 		}
@@ -41,9 +44,11 @@ namespace Debug {
 		}
 
 		// Set States
+		void SetName(const std::string& newName) {
+			this->name = newName;
+		}
 		void SetDebuggingState(const bool& isEnabled) {
 			this->isDebuggerEnabled = isEnabled;
-
 		}
 		void SetLoggingState(const bool& isEnabled) {
 			this->isLoggingEnabled = isEnabled;
@@ -54,6 +59,7 @@ namespace Debug {
 		
 	private:
 		// Private Variables
+		std::string name;
 		bool isDebuggerEnabled = false;
 		bool isLoggingEnabled = false;
 		std::string loggingFilePath = "";
