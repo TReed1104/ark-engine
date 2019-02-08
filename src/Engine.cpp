@@ -2,7 +2,7 @@
 
 // Constructors
 Engine::Engine(char* gameName) {
-	debuggingFile = nullptr;
+	debugConfigurationFile = nullptr;
 	configFile = nullptr;
 	mainCamera = nullptr;
 	mainCameraFocus = nullptr;
@@ -35,8 +35,8 @@ Engine::~Engine(void) {
 // Clean Up functions
 void Engine::CleanUp(void) {
 	// Clear the Debugging config file from memory
-	if (debuggingFile != nullptr) {
-		delete debuggingFile;
+	if (debugConfigurationFile != nullptr) {
+		delete debugConfigurationFile;
 	}
 
 	// Clear the config file from memory
@@ -131,13 +131,13 @@ void Engine::Close(bool isClean) {
 
 // Core Engine Loading
 void Engine::ConfigureDebugging(void) {
-	debuggingFile = new JsonFile(contentDirectory + "debug.json");
-	if (debuggingFile->IsLoaded()) {
+	debugConfigurationFile = new JsonFile(contentDirectory + "debug.json");
+	if (debugConfigurationFile->IsLoaded()) {
 		// Debugging setup
-		engineDebugger.SetName(debuggingFile->Get<std::string>("debug.core engine debug.id"));
-		engineDebugger.SetDebuggingState(debuggingFile->Get<bool>("debug.core engine debug.debugging enabled"));
-		engineDebugger.SetLoggingState(debuggingFile->Get<bool>("debug.core engine debug.logging enabled"));
-		engineDebugger.SetLoggingFilePath(debuggingFile->Get<std::string>("debug.core engine debug.log file"));
+		engineDebugger.SetName(debugConfigurationFile->Get<std::string>("debug.core engine debug.id"));
+		engineDebugger.SetDebuggingState(debugConfigurationFile->Get<bool>("debug.core engine debug.debugging enabled"));
+		engineDebugger.SetLoggingState(debugConfigurationFile->Get<bool>("debug.core engine debug.logging enabled"));
+		engineDebugger.SetLoggingFilePath(debugConfigurationFile->Get<std::string>("debug.core engine debug.log file"));
 	}
 	else {
 		// No debug config was found, disable the engine debugger
