@@ -337,7 +337,6 @@ void Engine::LoadExternalLibraries(void) {
 
 // Loading Functions
 void Engine::LoadShaders(void) {
-	std::cout << ">> 5 - Loading Shaders" << std::endl;
 	engineDebugger.WriteLine(">> 5 - Loading Shaders");
 
 	if (configFile->IsLoaded()) {
@@ -418,8 +417,7 @@ void Engine::LoadFonts(void) {
 	}
 	else {
 		// Config failed to load.
-		std::cout << ">>>> ERROR!!!! - Engine config wasn't loaded " << std::endl;
-		engineDebugger.WriteLine("");
+		engineDebugger.WriteLine(">>>> ERROR!!!! - Engine config wasn't loaded");
 		engineDebugger.WriteLine(">> 7 - FAILED");
 		this->Close();
 	}

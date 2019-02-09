@@ -44,7 +44,6 @@ void Model::Mesh::BindBuffers() {
 		}
 	}
 	glBindVertexArray(0);
-	//std::cout << ">> Buffers OK! VBO GLuint: " << vertexBufferObject << ", IBO GLuint: " << indicesBufferObject << ", UVBO GLuint: " << uvBufferObject << std::endl;
 }
 void Model::Mesh::SetTranslation(bool isModelUpdate, const glm::vec3& translation) {
 	if (!isModelUpdate) {
