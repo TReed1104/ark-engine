@@ -6,7 +6,7 @@ Engine* Texture::Engine_Pointer;
 
 Texture::Texture(const std::string & path, const bool &load, const bool & isTextureArray) {
 	this->name = path;
-	bool isLoaded = false;
+	this->isLoaded = false;
 	this->textureID = -1;
 	this->dimensionsInPixels = glm::ivec2(0, 0);
 	this->dimensionsInFrames = glm::ivec2(0, 0);
@@ -15,10 +15,10 @@ Texture::Texture(const std::string & path, const bool &load, const bool & isText
 	this->numberOfFrames = 0;
 	if (load) {
 		if (!isTextureArray) {
-			ImportTexture();
+			isLoaded = ImportTexture();
 		}
 		else {
-			ImportTextureArray();
+			isLoaded = ImportTextureArray();
 		}
 	}
 }
@@ -32,7 +32,6 @@ const bool Texture::IsLoaded(void) {
 	return isLoaded;
 }
 bool Texture::ImportTexture() {
-	isLoaded = false;
 	return false;
 }
 bool Texture::ImportTextureArray() {
@@ -40,12 +39,11 @@ bool Texture::ImportTextureArray() {
 
 	if (image == NULL) {
 		// If the texture was not loaded correctly, quit the program and show a error message on the console.
-		std::cout << ">>>> ERROR!!!! - Failed to load: " << name << std::endl;
-		isLoaded = false;
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load: " + name);
 		return false;
 	}
 	else {
-		std::cout << ">>>> Texture Loaded! - " << name << std::endl;
+		Engine_Pointer->engineDebugger.WriteLine(">>>> Texture Loaded! - " + name);
 	}
 	// Create the texture
 	dimensionsInPixels = glm::ivec2(image->w, image->h);
@@ -102,6 +100,5 @@ bool Texture::ImportTextureArray() {
 
 	glBindTexture(GL_TEXTURE_2D_ARRAY, 0);			// Unbind the texture
 	SDL_FreeSurface(image);							// Clear up the memory used by SDL's image loader.
-	isLoaded = true;
 	return true;
 }
