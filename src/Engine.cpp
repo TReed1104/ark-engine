@@ -439,8 +439,11 @@ void Engine::LoadTextures(void) {
 	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
 	const size_t textureFileListSize = listOfTextures.size();
 	for (size_t i = 0; i < textureFileListSize; i++) {
-		textureRegister.push_back(Texture(listOfTextures[i], true, true));
-		if (!textureRegister.back().isLoaded) {
+		Texture newTexture = Texture(listOfTextures[i], true, true);
+		if (newTexture.IsLoaded()) {
+			textureRegister.push_back(newTexture);
+		}
+		else {
 			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load texture" + listOfTextures[i]);
 			engineDebugger.WriteLine(">>>> 9 - FAILED");
 			this->Close();
