@@ -58,11 +58,11 @@ void TextObject::Draw(void) {
 			glUniformMatrix4fv(glGetUniformLocation(*shader, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
 			glUniformMatrix4fv(glGetUniformLocation(*shader, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 
-			bool useTextures = (glyphs[i].texture.id != -1 && currentMesh.isSetupForTextures);
+			bool useTextures = (glyphs[i].texture.textureID != -1 && currentMesh.isSetupForTextures);
 			glUniform1i(glGetUniformLocation(*shader, "hasTexture"), useTextures);
 			if (useTextures) {
 				glActiveTexture(GL_TEXTURE0);
-				glBindTexture(GL_TEXTURE_2D, glyphs[i].texture.id);
+				glBindTexture(GL_TEXTURE_2D, glyphs[i].texture.textureID);
 				glUniform1i(glGetUniformLocation(*shader, "textureSampler"), 0);
 				glUniform3fv(glGetUniformLocation(*shader, "textColour"), 1, glm::value_ptr(colour));
 			}

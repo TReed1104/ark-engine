@@ -76,8 +76,8 @@ bool Font::LoadGlyphs(void) {
 				newGlyph.mesh.BindBuffers();
 
 				// Get the Texture of the Glyph for Rendering
-				glGenTextures(1, &newGlyph.texture.id);
-				glBindTexture(GL_TEXTURE_2D, newGlyph.texture.id);
+				glGenTextures(1, &newGlyph.texture.textureID);
+				glBindTexture(GL_TEXTURE_2D, newGlyph.texture.textureID);
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, fontFace->glyph->bitmap.width, fontFace->glyph->bitmap.rows, 0, GL_RED, GL_UNSIGNED_BYTE, fontFace->glyph->bitmap.buffer);
 				// Wrapping settings
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -89,7 +89,7 @@ bool Font::LoadGlyphs(void) {
 				newGlyph.texture.dimensionsInPixels = glm::ivec2(fontFace->glyph->bitmap.width, fontFace->glyph->bitmap.rows);
 				newGlyph.texture.dimensionsInFrames = glm::ivec2(1, 1);
 				newGlyph.texture.frameSize = glm::ivec2(fontFace->glyph->bitmap.width, fontFace->glyph->bitmap.rows);
-				newGlyph.texture.frameSizeBordered = glm::ivec2(0, 0);
+				newGlyph.texture.frameSizeWithBorder = glm::ivec2(0, 0);
 				newGlyph.texture.numberOfFrames = 1;
 
 				// Clear up

@@ -84,7 +84,7 @@ void GameObject::Draw(void) {
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->projectionMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 
-		bool useTextures = (texture->id != -1 && currentMesh.isSetupForTextures);
+		bool useTextures = (texture->textureID != -1 && currentMesh.isSetupForTextures);
 		glUniform1i(glGetUniformLocation(*shader, "hasTexture"), useTextures);
 		if (useTextures) {
 			// Textures are setup correctly, tell the shader to usse the texture and setup the source frame.
@@ -93,7 +93,7 @@ void GameObject::Draw(void) {
 
 			// Activate the correct texture.
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D_ARRAY, texture->id);
+			glBindTexture(GL_TEXTURE_2D_ARRAY, texture->textureID);
 			glUniform1i(glGetUniformLocation(*shader, "textureSampler"), 0);
 		}
 
