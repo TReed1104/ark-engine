@@ -77,17 +77,6 @@ BoundingBox* Level::GetTileBoundingBox(const glm::vec2& gridPosition) {
 		return nullptr;
 	}
 }
-void Level::Reload(void) {
-	std::cout << ">> RELOADING MAP FILE" << std::endl;
-	if (configFile->IsLoaded()) {
-		delete configFile;
-		for (int i = 0; i < tileMap.size(); i++) {
-			delete tileMap[i];
-		}
-		tileMap.clear();
-	}
-	isLoaded = Load();
-}
 bool Level::Load(void) {
 	configFile = new JsonFile(filePath);
 	if (configFile->IsLoaded()) {
@@ -124,7 +113,18 @@ bool Level::Load(void) {
 		return true;
 	}
 	else {
-		std::cout << ">>>> 12 - ERROR: Could not load level: " << name << std::endl;
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR: Could not load level: " + name);
 		return false;
 	}
+}
+void Level::Reload(void) {
+	Engine_Pointer->engineDebugger.WriteLine(">>>> Reloading Level: " + name);
+	if (configFile->IsLoaded()) {
+		delete configFile;
+		for (int i = 0; i < tileMap.size(); i++) {
+			delete tileMap[i];
+		}
+		tileMap.clear();
+	}
+	isLoaded = Load();
 }
