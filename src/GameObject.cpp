@@ -11,7 +11,7 @@ GameObject::GameObject(const std::string& filePath) {
 			LoadAnimations();
 		}
 		else {
-			std::cout << ">>>> Object failed to load Config File: " << filePath << std::endl;
+			Engine_Pointer->engineDebugger.WriteLine(">>>> Object failed to load Config File: " + filePath);
 		}
 	}
 	else {
@@ -121,8 +121,6 @@ void GameObject::Draw(void) {
 const std::string GameObject::GetName(void) {
 	return this->name;
 }
-
-// Position control functions
 void GameObject::Reposition(const glm::vec2& newPosition) {
 	position = glm::vec3(newPosition.x, newPosition.y, position.z);
 	velocity = glm::vec2(0, 0);																			// Reset Velocity, because the movement has taken place
@@ -225,7 +223,7 @@ void GameObject::LoadAnimations() {
 			}
 		}
 		else {
-			std::cout << ">>>> No animations were present" << std::endl;
+			Engine_Pointer->engineDebugger.WriteLine(">>>> No animations were present");
 		}
 	}
 }
