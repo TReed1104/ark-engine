@@ -1,7 +1,6 @@
 #ifndef ARKENGINE_FONT_H_
 #define ARKENGINE_FONT_H_
 
-#include <iostream>
 #include <string>
 #include <map>
 #include <ft2build.h>

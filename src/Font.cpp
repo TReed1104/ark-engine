@@ -98,16 +98,16 @@ bool Font::LoadGlyphs(void) {
 				glyphs[charToLoad] = newGlyph;
 			}
 			else {
-				std::cout << ">>>> Character: " << charToLoad << " was not loaded successfully" << std::endl;
+				Engine_Pointer->engineDebugger.WriteLine(">>>> Character: " + std::to_string(charToLoad) + " was not loaded successfully");
 				return false;
 			}
 		}
 		else {
 			// Output Error - Character missing from TTF file
-			std::cout << i << " - " << charToLoad << ": was not found in the Font Face file supplied" << std::endl;
+			Engine_Pointer->engineDebugger.WriteLine(">>>> Character: " + std::to_string(charToLoad) + " was not found in the Font Face file supplied");
 		}
 	}
-	std::cout << ">>>> Font Loaded! - " << name << " (Size - " << fontSize << "}" << std::endl;
+	Engine_Pointer->engineDebugger.WriteLine(">>>> Font Loaded! - " + name + " (Size - " + std::to_string(fontSize) + "}");
 	return true;
 }
 Glyph Font::GetGlyph(const char& character) {
