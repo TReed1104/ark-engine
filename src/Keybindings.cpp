@@ -20,8 +20,7 @@ bool KeybindingHandler::AddKeybinding(const Keybind& newBinding) {
 		return true;
 	}
 	else {
-		std::cout << ">>>> Error - Binding already exists" << std::endl;
-
+		Engine_Pointer->engineDebugger.WriteLine(">>>> Error - Binding already exists");
 		return false;
 	}
 }
