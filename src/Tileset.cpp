@@ -46,7 +46,7 @@ bool Tileset::Load() {
 		return true;
 	}
 	else {
-		std::cout << ">>>> 11 - ERROR: Tileset config file wasn't loaded" << std::endl;
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR: Tileset config file wasn't loaded");
 		return false;
 	}
 }
