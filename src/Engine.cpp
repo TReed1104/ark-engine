@@ -489,7 +489,7 @@ void Engine::LoadTilesets(void) {
 			tilesetRegister.push_back(newTileSet);
 		}
 		else {
-			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Shader " + listOfTilesets[i]);
+			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Tileset " + listOfTilesets[i]);
 			engineDebugger.WriteLine(">> 11 - FAILED");
 			this->Close();
 		}
