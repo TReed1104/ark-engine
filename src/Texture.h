@@ -10,21 +10,25 @@ class Engine;
 class Texture {
 public:
 	static Engine* Engine_Pointer;
-
-	std::string name;
-	bool isLoaded;
-	GLuint id;
+	GLuint textureID;
 	glm::ivec2 dimensionsInPixels;
 	glm::ivec2 dimensionsInFrames;
 	glm::ivec2 frameSize;
-	glm::ivec2 frameSizeBordered;
+	glm::ivec2 frameSizeWithBorder;
 	int numberOfFrames;
 
 	Texture(const std::string& path = "", const bool& load = true, const bool& isTextureArray = false);
 	~Texture();
 
+	const std::string GetName(void);
+	const bool IsLoaded(void);
+
+
 private:
-	bool ImportTexture();
-	bool ImportTextureArray();
+	std::string name;
+	bool isLoaded;
+
+	bool ImportTexture(void);
+	bool ImportTextureArray(void);
 };
 #endif

@@ -7,11 +7,11 @@ Engine* Texture::Engine_Pointer;
 Texture::Texture(const std::string & path, const bool &load, const bool & isTextureArray) {
 	this->name = path;
 	bool isLoaded = false;
-	this->id = -1;
+	this->textureID = -1;
 	this->dimensionsInPixels = glm::ivec2(0, 0);
 	this->dimensionsInFrames = glm::ivec2(0, 0);
 	this->frameSize = glm::ivec2(0, 0);
-	this->frameSizeBordered = glm::ivec2(0, 0);
+	this->frameSizeWithBorder = glm::ivec2(0, 0);
 	this->numberOfFrames = 0;
 	if (load) {
 		if (!isTextureArray) {
@@ -25,6 +25,12 @@ Texture::Texture(const std::string & path, const bool &load, const bool & isText
 Texture::~Texture() {
 }
 
+const std::string Texture::GetName(void) {
+	return name;
+}
+const bool Texture::IsLoaded(void) {
+	return isLoaded;
+}
 bool Texture::ImportTexture() {
 	isLoaded = false;
 	return false;
@@ -53,13 +59,13 @@ bool Texture::ImportTextureArray() {
 	}
 
 	// Size of each frame including its border for differentiation
-	frameSizeBordered = frameSize + (Engine_Pointer->textureBorderSize * 2);
-	dimensionsInFrames = glm::ivec2(image->w / frameSizeBordered.x, image->h / frameSizeBordered.y);
+	frameSizeWithBorder = frameSize + (Engine_Pointer->textureBorderSize * 2);
+	dimensionsInFrames = glm::ivec2(image->w / frameSizeWithBorder.x, image->h / frameSizeWithBorder.y);
 	numberOfFrames = (dimensionsInFrames.x * dimensionsInFrames.y);
 
 	// Initialise the texture buffer
-	glGenTextures(1, &id);
-	glBindTexture(GL_TEXTURE_2D_ARRAY, id);
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
 	// Initialise the size of the 3D texture array
 
 	Uint8 colours = image->format->BytesPerPixel;
@@ -78,8 +84,8 @@ bool Texture::ImportTextureArray() {
 		for (int x = 0; x < dimensionsInFrames.y; x++) {
 			// Works out how to unpack and grab the correct part of the texture for the frame
 			glPixelStorei(GL_UNPACK_ROW_LENGTH, image->w);
-			glPixelStorei(GL_UNPACK_SKIP_PIXELS, (frameSizeBordered.x * x) + Engine_Pointer->textureBorderSize.x);
-			glPixelStorei(GL_UNPACK_SKIP_ROWS, (frameSizeBordered.y * y) + Engine_Pointer->textureBorderSize.y);
+			glPixelStorei(GL_UNPACK_SKIP_PIXELS, (frameSizeWithBorder.x * x) + Engine_Pointer->textureBorderSize.x);
+			glPixelStorei(GL_UNPACK_SKIP_ROWS, (frameSizeWithBorder.y * y) + Engine_Pointer->textureBorderSize.y);
 			// Store the part of the texture into the array
 			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, textureArrayLayerIndexer, frameSize.x, frameSize.y, 1, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
 			textureArrayLayerIndexer++;		// Increment the indexer
