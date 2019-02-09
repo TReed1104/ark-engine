@@ -226,14 +226,15 @@ void Engine::LoadEnginePointers(void) {
 	Font::Engine_Pointer = this;
 	TextObject::Engine_Pointer = this;
 	Keyboard::Engine_Pointer = this;
+	KeybindingHandler::Engine_Pointer = this;
 	GameController::Engine_Pointer = this;
-	Camera::Engine_Pointer = this;
 	BoundingBox::Engine_Pointer = this;
 	Animation::Engine_Pointer = this;
 	Animation::Frame::Engine_Pointer = this;
 	GameObject::Engine_Pointer = this;
 	Tileset::Engine_Pointer = this;
 	Level::Engine_Pointer = this;
+	Camera::Engine_Pointer = this;
 
 	engineDebugger.WriteLine(">> 3 - COMPLETE");
 }

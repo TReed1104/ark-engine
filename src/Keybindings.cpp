@@ -1,4 +1,7 @@
 #include "Keybindings.h"
+#include "Engine.h"
+
+Engine* KeybindingHandler::Engine_Pointer;
 
 KeybindingHandler::KeybindingHandler() {
 }
@@ -18,6 +21,7 @@ bool KeybindingHandler::AddKeybinding(const Keybind& newBinding) {
 	}
 	else {
 		std::cout << ">>>> Error - Binding already exists" << std::endl;
+
 		return false;
 	}
 }

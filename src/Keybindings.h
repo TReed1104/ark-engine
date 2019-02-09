@@ -6,6 +6,8 @@
 #include <map>
 #include "Keyboard.h"
 
+class Engine;
+
 struct Keybind {
 	std::string id;
 	std::string friendlyName;
@@ -14,6 +16,8 @@ struct Keybind {
 
 class KeybindingHandler {
 public:
+	static Engine* Engine_Pointer;
+
 	KeybindingHandler();
 	~KeybindingHandler();
 
