@@ -1,7 +1,6 @@
 #ifndef ARKENGINE_MODEL_H_
 #define ARKENGINE_MODEL_H_
 
-#include <iostream>
 #include <vector>
 #include <GL/glew.h>
 #include <glm/glm.hpp>
