@@ -43,12 +43,19 @@ Model::Model(const std::string& modelPath, const bool& load) {
 		}
 		Engine_Pointer->engineDebugger.WriteLine(">>>> Model loaded! - " + name);
 		importer.FreeScene();						// Cleans up the loader.
+		isLoaded = true;
 	}
 }
 Model::~Model() {
 
 }
 
+const bool Model::IsLoaded(void) {
+	return isLoaded;
+}
+const void Model::OverrideLoadState(const bool& newState) {
+	this->isLoaded = newState;
+}
 void Model::SetMeshParents() {
 	for (int i = 0; i < meshes.size(); i++) {
 		meshes[i].SetParent(*this);
@@ -57,30 +64,30 @@ void Model::SetMeshParents() {
 		meshes[i].SetScale();
 	}
 }
-void Model::Translate(const glm::vec3 & translation) {
+void Model::Translate(const glm::vec3& translation) {
 	modelTranslationMatrix = glm::translate(glm::mat4(1.0f), translation);
 	for (int i = 0; i < meshes.size(); i++) {
 		meshes[i].SetTranslation(true);
 	}
 }
-void Model::Rotate(const float & rotationAngle, const glm::vec3 & rotationAxis) {
+void Model::Rotate(const float& rotationAngle, const glm::vec3& rotationAxis) {
 	modelRotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotationAngle), rotationAxis);
 	for (int i = 0; i < meshes.size(); i++) {
 		meshes[i].SetRotation(true);
 	}
 }
-void Model::Scale(const glm::vec3 & scale) {
+void Model::Scale(const glm::vec3& scale) {
 	modelScaleMatrix = glm::scale(glm::mat4(1.0f), scale);
 	for (int i = 0; i < meshes.size(); i++) {
 		meshes[i].SetScale(true);
 	}
 }
-void Model::SetMeshTranslation(const int& indexOfMesh, const glm::vec3 & translation) {
+void Model::SetMeshTranslation(const int& indexOfMesh, const glm::vec3& translation) {
 	meshes[indexOfMesh].SetTranslation(false, translation);
 }
-void Model::SetMeshRotation(const int &indexOfMesh, const float & rotationAngle, const glm::vec3 & rotationAxis) {
+void Model::SetMeshRotation(const int &indexOfMesh, const float& rotationAngle, const glm::vec3& rotationAxis) {
 	meshes[indexOfMesh].SetRotation(false, rotationAngle, rotationAxis);
 }
-void Model::SetMeshScale(const int& indexOfMesh, const glm::vec3 & scale) {
+void Model::SetMeshScale(const int& indexOfMesh, const glm::vec3& scale) {
 	meshes[indexOfMesh].SetScale(false, scale);
 }

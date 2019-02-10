@@ -200,7 +200,7 @@ void Engine::LoadKeyBindings(void) {
 		for (size_t i = 0; i < numberOfKeybinds; i++) {
 			std::string nameOfBinding = configFile->Get<std::string>("engine.key bindings." + std::to_string(i) + ".binding.id");
 
-			Keybind bind {
+			Keybind bind{
 				configFile->Get<std::string>("engine.key bindings." + std::to_string(i) + ".binding.id"),
 				configFile->Get<std::string>("engine.key bindings." + std::to_string(i) + ".binding.friendly name"),
 				(Keyboard::Keys)configFile->Get<int>("engine.key bindings." + std::to_string(i) + ".binding.key id")
@@ -409,7 +409,7 @@ void Engine::LoadFonts(void) {
 				fontRegister.push_back(newFont);
 			}
 			else {
-				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Font: " + fontPath );
+				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Font: " + fontPath);
 				engineDebugger.WriteLine(">> 7 - FAILED");
 				this->Close();
 			}
@@ -434,7 +434,7 @@ void Engine::LoadTextObjects(void) {
 }
 void Engine::LoadTextures(void) {
 	engineDebugger.WriteLine(">> 9 - Loading Textures");
-	
+
 	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
 	const size_t textureFileListSize = listOfTextures.size();
 	for (size_t i = 0; i < textureFileListSize; i++) {
@@ -463,8 +463,24 @@ void Engine::LoadModels(void) {
 
 	std::vector<std::string> listOfModels = FileSystemUtilities::GetFileList(contentDirectory + "models");
 	const size_t listOfModelSize = listOfModels.size();
+	// Check we found any model files to load, if not exit as these are required for the program to work
+	if (listOfModelSize == 0) {
+		engineDebugger.WriteLine(">>>> ERROR!!!! - No to Model files found");
+		engineDebugger.WriteLine(">>>> 10 - FAILED");
+		this->Close();
+	}
+
+	// Load our model files
 	for (size_t i = 0; i < listOfModelSize; i++) {
-		modelRegister.push_back(Model(listOfModels[i]));
+		Model newModel = Model(listOfModels[i], true);
+		if (newModel.IsLoaded()) {
+			modelRegister.push_back(newModel);
+		}
+		else {
+			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Model" + listOfModels[i]);
+			engineDebugger.WriteLine(">>>> 10 - FAILED");
+			this->Close();
+		}
 	}
 
 	// Find the default models

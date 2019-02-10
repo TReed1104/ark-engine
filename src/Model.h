@@ -59,9 +59,11 @@ public:
 	std::vector<Mesh> meshes;
 
 	Model(const std::string& modelPath = "", const bool& load = true);
-	~Model();
+	~Model(void);
 
-	void SetMeshParents();
+	const bool IsLoaded(void);
+	const void OverrideLoadState(const bool& newState);
+	void SetMeshParents(void);
 	void Translate(const glm::vec3& translation = glm::vec3(0.0f));
 	void Rotate(const float& rotationAngle = 0.0f, const glm::vec3& rotationAxis = glm::vec3(0.0f));
 	void Scale(const glm::vec3& scale = glm::vec3(0.0f));
@@ -70,6 +72,7 @@ public:
 	void SetMeshScale(const int& indexOfMesh, const glm::vec3& scale = glm::vec3(0.0f));
 
 private:
+	bool isLoaded = false;
 	glm::mat4 modelTranslationMatrix;
 	glm::mat4 modelRotationMatrix;
 	glm::mat4 modelScaleMatrix;

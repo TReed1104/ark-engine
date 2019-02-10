@@ -18,6 +18,7 @@ TextObject::TextObject(const std::string& name, const std::string& text, Font* f
 	this->colour = colour;
 	this->indexOfTextShader = Engine_Pointer->GetIndexOfShader("text renderer");
 	this->model = Model(text, false);
+	this->model.OverrideLoadState(true);
 	this->useCamera = useCamera;
 	this->isEnabled = isEnabled;
 
