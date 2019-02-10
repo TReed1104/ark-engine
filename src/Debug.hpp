@@ -9,8 +9,11 @@ namespace Debug {
 	public:
 
 		// Constructors
-		Debugger() {
-
+		Debugger(const std::string& name, const bool& isDebuggerEnabled = false, const bool& isLoggingEnabled = false, const std::string& loggingFilePath = "") {
+			this->name = name;
+			this->isDebuggerEnabled = isDebuggerEnabled;
+			this->isLoggingEnabled = isLoggingEnabled;
+			this->loggingFilePath = loggingFilePath;
 		}
 		~Debugger() {
 
