@@ -341,6 +341,15 @@ void Engine::LoadShaders(void) {
 
 	if (configFile->IsLoaded()) {
 		size_t numberOfShaders = configFile->SizeOfObjectArray("engine.shaders");
+
+		// If no shaders are found, close the program
+		if (numberOfShaders == 0) {
+			engineDebugger.WriteLine(">>>> ERROR!!!! - No shaders were found ABORTING RUNTIME");
+			engineDebugger.WriteLine(">> 5 - FAILED");
+			this->Close();
+		}
+
+		// Load each of the shaders
 		for (size_t i = 0; i < numberOfShaders; i++) {
 			std::string nameOfShader = contentDirectory + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.id");
 			std::string vertexShaderName = contentDirectory + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.vertex");
