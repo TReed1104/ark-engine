@@ -22,6 +22,12 @@ namespace Debug {
 		// Outputs
 		void LogLine(const std::string& output) {
 			// TODO: Write line to output file
+
+			// Check the logging directory exists
+				// If it does, check if our file exists
+					// If log file is not present, create the log file
+			
+			// Log the output line
 		}
 		void WriteLine(const std::string& output) {
 			if (isDebuggerEnabled) {
