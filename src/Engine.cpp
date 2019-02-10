@@ -2,6 +2,7 @@
 
 // Constructors
 Engine::Engine(char* gameName) {
+	engineDebugger = Debug::Debugger("Engine Debugger");
 	debugConfigurationFile = nullptr;
 	configFile = nullptr;
 	mainCamera = nullptr;
@@ -148,7 +149,6 @@ void Engine::ConfigureDebugging(void) {
 	}
 	else {
 		// No debug config was found, disable the engine debugger
-		engineDebugger.SetName("NOT LOADED");
 		engineDebugger.SetDebuggingState(false);
 		engineDebugger.SetLoggingState(false);
 		engineDebugger.SetLoggingFilePath("");
