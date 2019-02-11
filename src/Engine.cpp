@@ -351,9 +351,9 @@ void Engine::LoadShaders(void) {
 
 		// Load each of the shaders
 		for (size_t i = 0; i < numberOfShaders; i++) {
-			std::string nameOfShader = contentDirectory + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.id");
-			std::string vertexShaderName = contentDirectory + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.vertex");
-			std::string fragmentShaderName = contentDirectory + "shaders/" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.fragment");
+			std::string nameOfShader = contentDirectory + "shaders\\" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.id");
+			std::string vertexShaderName = contentDirectory + "shaders\\" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.vertex");
+			std::string fragmentShaderName = contentDirectory + "shaders\\" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.fragment");
 
 			// Compile the shader
 			Shader* newShader = new Shader(nameOfShader, vertexShaderName, fragmentShaderName);
