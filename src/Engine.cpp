@@ -15,7 +15,7 @@ Engine::Engine(char* gameName) {
 	oldFrameTime = 0.0f;
 	currentFrameTime = 0.0f;
 
-	contentDirectory = "content/";
+	contentDirectory = "content\\";
 
 	indexOfDefaultShader = 0;
 	indexOfCurrentLevel = -1;
@@ -577,8 +577,8 @@ void Engine::LoadItems(void) {
 }
 void Engine::LoadPlayer(void) {
 	engineDebugger.WriteLine(">> 14 - Loading Players");
-
-	player = new Player(contentDirectory + "entities/player.json");
+	
+	player = new Player(contentDirectory + "entities\\player.json");
 
 	engineDebugger.WriteLine(">> 14 - COMPLETE");
 }
