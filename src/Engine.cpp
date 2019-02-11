@@ -538,13 +538,21 @@ void Engine::LoadLevels(void) {
 
 	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList(contentDirectory + "levels");
 	const size_t listOfLevelFilesSize = listOfLevelFiles.size();
+	// check we found atleast 1 level
+	if (listOfLevelFilesSize == 0) {
+		engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to find levels");
+		engineDebugger.WriteLine(">> 12 - FAILED");
+		this->Close();
+	}
+
+	// Load each of the levels found in the directory
 	for (size_t i = 0; i < listOfLevelFilesSize; i++) {
 		Level* newLevel = new Level(listOfLevelFiles[i]);
 		if (newLevel->IsLoaded()) {
 			levelRegister.push_back(newLevel);
 		}
 		else {
-			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Shader " + listOfLevelFiles[i]);
+			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Level " + listOfLevelFiles[i]);
 			engineDebugger.WriteLine(">> 12 - FAILED");
 			this->Close();
 		}
