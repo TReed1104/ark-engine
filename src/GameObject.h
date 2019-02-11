@@ -38,6 +38,7 @@ public:
 	virtual void Update(const float& deltaTime);
 	void Draw(void);
 	const std::string GetName(void);
+	const bool IsLoaded(void);
 	void Reposition(const glm::vec2& newPosition);
 
 private:
@@ -50,6 +51,7 @@ private:
 protected:
 	JsonFile* configFile = nullptr;
 	std::string name;
+	bool isLoaded = false;
 
 	// Animations
 	int animationIndex;

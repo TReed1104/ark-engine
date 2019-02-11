@@ -12,10 +12,12 @@ GameObject::GameObject(const std::string& filePath) {
 		}
 		else {
 			Engine_Pointer->engineDebugger.WriteLine(">>>> Object failed to load Config File: " + filePath);
+			isLoaded = false;
 		}
 	}
 	else {
 		configFile = nullptr;
+		isLoaded = false;
 	}
 
 	name = "Unnamed";
@@ -120,6 +122,9 @@ void GameObject::Draw(void) {
 
 const std::string GameObject::GetName(void) {
 	return this->name;
+}
+const bool GameObject::IsLoaded(void) {
+	return isLoaded;
 }
 void GameObject::Reposition(const glm::vec2& newPosition) {
 	position = glm::vec3(newPosition.x, newPosition.y, position.z);

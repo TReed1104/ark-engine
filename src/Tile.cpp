@@ -42,6 +42,7 @@ Tile::Tile(const Texture& texture, const int& tileType, const glm::ivec2& source
 	model.Translate(drawPosition);
 	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 	model.Scale(scale);
+	isLoaded = true;
 }
 Tile::~Tile(void) {
 

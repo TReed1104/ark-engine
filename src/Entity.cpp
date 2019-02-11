@@ -67,6 +67,11 @@ Entity::Entity(const std::string& filePath) : GameObject(filePath) {
 		model.Scale(scale);
 
 		sourceFrameSize = Engine_Pointer->entityTextureFrameSize;
+		isLoaded = true;
+	}
+	else {
+		Engine_Pointer->engineDebugger.WriteLine(">>>> Object failed to load Config File: " + filePath);
+		isLoaded = false;
 	}
 }
 Entity::~Entity(void) {
