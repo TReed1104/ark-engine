@@ -518,8 +518,17 @@ void Engine::LoadTilesets(void) {
 	engineDebugger.WriteLine(">> 11 - Loading Tilesets");
 
 	std::vector<std::string> listOfTilesets = FileSystemUtilities::GetFileList(contentDirectory + "tilesets");
-	const size_t listOfTilesetsSize = listOfTilesets.size();
-	for (size_t i = 0; i < listOfTilesetsSize; i++) {
+	const size_t numberOfTilesets = listOfTilesets.size();
+
+	// Make sure we have found atleast one tileset
+	if (numberOfTilesets == 0) {
+		engineDebugger.WriteLine(">>>> ERROR!!!! - No Tilesets found");
+		engineDebugger.WriteLine(">> 11 - FAILED");
+		this->Close();
+	}
+
+	// Load each of the tilesets found in the content directory
+	for (size_t i = 0; i < numberOfTilesets; i++) {
 		Tileset* newTileSet = new Tileset(listOfTilesets[i]);
 		if (newTileSet->IsLoaded()) {
 			tilesetRegister.push_back(newTileSet);
