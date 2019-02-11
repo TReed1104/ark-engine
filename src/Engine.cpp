@@ -584,7 +584,25 @@ void Engine::LoadPlayer(void) {
 }
 void Engine::LoadEntities(void) {
 	engineDebugger.WriteLine(">> 15 - Loading Entities");
-	engineDebugger.WriteLine(">>>> NOT IMPLEMENTED");
+	std::vector<std::string> listOfEntityFiles = FileSystemUtilities::GetFileList(contentDirectory + "entities");
+	const size_t numberOfEntities = listOfEntityFiles.size();
+	for (size_t i = 0; i < numberOfEntities; i++) {
+		// Make sure not to load the player entity config as a standard entity
+		if (listOfEntityFiles[i].find("player.json") == std::string::npos) {
+
+			// If the entity file isn't marked as the player, try and load it
+			Entity* newEntity = new Entity(listOfEntityFiles[i]);
+			if (newEntity->IsLoaded()) {
+				// Success!
+				entityRegister.push_back(newEntity);
+			}
+			else {
+				// Failed to load the entity, runtime does continue
+				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Level " + listOfEntityFiles[i]);
+				engineDebugger.WriteLine(">> 15 - FAILED");
+			}
+		}
+	}
 	engineDebugger.WriteLine(">> 15 - COMPLETE");
 }
 void Engine::LoadCameras(void) {
