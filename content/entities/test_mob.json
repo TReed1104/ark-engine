@@ -1,0 +1,53 @@
+{
+	"entity": {
+		"id": "test mob",
+		"rendering": {
+			"texture": "entity_player.png",
+			"draw offset": {
+				"x": -24,
+				"y": -24
+			}
+		},
+		"start position": {
+			"x": 250,
+			"y": 75,
+			"z": 0
+		},
+		"attributes:": {
+			"health": 100
+		},
+		"physics": {
+			"use gravity": true,
+			"falling": {
+				"timer": 0.4,
+				"base speed": 75.0,
+				"max speed": 300.0
+			},
+			"movement": {
+				"base speed": 90.0,
+				"max speed": 120.0
+			},
+			"jumping": {
+				"timer": 0.4,
+				"base speed": -220.0
+			}
+		},
+		"bounding boxes": [
+			{
+				"bounding box": {
+					"id": "default",
+					"type": "aabb",
+					"dimensions": {
+						"width": 16,
+						"height": 32
+					},
+					"offset": {
+						"x": 0,
+						"y": 0
+					}
+				}
+			}
+		],
+		"animations": []
+	}
+}
