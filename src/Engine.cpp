@@ -480,16 +480,16 @@ void Engine::LoadModels(void) {
 	engineDebugger.WriteLine(">> 10 - Loading Models");
 
 	std::vector<std::string> listOfModels = FileSystemUtilities::GetFileList(contentDirectory + "models");
-	const size_t listOfModelSize = listOfModels.size();
+	const size_t numberOfModels = listOfModels.size();
 	// Check we found any model files to load, if not exit as these are required for the program to work
-	if (listOfModelSize == 0) {
+	if (numberOfModels == 0) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - No to Model files found");
 		engineDebugger.WriteLine(">>>> 10 - FAILED");
 		this->Close();
 	}
 
 	// Load our model files
-	for (size_t i = 0; i < listOfModelSize; i++) {
+	for (size_t i = 0; i < numberOfModels; i++) {
 		Model newModel = Model(listOfModels[i], true);
 		if (newModel.IsLoaded()) {
 			modelRegister.push_back(newModel);
