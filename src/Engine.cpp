@@ -546,16 +546,16 @@ void Engine::LoadLevels(void) {
 	engineDebugger.WriteLine(">> 12 - Loading Levels");
 
 	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList(contentDirectory + "levels");
-	const size_t listOfLevelFilesSize = listOfLevelFiles.size();
-	// check we found atleast 1 level
-	if (listOfLevelFilesSize == 0) {
+	const size_t numberOfLevels = listOfLevelFiles.size();
+	// Ensure we found atleast one level to load
+	if (numberOfLevels == 0) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to find levels");
 		engineDebugger.WriteLine(">> 12 - FAILED");
 		this->Close();
 	}
 
 	// Load each of the levels found in the directory
-	for (size_t i = 0; i < listOfLevelFilesSize; i++) {
+	for (size_t i = 0; i < numberOfLevels; i++) {
 		Level* newLevel = new Level(listOfLevelFiles[i]);
 		if (newLevel->IsLoaded()) {
 			levelRegister.push_back(newLevel);
