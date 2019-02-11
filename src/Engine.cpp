@@ -445,17 +445,17 @@ void Engine::LoadTextures(void) {
 	engineDebugger.WriteLine(">> 9 - Loading Textures");
 
 	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
-	const size_t textureFileListSize = listOfTextures.size();
+	const size_t numberOfTextues = listOfTextures.size();
 	// If no textures are found, close the program
 
-	if (textureFileListSize == 0) {
+	if (numberOfTextues == 0) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to find textures ABORTING RUNTIME");
 		engineDebugger.WriteLine(">>>> 9 - FAILED");
 		this->Close();
 	}
 
 	// Load the found textures
-	for (size_t i = 0; i < textureFileListSize; i++) {
+	for (size_t i = 0; i < numberOfTextues; i++) {
 		Texture newTexture = Texture(listOfTextures[i], true, true);
 		if (newTexture.IsLoaded()) {
 			textureRegister.push_back(newTexture);
