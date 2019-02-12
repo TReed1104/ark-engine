@@ -73,7 +73,7 @@ Entity::Entity(const std::string& filePath) : GameObject(filePath) {
 		isLoaded = true;
 	}
 	else {
-		Engine_Pointer->engineDebugger.WriteLine(">>>> Object failed to load Config File: " + filePath);
+		Engine_Pointer->engineDebugger.WriteLine(">>>> Entity failed to load Config File: " + filePath);
 		isLoaded = false;
 	}
 }
