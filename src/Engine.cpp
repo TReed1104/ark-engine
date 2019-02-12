@@ -573,6 +573,11 @@ void Engine::LoadLevels(void) {
 void Engine::LoadItems(void) {
 	engineDebugger.WriteLine(">> 13 - Loading Items");
 	engineDebugger.WriteLine(">>>> NOT IMPLEMENTED");
+
+	std::vector<std::string> listOfItemFiles = FileSystemUtilities::GetFileList(contentDirectory + "items");
+	const size_t numberOfItems = listOfItemFiles.size();
+	
+
 	engineDebugger.WriteLine(">> 13 - COMPLETE");
 }
 void Engine::LoadPlayer(void) {
