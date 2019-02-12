@@ -67,6 +67,9 @@ Entity::Entity(const std::string& filePath) : GameObject(filePath) {
 		model.Scale(scale);
 
 		sourceFrameSize = Engine_Pointer->entityTextureFrameSize;
+
+		LoadAnimations(); // Load our animations
+
 		isLoaded = true;
 	}
 	else {
@@ -272,6 +275,29 @@ void Entity::PhysicsController(const float& deltaTime) {
 	PhysicsHandlerCrawling(deltaTime);
 	PhysicsHandlerJumping(deltaTime);
 	PhysicsHandlerFalling(deltaTime);
+}
+void Entity::LoadAnimations(void) {
+	animations.clear();
+	if (configFile->IsLoaded()) {
+		size_t numberOfAnimations = configFile->SizeOfObjectArray("entity.animations");
+		if (numberOfAnimations > 0) {
+			for (size_t animationIterator = 0; animationIterator < numberOfAnimations; animationIterator++) {
+				std::string animationName = configFile->Get<std::string>("entity.animations." + std::to_string(animationIterator) + ".animation.id");
+				Animation newAnimation = Animation(animationName);
+				size_t numberOfFrames = configFile->SizeOfObjectArray("entity.animations." + std::to_string(animationIterator) + ".animation.frames");
+				for (size_t frameIterator = 0; frameIterator < numberOfFrames; frameIterator++) {
+					int frameX = configFile->Get<int>("entity.animations." + std::to_string(animationIterator) + ".animation.frames." + std::to_string(frameIterator) + ".frame.x");
+					int frameY = configFile->Get<int>("entity.animations." + std::to_string(animationIterator) + ".animation.frames." + std::to_string(frameIterator) + ".frame.y");
+					float frameLength = configFile->Get<float>("entity.animations." + std::to_string(animationIterator) + ".animation.frames." + std::to_string(frameIterator) + ".frame.length");
+					newAnimation.AddFrame(glm::ivec2(frameX, frameY), frameLength);
+				}
+				animations.push_back(newAnimation);
+			}
+		}
+		else {
+			Engine_Pointer->engineDebugger.WriteLine(">>>> No animations were present");
+		}
+	}
 }
 void Entity::AnimationStateHandler(void) {
 	switch (spriteDirection) {

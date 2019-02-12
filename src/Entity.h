@@ -49,6 +49,7 @@ protected:
 	void PhysicsHandlerFalling(const float & deltaTime);
 	void PhysicsHandlerMovement(const float& deltaTime);
 	void PhysicsController(const float& deltaTime);
+	virtual void LoadAnimations(void);
 	void AnimationStateHandler(void);
 	void AnimationIndexHandler(void);
 };

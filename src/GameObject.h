@@ -45,7 +45,6 @@ private:
 	void UpdateRotation(void);
 	void UpdateScale(void);
 	void TransformationController(void);
-	void LoadAnimations(void);
 	void AnimationController(const float& deltaTime);
 
 protected:
@@ -80,8 +79,9 @@ protected:
 	virtual void UpdatePosition(void);
 	virtual void PhysicsHandlerFalling(const float& deltaTime);
 	virtual void PhysicsController(const float& deltaTime);
-	virtual void AnimationStateHandler(void);
-	virtual void AnimationIndexHandler(void);
+	virtual void LoadAnimations(void) {}
+	virtual void AnimationStateHandler(void) {}
+	virtual void AnimationIndexHandler(void) {}
 };
 
 #endif
