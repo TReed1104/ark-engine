@@ -572,11 +572,20 @@ void Engine::LoadLevels(void) {
 }
 void Engine::LoadItems(void) {
 	engineDebugger.WriteLine(">> 13 - Loading Items");
-	engineDebugger.WriteLine(">>>> NOT IMPLEMENTED");
-
 	std::vector<std::string> listOfItemFiles = FileSystemUtilities::GetFileList(contentDirectory + "items");
 	const size_t numberOfItems = listOfItemFiles.size();
-	
+	for (size_t i = 0; i < numberOfItems; i++) {
+		// TODO: Change to use Item class (implement Item class)
+		GameObject* newItem = new GameObject(listOfItemFiles[i]);
+		if (newItem->IsLoaded()) {
+			itemRegister.push_back(newItem);
+		}
+		else {
+			// Failed to load the item, runtime does continue
+			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Item " + listOfItemFiles[i]);
+			engineDebugger.WriteLine(">> 13 - FAILED");
+		}
+	}
 
 	engineDebugger.WriteLine(">> 13 - COMPLETE");
 }
