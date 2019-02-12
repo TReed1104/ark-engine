@@ -79,9 +79,9 @@ protected:
 	virtual void UpdatePosition(void);
 	virtual void PhysicsHandlerFalling(const float& deltaTime);
 	virtual void PhysicsController(const float& deltaTime);
-	virtual void LoadAnimations(void) {}
-	virtual void AnimationStateHandler(void) {}
-	virtual void AnimationIndexHandler(void) {}
+	virtual void LoadAnimations(void) = 0;
+	virtual void AnimationStateHandler(void) = 0;
+	virtual void AnimationIndexHandler(void) = 0;
 };
 
 #endif

@@ -18,5 +18,10 @@ public:
 
 private:
 	float CalculateSlope(const glm::ivec2& slopeOffset);
+
+protected:
+	void LoadAnimations(void);
+	void AnimationStateHandler(void);
+	void AnimationIndexHandler(void);
 };
 #endif

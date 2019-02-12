@@ -62,3 +62,9 @@ float Tile::CalculateSlope(const glm::ivec2& slopeOffset) {
 
 	return slopeAngle;
 }
+void Tile::LoadAnimations(void) {
+}
+void Tile::AnimationStateHandler(void) {
+}
+void Tile::AnimationIndexHandler(void) {
+}
