@@ -590,14 +590,10 @@ void Engine::LoadItems(void) {
 	engineDebugger.WriteLine(">> 13 - COMPLETE");
 }
 void Engine::LoadPlayer(void) {
-	engineDebugger.WriteLine(">> 14 - Loading Players");
-	
-	player = new Player(contentDirectory + "entities\\player.json");
 
-	engineDebugger.WriteLine(">> 14 - COMPLETE");
 }
 void Engine::LoadEntities(void) {
-	engineDebugger.WriteLine(">> 15 - Loading Entities");
+	engineDebugger.WriteLine(">> 14 - Loading Entities");
 	std::vector<std::string> listOfEntityFiles = FileSystemUtilities::GetFileList(contentDirectory + "entities");
 	const size_t numberOfEntities = listOfEntityFiles.size();
 	for (size_t i = 0; i < numberOfEntities; i++) {
@@ -616,8 +612,12 @@ void Engine::LoadEntities(void) {
 				engineDebugger.WriteLine(">> 15 - FAILED");
 			}
 		}
+		else {
+			// If the file is the player config, load a player instead
+			player = new Player(contentDirectory + "entities\\player.json");
+		}
 	}
-	engineDebugger.WriteLine(">> 15 - COMPLETE");
+	engineDebugger.WriteLine(">> 14 - COMPLETE");
 }
 void Engine::LoadCameras(void) {
 	engineDebugger.WriteLine(">> 16 - Loading Cameras");
