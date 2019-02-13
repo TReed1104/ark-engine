@@ -731,25 +731,21 @@ void Engine::EventHandler(void) {
 	}
 }
 void Engine::Update(const float& deltaTime) {
+	
+	// DEBUGGING
 	if (deviceKeyboard->GetKeyState(Keyboard::P)) {
 		GetCurrentLevel()->Reload();
 	}
-	// Check the current level has been initialised
-	if (GetCurrentLevel() != nullptr) {
-		// Run the current Level's update function
-		GetCurrentLevel()->Update(deltaTime);
-	}
 
-	// Check the player has been initialised
-	if (player != nullptr) {
-		// Run the player's update function
-		player->Update(deltaTime);
-	}
+	// Run the current Level's update function
+	GetCurrentLevel()->Update(deltaTime);
+
+	// Run the player's update function
+	player->Update(deltaTime);
 
 	// Update the text objects
 	const size_t renderableTextRegisterSize = textObjectRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
 	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
-		// TODO: Add a check condition to see if the text is currently active
 		textObjectRegister[i]->Update(deltaTime);
 	}
 
