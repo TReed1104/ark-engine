@@ -909,10 +909,12 @@ const int Engine::GetIndexOfLevel(const std::string& levelName) {
 	return indexOfDesiredLevel;
 }
 Level* Engine::GetCurrentLevel(void) {
-	if (indexOfCurrentLevel != -1) {
-		return levelRegister[indexOfCurrentLevel];
+	if (indexOfCurrentLevel == -1 || indexOfCurrentLevel > levelRegister.size()) {
+		engineDebugger.WriteLine(">>>> ERROR!!!! - Tried to access a level outside the range of the register");
+		this->Close();
+		return nullptr;
 	}
 	else {
-		return nullptr;
+		return levelRegister[indexOfCurrentLevel];
 	}
 }
