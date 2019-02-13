@@ -159,7 +159,6 @@ private:
 	void LoadTilesets(void);
 	void LoadLevels(void);
 	void LoadItems(void);
-	void LoadPlayer(void);
 	void LoadEntities(void);
 	void LoadCameras(void);
 	void LoadEngine(void);

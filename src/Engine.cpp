@@ -589,9 +589,6 @@ void Engine::LoadItems(void) {
 
 	engineDebugger.WriteLine(">> 13 - COMPLETE");
 }
-void Engine::LoadPlayer(void) {
-
-}
 void Engine::LoadEntities(void) {
 	engineDebugger.WriteLine(">> 14 - Loading Entities");
 	std::vector<std::string> listOfEntityFiles = FileSystemUtilities::GetFileList(contentDirectory + "entities");
@@ -667,7 +664,6 @@ void Engine::LoadEngine(void) {
 	LoadTilesets();
 	LoadLevels();
 	LoadItems();
-	LoadPlayer();
 	LoadEntities();
 	LoadCameras();
 
