@@ -32,6 +32,7 @@
 #include "Camera.h"
 #include "Tile.h"
 #include "Tileset.h"
+#include "Item.h"
 #include "Level.h"
 #include "Entity.h"
 #include "Player.h"
@@ -73,7 +74,7 @@ public:
 	std::vector<Font*> fontRegister;
 	std::vector<TextObject*> textObjectRegister;
 	std::vector<Tileset*> tilesetRegister;
-	std::vector<GameObject*> itemRegister;
+	std::vector<Item*> itemRegister;
 	std::vector<Entity*> entityRegister;
 	std::vector<Level*> levelRegister;
 	Player* player;
