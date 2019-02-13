@@ -591,41 +591,55 @@ void Engine::LoadItems(void) {
 }
 void Engine::LoadEntities(void) {
 	engineDebugger.WriteLine(">> 14 - Loading Entities");
+
 	std::vector<std::string> listOfEntityFiles = FileSystemUtilities::GetFileList(contentDirectory + "entities");
 	const size_t numberOfEntities = listOfEntityFiles.size();
-	for (size_t i = 0; i < numberOfEntities; i++) {
-		// Make sure not to load the player entity config as a standard entity
-		if (listOfEntityFiles[i].find("player.json") == std::string::npos) {
+	// If we haven't found any entities, close the engine.
+	if (numberOfEntities == 0) {
+		engineDebugger.WriteLine(">>>> ERROR!!!! - No entity files were found in the content directory");
+		engineDebugger.WriteLine(">> 14 - FAILED");
+		this->Close();
+	}
 
-			// If the entity file isn't marked as the player, try and load it
-			Entity* newEntity = new Entity(listOfEntityFiles[i]);
-			if (newEntity->IsLoaded()) {
-				// Success!
-				entityRegister.push_back(newEntity);
-			}
-			else {
-				// Failed to load the entity, runtime does continue
-				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load entity " + listOfEntityFiles[i]);
+	// Go through each config in the entity directory
+	for (size_t i = 0; i < numberOfEntities; i++) {
+		if (listOfEntityFiles[i].find("player.json") != std::string::npos) {
+			// Load the player config
+			player = new Player(contentDirectory + "entities\\player.json");
+			if (!player->IsLoaded()) {
+				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load player");
 				engineDebugger.WriteLine(">> 14 - FAILED");
+				this->Close();
 			}
 		}
 		else {
-			// If the file is the player config, load a player instead
-			if (player == nullptr) {
-				// If a player hasn't been loaded already, load one
-				player = new Player(contentDirectory + "entities\\player.json");
-				if (!player->IsLoaded()) {
-					engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load player");
-					engineDebugger.WriteLine(">> 14 - FAILED");
-					this->Close();
-				}
+			// Load the NPCs
+			if (listOfEntityFiles[i].find("boss") != std::string::npos) {
+				// TODO: Implement Boss class, use NPC as base
 			}
 			else {
-				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load player, a player was already loaded");
-				engineDebugger.WriteLine(">> 14 - FAILED");
+				// TODO: Implement base NPC class to use instead of core entity
+				Entity* newEntity = new Entity(listOfEntityFiles[i]);
+				if (newEntity->IsLoaded()) {
+					// Success!
+					entityRegister.push_back(newEntity);
+				}
+				else {
+					// Failed to load the entity, runtime does continue
+					engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load entity " + listOfEntityFiles[i]);
+					engineDebugger.WriteLine(">> 14 - FAILED");
+				}
 			}
 		}
 	}
+
+	// Make sure we have a player loaded
+	if (player == nullptr) {
+		engineDebugger.WriteLine(">>>> ERROR!!!! - No Player was loaded");
+		engineDebugger.WriteLine(">> 14 - FAILED");
+		this->Close();
+	}
+
 	engineDebugger.WriteLine(">> 14 - COMPLETE");
 }
 void Engine::LoadCameras(void) {
