@@ -609,18 +609,23 @@ void Engine::LoadEntities(void) {
 			else {
 				// Failed to load the entity, runtime does continue
 				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load entity " + listOfEntityFiles[i]);
-				engineDebugger.WriteLine(">> 15 - FAILED");
+				engineDebugger.WriteLine(">> 14 - FAILED");
 			}
 		}
 		else {
 			// If the file is the player config, load a player instead
 			if (player == nullptr) {
-				// If a player hasn't been loaded already
+				// If a player hasn't been loaded already, load one
 				player = new Player(contentDirectory + "entities\\player.json");
+				if (!player->IsLoaded()) {
+					engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load player");
+					engineDebugger.WriteLine(">> 14 - FAILED");
+					this->Close();
+				}
 			}
 			else {
 				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load player, a player was already loaded");
-				engineDebugger.WriteLine(">> 15 - FAILED");
+				engineDebugger.WriteLine(">> 14 - FAILED");
 			}
 		}
 	}
