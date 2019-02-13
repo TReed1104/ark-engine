@@ -731,7 +731,7 @@ void Engine::EventHandler(void) {
 	}
 }
 void Engine::Update(const float& deltaTime) {
-	
+
 	// DEBUGGING
 	if (deviceKeyboard->GetKeyState(Keyboard::P)) {
 		GetCurrentLevel()->Reload();
@@ -763,19 +763,14 @@ void Engine::Render(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Draw the level
-	if (GetCurrentLevel() != nullptr) {
-		GetCurrentLevel()->Draw();
-	}
+	GetCurrentLevel()->Draw();
 
 	// Draw the player
-	if (player != nullptr) {
-		player->Draw();
-	}
+	player->Draw();
 
 	// Render the text objects
 	const size_t renderableTextRegisterSize = textObjectRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
 	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
-		// TODO: Add a check condition to see if the text is currently active
 		textObjectRegister[i]->Draw();
 	}
 
