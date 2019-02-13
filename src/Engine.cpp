@@ -629,12 +629,12 @@ void Engine::LoadEntities(void) {
 	engineDebugger.WriteLine(">> 14 - COMPLETE");
 }
 void Engine::LoadCameras(void) {
-	engineDebugger.WriteLine(">> 16 - Loading Cameras");
+	engineDebugger.WriteLine(">> 15 - Loading Cameras");
 
 	mainCamera = new Camera(glm::vec3(0.0f, 0.0f, 1.0f));
 	mainCameraFocus = player;
 
-	engineDebugger.WriteLine(">> 16 - COMPLETE");
+	engineDebugger.WriteLine(">> 15 - COMPLETE");
 }
 
 // Master Load Function, calls all the other individual loads
