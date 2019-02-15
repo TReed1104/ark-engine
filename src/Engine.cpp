@@ -619,7 +619,7 @@ void Engine::LoadEntities(void) {
 			}
 			else {
 				// TODO: Implement base NPC class to use instead of core entity
-				Entity* newEntity = new Entity(listOfEntityFiles[i]);
+				NonPlayerCharacter* newEntity = new NonPlayerCharacter(listOfEntityFiles[i]);
 				if (newEntity->IsLoaded()) {
 					// Success!
 					entityRegister.push_back(newEntity);
