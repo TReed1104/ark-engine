@@ -12,6 +12,7 @@ Engine::Engine(char* gameName) {
 
 	windowTitle = gameName;
 	defaultWindowTitle = gameName;
+	isVerticalSyncEnabled = false;
 	oldFrameTime = 0.0f;
 	currentFrameTime = 0.0f;
 
@@ -158,6 +159,9 @@ void Engine::LoadEngineConfig(void) {
 	engineDebugger.WriteLine(">> 1 - Loading Engine Configs");
 	configFile = new JsonFile(contentDirectory + "engine.json");	// Load the config file into memory
 	if (configFile->IsLoaded()) {
+		// Engine config
+		isVerticalSyncEnabled = configFile->Get<bool>("engine.vsync");
+
 		// Window Engine setup
 		windowTitle = configFile->Get<std::string>("engine.window.title");
 		defaultWindowTitle = configFile->Get<std::string>("engine.window.title");
@@ -272,7 +276,7 @@ void Engine::CreateSDLContext(void) {
 		this->Close();
 	}
 
-	SDL_GL_SetSwapInterval(0);	// Toggles V-Sync on and off for the SDL Window
+	SDL_GL_SetSwapInterval(isVerticalSyncEnabled);	// Toggles V-Sync on and off for the SDL Window
 
 	engineDebugger.WriteLine(">>>>>> 4.1.2 - COMPLETE");
 }
