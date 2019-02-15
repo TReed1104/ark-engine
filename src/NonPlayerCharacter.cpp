@@ -1,4 +1,5 @@
 #include "NonPlayerCharacter.h"
+#include "Engine.h"
 
 NonPlayerCharacter::NonPlayerCharacter(const std::string& filePath) : Entity(filePath) {
 
