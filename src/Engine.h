@@ -35,6 +35,7 @@
 #include "Item.h"
 #include "Level.h"
 #include "Entity.h"
+#include "NonPlayerCharacter.h"
 #include "Player.h"
 
 class Engine {
