@@ -10,7 +10,7 @@ public:
 	~NonPlayerCharacter(void);
 
 private:
-
+	virtual void EntityController(void);
 };
 
 #endif
