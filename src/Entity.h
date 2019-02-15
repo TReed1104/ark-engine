@@ -40,7 +40,7 @@ protected:
 	BoundingBox crawlingBoundingBox;
 	glm::vec2 crawlingBoundingBoxOffset;
 
-	virtual void EntityController(void) {}	// The AI or Player Controller, gets overriden by the derived classes
+	virtual void EntityController(void) = 0;
 	void UpdatePosition(void);
 	void PhysicsHandlerCrawling(const float& deltaTime);
 	void PhysicsHandlerJumping(const float& deltaTime);
