@@ -76,7 +76,7 @@ public:
 	std::vector<TextObject*> textObjectRegister;
 	std::vector<Tileset*> tilesetRegister;
 	std::vector<Item*> itemRegister;
-	std::vector<Entity*> entityRegister;
+	std::vector<NonPlayerCharacter*> entityRegister;
 	std::vector<Level*> levelRegister;
 	Player* player;
 
