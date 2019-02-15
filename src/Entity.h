@@ -3,8 +3,6 @@
 #include "GameObject.h"
 #include "Utilities.hpp"
 
-class Engine;
-
 class Entity : public GameObject
 {
 public:

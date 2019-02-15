@@ -3,8 +3,6 @@
 #include "Entity.h"
 #include "Keyboard.h"
 
-class Engine;
-
 class Player : public Entity
 {
 public:
