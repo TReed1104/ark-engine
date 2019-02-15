@@ -618,7 +618,6 @@ void Engine::LoadEntities(void) {
 				// TODO: Implement Boss class, use NPC as base
 			}
 			else {
-				// TODO: Implement base NPC class to use instead of core entity
 				NonPlayerCharacter* newEntity = new NonPlayerCharacter(listOfEntityFiles[i]);
 				if (newEntity->IsLoaded()) {
 					// Success!
