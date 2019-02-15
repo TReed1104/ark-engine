@@ -160,7 +160,7 @@ void Engine::LoadEngineConfig(void) {
 	configFile = new JsonFile(contentDirectory + "engine.json");	// Load the config file into memory
 	if (configFile->IsLoaded()) {
 		// Engine config
-		isVerticalSyncEnabled = configFile->Get<bool>("engine.vsync");
+		isVerticalSyncEnabled = configFile->Get<bool>("engine.settings.vsync");
 
 		// Window Engine setup
 		windowTitle = configFile->Get<std::string>("engine.window.title");
