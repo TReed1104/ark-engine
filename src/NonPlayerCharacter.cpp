@@ -7,3 +7,7 @@ NonPlayerCharacter::NonPlayerCharacter(const std::string& filePath) : Entity(fil
 NonPlayerCharacter::~NonPlayerCharacter() {
 
 }
+
+void NonPlayerCharacter::EntityController(void) {
+
+}
