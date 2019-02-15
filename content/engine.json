@@ -1,9 +1,13 @@
 {
 	"engine": {
-		"program id": "ArkEngine",
-		"developer": "Tom reed",
-		"version": "0.01",
-		"vsync": false,
+		"meta": {
+			"program id": "ArkEngine",
+			"developer": "Tom reed",
+			"version": "0.01",
+		},
+		"settings": {
+			"vsync": false
+		},
 		"window": {
 			"title": "ArkEngine",
 			"tile size": {
