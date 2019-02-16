@@ -21,7 +21,11 @@ GLuint Shader::CreateShaderObject(const std::string& strShaderFile, const GLenum
 	// Check the compilation status of the shader
 	GLint shaderCompilationStatus;
 	glGetShaderiv(shaderID, GL_COMPILE_STATUS, &shaderCompilationStatus);
-	if (!shaderCompilationStatus) {
+	if (shaderCompilationStatus) {
+		// Success!
+		return shaderID;
+	}
+	else {
 		// Failure, get the errors and output them to the log for debugging
 		GLint infoLogLength;
 		glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLogLength);
@@ -44,10 +48,6 @@ GLuint Shader::CreateShaderObject(const std::string& strShaderFile, const GLenum
 		glDeleteShader(shaderID);
 		delete[] strInfoLog;
 		return -1;
-	}
-	else {
-		// Success!
-		return shaderID;
 	}
 }
 bool Shader::CompileShaderProgram(const std::string& vertexSourcePath, const std::string& fragmentSourcePath) {
