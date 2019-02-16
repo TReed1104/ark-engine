@@ -50,7 +50,7 @@ GLuint Shader::CompileShader(const std::string& strShaderFile, const GLenum& typ
 		return shaderID;
 	}
 }
-bool Shader::CompileProgram(const std::string& vertexSourcePath, const std::string& fragmentSourcePath) {
+bool Shader::CompileShader(const std::string& vertexSourcePath, const std::string& fragmentSourcePath) {
 	// Create the shader stages
 	GLuint vertexID = CompileShader(vertexSourcePath, GL_VERTEX_SHADER);
 	GLuint fragmentID = CompileShader(fragmentSourcePath, GL_FRAGMENT_SHADER);
@@ -139,7 +139,7 @@ bool Shader::Load(const std::string& vertexSourcePath, const std::string& fragme
 		return false;
 	}
 
-	bool isCompiled = CompileProgram(vertexSource, fragmentSource);
+	bool isCompiled = CompileShader(vertexSource, fragmentSource);
 
 	return isCompiled;
 }
