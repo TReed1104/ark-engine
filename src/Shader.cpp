@@ -12,28 +12,24 @@ Shader::~Shader() {
 
 // Creation and compilation functions
 GLuint Shader::CreateShaderObject(const std::string& strShaderFile, const GLenum& typeOfShader) {
+	// Create an instance of a shader object of the type we want
 	GLuint shaderID = glCreateShader(typeOfShader);
 
+	// Compile the shader object using the supplied GLSL source code
 	const char *strFileData = strShaderFile.c_str();
 	glShaderSource(shaderID, 1, &strFileData, NULL);
 	glCompileShader(shaderID);
 
-	// Check the compilation status of the shader
+	// Check our compilation result
 	GLint shaderCompilationStatus;
 	glGetShaderiv(shaderID, GL_COMPILE_STATUS, &shaderCompilationStatus);
 	if (shaderCompilationStatus) {
-		// Success!
+		// Success, return the compiled shader object
 		return shaderID;
 	}
 	else {
-		// Failure, get the errors and output them to the log for debugging
-		GLint infoLogLength;
-		glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLogLength);
-		GLchar *strInfoLog = new GLchar[infoLogLength + 1];
-		glGetShaderInfoLog(shaderID, infoLogLength, NULL, strInfoLog);
-
-		// Get our shader type in a text format
-		const char *strShaderType = NULL;
+		// If the program fails to compile, print the errors and clean up
+		const char *strShaderType = NULL;	// Converted the shader type enum to a string format
 		switch (typeOfShader) {
 		case GL_VERTEX_SHADER:
 			strShaderType = "vertex";
@@ -42,8 +38,10 @@ GLuint Shader::CreateShaderObject(const std::string& strShaderFile, const GLenum
 			strShaderType = "fragment";
 			break;
 		}
-
-		// Cleanup and output
+		GLint infoLogLength;
+		glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLogLength);
+		GLchar *strInfoLog = new GLchar[infoLogLength + 1];
+		glGetShaderInfoLog(shaderID, infoLogLength, NULL, strInfoLog);
 		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Compile Failure in " + (std::string)strShaderType + " - compilation error: " + (std::string)strInfoLog);
 		glDeleteShader(shaderID);
 		delete[] strInfoLog;
