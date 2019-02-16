@@ -27,8 +27,8 @@ private:
 	GLuint program;
 	bool isLoaded;
 
-	GLuint CompileShader(const std::string& strShaderFile, const GLenum& typeOfShader);
-	bool CompileShader(const std::string& vertexSourcePath, const std::string& fragmentSourcePath);
+	GLuint CompileShaderObject(const std::string& strShaderFile, const GLenum& typeOfShader);
+	bool CompileShaderProgram(const std::string& vertexSourcePath, const std::string& fragmentSourcePath);
 	std::string ReadSourceFile(const std::string& filePath);
 	bool Load(const std::string& vertexSourcePath = "", const std::string& fragmentSourcePath = "");
 };

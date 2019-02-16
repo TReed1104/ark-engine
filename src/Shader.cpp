@@ -11,7 +11,7 @@ Shader::~Shader() {
 }
 
 // Creation and compilation functions
-GLuint Shader::CompileShader(const std::string& strShaderFile, const GLenum& typeOfShader) {
+GLuint Shader::CompileShaderObject(const std::string& strShaderFile, const GLenum& typeOfShader) {
 	GLuint shaderID = glCreateShader(typeOfShader);
 
 	const char *strFileData = strShaderFile.c_str();
@@ -50,10 +50,10 @@ GLuint Shader::CompileShader(const std::string& strShaderFile, const GLenum& typ
 		return shaderID;
 	}
 }
-bool Shader::CompileShader(const std::string& vertexSourcePath, const std::string& fragmentSourcePath) {
+bool Shader::CompileShaderProgram(const std::string& vertexSourcePath, const std::string& fragmentSourcePath) {
 	// Create the shader stages
-	GLuint vertexID = CompileShader(vertexSourcePath, GL_VERTEX_SHADER);
-	GLuint fragmentID = CompileShader(fragmentSourcePath, GL_FRAGMENT_SHADER);
+	GLuint vertexID = CompileShaderObject(vertexSourcePath, GL_VERTEX_SHADER);
+	GLuint fragmentID = CompileShaderObject(fragmentSourcePath, GL_FRAGMENT_SHADER);
 
 	// Check our shader elements have compiled
 	if (vertexID != -1) {
@@ -139,7 +139,7 @@ bool Shader::Load(const std::string& vertexSourcePath, const std::string& fragme
 		return false;
 	}
 
-	bool isCompiled = CompileShader(vertexSource, fragmentSource);
+	bool isCompiled = CompileShaderProgram(vertexSource, fragmentSource);
 
 	return isCompiled;
 }
