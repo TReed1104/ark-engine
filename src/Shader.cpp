@@ -1,64 +1,36 @@
 #include "Shader.h"
+#include "Engine.h"
+
+Engine* Shader::Engine_Pointer;
 
 Shader::Shader(const std::string& name, const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {
 	this->name = name;
-	this->vertexFilePath = vertexShaderPath;
-	this->fragmentFilePath = fragmentShaderPath;
-	isLoaded = Load();
+	isLoaded = Load(vertexShaderPath, fragmentShaderPath);
 }
 Shader::~Shader() {
-
 }
 
-bool Shader::ReadFile(std::string& rawString, const std::string& strShaderFile) {
-	// Read the Shader file
-	rawString = "";
-	std::ifstream fileReader(strShaderFile);
-	if (!fileReader.is_open()) {
-		std::cout << ">>>> ERROR!!!! - Shader File not found - " << strShaderFile << std::endl;
-		return false;
-	}
-	std::string line = "";
-	while (getline(fileReader, line)) {
-		rawString += line + "\n";
-	}
-	fileReader.close();
+// Creation and compilation functions
+GLuint Shader::CompileShader(const std::string& strShaderFile, const GLenum& typeOfShader) {
+	GLuint shaderID = glCreateShader(typeOfShader);
 
-	std::cout << ">>>> Shader File Loaded! - " << strShaderFile << std::endl;
-	return true;
-}
-bool Shader::ImportShaderFiles() {
-	if (ReadFile(rawVertexString, vertexFilePath)) {
-		if (ReadFile(rawFragmentString, fragmentFilePath)) {
-			// As both the shader files were parsed correctly into memory, return true.
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	else {
-		return false;
-	}
-}
-bool Shader::CreateShader(GLuint& shaderID, const GLenum& eShaderType, const std::string& strShaderFile) {
-	shaderID = glCreateShader(eShaderType);
-	// Error check
 	const char *strFileData = strShaderFile.c_str();
 	glShaderSource(shaderID, 1, &strFileData, NULL);
 	glCompileShader(shaderID);
 
-	GLint status;
-	glGetShaderiv(shaderID, GL_COMPILE_STATUS, &status);
-	if (!status) {
+	// Check the compilation status of the shader
+	GLint shaderCompilationStatus;
+	glGetShaderiv(shaderID, GL_COMPILE_STATUS, &shaderCompilationStatus);
+	if (!shaderCompilationStatus) {
+		// Failure, get the errors and output them to the log for debugging
 		GLint infoLogLength;
 		glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLogLength);
-
 		GLchar *strInfoLog = new GLchar[infoLogLength + 1];
 		glGetShaderInfoLog(shaderID, infoLogLength, NULL, strInfoLog);
 
+		// Get our shader type in a text format
 		const char *strShaderType = NULL;
-		switch (eShaderType) {
+		switch (typeOfShader) {
 		case GL_VERTEX_SHADER:
 			strShaderType = "vertex";
 			break;
@@ -66,76 +38,116 @@ bool Shader::CreateShader(GLuint& shaderID, const GLenum& eShaderType, const std
 			strShaderType = "fragment";
 			break;
 		}
-		fprintf(stderr, ">>>> ERROR!!!! - Compile Failure in %s shader:\n%s\n", strShaderType, strInfoLog);
+
+		// Cleanup and output
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Compile Failure in " + (std::string)strShaderType + " - compilation error: " + (std::string)strInfoLog);
+		glDeleteShader(shaderID);
 		delete[] strInfoLog;
-		return false;
+		return -1;
 	}
-	return true;
+	else {
+		// Success!
+		return shaderID;
+	}
 }
-bool Shader::CompileShader() {
-	GLuint vertexID;
-	GLuint fragmentD;
+bool Shader::CompileProgram(const std::string& vertexSourcePath, const std::string& fragmentSourcePath) {
+	// Create the shaders
+	GLuint vertexID = CompileShader(vertexSourcePath, GL_VERTEX_SHADER);
+	GLuint fragmentID = CompileShader(fragmentSourcePath, GL_FRAGMENT_SHADER);
 
-	// Compile and create our shader
-	if (CreateShader(vertexID, GL_VERTEX_SHADER, rawVertexString)) {
-		//std::cout << ">>>> Vertex Compiled - " << name << std::endl;
-		if (CreateShader(fragmentD, GL_FRAGMENT_SHADER, rawFragmentString)) {
-			//std::cout << ">>>> Fragment Compiled - " << name << std::endl;
+	// Check our shader elements have compiled
+	if (vertexID != -1) {
+		if (fragmentID != -1) {
 
-			this->program = glCreateProgram();
-			glAttachShader(this->program, vertexID);
-			glAttachShader(this->program, fragmentD);
-			glLinkProgram(this->program);
+			// Link together our program
+			program = glCreateProgram();
+			glAttachShader(program, vertexID);
+			glAttachShader(program, fragmentID);
+			glLinkProgram(program);
 
-			GLint status;
-			glGetProgramiv(this->program, GL_LINK_STATUS, &status);
-
-			if (!status) {
-				// If the program or shaders fail, print the errors.
+			// Check the linker status of compiling the shader and pipeline
+			GLint programLinkerStatus;
+			glGetProgramiv(program, GL_LINK_STATUS, &programLinkerStatus);
+			if (!programLinkerStatus) {
+				// If the program fails to compile, print the errors.
 				GLint infoLogLength;
 				glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLength);
 				GLchar *strInfoLog = new GLchar[infoLogLength + 1];
 				glGetProgramInfoLog(program, infoLogLength, NULL, strInfoLog);
-				fprintf(stderr, ">>>> ERROR!!!! - Linker failure: %s\n", strInfoLog);
-				delete[] strInfoLog;
+
+				// Clean up and output out compilation status
+				Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Linker failure:" + (std::string)strInfoLog);
 				glDeleteShader(vertexID);
-				glDeleteShader(fragmentD);
+				glDeleteShader(fragmentID);
+				delete[] strInfoLog;
+
+				// Return shader status
 				return false;
 			}
-			glDeleteShader(vertexID);
-			glDeleteShader(fragmentD);
-			std::cout << ">>>> Shader Compiled! - " << name << std::endl;
-			return true;
+			else {
+				// Clean up and output out compilation status
+				Engine_Pointer->engineDebugger.WriteLine(">>>> Shader Compiled! - " + name);
+				glDeleteShader(vertexID);
+				glDeleteShader(fragmentID);
+				return true;
+			}
 		}
 		else {
-			std::cout << ">>>> ERROR!!!! - Fragment Shader Failure - " << name << std::endl;
+			Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Fragement Shader Failure" + name);
 			return false;
 		}
 	}
 	else {
-		std::cout << ">>>> ERROR!!!! - Fragment Vertex Failure - " << name << std::endl;
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Vertex Shader Failure" + name);
 		return false;
 	}
 }
-bool Shader::Load(void) {
-	// Import the shader files
-	if (ImportShaderFiles()) {
-		// Compile the Shaders and attach them to the program
-		if (CompileShader()) {
-			// The Shader has been successfully created, return true
-			return true;
-		}
-		else {
-			return false;
-		}
+std::string Shader::ReadSourceFile(const std::string& filePath) {
+	// Read the Shader file
+	std::string rawFileString = "";
+	std::ifstream fileReader(filePath);
+	if (!fileReader.is_open()) {
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Shader File not found - " + filePath);
+		return "";
+	}
+	std::string line = "";
+	while (getline(fileReader, line)) {
+		rawFileString += line + "\n";
+	}
+	fileReader.close();
+
+	Engine_Pointer->engineDebugger.WriteLine(">>>> Shader File Loaded! - " + filePath);
+	return rawFileString;
+}
+bool Shader::Load(const std::string& vertexSourcePath, const std::string& fragmentSourcePath) {
+	// Variables to store the raw source for the parts of the shader
+	std::string vertexSource = "";
+	std::string fragmentSource = "";
+
+	if (vertexSourcePath != "") {
+		vertexSource = ReadSourceFile(vertexSourcePath);
 	}
 	else {
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Vertex Shader File Path not supplied");
 		return false;
 	}
+
+	if (fragmentSourcePath != "") {
+		fragmentSource = ReadSourceFile(fragmentSourcePath);
+	}
+	else {
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Fragment Shader File Path not supplied");
+		return false;
+	}
+
+	bool isCompiled = CompileProgram(vertexSource, fragmentSource);
+
+	return isCompiled;
 }
-void Shader::Activate(void) {
-	// Tells the engine to use this shader for the Current Draw.
-	glUseProgram(program);
+
+// Access and Activation functions
+const GLuint* Shader::GetShader(void) {
+	return &this->program;
 }
 const bool Shader::IsLoaded(void) {
 	return isLoaded;
@@ -143,6 +155,7 @@ const bool Shader::IsLoaded(void) {
 const std::string Shader::GetName(void) {
 	return this->name;
 }
-const GLuint* Shader::GetShader(void) {
-	return &this->program;
+void Shader::Activate(void) {
+	// Tells the engine to use this shader for the Current Draw.
+	glUseProgram(program);
 }
