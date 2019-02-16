@@ -105,24 +105,21 @@
 				"shader": {
 					"id": "default",
 					"vertex": "default.vert",
-					"fragment": "texture_array.frag",
-					"tesselation": "DO NOT LOAD"
+					"fragment": "texture_array.frag"
 				}
 			},
 			{
 				"shader": {
 					"id": "text renderer",
 					"vertex": "text_objects.vert",
-					"fragment": "text_objects.frag",
-					"tesselation": "DO NOT LOAD"
+					"fragment": "text_objects.frag"
 				}
 			},
 			{
 				"shader": {
 					"id": "textureless",
 					"vertex": "default.vert",
-					"fragment": "default.frag",
-					"tesselation": "DO NOT LOAD"
+					"fragment": "default.frag"
 				}
 			}
 		],
