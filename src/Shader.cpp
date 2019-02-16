@@ -48,7 +48,7 @@ GLuint Shader::CreateShaderObject(const std::string& strShaderFile, const GLenum
 		return -1;
 	}
 }
-bool Shader::CompileShaderProgram(const std::string& vertexSourcePath, const std::string& fragmentSourcePath) {
+bool Shader::CreateShaderProgram(const std::string& vertexSourcePath, const std::string& fragmentSourcePath) {
 	// Create our shader objects
 	GLuint vertexID = CreateShaderObject(vertexSourcePath, GL_VERTEX_SHADER);
 	GLuint fragmentID = CreateShaderObject(fragmentSourcePath, GL_FRAGMENT_SHADER);
@@ -57,26 +57,26 @@ bool Shader::CompileShaderProgram(const std::string& vertexSourcePath, const std
 	if (vertexID != -1) {
 		if (fragmentID != -1) {
 
-			// Compile each of our shader objects into our final shader
+			// Link each of our shader objects into our final shader program
 			program = glCreateProgram();
 			glAttachShader(program, vertexID);
 			glAttachShader(program, fragmentID);
 			glLinkProgram(program);
 
-			// Get our compilation result, old C style
+			// Get our Linking result, old C style
 			GLint programLinkerStatus;
 			glGetProgramiv(program, GL_LINK_STATUS, &programLinkerStatus);
 
 			// Check our compilation result
 			if (programLinkerStatus) {
 				// If successful, clean up and return true
-				Engine_Pointer->engineDebugger.WriteLine(">>>> Shader Compiled! - " + name);
+				Engine_Pointer->engineDebugger.WriteLine(">>>> Shader Created! - " + name);
 				glDeleteShader(vertexID);
 				glDeleteShader(fragmentID);
 				return true;
 			}
 			else {
-				// If the program fails to compile, print the errors and clean up
+				// If the program fails to link, print the errors and clean up
 				GLint infoLogLength;
 				glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLength);
 				GLchar *strInfoLog = new GLchar[infoLogLength + 1];
@@ -139,7 +139,7 @@ bool Shader::Load(const std::string& vertexSourcePath, const std::string& fragme
 	}
 
 	// Compile our shader program
-	return CompileShaderProgram(vertexSource, fragmentSource);
+	return CreateShaderProgram(vertexSource, fragmentSource);
 }
 
 // Access and Activation functions
