@@ -122,6 +122,7 @@ bool Shader::Load(const std::string& vertexSourcePath, const std::string& fragme
 	std::string vertexSource = "";
 	std::string fragmentSource = "";
 
+	// Check we've been given a pathway for the vertex shader source code
 	if (vertexSourcePath != "") {
 		vertexSource = ReadSourceFile(vertexSourcePath);
 	}
@@ -130,6 +131,7 @@ bool Shader::Load(const std::string& vertexSourcePath, const std::string& fragme
 		return false;
 	}
 
+	// Check we've been given a pathway for the fragment shader source code
 	if (fragmentSourcePath != "") {
 		fragmentSource = ReadSourceFile(fragmentSourcePath);
 	}
@@ -138,9 +140,8 @@ bool Shader::Load(const std::string& vertexSourcePath, const std::string& fragme
 		return false;
 	}
 
-	bool isCompiled = CompileShaderProgram(vertexSource, fragmentSource);
-
-	return isCompiled;
+	// Compile our shader program
+	return CompileShaderProgram(vertexSource, fragmentSource);
 }
 
 // Access and Activation functions
