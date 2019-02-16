@@ -11,7 +11,7 @@ Shader::~Shader() {
 }
 
 // Creation and compilation functions
-GLuint Shader::CompileShaderObject(const std::string& strShaderFile, const GLenum& typeOfShader) {
+GLuint Shader::CreateShaderObject(const std::string& strShaderFile, const GLenum& typeOfShader) {
 	GLuint shaderID = glCreateShader(typeOfShader);
 
 	const char *strFileData = strShaderFile.c_str();
@@ -51,43 +51,42 @@ GLuint Shader::CompileShaderObject(const std::string& strShaderFile, const GLenu
 	}
 }
 bool Shader::CompileShaderProgram(const std::string& vertexSourcePath, const std::string& fragmentSourcePath) {
-	// Create the shader stages
-	GLuint vertexID = CompileShaderObject(vertexSourcePath, GL_VERTEX_SHADER);
-	GLuint fragmentID = CompileShaderObject(fragmentSourcePath, GL_FRAGMENT_SHADER);
+	// Create our shader objects
+	GLuint vertexID = CreateShaderObject(vertexSourcePath, GL_VERTEX_SHADER);
+	GLuint fragmentID = CreateShaderObject(fragmentSourcePath, GL_FRAGMENT_SHADER);
 
-	// Check our shader elements have compiled
+	// Check the shader objects have been successfully created
 	if (vertexID != -1) {
 		if (fragmentID != -1) {
-			program = glCreateProgram();	// Initialise the program containing each shader stage
-			// Attach our shader stages to the compiled program
+
+			// Compile each of our shader objects into our final shader
+			program = glCreateProgram();
 			glAttachShader(program, vertexID);
 			glAttachShader(program, fragmentID);
-			glLinkProgram(program);		// Link it all together
+			glLinkProgram(program);
 
-			// Check the linker status of compiling the shader and pipeline
+			// Get our compilation result, old C style
 			GLint programLinkerStatus;
 			glGetProgramiv(program, GL_LINK_STATUS, &programLinkerStatus);
+
+			// Check our compilation result
 			if (programLinkerStatus) {
-				// Clean up and output out compilation status
+				// If successful, clean up and return true
 				Engine_Pointer->engineDebugger.WriteLine(">>>> Shader Compiled! - " + name);
 				glDeleteShader(vertexID);
 				glDeleteShader(fragmentID);
 				return true;
 			}
 			else {
-				// If the program fails to compile, print the errors.
+				// If the program fails to compile, print the errors and clean up
 				GLint infoLogLength;
 				glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLength);
 				GLchar *strInfoLog = new GLchar[infoLogLength + 1];
 				glGetProgramInfoLog(program, infoLogLength, NULL, strInfoLog);
-
-				// Clean up and output out compilation status
 				Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Linker failure:" + (std::string)strInfoLog);
 				glDeleteShader(vertexID);
 				glDeleteShader(fragmentID);
 				delete[] strInfoLog;
-
-				// Return shader status
 				return false;
 			}
 		}
