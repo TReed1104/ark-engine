@@ -225,6 +225,7 @@ void Engine::LoadKeyBindings(void) {
 void Engine::LoadEnginePointers(void) {
 	engineDebugger.WriteLine(">> 3 - Loading Engine Pointers");
 
+	Shader::Engine_Pointer = this;
 	Texture::Engine_Pointer = this;
 	Model::Engine_Pointer = this;
 	Font::Engine_Pointer = this;
