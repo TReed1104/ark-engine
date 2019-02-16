@@ -54,47 +54,43 @@ bool Shader::CreateShaderProgram(const std::string& vertexSourcePath, const std:
 	GLuint fragmentID = CreateShaderObject(fragmentSourcePath, GL_FRAGMENT_SHADER);
 
 	// Check the shader objects have been successfully created
-	if (vertexID != -1) {
-		if (fragmentID != -1) {
+	if (vertexID == -1) {
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Vertex Shader Failure" + name);
+		return false;
+	}
+	if (fragmentID == -1) {
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Fragement Shader Failure" + name);
+		return false;
+	}
 
-			// Link each of our shader objects into our final shader program
-			program = glCreateProgram();
-			glAttachShader(program, vertexID);
-			glAttachShader(program, fragmentID);
-			glLinkProgram(program);
+	// Link each of our shader objects into our final shader program
+	program = glCreateProgram();
+	glAttachShader(program, vertexID);
+	glAttachShader(program, fragmentID);
+	glLinkProgram(program);
 
-			// Get our Linking result, old C style
-			GLint programLinkerStatus;
-			glGetProgramiv(program, GL_LINK_STATUS, &programLinkerStatus);
+	// Get our Linking result, old C style
+	GLint programLinkerStatus;
+	glGetProgramiv(program, GL_LINK_STATUS, &programLinkerStatus);
 
-			// Check our compilation result
-			if (programLinkerStatus) {
-				// If successful, clean up and return true
-				Engine_Pointer->engineDebugger.WriteLine(">>>> Shader Created! - " + name);
-				glDeleteShader(vertexID);
-				glDeleteShader(fragmentID);
-				return true;
-			}
-			else {
-				// If the program fails to link, print the errors and clean up
-				GLint infoLogLength;
-				glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLength);
-				GLchar *strInfoLog = new GLchar[infoLogLength + 1];
-				glGetProgramInfoLog(program, infoLogLength, NULL, strInfoLog);
-				Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Linker failure:" + (std::string)strInfoLog);
-				glDeleteShader(vertexID);
-				glDeleteShader(fragmentID);
-				delete[] strInfoLog;
-				return false;
-			}
-		}
-		else {
-			Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Fragement Shader Failure" + name);
-			return false;
-		}
+	// Check our compilation result
+	if (programLinkerStatus) {
+		// If successful, clean up and return true
+		Engine_Pointer->engineDebugger.WriteLine(">>>> Shader Created! - " + name);
+		glDeleteShader(vertexID);
+		glDeleteShader(fragmentID);
+		return true;
 	}
 	else {
-		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Vertex Shader Failure" + name);
+		// If the program fails to link, print the errors and clean up
+		GLint infoLogLength;
+		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLength);
+		GLchar *strInfoLog = new GLchar[infoLogLength + 1];
+		glGetProgramInfoLog(program, infoLogLength, NULL, strInfoLog);
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Linker failure:" + (std::string)strInfoLog);
+		glDeleteShader(vertexID);
+		glDeleteShader(fragmentID);
+		delete[] strInfoLog;
 		return false;
 	}
 }
