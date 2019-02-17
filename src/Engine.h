@@ -137,7 +137,6 @@ private:
 	void ConfigureDebugging(void);
 	void LoadEngineConfig(void);
 	void LoadKeyBindings(void);
-	void LoadEnginePointers(void);
 
 	// OpenGL and SDL related functions
 	void LoadSDL(void);
