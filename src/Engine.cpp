@@ -28,6 +28,22 @@ Engine::Engine(char* gameName) {
 	indexOfDefaultTexture = -1;
 	indexOfSpriteModel = -1;
 
+	Shader::Engine_Pointer = this;
+	Texture::Engine_Pointer = this;
+	Model::Engine_Pointer = this;
+	Font::Engine_Pointer = this;
+	TextObject::Engine_Pointer = this;
+	Keyboard::Engine_Pointer = this;
+	KeybindingHandler::Engine_Pointer = this;
+	GameController::Engine_Pointer = this;
+	BoundingBox::Engine_Pointer = this;
+	Animation::Engine_Pointer = this;
+	Animation::Frame::Engine_Pointer = this;
+	GameObject::Engine_Pointer = this;
+	Tileset::Engine_Pointer = this;
+	Level::Engine_Pointer = this;
+	Camera::Engine_Pointer = this;
+
 	freeTypeLibrary = NULL;
 }
 Engine::~Engine(void) {
