@@ -122,6 +122,7 @@ void Engine::CleanUp(void) {
 		delete shaderRegister[i];
 	}
 
+	// Delete the game controllers
 	if (SDL_NumJoysticks() > 0) {
 		const size_t deviceGameControllerRegisterSize = deviceGameControllerRegister.size();
 		for (size_t i = 0; i < deviceGameControllerRegisterSize; i++) {
@@ -129,6 +130,7 @@ void Engine::CleanUp(void) {
 		}
 	}
 
+	// Clean up our extenal libraries
 	if (freeTypeLibrary != NULL) {
 		FT_Done_FreeType(freeTypeLibrary);
 	}
