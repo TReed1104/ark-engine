@@ -28,6 +28,7 @@ Engine::Engine(char* gameName) {
 	indexOfDefaultTexture = -1;
 	indexOfSpriteModel = -1;
 
+	// Set each of the classes static engine pointer to this engine instance
 	Shader::Engine_Pointer = this;
 	Texture::Engine_Pointer = this;
 	Model::Engine_Pointer = this;
@@ -237,27 +238,6 @@ void Engine::LoadKeyBindings(void) {
 	}
 
 	engineDebugger.WriteLine(">> 2 - COMPLETE");
-}
-void Engine::LoadEnginePointers(void) {
-	engineDebugger.WriteLine(">> 3 - Loading Engine Pointers");
-
-	Shader::Engine_Pointer = this;
-	Texture::Engine_Pointer = this;
-	Model::Engine_Pointer = this;
-	Font::Engine_Pointer = this;
-	TextObject::Engine_Pointer = this;
-	Keyboard::Engine_Pointer = this;
-	KeybindingHandler::Engine_Pointer = this;
-	GameController::Engine_Pointer = this;
-	BoundingBox::Engine_Pointer = this;
-	Animation::Engine_Pointer = this;
-	Animation::Frame::Engine_Pointer = this;
-	GameObject::Engine_Pointer = this;
-	Tileset::Engine_Pointer = this;
-	Level::Engine_Pointer = this;
-	Camera::Engine_Pointer = this;
-
-	engineDebugger.WriteLine(">> 3 - COMPLETE");
 }
 
 // Library setup
