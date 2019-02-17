@@ -659,7 +659,6 @@ void Engine::LoadEngine(void) {
 	ConfigureDebugging();
 	LoadEngineConfig();
 	LoadKeyBindings();
-	LoadEnginePointers();
 
 	// Setup the Graphics Environment, Initialising OpenGL and loading our libraries
 	LoadExternalLibraries();
