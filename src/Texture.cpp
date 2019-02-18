@@ -32,6 +32,8 @@ const bool Texture::IsLoaded(void) {
 	return isLoaded;
 }
 bool Texture::ImportTexture() {
+	// TODO: Implement single texture loading, look at source control to find the old code
+	Engine_Pointer->engineDebugger.WriteLine(">>>> NOT IMPLEMENTED Texture::LoadTexture()");
 	return false;
 }
 bool Texture::ImportTextureArray() {
