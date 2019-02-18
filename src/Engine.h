@@ -133,26 +133,24 @@ private:
 	float oldFrameTime;
 	float currentFrameTime;
 
+	// Cleanup
+	void CleanUp(void);
+	void Close(bool isClean = false);
+
 	// Core engine loading
 	void ConfigureDebugging(void);
 	void LoadEngineConfig(void);
 	void LoadKeyBindings(void);
-
-	// OpenGL and SDL related functions
+	
+	// External Library setup functions
 	void LoadSDL(void);
-	void CreateSDLWindow(void);
-	void CreateSDLContext(void);
-	void LoadInputDevices(void);
 	void LoadGLEW(void);
 	void LoadFreeType(void);
-	void LoadShaders(void);
 	void LoadExternalLibraries(void);
-	
-	// Cleanup
-	void CleanUp(void);
-	void Close(bool isClean = false);
-	
+
 	// Content loading related functions
+	void LoadShaders(void);
+	void LoadInputDevices(void);
 	void LoadFonts(void);
 	void LoadTextObjects(void);
 	void LoadTextures(void);
@@ -162,6 +160,8 @@ private:
 	void LoadItems(void);
 	void LoadEntities(void);
 	void LoadCameras(void);
+
+	// Master load function
 	void LoadEngine(void);
 
 	// Game loop related functions
