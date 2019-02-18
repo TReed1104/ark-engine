@@ -20,5 +20,5 @@ conan remove -f libwebp/1.0.0
 conan remove -f nasm/2.13.01
 conan remove -f rapidjson/1.1.0
 conan remove -f sdl2/2.0.9
-conan remove -f sdl2_image/2.0.3
+conan remove -f sdl2_image/2.0.4
 conan remove -f zlib/1.2.11
