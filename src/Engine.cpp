@@ -246,12 +246,16 @@ void Engine::LoadKeyBindings(void) {
 void Engine::LoadSDL(void) {
 	engineDebugger.WriteLine(">>>> 3.1 - Loading Library - SDL2");
 
+
+	// Initialise the SDL2 Library
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - SDL_Init Error: " + (std::string)SDL_GetError());
 		engineDebugger.WriteLine(">>>> 3.1 - FAILED");
 		this->Close();
 	}
 	
+
+	// SDL2 window creation
 	engineDebugger.WriteLine(">>>>>> 3.1.1 - Creating SDL Window");
 	sdlWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)windowDimensions.x, (int)windowDimensions.y, SDL_WINDOW_OPENGL);	// Create window
 	// Error handling for the SDL Window.
@@ -262,13 +266,15 @@ void Engine::LoadSDL(void) {
 	}
 	engineDebugger.WriteLine(">>>>>> 3.1.1 - COMPLETE");
 
+
+	// OpenGL Context creation, this is where we actually link our SDL2 window to the OpenGL API
 	engineDebugger.WriteLine(">>>>>> 3.1.2 - Loading SDL_GL Context");
-	// Sets up the OpenGL context for OpenGL version 3.3
-	// TODO: expand this to allow for different OpenGL versions
+	// Sets up the OpenGL context for OpenGL version 3.3, TODO: Expand to allow for more recent versions of OpenGL
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	glContext = SDL_GL_CreateContext(sdlWindow);		// Create the OpenGL context
+	// Create the OpenGL context
+	glContext = SDL_GL_CreateContext(sdlWindow);
 	// Error handling for failing to create the OpenGL Context
 	if (glContext == nullptr) {
 		SDL_DestroyWindow(sdlWindow);
@@ -278,6 +284,7 @@ void Engine::LoadSDL(void) {
 	}
 	SDL_GL_SetSwapInterval(isVerticalSyncEnabled);	// Toggles V-Sync on and off for the SDL Window
 	engineDebugger.WriteLine(">>>>>> 3.1.2 - COMPLETE");
+
 
 	engineDebugger.WriteLine(">>>> 3.1 - COMPLETE");
 }
