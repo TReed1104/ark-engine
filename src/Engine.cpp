@@ -748,7 +748,6 @@ void Engine::Update(const float& deltaTime) {
 	// Check the camera target has been initialised
 	if (mainCameraFocus != nullptr) {
 		// Run the camera's update function
-		// TODO: Amend this to use a list of cameras?
 		mainCamera->Update(deltaTime, *mainCameraFocus);
 	}
 }
