@@ -574,7 +574,6 @@ void Engine::LoadItems(void) {
 	std::vector<std::string> listOfItemFiles = FileSystemUtilities::GetFileList(contentDirectory + "items");
 	const size_t numberOfItems = listOfItemFiles.size();
 	for (size_t i = 0; i < numberOfItems; i++) {
-		// TODO: Change to use Item class (implement Item class)
 		Item* newItem = new Item(listOfItemFiles[i]);
 		if (newItem->IsLoaded()) {
 			itemRegister.push_back(newItem);
