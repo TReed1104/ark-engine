@@ -287,8 +287,33 @@ void Engine::LoadSDL(void) {
 		engineDebugger.WriteLine(">>>> 3.1 - FAILED");
 		this->Close();
 	}
-	CreateSDLWindow();
-	CreateSDLContext();
+	
+	engineDebugger.WriteLine(">>>>>> 3.1.1 - Creating SDL Window");
+	sdlWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)windowDimensions.x, (int)windowDimensions.y, SDL_WINDOW_OPENGL);	// Create window
+	// Error handling for the SDL Window.
+	if (sdlWindow == nullptr) {
+		engineDebugger.WriteLine(">> ERROR!!!! - SDL_CreateWindow Error: " + (std::string)SDL_GetError());
+		engineDebugger.WriteLine(">>>>>> 3.1.1 - FAILED");
+		this->Close();
+	}
+	engineDebugger.WriteLine(">>>>>> 3.1.1 - COMPLETE");
+
+	engineDebugger.WriteLine(">>>>>> 3.1.2 - Loading SDL_GL Context");
+	// Sets up the OpenGL context for OpenGL version 3.3
+	// TODO: expand this to allow for different OpenGL versions
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	glContext = SDL_GL_CreateContext(sdlWindow);		// Create the OpenGL context
+	// Error handling for failing to create the OpenGL Context
+	if (glContext == nullptr) {
+		SDL_DestroyWindow(sdlWindow);
+		engineDebugger.WriteLine(">>>>>> ERROR!!!! - SDL_GL_CreateContext Error: " + (std::string)SDL_GetError());
+		engineDebugger.WriteLine(">>>>>> 3.1.2 - FAILED");
+		this->Close();
+	}
+	SDL_GL_SetSwapInterval(isVerticalSyncEnabled);	// Toggles V-Sync on and off for the SDL Window
+	engineDebugger.WriteLine(">>>>>> 3.1.2 - COMPLETE");
 
 	engineDebugger.WriteLine(">>>> 3.1 - COMPLETE");
 }
@@ -572,7 +597,7 @@ void Engine::LoadLevels(void) {
 	indexOfCurrentLevel = 0;
 
 	engineDebugger.WriteLine(">> 11 - COMPLETE");
-}
+}3
 void Engine::LoadItems(void) {
 	engineDebugger.WriteLine(">> 12 - Loading Items");
 	std::vector<std::string> listOfItemFiles = FileSystemUtilities::GetFileList(contentDirectory + "items");
