@@ -561,7 +561,7 @@ void Engine::LoadLevels(void) {
 	indexOfCurrentLevel = 0;
 
 	engineDebugger.WriteLine(">> 11 - COMPLETE");
-}3
+}
 void Engine::LoadItems(void) {
 	engineDebugger.WriteLine(">> 12 - Loading Items");
 	std::vector<std::string> listOfItemFiles = FileSystemUtilities::GetFileList(contentDirectory + "items");
