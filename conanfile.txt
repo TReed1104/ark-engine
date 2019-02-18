@@ -1,5 +1,5 @@
 [requires]
-sdl2/2.0.8@bincrafters/testing
+sdl2/2.0.9@bincrafters/stable
 sdl2_image/2.0.3@bincrafters/stable
 glew/2.1.0@bincrafters/stable
 glm/0.9.8.5@bincrafters/stable
