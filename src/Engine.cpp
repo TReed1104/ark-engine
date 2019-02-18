@@ -248,27 +248,28 @@ void Engine::LoadSDL(void) {
 
 
 	// Initialise the SDL2 Library
+	engineDebugger.WriteLine(">>>>>> 3.1.1 - Initialising SDL2 API");
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-		engineDebugger.WriteLine(">>>> ERROR!!!! - SDL_Init Error: " + (std::string)SDL_GetError());
-		engineDebugger.WriteLine(">>>> 3.1 - FAILED");
+		engineDebugger.WriteLine(">>>>>> ERROR!!!! - SDL_Init Error: " + (std::string)SDL_GetError());
+		engineDebugger.WriteLine(">>>>>> 3.1 - FAILED");
 		this->Close();
 	}
-	
+	engineDebugger.WriteLine(">>>>>> 3.1.1 - Complete");
 
 	// SDL2 window creation
 	engineDebugger.WriteLine(">>>>>> 3.1.1 - Creating SDL Window");
 	sdlWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)windowDimensions.x, (int)windowDimensions.y, SDL_WINDOW_OPENGL);	// Create window
 	// Error handling for the SDL Window.
 	if (sdlWindow == nullptr) {
-		engineDebugger.WriteLine(">> ERROR!!!! - SDL_CreateWindow Error: " + (std::string)SDL_GetError());
-		engineDebugger.WriteLine(">>>>>> 3.1.1 - FAILED");
+		engineDebugger.WriteLine(">>>>>> ERROR!!!! - SDL_CreateWindow Error: " + (std::string)SDL_GetError());
+		engineDebugger.WriteLine(">>>>>> 3.1.2 - FAILED");
 		this->Close();
 	}
-	engineDebugger.WriteLine(">>>>>> 3.1.1 - COMPLETE");
+	engineDebugger.WriteLine(">>>>>> 3.1.2 - COMPLETE");
 
 
 	// OpenGL Context creation, this is where we actually link our SDL2 window to the OpenGL API
-	engineDebugger.WriteLine(">>>>>> 3.1.2 - Loading SDL_GL Context");
+	engineDebugger.WriteLine(">>>>>> 3.1.2 - Creating OpenGL Context");
 	// Sets up the OpenGL context for OpenGL version 3.3, TODO: Expand to allow for more recent versions of OpenGL
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
@@ -279,11 +280,11 @@ void Engine::LoadSDL(void) {
 	if (glContext == nullptr) {
 		SDL_DestroyWindow(sdlWindow);
 		engineDebugger.WriteLine(">>>>>> ERROR!!!! - SDL_GL_CreateContext Error: " + (std::string)SDL_GetError());
-		engineDebugger.WriteLine(">>>>>> 3.1.2 - FAILED");
+		engineDebugger.WriteLine(">>>>>> 3.1.3 - FAILED");
 		this->Close();
 	}
 	SDL_GL_SetSwapInterval(isVerticalSyncEnabled);	// Toggles V-Sync on and off for the SDL Window
-	engineDebugger.WriteLine(">>>>>> 3.1.2 - COMPLETE");
+	engineDebugger.WriteLine(">>>>>> 3.1.3 - COMPLETE");
 
 
 	engineDebugger.WriteLine(">>>> 3.1 - COMPLETE");
