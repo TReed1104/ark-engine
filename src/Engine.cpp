@@ -285,7 +285,7 @@ void Engine::LoadSDL(void) {
 	}
 	SDL_GL_SetSwapInterval(isVerticalSyncEnabled);	// Toggles V-Sync on and off for the SDL Window
 	engineDebugger.WriteLine(">>>>>> 3.1.3 - COMPLETE");
-
+	
 
 	engineDebugger.WriteLine(">>>> 3.1 - COMPLETE");
 }
@@ -301,6 +301,13 @@ void Engine::LoadGLEW(void) {
 		engineDebugger.WriteLine(">>>> 3.2 - FAILED");
 		this->Close();
 	}
+	// Setup Core OpenGL
+	glViewport(0, 0, (int)windowDimensions.x, (int)windowDimensions.y);
+	SDL_GL_SwapWindow(sdlWindow);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendEquation(GL_FUNC_ADD);
 
 	engineDebugger.WriteLine(">>>> 3.2 - COMPLETE");
 }
@@ -319,18 +326,10 @@ void Engine::LoadFreeType(void) {
 void Engine::LoadExternalLibraries(void) {
 	engineDebugger.WriteLine(">> 3 - Loading External Libraries");
 
-	// Load the Libraries
+	// Call each fo the functions for loading each library
 	LoadSDL();
 	LoadGLEW();
 	LoadFreeType();
-
-	// Setup Core OpenGL
-	glViewport(0, 0, (int)windowDimensions.x, (int)windowDimensions.y);
-	SDL_GL_SwapWindow(sdlWindow);
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glBlendEquation(GL_FUNC_ADD);
 
 	engineDebugger.WriteLine(">> 3 - COMPLETE");
 }
