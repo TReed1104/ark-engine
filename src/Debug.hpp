@@ -29,6 +29,11 @@ namespace Debug {
 
 		// Outputs
 		void LogLine(const std::string& output) {
+			// Check we've set the file name
+			if (loggingFilePath == "") {
+				std::cout << "ERROR: Logging file name for Debugger - " << name << " has not been configured" << std::endl;
+				return;
+			}
 			// If the Output file hasn't been initialised, initialise it
 			if (outputFile == nullptr) {
 				outputFile = new std::ofstream();
