@@ -17,11 +17,13 @@ namespace Debug {
 			this->loggingFilePath = loggingFilePath;
 		}
 		~Debugger() {
+			// If the output file has been initialised
 			if (outputFile != nullptr) {
 				if (outputFile->is_open()) {
+					// If the output file is open, close the file to flush the stream
 					outputFile->close();
 				}
-				delete outputFile;
+				delete outputFile;	// Clean up our manually allocated memory for the output file stream
 			}
 		}
 
