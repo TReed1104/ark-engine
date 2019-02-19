@@ -21,7 +21,6 @@ namespace Debug {
 				if (outputFile->is_open()) {
 					outputFile->close();
 				}
-
 				delete outputFile;
 			}
 		}
