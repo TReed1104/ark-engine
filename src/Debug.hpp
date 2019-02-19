@@ -35,17 +35,16 @@ namespace Debug {
 				std::cout << "ERROR: Logging file name for Debugger - " << name << " has not been configured" << std::endl;
 				return;
 			}
-			// If the Output file hasn't been initialised, initialise it
+			// If the Output file hasn't been initialised, initialise it and open the stream
 			if (outputFile == nullptr) {
-				outputFile = new std::ofstream();
-			}
-			// See if the file has been opened
-			if (!outputFile->is_open()) {
 				// TODO: change name of file to also use the date+time
-				outputFile->open("logs/" + loggingFilePath);
+				outputFile = new std::ofstream("logs/" + loggingFilePath);
 			}
-			// Write the output string to the output filestream
-			*(outputFile) << output << std::endl;
+			// If the file stream is open
+			if (outputFile->is_open()) {
+				// Write the output string to the output filestream
+				*(outputFile) << output << std::endl;
+			}
 		}
 		void WriteLine(const std::string& output) {
 			// Check the debugger is enabled
