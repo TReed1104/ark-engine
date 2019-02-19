@@ -28,7 +28,6 @@ namespace Debug {
 
 		// Outputs
 		void LogLine(const std::string& output) {
-			// TODO: Write line to output file
 			if (isLoggingEnabled) {
 				if (outputFile == nullptr) {
 					outputFile = new std::ofstream();
