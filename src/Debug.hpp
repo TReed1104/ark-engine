@@ -19,9 +19,10 @@ namespace Debug {
 		~Debugger() {
 			// If the output file has been initialised
 			if (outputFile != nullptr) {
+				// If the output file is open
 				if (outputFile->is_open()) {
-					// If the output file is open, close the file to flush the stream
-					outputFile->close();
+					outputFile->flush();	// Flush the data in the output file stream
+					outputFile->close();	// Close the output file stream
 				}
 				delete outputFile;	// Clean up our manually allocated memory for the output file stream
 			}
