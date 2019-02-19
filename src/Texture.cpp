@@ -4,7 +4,7 @@
 
 Engine* Texture::Engine_Pointer;
 
-Texture::Texture(const std::string & path, const bool &load, const bool & isTextureArray) {
+Texture::Texture(const std::string& path, const bool &load, const bool & isTextureArray) {
 	this->name = path;
 	this->isLoaded = false;
 	this->textureID = -1;
