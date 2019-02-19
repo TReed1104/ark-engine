@@ -2,6 +2,7 @@
 #define CPP_DEBUG_HPP_
 
 #include <iostream>
+#include <fstream>
 #include <string>
 
 namespace Debug {
@@ -16,25 +17,32 @@ namespace Debug {
 			this->loggingFilePath = loggingFilePath;
 		}
 		~Debugger() {
+			if (outputFile != nullptr) {
+				if (outputFile->is_open()) {
+					outputFile->close();
+				}
 
+				delete outputFile;
+			}
 		}
 
 		// Outputs
 		void LogLine(const std::string& output) {
 			// TODO: Write line to output file
-
-			// Check the logging directory exists
-				// If it does, check if our file exists
-					// If log file is not present, create the log file
-			
-			// Log the output line
+			if (isLoggingEnabled) {
+				if (outputFile == nullptr) {
+					outputFile = new std::ofstream();
+				}
+				if (!outputFile->is_open()) {
+					outputFile->open("logs/" + loggingFilePath);
+				}
+				*(outputFile) << output << std::endl;
+			}
 		}
 		void WriteLine(const std::string& output) {
 			if (isDebuggerEnabled) {
 				std::cout << output << std::endl;
-				if (isLoggingEnabled) {
-					LogLine(output);
-				}
+				LogLine(output);
 			}
 		}
 
@@ -65,13 +73,14 @@ namespace Debug {
 		void SetLoggingFilePath(const std::string& newFilePath) {
 			this->loggingFilePath = newFilePath;
 		}
-		
+
 	private:
 		// Private Variables
 		std::string name;
 		bool isDebuggerEnabled = false;
 		bool isLoggingEnabled = false;
 		std::string loggingFilePath = "";
+		std::ofstream* outputFile = nullptr;
 
 	};
 };
