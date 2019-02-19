@@ -27,13 +27,18 @@ namespace Debug {
 
 		// Outputs
 		void LogLine(const std::string& output) {
+			// Check we are configured to log our outputs
 			if (isLoggingEnabled) {
+				// If the Output file hasn't been initialised, initialise it
 				if (outputFile == nullptr) {
 					outputFile = new std::ofstream();
 				}
+				// See if the file has been opened
 				if (!outputFile->is_open()) {
+					// TODO: change name of file to also use the date+time
 					outputFile->open("logs/" + loggingFilePath);
 				}
+				// Write the output string to the output filestream
 				*(outputFile) << output << std::endl;
 			}
 		}
