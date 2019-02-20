@@ -120,6 +120,10 @@ public:
 	const int GetIndexOfLevel(const std::string& levelName);
 	Level* GetCurrentLevel(void);
 
+	// Engine Settings
+	void WindowResize(const glm::vec2& newScaler);
+	void WindowRename(const std::string& newName);
+
 private:
 	// GL variables
 	SDL_Window* sdlWindow;
@@ -169,9 +173,6 @@ private:
 	void Update(const float& deltaTime);
 	void Render(void);
 
-	// Window Control functions
-	void WindowResize(const glm::vec2& newScaler);
-	void WindowRename(const std::string& newName);
 
 };
 #endif
