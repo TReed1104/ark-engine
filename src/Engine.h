@@ -154,6 +154,7 @@ private:
 	void LoadExternalLibraries(void);
 
 	// Content loading related functions
+	void LoadUserSettings(void);
 	void LoadShaders(void);
 	void LoadInputDevices(void);
 	void LoadFonts(void);
