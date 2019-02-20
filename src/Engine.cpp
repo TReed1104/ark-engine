@@ -265,7 +265,6 @@ void Engine::LoadSDL(void) {
 		engineDebugger.WriteLine(">>>>>> 3.1.2 - FAILED");
 		this->Close();
 	}
-	SDL_GL_SetSwapInterval(isVerticalSyncEnabled);	// Toggles V-Sync on and off for the SDL Window
 	engineDebugger.WriteLine(">>>>>> 3.1.2 - COMPLETE");
 
 
@@ -284,6 +283,7 @@ void Engine::LoadSDL(void) {
 		engineDebugger.WriteLine(">>>>>> 3.1.3 - FAILED");
 		this->Close();
 	}
+	SDL_GL_SetSwapInterval(isVerticalSyncEnabled);	// Toggles V-Sync on and off for the SDL Window
 	engineDebugger.WriteLine(">>>>>> 3.1.3 - COMPLETE");
 	
 
