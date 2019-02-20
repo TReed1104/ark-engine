@@ -681,7 +681,7 @@ void Engine::LoadEngine(void) {
 	engineDebugger.WriteLine("#### ARKENGINE LOAD COMPLETE");
 }
 
-// Events
+// Configuration functions
 void Engine::WindowResize(const glm::vec2& newScaler) {
 	// Resizes the window
 	windowScaler = newScaler;
@@ -692,7 +692,6 @@ void Engine::WindowRename(const std::string& newName) {
 	windowTitle = newName;
 	SDL_SetWindowTitle(sdlWindow, windowTitle.c_str());
 }
-
 void Engine::SetVSyncState(const bool& newState) {
 	SDL_GL_SetSwapInterval(newState);	// Toggles V-Sync on and off for the SDL Window
 
