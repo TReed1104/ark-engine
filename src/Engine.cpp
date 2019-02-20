@@ -285,7 +285,7 @@ void Engine::LoadSDL(void) {
 		this->Close();
 	}
 	engineDebugger.WriteLine(">>>>>> 3.1.3 - COMPLETE");
-	
+
 
 	engineDebugger.WriteLine(">>>> 3.1 - COMPLETE");
 }
@@ -655,10 +655,12 @@ void Engine::LoadEngine(void) {
 	// Load Engine Core configs
 	ConfigureDebugging();
 	LoadEngineConfig();
-	LoadUserSettings();
 
 	// Setup the Graphics Environment, Initialising OpenGL and loading our libraries
 	LoadExternalLibraries();
+
+	// Load the user settings
+	LoadUserSettings();
 
 	// Load the shaders
 	LoadShaders();
