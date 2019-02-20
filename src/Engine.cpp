@@ -212,7 +212,7 @@ void Engine::LoadEngineConfig(void) {
 	engineDebugger.WriteLine(">> 1 - COMPLETE");
 }
 void Engine::LoadUserSettings(void) {
-	engineDebugger.WriteLine(">> 2 - Loading User Settings");
+	engineDebugger.WriteLine(">> 3 - Loading User Settings");
 
 	if (configFile->IsLoaded()) {
 		// Loading User settings
@@ -235,41 +235,41 @@ void Engine::LoadUserSettings(void) {
 	else {
 		// Config failed to load.
 		engineDebugger.WriteLine(">>>> ERROR!!!! - Engine config wasn't loaded ");
-		engineDebugger.WriteLine(">> 2 - FAILED");
+		engineDebugger.WriteLine(">> 3 - FAILED");
 		this->Close();
 	}
 
-	engineDebugger.WriteLine(">> 2 - COMPLETE");
+	engineDebugger.WriteLine(">> 3 - COMPLETE");
 }
 
 // External Library Loading functions
 void Engine::LoadSDL(void) {
-	engineDebugger.WriteLine(">>>> 3.1 - Loading Library - SDL2");
+	engineDebugger.WriteLine(">>>> 2.1 - Loading Library - SDL2");
 
 
 	// Initialise the SDL2 Library
-	engineDebugger.WriteLine(">>>>>> 3.1.1 - Initialising SDL2 API");
+	engineDebugger.WriteLine(">>>>>> 2.1.1 - Initialising SDL2 API");
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		engineDebugger.WriteLine(">>>>>> ERROR!!!! - SDL_Init Error: " + (std::string)SDL_GetError());
-		engineDebugger.WriteLine(">>>>>> 3.1 - FAILED");
+		engineDebugger.WriteLine(">>>>>> 2.1 - FAILED");
 		this->Close();
 	}
-	engineDebugger.WriteLine(">>>>>> 3.1.1 - Complete");
+	engineDebugger.WriteLine(">>>>>> 2.1.1 - Complete");
 
 	// SDL2 window creation
-	engineDebugger.WriteLine(">>>>>> 3.1.1 - Creating SDL Window");
+	engineDebugger.WriteLine(">>>>>> 2.1.1 - Creating SDL Window");
 	sdlWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)windowDimensions.x, (int)windowDimensions.y, SDL_WINDOW_OPENGL);	// Create window
 	// Error handling for the SDL Window.
 	if (sdlWindow == nullptr) {
 		engineDebugger.WriteLine(">>>>>> ERROR!!!! - SDL_CreateWindow Error: " + (std::string)SDL_GetError());
-		engineDebugger.WriteLine(">>>>>> 3.1.2 - FAILED");
+		engineDebugger.WriteLine(">>>>>> 2.1.2 - FAILED");
 		this->Close();
 	}
-	engineDebugger.WriteLine(">>>>>> 3.1.2 - COMPLETE");
+	engineDebugger.WriteLine(">>>>>> 2.1.2 - COMPLETE");
 
 
 	// OpenGL Context creation, this is where we actually link our SDL2 window to the OpenGL API
-	engineDebugger.WriteLine(">>>>>> 3.1.2 - Creating OpenGL Context");
+	engineDebugger.WriteLine(">>>>>> 2.1.2 - Creating OpenGL Context");
 	// Sets up the OpenGL context for OpenGL version 3.3, TODO: Expand to allow for more recent versions of OpenGL
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
@@ -280,16 +280,16 @@ void Engine::LoadSDL(void) {
 	if (glContext == nullptr) {
 		SDL_DestroyWindow(sdlWindow);
 		engineDebugger.WriteLine(">>>>>> ERROR!!!! - SDL_GL_CreateContext Error: " + (std::string)SDL_GetError());
-		engineDebugger.WriteLine(">>>>>> 3.1.3 - FAILED");
+		engineDebugger.WriteLine(">>>>>> 2.1.3 - FAILED");
 		this->Close();
 	}
-	engineDebugger.WriteLine(">>>>>> 3.1.3 - COMPLETE");
+	engineDebugger.WriteLine(">>>>>> 2.1.3 - COMPLETE");
 
 
-	engineDebugger.WriteLine(">>>> 3.1 - COMPLETE");
+	engineDebugger.WriteLine(">>>> 2.1 - COMPLETE");
 }
 void Engine::LoadGLEW(void) {
-	engineDebugger.WriteLine(">>>> 3.2 - Loading Library - GLEW");
+	engineDebugger.WriteLine(">>>> 2.2 - Loading Library - GLEW");
 
 	GLenum rev;
 	glewExperimental = GL_TRUE;
@@ -297,7 +297,7 @@ void Engine::LoadGLEW(void) {
 	if (GLEW_OK != rev) {
 		// If GLEW fails, close the program.
 		engineDebugger.WriteLine(">>>> ERROR!!!! - GLEW Error: " + *((const char*)glewGetErrorString(rev)));
-		engineDebugger.WriteLine(">>>> 3.2 - FAILED");
+		engineDebugger.WriteLine(">>>> 2.2 - FAILED");
 		this->Close();
 	}
 	// Setup Core OpenGL
@@ -308,29 +308,29 @@ void Engine::LoadGLEW(void) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBlendEquation(GL_FUNC_ADD);
 
-	engineDebugger.WriteLine(">>>> 3.2 - COMPLETE");
+	engineDebugger.WriteLine(">>>> 2.2 - COMPLETE");
 }
 void Engine::LoadFreeType(void) {
-	engineDebugger.WriteLine(">>>> 3.3 - Loading Library - FreeType2");
+	engineDebugger.WriteLine(">>>> 2.3 - Loading Library - FreeType2");
 
 	// Initialise the FreeType library, return is "are there errors, true = errors"
 	if (FT_Init_FreeType(&freeTypeLibrary)) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - FreeType Failed to Initialise");
-		engineDebugger.WriteLine(">>>> 3.3 - FAILED");
+		engineDebugger.WriteLine(">>>> 2.3 - FAILED");
 		this->Close();
 	}
 
-	engineDebugger.WriteLine(">>>> 3.3 - COMPLETE");
+	engineDebugger.WriteLine(">>>> 2.3 - COMPLETE");
 }
 void Engine::LoadExternalLibraries(void) {
-	engineDebugger.WriteLine(">> 3 - Loading External Libraries");
+	engineDebugger.WriteLine(">> 2 - Loading External Libraries");
 
 	// Call each fo the functions for loading each library
 	LoadSDL();
 	LoadGLEW();
 	LoadFreeType();
 
-	engineDebugger.WriteLine(">> 3 - COMPLETE");
+	engineDebugger.WriteLine(">> 2 - COMPLETE");
 }
 
 // Content Loading Functions
