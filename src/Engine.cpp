@@ -694,6 +694,11 @@ void Engine::WindowRename(const std::string& newName) {
 	SDL_SetWindowTitle(sdlWindow, windowTitle.c_str());
 }
 
+void Engine::SetVSyncState(const bool& newState) {
+	isVerticalSyncEnabled = newState;
+	SDL_GL_SetSwapInterval(isVerticalSyncEnabled);
+}
+
 // Core game loop steps
 void Engine::EventHandler(void) {
 	SDL_Event event;
