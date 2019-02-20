@@ -178,9 +178,6 @@ void Engine::LoadEngineConfig(void) {
 	engineDebugger.WriteLine(">> 1 - Loading Engine Configs");
 	configFile = new JsonFile(contentDirectory + "engine.json");	// Load the config file into memory
 	if (configFile->IsLoaded()) {
-		// Engine config
-		isVerticalSyncEnabled = configFile->Get<bool>("engine.settings.vsync");
-
 		// Window Engine setup
 		windowTitle = configFile->Get<std::string>("engine.window.title");
 		defaultWindowTitle = configFile->Get<std::string>("engine.window.title");
@@ -215,10 +212,14 @@ void Engine::LoadEngineConfig(void) {
 	}
 	engineDebugger.WriteLine(">> 1 - COMPLETE");
 }
-void Engine::LoadKeyBindings(void) {
-	engineDebugger.WriteLine(">> 2 - Loading Keybinds");
+void Engine::LoadUserSettings(void) {
+	engineDebugger.WriteLine(">> 2 - Loading User Settings");
 
 	if (configFile->IsLoaded()) {
+		// Loading User settings
+		SetVSyncState(configFile->Get<bool>("engine.settings.vsync"));
+
+		// Loading keybinds
 		size_t numberOfKeybinds = configFile->SizeOfObjectArray("engine.key bindings");
 		for (size_t i = 0; i < numberOfKeybinds; i++) {
 			std::string nameOfBinding = configFile->Get<std::string>("engine.key bindings." + std::to_string(i) + ".binding.id");
@@ -654,7 +655,7 @@ void Engine::LoadEngine(void) {
 	// Load Engine Core configs
 	ConfigureDebugging();
 	LoadEngineConfig();
-	LoadKeyBindings();
+	LoadUserSettings();
 
 	// Setup the Graphics Environment, Initialising OpenGL and loading our libraries
 	LoadExternalLibraries();

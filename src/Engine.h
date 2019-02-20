@@ -144,7 +144,7 @@ private:
 	// Core engine loading
 	void ConfigureDebugging(void);
 	void LoadEngineConfig(void);
-	void LoadKeyBindings(void);
+	void LoadUserSettings(void);
 	
 	// External Library setup functions
 	void LoadSDL(void);
