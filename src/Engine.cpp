@@ -242,7 +242,7 @@ void Engine::LoadKeyBindings(void) {
 	engineDebugger.WriteLine(">> 2 - COMPLETE");
 }
 
-// Library setup
+// External Library Loading functions
 void Engine::LoadSDL(void) {
 	engineDebugger.WriteLine(">>>> 3.1 - Loading Library - SDL2");
 
