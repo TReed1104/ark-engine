@@ -12,7 +12,6 @@ Engine::Engine(char* gameName) {
 
 	windowTitle = gameName;
 	defaultWindowTitle = gameName;
-	isVerticalSyncEnabled = false;
 	oldFrameTime = 0.0f;
 	currentFrameTime = 0.0f;
 
