@@ -333,7 +333,7 @@ void Engine::LoadExternalLibraries(void) {
 	engineDebugger.WriteLine(">> 3 - COMPLETE");
 }
 
-// Loading Functions
+// Content Loading Functions
 void Engine::LoadShaders(void) {
 	engineDebugger.WriteLine(">> 4 - Loading Shaders");
 
