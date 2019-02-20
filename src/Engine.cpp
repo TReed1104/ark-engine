@@ -283,7 +283,6 @@ void Engine::LoadSDL(void) {
 		engineDebugger.WriteLine(">>>>>> 3.1.3 - FAILED");
 		this->Close();
 	}
-	SDL_GL_SetSwapInterval(isVerticalSyncEnabled);	// Toggles V-Sync on and off for the SDL Window
 	engineDebugger.WriteLine(">>>>>> 3.1.3 - COMPLETE");
 	
 
@@ -693,9 +692,10 @@ void Engine::WindowRename(const std::string& newName) {
 	windowTitle = newName;
 	SDL_SetWindowTitle(sdlWindow, windowTitle.c_str());
 }
+
 void Engine::SetVSyncState(const bool& newState) {
-	isVerticalSyncEnabled = newState;
-	SDL_GL_SetSwapInterval(newState);
+	SDL_GL_SetSwapInterval(newState);	// Toggles V-Sync on and off for the SDL Window
+
 }
 
 // Core game loop steps
