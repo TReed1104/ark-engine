@@ -152,8 +152,10 @@ private:
 	void LoadFreeType(void);
 	void LoadExternalLibraries(void);
 
-	// Content loading related functions
+	// User settings loading functions
 	void LoadUserSettings(void);
+
+	// Content loading related functions
 	void LoadShaders(void);
 	void LoadInputDevices(void);
 	void LoadFonts(void);
