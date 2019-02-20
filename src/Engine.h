@@ -129,7 +129,6 @@ private:
 	// GL variables
 	SDL_Window* sdlWindow;
 	SDL_GLContext glContext;
-	bool isVerticalSyncEnabled;
 	bool isRunning;
 	JsonFile* debugConfigurationFile;
 	JsonFile* configFile;
