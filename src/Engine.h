@@ -123,6 +123,7 @@ public:
 	// Engine Settings
 	void WindowResize(const glm::vec2& newScaler);
 	void WindowRename(const std::string& newName);
+	void SetVSyncState(const bool& newState);
 
 private:
 	// GL variables
