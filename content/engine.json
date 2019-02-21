@@ -6,7 +6,44 @@
 			"version": "0.01"
 		},
 		"settings": {
-			"vsync": false
+			"vsync": false,
+			"key bindings": [
+				{
+					"binding": {
+						"id": "movement_left",
+						"friendly name": "Move Left",
+						"key id": 10
+					}
+				},
+				{
+					"binding": {
+						"id": "movement_right",
+						"friendly name": "Move Right",
+						"key id": 13
+					}
+				},
+				{
+					"binding": {
+						"id": "movement_up",
+						"friendly name": "Jump",
+						"key id": 32
+					}
+				},
+				{
+					"binding": {
+						"id": "movement_down",
+						"friendly name": "Crawl",
+						"key id": 28
+					}
+				},
+				{
+					"binding": {
+						"id": "movement_sprint",
+						"friendly name": "Sprint",
+						"key id": 24
+					}
+				}
+			]
 		},
 		"window": {
 			"title": "ArkEngine",
@@ -56,43 +93,6 @@
 				}
 			}
 		},
-		"key bindings": [
-			{
-				"binding": {
-					"id": "movement_left",
-					"friendly name": "Move Left",
-					"key id": 10
-				}
-			},
-			{
-				"binding": {
-					"id": "movement_right",
-					"friendly name": "Move Right",
-					"key id": 13
-				}
-			},
-			{
-				"binding": {
-					"id": "movement_up",
-					"friendly name": "Jump",
-					"key id": 32
-				}
-			},
-			{
-				"binding": {
-					"id": "movement_down",
-					"friendly name": "Crawl",
-					"key id": 28
-				}
-			},
-			{
-				"binding": {
-					"id": "movement_sprint",
-					"friendly name": "Sprint",
-					"key id": 24
-				}
-			}
-		],
 		"game controller": {
 			"max number of controllers": 4,
 			"index of player": 0,
