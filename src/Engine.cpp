@@ -441,7 +441,9 @@ void Engine::LoadTextObjects(void) {
 	engineDebugger.WriteLine(">> 7 - COMPLETE");
 }
 void Engine::LoadAudio(void) {
-
+	engineDebugger.WriteLine(">> X - Loading Audio");
+	engineDebugger.WriteLine(">>>> NOT IMPLEMENTED");
+	engineDebugger.WriteLine(">> X - COMPLETE");
 }
 void Engine::LoadTextures(void) {
 	engineDebugger.WriteLine(">> 8 - Loading Textures");
