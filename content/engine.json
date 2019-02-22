@@ -5,7 +5,7 @@
 			"developer": "Tom reed",
 			"version": "0.01"
 		},
-		"settings": {
+		"user settings": {
 			"vsync": false,
 			"key bindings": [
 				{
