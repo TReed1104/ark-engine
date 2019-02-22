@@ -27,7 +27,30 @@
 				"thumb stick dead zone": 8000,
 				"trigger dead zone": 8000,
 				"pressed state flag": 1
-			}
+			},
+			"shaders": [
+				{
+					"shader": {
+						"id": "default",
+						"vertex": "default.vert",
+						"fragment": "texture_array.frag"
+					}
+				},
+				{
+					"shader": {
+						"id": "text renderer",
+						"vertex": "text_objects.vert",
+						"fragment": "text_objects.frag"
+					}
+				},
+				{
+					"shader": {
+						"id": "textureless",
+						"vertex": "default.vert",
+						"fragment": "default.frag"
+					}
+				}
+			]
 		},
 		"user settings": {
 			"vsync": false,
@@ -117,29 +140,6 @@
 					}
 				}
 			]
-		},
-		"shaders": [
-			{
-				"shader": {
-					"id": "default",
-					"vertex": "default.vert",
-					"fragment": "texture_array.frag"
-				}
-			},
-			{
-				"shader": {
-					"id": "text renderer",
-					"vertex": "text_objects.vert",
-					"fragment": "text_objects.frag"
-				}
-			},
-			{
-				"shader": {
-					"id": "textureless",
-					"vertex": "default.vert",
-					"fragment": "default.frag"
-				}
-			}
-		]
+		}
 	}
 }
