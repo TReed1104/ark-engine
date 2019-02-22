@@ -5,7 +5,7 @@
 			"developer": "Tom reed",
 			"version": "0.01"
 		},
-		"engine settings": {
+		"core settings": {
 			"window": {
 				"title": "ArkEngine",
 				"tile size": {
