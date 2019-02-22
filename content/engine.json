@@ -91,7 +91,23 @@
 					"width": 64,
 					"height": 64
 				}
-			}
+			},
+			"fonts": [
+				{
+					"font": {
+						"id": "Arial",
+						"source": "arial.ttf",
+						"size": 18
+					}
+				},
+				{
+					"font": {
+						"id": "Digital",
+						"source": "digital-7.ttf",
+						"size": 18
+					}
+				}
+			]
 		},
 		"game controller": {
 			"max number of controllers": 4,
@@ -120,22 +136,6 @@
 					"id": "textureless",
 					"vertex": "default.vert",
 					"fragment": "default.frag"
-				}
-			}
-		],
-		"fonts": [
-			{
-				"font": {
-					"id": "Arial",
-					"source": "arial.ttf",
-					"size": 18
-				}
-			},
-			{
-				"font": {
-					"id": "Digital",
-					"source": "digital-7.ttf",
-					"size": 18
 				}
 			}
 		]
