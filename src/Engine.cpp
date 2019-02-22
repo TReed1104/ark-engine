@@ -178,11 +178,11 @@ void Engine::LoadEngineConfig(void) {
 	configFile = new JsonFile(contentDirectory + "engine.json");	// Load the config file into memory
 	if (configFile->IsLoaded()) {
 		// Window Engine setup
-		windowTitle = configFile->Get<std::string>("engine.window.title");
-		defaultWindowTitle = configFile->Get<std::string>("engine.window.title");
-		tileSize = glm::vec2(configFile->Get<int>("engine.window.tile size.width"), configFile->Get<int>("engine.window.tile size.height"));
-		windowGridSize = glm::vec2(configFile->Get<int>("engine.window.grid size.width"), configFile->Get<int>("engine.window.grid size.height"));
-		windowScaler = glm::vec2(configFile->Get<int>("engine.window.scalar.x"), configFile->Get<int>("engine.window.scalar.y"));
+		windowTitle = configFile->Get<std::string>("engine.core settings.window.title");
+		defaultWindowTitle = configFile->Get<std::string>("engine.core settings.window.title");
+		tileSize = glm::vec2(configFile->Get<int>("engine.core settings.window.tile size.width"), configFile->Get<int>("engine.core settings.window.tile size.height"));
+		windowGridSize = glm::vec2(configFile->Get<int>("engine.core settings.window.grid size.width"), configFile->Get<int>("engine.core settings.window.grid size.height"));
+		windowScaler = glm::vec2(configFile->Get<int>("engine.core settings.window.scalar.x"), configFile->Get<int>("engine.core settings.window.scalar.y"));
 		windowDimensions = (tileSize * windowGridSize) * windowScaler;
 
 		// Texture Source Frame setup
