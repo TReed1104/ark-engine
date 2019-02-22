@@ -5,7 +5,7 @@
 			"developer": "Tom reed",
 			"version": "0.01"
 		},
-		"core settings": {
+		"config settings": {
 			"window": {
 				"title": "ArkEngine",
 				"tile size": {
@@ -50,7 +50,56 @@
 						"fragment": "default.frag"
 					}
 				}
-			]
+			],
+			"content": {
+				"default content": {
+					"tile": "tile.obj",
+					"sprite": "sprite.obj",
+					"texture": "default.png"
+				},
+				"directories": {
+					"shaders": "shaders",
+					"fonts": "fonts",
+					"text": "text",
+					"textures": "textures",
+					"models": "models",
+					"tilesets": "tilesets",
+					"levels": "levels",
+					"items": "items",
+					"entities": "entities",
+					"cameras": "cameras"
+				},
+				"texture config": {
+					"texture border size": {
+						"width": 1,
+						"height": 1
+					},
+					"tile frame dimensions": {
+						"width": 16,
+						"height": 16
+					},
+					"sprite frame dimensions": {
+						"width": 64,
+						"height": 64
+					}
+				},
+				"fonts": [
+					{
+						"font": {
+							"id": "Arial",
+							"source": "arial.ttf",
+							"size": 18
+						}
+					},
+					{
+						"font": {
+							"id": "Digital",
+							"source": "digital-7.ttf",
+							"size": 18
+						}
+					}
+				]
+			}
 		},
 		"user settings": {
 			"vsync": false,
@@ -88,55 +137,6 @@
 						"id": "movement_sprint",
 						"friendly name": "Sprint",
 						"key id": 24
-					}
-				}
-			]
-		},
-		"content": {
-			"default content": {
-				"tile": "tile.obj",
-				"sprite": "sprite.obj",
-				"texture": "default.png"
-			},
-			"directories": {
-				"shaders": "shaders",
-				"fonts": "fonts",
-				"text": "text",
-				"textures": "textures",
-				"models": "models",
-				"tilesets": "tilesets",
-				"levels": "levels",
-				"items": "items",
-				"entities": "entities",
-				"cameras": "cameras"
-			},
-			"texture config": {
-				"texture border size": {
-					"width": 1,
-					"height": 1
-				},
-				"tile frame dimensions": {
-					"width": 16,
-					"height": 16
-				},
-				"sprite frame dimensions": {
-					"width": 64,
-					"height": 64
-				}
-			},
-			"fonts": [
-				{
-					"font": {
-						"id": "Arial",
-						"source": "arial.ttf",
-						"size": 18
-					}
-				},
-				{
-					"font": {
-						"id": "Digital",
-						"source": "digital-7.ttf",
-						"size": 18
 					}
 				}
 			]
