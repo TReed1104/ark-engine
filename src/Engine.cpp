@@ -441,6 +441,7 @@ void Engine::LoadTextObjects(void) {
 	engineDebugger.WriteLine(">> 7 - COMPLETE");
 }
 void Engine::LoadAudio(void) {
+
 }
 void Engine::LoadTextures(void) {
 	engineDebugger.WriteLine(">> 8 - Loading Textures");
@@ -673,6 +674,7 @@ void Engine::LoadEngine(void) {
 	// Load Game Content
 	LoadFonts();
 	LoadTextObjects();
+	LoadAudio();
 	LoadTextures();
 	LoadModels();
 	LoadTilesets();
