@@ -145,6 +145,7 @@ void Engine::Close(bool isClean) {
 	else {
 		CleanUp();
 		SDL_Quit();
+		engineDebugger.~Debugger();	// Explicit deconstructor call on the core debugger to force flush the file stream and get our log
 		exit(1);
 	}
 }
