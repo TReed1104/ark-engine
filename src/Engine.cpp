@@ -178,29 +178,29 @@ void Engine::LoadEngineConfig(void) {
 	configFile = new JsonFile(contentDirectory + "engine.json");	// Load the config file into memory
 	if (configFile->IsLoaded()) {
 		// Window Engine setup
-		windowTitle = configFile->Get<std::string>("engine.core settings.window.title");
-		defaultWindowTitle = configFile->Get<std::string>("engine.core settings.window.title");
-		tileSize = glm::vec2(configFile->Get<int>("engine.core settings.window.tile size.width"), configFile->Get<int>("engine.core settings.window.tile size.height"));
-		windowGridSize = glm::vec2(configFile->Get<int>("engine.core settings.window.grid size.width"), configFile->Get<int>("engine.core settings.window.grid size.height"));
-		windowScaler = glm::vec2(configFile->Get<int>("engine.core settings.window.scalar.x"), configFile->Get<int>("engine.core settings.window.scalar.y"));
+		windowTitle = configFile->Get<std::string>("engine.config settings.window.title");
+		defaultWindowTitle = configFile->Get<std::string>("engine.config settings.window.title");
+		tileSize = glm::vec2(configFile->Get<int>("engine.config settings.window.tile size.width"), configFile->Get<int>("engine.config settings.window.tile size.height"));
+		windowGridSize = glm::vec2(configFile->Get<int>("engine.config settings.window.grid size.width"), configFile->Get<int>("engine.config settings.window.grid size.height"));
+		windowScaler = glm::vec2(configFile->Get<int>("engine.config settings.window.scalar.x"), configFile->Get<int>("engine.config settings.window.scalar.y"));
 		windowDimensions = (tileSize * windowGridSize) * windowScaler;
 
 		// Texture Source Frame setup
-		textureBorderSize = glm::ivec2(configFile->Get<int>("engine.content.texture config.texture border size.width"), configFile->Get<int>("engine.content.texture config.texture border size.height"));
-		tileTextureFrameSize = glm::ivec2(configFile->Get<int>("engine.content.texture config.tile frame dimensions.width"), configFile->Get<int>("engine.content.texture config.tile frame dimensions.height"));
-		entityTextureFrameSize = glm::ivec2(configFile->Get<int>("engine.content.texture config.sprite frame dimensions.width"), configFile->Get<int>("engine.content.texture config.sprite frame dimensions.height"));
+		textureBorderSize = glm::ivec2(configFile->Get<int>("engine.config settings.content.texture config.texture border size.width"), configFile->Get<int>("engine.config settings.content.texture config.texture border size.height"));
+		tileTextureFrameSize = glm::ivec2(configFile->Get<int>("engine.config settings.content.texture config.tile frame dimensions.width"), configFile->Get<int>("engine.config settings.content.texture config.tile frame dimensions.height"));
+		entityTextureFrameSize = glm::ivec2(configFile->Get<int>("engine.config settings.content.texture config.sprite frame dimensions.width"), configFile->Get<int>("engine.config settings.content.texture config.sprite frame dimensions.height"));
 
 		// Default content setup
-		nameOfDefaultTileModel = configFile->Get<std::string>("engine.content.default content.tile");
-		nameOfDefaultSpriteModel = configFile->Get<std::string>("engine.content.default content.sprite");
-		nameOfDefaultTexture = configFile->Get<std::string>("engine.content.default content.texture");
+		nameOfDefaultTileModel = configFile->Get<std::string>("engine.config settings.content.default content.tile");
+		nameOfDefaultSpriteModel = configFile->Get<std::string>("engine.config settings.content.default content.sprite");
+		nameOfDefaultTexture = configFile->Get<std::string>("engine.config settings.content.default content.texture");
 
 		// Controller setup
-		maxNumberOfControllers = configFile->Get<int>("engine.game controller.max number of controllers");
-		indexOfPlayerController = configFile->Get<int>("engine.game controller.index of player");
-		thumbStickDeadZone = configFile->Get<int>("engine.game controller.thumb stick dead zone");
-		triggerDeadZone = configFile->Get<int>("engine.game controller.trigger dead zone");
-		pressedStateFlag = configFile->Get<int>("engine.game controller.pressed state flag");
+		maxNumberOfControllers = configFile->Get<int>("engine.config settings.game controller.max number of controllers");
+		indexOfPlayerController = configFile->Get<int>("engine.config settings.game controller.index of player");
+		thumbStickDeadZone = configFile->Get<int>("engine.config settings.game controller.thumb stick dead zone");
+		triggerDeadZone = configFile->Get<int>("engine.config settings.game controller.trigger dead zone");
+		pressedStateFlag = configFile->Get<int>("engine.config settings.game controller.pressed state flag");
 
 	}
 	else {
@@ -338,7 +338,7 @@ void Engine::LoadShaders(void) {
 	engineDebugger.WriteLine(">> 4 - Loading Shaders");
 
 	if (configFile->IsLoaded()) {
-		size_t numberOfShaders = configFile->SizeOfObjectArray("engine.shaders");
+		size_t numberOfShaders = configFile->SizeOfObjectArray("engine.config settings.shaders");
 
 		// If no shaders are found, close the program
 		if (numberOfShaders == 0) {
@@ -349,9 +349,9 @@ void Engine::LoadShaders(void) {
 
 		// Load each of the shaders
 		for (size_t i = 0; i < numberOfShaders; i++) {
-			std::string nameOfShader = contentDirectory + "shaders\\" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.id");
-			std::string vertexShaderName = contentDirectory + "shaders\\" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.vertex");
-			std::string fragmentShaderName = contentDirectory + "shaders\\" + configFile->Get<std::string>("engine.shaders." + std::to_string(i) + ".shader.fragment");
+			std::string nameOfShader = contentDirectory + "shaders\\" + configFile->Get<std::string>("engine.config settings.shaders." + std::to_string(i) + ".shader.id");
+			std::string vertexShaderName = contentDirectory + "shaders\\" + configFile->Get<std::string>("engine.config settings.shaders." + std::to_string(i) + ".shader.vertex");
+			std::string fragmentShaderName = contentDirectory + "shaders\\" + configFile->Get<std::string>("engine.config settings.shaders." + std::to_string(i) + ".shader.fragment");
 
 			// Compile the shader
 			Shader* newShader = new Shader(nameOfShader, vertexShaderName, fragmentShaderName);
@@ -406,11 +406,11 @@ void Engine::LoadFonts(void) {
 	engineDebugger.WriteLine(">> 6 - Loading Fonts");
 
 	if (configFile->IsLoaded()) {
-		size_t numberOfFonts = configFile->SizeOfObjectArray("engine.content.fonts");
+		size_t numberOfFonts = configFile->SizeOfObjectArray("engine.config settings.content.fonts");
 		for (size_t i = 0; i < numberOfFonts; i++) {
-			std::string fontName = configFile->Get<std::string>("engine.content.fonts." + std::to_string(i) + ".font.id");
-			std::string fontPath = contentDirectory + "fonts/" + configFile->Get<std::string>("engine.content.fonts." + std::to_string(i) + ".font.source");
-			int fontSize = configFile->Get<int>("engine.content.fonts." + std::to_string(i) + ".font.size");
+			std::string fontName = configFile->Get<std::string>("engine.config settings.content.fonts." + std::to_string(i) + ".font.id");
+			std::string fontPath = contentDirectory + "fonts/" + configFile->Get<std::string>("engine.config settings.content.fonts." + std::to_string(i) + ".font.source");
+			int fontSize = configFile->Get<int>("engine.config settings.content.fonts." + std::to_string(i) + ".font.size");
 			Font* newFont = new Font(fontName, fontPath, fontSize);
 			if (newFont->isLoaded) {
 				fontRegister.push_back(newFont);
