@@ -216,17 +216,17 @@ void Engine::LoadUserSettings(void) {
 
 	if (configFile->IsLoaded()) {
 		// Loading User settings
-		SetVSyncState(configFile->Get<bool>("engine.settings.vsync"));
+		SetVSyncState(configFile->Get<bool>("engine.user settings.vsync"));
 
 		// Loading keybinds
-		size_t numberOfKeybinds = configFile->SizeOfObjectArray("engine.settings.key bindings");
+		size_t numberOfKeybinds = configFile->SizeOfObjectArray("engine.user settings.key bindings");
 		for (size_t i = 0; i < numberOfKeybinds; i++) {
-			std::string nameOfBinding = configFile->Get<std::string>("engine.settings.key bindings." + std::to_string(i) + ".binding.id");
+			std::string nameOfBinding = configFile->Get<std::string>("engine.user settings.key bindings." + std::to_string(i) + ".binding.id");
 
 			Keybind bind{
-				configFile->Get<std::string>("engine.settings.key bindings." + std::to_string(i) + ".binding.id"),
-				configFile->Get<std::string>("engine.settings.key bindings." + std::to_string(i) + ".binding.friendly name"),
-				(Keyboard::Keys)configFile->Get<int>("engine.settings.key bindings." + std::to_string(i) + ".binding.key id")
+				configFile->Get<std::string>("engine.user settings.key bindings." + std::to_string(i) + ".binding.id"),
+				configFile->Get<std::string>("engine.user settings.key bindings." + std::to_string(i) + ".binding.friendly name"),
+				(Keyboard::Keys)configFile->Get<int>("engine.user settings.key bindings." + std::to_string(i) + ".binding.key id")
 			};
 
 			keybindingHandler.AddKeybinding(bind);
