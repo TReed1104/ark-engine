@@ -5,6 +5,23 @@
 			"developer": "Tom reed",
 			"version": "0.01"
 		},
+		"engine settings": {
+			"window": {
+				"title": "ArkEngine",
+				"tile size": {
+					"width": 16,
+					"height": 16
+				},
+				"grid size": {
+					"width": 25,
+					"height": 20
+				},
+				"scalar": {
+					"x": 2,
+					"y": 2
+				}
+			}
+		},
 		"user settings": {
 			"vsync": false,
 			"key bindings": [
@@ -44,21 +61,6 @@
 					}
 				}
 			]
-		},
-		"window": {
-			"title": "ArkEngine",
-			"tile size": {
-				"width": 16,
-				"height": 16
-			},
-			"grid size": {
-				"width": 25,
-				"height": 20
-			},
-			"scalar": {
-				"x": 2,
-				"y": 2
-			}
 		},
 		"content": {
 			"default content": {
