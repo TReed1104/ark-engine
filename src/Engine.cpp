@@ -323,6 +323,14 @@ void Engine::LoadFreeType(void) {
 
 	engineDebugger.WriteLine(">>>> 2.3 - COMPLETE");
 }
+void Engine::LoadOpenAL(void) {
+	engineDebugger.WriteLine(">>>> 2.4 - Loading Library - OpenAL");
+
+
+
+	engineDebugger.WriteLine(">>>> 2.4 - COMPLETE");
+}
+
 void Engine::LoadExternalLibraries(void) {
 	engineDebugger.WriteLine(">> 2 - Loading External Libraries");
 

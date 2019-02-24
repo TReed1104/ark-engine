@@ -67,6 +67,10 @@ public:
 	// Text Rendering
 	FT_Library freeTypeLibrary;
 
+	// OpenAL
+	ALCdevice* audioDevice;
+
+
 	// Cameras
 	Camera* mainCamera;
 	GameObject* mainCameraFocus;
@@ -153,6 +157,7 @@ private:
 	void LoadSDL(void);
 	void LoadGLEW(void);
 	void LoadFreeType(void);
+	void LoadOpenAL(void);
 	void LoadExternalLibraries(void);
 
 	// Content loading related functions
