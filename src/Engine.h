@@ -69,6 +69,7 @@ public:
 
 	// OpenAL
 	ALCdevice* audioDevice;
+	ALCcontext* audioContext;
 
 
 	// Cameras

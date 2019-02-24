@@ -326,6 +326,20 @@ void Engine::LoadFreeType(void) {
 void Engine::LoadOpenAL(void) {
 	engineDebugger.WriteLine(">>>> 2.4 - Loading Library - OpenAL");
 
+	audioDevice = alcOpenDevice(NULL);	// Load the default device -> Should be system default?
+	if (audioDevice) {
+		engineDebugger.WriteLine(">>>> Default Audio Device initialised");
+		audioContext = alcCreateContext(audioDevice, NULL);	// Create the audio context for the engine to use
+		if (alcMakeContextCurrent(audioContext)) {
+			engineDebugger.WriteLine(">>>> Default Audio context created");
+		}
+		else {
+			engineDebugger.WriteLine(">>>> ERROR!!!! - Default Audio context failed to load");
+		}
+	}
+	else {
+		engineDebugger.WriteLine(">>>> ERROR!!!! - Default Audio device failed to load");
+	}
 
 
 	engineDebugger.WriteLine(">>>> 2.4 - COMPLETE");
@@ -338,6 +352,7 @@ void Engine::LoadExternalLibraries(void) {
 	LoadSDL();
 	LoadGLEW();
 	LoadFreeType();
+	LoadOpenAL();
 
 	engineDebugger.WriteLine(">> 2 - COMPLETE");
 }
