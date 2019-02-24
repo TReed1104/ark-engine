@@ -16,6 +16,9 @@
 #include <assimp/scene.h>
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
+// OpenAL
+#include <AL/al.h>
+#include <AL/alc.h>
 
 // Engine Source
 #include "Debug.hpp"
