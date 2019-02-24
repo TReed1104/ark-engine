@@ -316,6 +316,7 @@ void Engine::LoadFreeType(void) {
 void Engine::LoadOpenAL(void) {
 	engineDebugger.WriteLine(">>>> 2.4 - Loading Library - OpenAL");
 
+	// TODO: Expand this to find out what devices are available and actually ensure we use the right one
 	audioDevice = alcOpenDevice(NULL);	// Load the default device -> Should be system default?
 	if (audioDevice) {
 		engineDebugger.WriteLine(">>>> Default Audio Device initialised");
@@ -324,13 +325,14 @@ void Engine::LoadOpenAL(void) {
 			engineDebugger.WriteLine(">>>>>> Default Audio context created");
 		}
 		else {
+			// TODO: Print our error message from OpenAL
 			engineDebugger.WriteLine(">>>>>> ERROR!!!! - Default Audio context failed to load");
 		}
 	}
 	else {
+		// TODO: Print our error message from OpenAL
 		engineDebugger.WriteLine(">>>>>> ERROR!!!! - Default Audio device failed to load");
 	}
-
 
 	engineDebugger.WriteLine(">>>> 2.4 - COMPLETE");
 }
