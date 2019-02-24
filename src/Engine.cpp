@@ -247,18 +247,14 @@ void Engine::LoadUserSettings(void) {
 void Engine::LoadSDL(void) {
 	engineDebugger.WriteLine(">>>> 2.1 - Loading Library - SDL2");
 
-
 	// Initialise the SDL2 Library
-	engineDebugger.WriteLine(">>>>>> 2.1.1 - Initialising SDL2 API");
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		engineDebugger.WriteLine(">>>>>> ERROR!!!! - SDL_Init Error: " + (std::string)SDL_GetError());
 		engineDebugger.WriteLine(">>>>>> 2.1 - FAILED");
 		this->Close();
 	}
-	engineDebugger.WriteLine(">>>>>> 2.1.1 - Complete");
 
 	// SDL2 window creation
-	engineDebugger.WriteLine(">>>>>> 2.1.1 - Creating SDL Window");
 	sdlWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)windowDimensions.x, (int)windowDimensions.y, SDL_WINDOW_OPENGL);	// Create window
 	// Error handling for the SDL Window.
 	if (sdlWindow == nullptr) {
@@ -266,16 +262,12 @@ void Engine::LoadSDL(void) {
 		engineDebugger.WriteLine(">>>>>> 2.1.2 - FAILED");
 		this->Close();
 	}
-	engineDebugger.WriteLine(">>>>>> 2.1.2 - COMPLETE");
 
-
-	// OpenGL Context creation, this is where we actually link our SDL2 window to the OpenGL API
-	engineDebugger.WriteLine(">>>>>> 2.1.2 - Creating OpenGL Context");
 	// Sets up the OpenGL context for OpenGL version 3.3, TODO: Expand to allow for more recent versions of OpenGL
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	// Create the OpenGL context
+	// OpenGL Context creation, this is where we actually link our SDL2 window to the OpenGL API
 	glContext = SDL_GL_CreateContext(sdlWindow);
 	// Error handling for failing to create the OpenGL Context
 	if (glContext == nullptr) {
@@ -284,8 +276,6 @@ void Engine::LoadSDL(void) {
 		engineDebugger.WriteLine(">>>>>> 2.1.3 - FAILED");
 		this->Close();
 	}
-	engineDebugger.WriteLine(">>>>>> 2.1.3 - COMPLETE");
-
 
 	engineDebugger.WriteLine(">>>> 2.1 - COMPLETE");
 }
@@ -297,8 +287,8 @@ void Engine::LoadGLEW(void) {
 	rev = glewInit();
 	if (GLEW_OK != rev) {
 		// If GLEW fails, close the program.
-		engineDebugger.WriteLine(">>>> ERROR!!!! - GLEW Error: " + *((const char*)glewGetErrorString(rev)));
-		engineDebugger.WriteLine(">>>> 2.2 - FAILED");
+		engineDebugger.WriteLine(">>>>>> ERROR!!!! - GLEW Error: " + *((const char*)glewGetErrorString(rev)));
+		engineDebugger.WriteLine(">>>>>> 2.2 - FAILED");
 		this->Close();
 	}
 	// Setup Core OpenGL
@@ -316,8 +306,8 @@ void Engine::LoadFreeType(void) {
 
 	// Initialise the FreeType library, return is "are there errors, true = errors"
 	if (FT_Init_FreeType(&freeTypeLibrary)) {
-		engineDebugger.WriteLine(">>>> ERROR!!!! - FreeType Failed to Initialise");
-		engineDebugger.WriteLine(">>>> 2.3 - FAILED");
+		engineDebugger.WriteLine(">>>>>> ERROR!!!! - FreeType Failed to Initialise");
+		engineDebugger.WriteLine(">>>>>> 2.3 - FAILED");
 		this->Close();
 	}
 
@@ -331,14 +321,14 @@ void Engine::LoadOpenAL(void) {
 		engineDebugger.WriteLine(">>>> Default Audio Device initialised");
 		audioContext = alcCreateContext(audioDevice, NULL);	// Create the audio context for the engine to use
 		if (alcMakeContextCurrent(audioContext)) {
-			engineDebugger.WriteLine(">>>> Default Audio context created");
+			engineDebugger.WriteLine(">>>>>> Default Audio context created");
 		}
 		else {
-			engineDebugger.WriteLine(">>>> ERROR!!!! - Default Audio context failed to load");
+			engineDebugger.WriteLine(">>>>>> ERROR!!!! - Default Audio context failed to load");
 		}
 	}
 	else {
-		engineDebugger.WriteLine(">>>> ERROR!!!! - Default Audio device failed to load");
+		engineDebugger.WriteLine(">>>>>> ERROR!!!! - Default Audio device failed to load");
 	}
 
 
