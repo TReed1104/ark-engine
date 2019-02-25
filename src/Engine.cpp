@@ -456,7 +456,7 @@ void Engine::LoadTextObjects(void) {
 	engineDebugger.WriteLine(">> 7 - COMPLETE");
 }
 void Engine::LoadAudio(void) {
-	engineDebugger.WriteLine(">> X - Loading Audio");
+	engineDebugger.WriteLine(">> 8 - Loading Audio");
 	engineDebugger.WriteLine(">>>> NOT IMPLEMENTED");
 
 	std::vector<std::string> listOfAudioFiles = FileSystemUtilities::GetFileList(contentDirectory + "audio");
@@ -465,10 +465,10 @@ void Engine::LoadAudio(void) {
 
 	}
 
-	engineDebugger.WriteLine(">> X - COMPLETE");
+	engineDebugger.WriteLine(">> 8 - COMPLETE");
 }
 void Engine::LoadTextures(void) {
-	engineDebugger.WriteLine(">> 8 - Loading Textures");
+	engineDebugger.WriteLine(">> 9 - Loading Textures");
 
 	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
 	const size_t numberOfTextues = listOfTextures.size();
@@ -476,7 +476,7 @@ void Engine::LoadTextures(void) {
 
 	if (numberOfTextues == 0) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to find textures ABORTING RUNTIME");
-		engineDebugger.WriteLine(">>>> 8 - FAILED");
+		engineDebugger.WriteLine(">>>> 9 - FAILED");
 		this->Close();
 	}
 
@@ -488,7 +488,7 @@ void Engine::LoadTextures(void) {
 		}
 		else {
 			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load texture" + listOfTextures[i]);
-			engineDebugger.WriteLine(">>>> 8 - FAILED");
+			engineDebugger.WriteLine(">>>> 9 - FAILED");
 			this->Close();
 		}
 	}
@@ -496,21 +496,21 @@ void Engine::LoadTextures(void) {
 	// Find the default texture for when textures are failed to be found.
 	if ((indexOfDefaultTexture = GetIndexOfTexture(nameOfDefaultTexture)) == -1) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - Unable to find default texture");
-		engineDebugger.WriteLine(">>>> 8 - FAILED");
+		engineDebugger.WriteLine(">>>> 9 - FAILED");
 		this->Close();
 	}
 
-	engineDebugger.WriteLine(">> 8 - COMPLETE");
+	engineDebugger.WriteLine(">> 9 - COMPLETE");
 }
 void Engine::LoadModels(void) {
-	engineDebugger.WriteLine(">> 9 - Loading Models");
+	engineDebugger.WriteLine(">> 10 - Loading Models");
 
 	std::vector<std::string> listOfModels = FileSystemUtilities::GetFileList(contentDirectory + "models");
 	const size_t numberOfModels = listOfModels.size();
 	// Check we found any model files to load, if not exit as these are required for the program to work
 	if (numberOfModels == 0) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - No to Model files found");
-		engineDebugger.WriteLine(">>>> 9 - FAILED");
+		engineDebugger.WriteLine(">>>> 10 - FAILED");
 		this->Close();
 	}
 
@@ -522,7 +522,7 @@ void Engine::LoadModels(void) {
 		}
 		else {
 			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Model" + listOfModels[i]);
-			engineDebugger.WriteLine(">>>> 9 - FAILED");
+			engineDebugger.WriteLine(">>>> 10 - FAILED");
 			this->Close();
 		}
 	}
@@ -530,7 +530,7 @@ void Engine::LoadModels(void) {
 	// Find the default models
 	if ((indexOfTileModel = GetIndexOfModel(nameOfDefaultTileModel)) == -1) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - Unable to find default model");
-		engineDebugger.WriteLine(">>>> 9 - FAILED");
+		engineDebugger.WriteLine(">>>> 10 - FAILED");
 		this->Close();
 	}
 	// If we can't find the default sprite model, use the tile model
@@ -538,10 +538,10 @@ void Engine::LoadModels(void) {
 		indexOfSpriteModel = indexOfTileModel;
 	}
 
-	engineDebugger.WriteLine(">> 9 - COMPLETE");
+	engineDebugger.WriteLine(">> 10 - COMPLETE");
 }
 void Engine::LoadTilesets(void) {
-	engineDebugger.WriteLine(">> 10 - Loading Tilesets");
+	engineDebugger.WriteLine(">> 11 - Loading Tilesets");
 
 	std::vector<std::string> listOfTilesets = FileSystemUtilities::GetFileList(contentDirectory + "tilesets");
 	const size_t numberOfTilesets = listOfTilesets.size();
@@ -549,7 +549,7 @@ void Engine::LoadTilesets(void) {
 	// Make sure we have found atleast one tileset
 	if (numberOfTilesets == 0) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - No Tilesets found");
-		engineDebugger.WriteLine(">> 10 - FAILED");
+		engineDebugger.WriteLine(">> 11 - FAILED");
 		this->Close();
 	}
 
@@ -561,22 +561,22 @@ void Engine::LoadTilesets(void) {
 		}
 		else {
 			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Tileset " + listOfTilesets[i]);
-			engineDebugger.WriteLine(">> 10 - FAILED");
+			engineDebugger.WriteLine(">> 11 - FAILED");
 			this->Close();
 		}
 	}
 
-	engineDebugger.WriteLine(">> 10 - COMPLETE");
+	engineDebugger.WriteLine(">> 11 - COMPLETE");
 }
 void Engine::LoadLevels(void) {
-	engineDebugger.WriteLine(">> 11 - Loading Levels");
+	engineDebugger.WriteLine(">> 12 - Loading Levels");
 
 	std::vector<std::string> listOfLevelFiles = FileSystemUtilities::GetFileList(contentDirectory + "levels");
 	const size_t numberOfLevels = listOfLevelFiles.size();
 	// Ensure we found atleast one level to load
 	if (numberOfLevels == 0) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to find levels");
-		engineDebugger.WriteLine(">> 11 - FAILED");
+		engineDebugger.WriteLine(">> 12 - FAILED");
 		this->Close();
 	}
 
@@ -588,16 +588,16 @@ void Engine::LoadLevels(void) {
 		}
 		else {
 			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Level " + listOfLevelFiles[i]);
-			engineDebugger.WriteLine(">> 11 - FAILED");
+			engineDebugger.WriteLine(">> 12 - FAILED");
 			this->Close();
 		}
 	}
 	indexOfCurrentLevel = 0;
 
-	engineDebugger.WriteLine(">> 11 - COMPLETE");
+	engineDebugger.WriteLine(">> 12 - COMPLETE");
 }
 void Engine::LoadItems(void) {
-	engineDebugger.WriteLine(">> 12 - Loading Items");
+	engineDebugger.WriteLine(">> 13 - Loading Items");
 	std::vector<std::string> listOfItemFiles = FileSystemUtilities::GetFileList(contentDirectory + "items");
 	const size_t numberOfItems = listOfItemFiles.size();
 	for (size_t i = 0; i < numberOfItems; i++) {
@@ -608,21 +608,21 @@ void Engine::LoadItems(void) {
 		else {
 			// Failed to load the item, runtime does continue
 			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Item " + listOfItemFiles[i]);
-			engineDebugger.WriteLine(">> 12 - FAILED");
+			engineDebugger.WriteLine(">> 13 - FAILED");
 		}
 	}
 
-	engineDebugger.WriteLine(">> 12 - COMPLETE");
+	engineDebugger.WriteLine(">> 13 - COMPLETE");
 }
 void Engine::LoadEntities(void) {
-	engineDebugger.WriteLine(">> 13 - Loading Entities");
+	engineDebugger.WriteLine(">> 14 - Loading Entities");
 
 	std::vector<std::string> listOfEntityFiles = FileSystemUtilities::GetFileList(contentDirectory + "entities");
 	const size_t numberOfEntities = listOfEntityFiles.size();
 	// If we haven't found any entities, close the engine.
 	if (numberOfEntities == 0) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - No entity files were found in the content directory");
-		engineDebugger.WriteLine(">> 13 - FAILED");
+		engineDebugger.WriteLine(">> 14 - FAILED");
 		this->Close();
 	}
 
@@ -633,7 +633,7 @@ void Engine::LoadEntities(void) {
 			player = new Player(contentDirectory + "entities\\player.json");
 			if (!player->IsLoaded()) {
 				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load player");
-				engineDebugger.WriteLine(">> 13 - FAILED");
+				engineDebugger.WriteLine(">> 14 - FAILED");
 				this->Close();
 			}
 		}
@@ -651,7 +651,7 @@ void Engine::LoadEntities(void) {
 				else {
 					// Failed to load the entity, runtime does continue
 					engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load entity " + listOfEntityFiles[i]);
-					engineDebugger.WriteLine(">> 13 - FAILED");
+					engineDebugger.WriteLine(">> 14 - FAILED");
 				}
 			}
 		}
@@ -660,19 +660,19 @@ void Engine::LoadEntities(void) {
 	// Make sure we have a player loaded
 	if (player == nullptr) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - No Player was loaded");
-		engineDebugger.WriteLine(">> 13 - FAILED");
+		engineDebugger.WriteLine(">> 14 - FAILED");
 		this->Close();
 	}
 
-	engineDebugger.WriteLine(">> 13 - COMPLETE");
+	engineDebugger.WriteLine(">> 14 - COMPLETE");
 }
 void Engine::LoadCameras(void) {
-	engineDebugger.WriteLine(">> 14 - Loading Cameras");
+	engineDebugger.WriteLine(">> 15 - Loading Cameras");
 
 	mainCamera = new Camera(glm::vec3(0.0f, 0.0f, 1.0f));
 	mainCameraFocus = player;
 
-	engineDebugger.WriteLine(">> 14 - COMPLETE");
+	engineDebugger.WriteLine(">> 15 - COMPLETE");
 }
 
 // Master Load Function, calls all the other individual loads
