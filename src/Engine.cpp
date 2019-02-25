@@ -458,6 +458,13 @@ void Engine::LoadTextObjects(void) {
 void Engine::LoadAudio(void) {
 	engineDebugger.WriteLine(">> X - Loading Audio");
 	engineDebugger.WriteLine(">>>> NOT IMPLEMENTED");
+
+	std::vector<std::string> listOfAudioFiles = FileSystemUtilities::GetFileList(contentDirectory + "audio");
+	const size_t numberOfAudioFiles = listOfAudioFiles.size();
+	for (size_t i = 0; i < numberOfAudioFiles; i++) {
+
+	}
+
 	engineDebugger.WriteLine(">> X - COMPLETE");
 }
 void Engine::LoadTextures(void) {
