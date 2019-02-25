@@ -331,11 +331,17 @@ void Engine::LoadOpenAL(void) {
 		}
 		else {
 			// TODO: Print our error message from OpenAL
+			if (alGetError() != AL_NO_ERROR) {
+				engineDebugger.WriteLine(">>>>>> ERROR!!!! - OpenAL Error: " + alGetError());
+			}
 			engineDebugger.WriteLine(">>>>>> ERROR!!!! - Default Audio context failed to load");
 		}
 	}
 	else {
 		// TODO: Print our error message from OpenAL
+		if (alGetError() != AL_NO_ERROR) {
+			engineDebugger.WriteLine(">>>>>> ERROR!!!! - OpenAL Error: " + alGetError());
+		}
 		engineDebugger.WriteLine(">>>>>> ERROR!!!! - Default Audio device failed to load");
 	}
 
