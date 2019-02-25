@@ -129,6 +129,11 @@ void Engine::CleanUp(void) {
 		}
 	}
 
+	// Cleanup OpenAL
+	alcMakeContextCurrent(NULL);
+	alcDestroyContext(audioContext);
+	alcCloseDevice(audioDevice);
+
 	// Clean up our extenal libraries
 	if (freeTypeLibrary != NULL) {
 		FT_Done_FreeType(freeTypeLibrary);
@@ -336,7 +341,6 @@ void Engine::LoadOpenAL(void) {
 
 	engineDebugger.WriteLine(">>>> 2.4 - COMPLETE");
 }
-
 void Engine::LoadExternalLibraries(void) {
 	engineDebugger.WriteLine(">> 2 - Loading External Libraries");
 
