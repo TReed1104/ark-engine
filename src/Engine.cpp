@@ -462,7 +462,9 @@ void Engine::LoadAudio(void) {
 	std::vector<std::string> listOfAudioFiles = FileSystemUtilities::GetFileList(contentDirectory + "audio");
 	const size_t numberOfAudioFiles = listOfAudioFiles.size();
 	for (size_t i = 0; i < numberOfAudioFiles; i++) {
+		// TODO: If file is soundeffect, load sound effect
 
+		// TODO: If file is background track, loud as background music
 	}
 
 	engineDebugger.WriteLine(">> 8 - COMPLETE");
