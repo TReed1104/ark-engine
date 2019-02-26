@@ -341,18 +341,40 @@ void Engine::LoadOpenAL(void) {
 	if (audioDevice) {
 		engineDebugger.WriteLine(">>>>>> Audio Device: " + (std::string)alcGetString(audioDevice, ALC_DEVICE_SPECIFIER) + " - initialised");
 		audioContext = alcCreateContext(audioDevice, NULL);	// Create the audio context for the engine to use
-		if (alcMakeContextCurrent(audioContext)) {
-			engineDebugger.WriteLine(">>>>>> Default Audio context created");
+		
+		if (audioContext) {
+			engineDebugger.WriteLine(">>>>>> Audio context created");
+			if (alcMakeContextCurrent(audioContext)) {
+				// Success!
+				engineDebugger.WriteLine(">>>>>> Audio context set");
+				engineDebugger.WriteLine(">>>>>> SUCCESS! - OpenAL initialised");
+			}
+			else {
+				engineDebugger.WriteLine(">>>>>> ERROR!!!! - Failed to set Audio context");
+				engineDebugger.WriteLine(">>>>>> ERROR!!!! - OpenAL Error: " + alGetError());
+				engineDebugger.WriteLine(">>>> 2.4 - FAILED");
+				
+				// Cleanup
+				alcDestroyContext(audioContext);
+				alcCloseDevice(audioDevice);
+				return;
+			}
 		}
 		else {
+			engineDebugger.WriteLine(">>>>>> ERROR!!!! - Failed to create Audio context");
 			engineDebugger.WriteLine(">>>>>> ERROR!!!! - OpenAL Error: " + alGetError());
-			engineDebugger.WriteLine(">>>>>> ERROR!!!! - Default Audio context failed to load");
+			engineDebugger.WriteLine(">>>> 2.4 - FAILED");
+			
+			// Cleanup
+			alcCloseDevice(audioDevice);
+			return;
 		}
 	}
 	else {
-		// TODO: Print our error message from OpenAL
+		engineDebugger.WriteLine(">>>>>> ERROR!!!! - Failed to Load Audio Device");
 		engineDebugger.WriteLine(">>>>>> ERROR!!!! - OpenAL Error: " + alGetError());
-		engineDebugger.WriteLine(">>>>>> ERROR!!!! - Default Audio device failed to load");
+		engineDebugger.WriteLine(">>>> 2.4 - FAILED");
+		return;
 	}
 
 	engineDebugger.WriteLine(">>>> 2.4 - COMPLETE");
