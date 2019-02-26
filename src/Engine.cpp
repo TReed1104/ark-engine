@@ -339,7 +339,7 @@ void Engine::LoadOpenAL(void) {
 	// TODO: Expand this to find out what devices are available and actually ensure we use the right one
 	audioDevice = alcOpenDevice(NULL);	// Load the default device -> Should be system default?
 	if (audioDevice) {
-		engineDebugger.WriteLine(">>>>>> Default Audio Device initialised");
+		engineDebugger.WriteLine(">>>>>> Audio Device: " + (std::string)alcGetString(audioDevice, ALC_DEVICE_SPECIFIER) + " - initialised");
 		audioContext = alcCreateContext(audioDevice, NULL);	// Create the audio context for the engine to use
 		if (alcMakeContextCurrent(audioContext)) {
 			engineDebugger.WriteLine(">>>>>> Default Audio context created");
