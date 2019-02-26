@@ -321,6 +321,21 @@ void Engine::LoadFreeType(void) {
 void Engine::LoadOpenAL(void) {
 	engineDebugger.WriteLine(">>>> 2.4 - Loading Library - OpenAL");
 
+	// Get the list of available audio devices, this code is taken from an example online and editted to match the engines style
+	const ALCchar* deviceList = alcGetString(NULL, ALC_DEVICE_SPECIFIER);
+	const ALCchar *currentDevice = deviceList;
+	const ALCchar* nextDevice = deviceList + 1;
+	size_t len = 0;
+	// Audio devices are listed as a string with NULL characters seperating them
+	engineDebugger.WriteLine(">>>>>> Available Audio Devices:");
+	while (currentDevice && *currentDevice != '\0' && nextDevice && *nextDevice != '\0') {
+		engineDebugger.WriteLine(">>>>>>>> Device: " + (std::string)currentDevice);
+		len = strlen(currentDevice);
+		currentDevice += (len + 1);
+		nextDevice += (len + 2);
+	}
+
+
 	// TODO: Expand this to find out what devices are available and actually ensure we use the right one
 	audioDevice = alcOpenDevice(NULL);	// Load the default device -> Should be system default?
 	if (audioDevice) {
