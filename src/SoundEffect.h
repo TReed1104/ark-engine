@@ -1,3 +1,6 @@
+#ifndef ARKENGINE_SOUNDEFFECT_H_
+#define ARKENGINE_SOUNDEFFECT_H_
+
 // OpenAL
 #include <AL/al.h>
 #include <AL/alc.h>
@@ -14,3 +17,5 @@ public:
 private:
 
 };
+
+#endif
