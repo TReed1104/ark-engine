@@ -4,6 +4,7 @@
 Engine* SoundEffect::Engine_Pointer;
 
 SoundEffect::SoundEffect() {
+	
 }
 SoundEffect::~SoundEffect() {
 }

@@ -11,13 +11,10 @@ class SoundEffect {
 public:
 	static Engine* Engine_Pointer;
 
-	ALsizei size;
-	ALsizei frequency;
-	ALvoid* data;
-	ALboolean loop;
 
 	SoundEffect();
 	~SoundEffect();
+	
 
 private:
 
