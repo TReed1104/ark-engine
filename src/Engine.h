@@ -31,6 +31,7 @@
 #include "Model.h"
 #include "Font.h"
 #include "TextObject.h"
+#include "SoundEffect.h"
 #include "GameObject.h"
 #include "Camera.h"
 #include "Tile.h"

@@ -33,6 +33,7 @@ Engine::Engine(char* gameName) {
 	Model::Engine_Pointer = this;
 	Font::Engine_Pointer = this;
 	TextObject::Engine_Pointer = this;
+	SoundEffect::Engine_Pointer = this;
 	Keyboard::Engine_Pointer = this;
 	KeybindingHandler::Engine_Pointer = this;
 	GameController::Engine_Pointer = this;
