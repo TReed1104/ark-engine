@@ -9,11 +9,11 @@ SoundEffect::~SoundEffect() {
 }
 
 const std::string SoundEffect::GetName(void) {
-	return std::string();
+	return name;
 }
 
 const bool SoundEffect::IsLoaded(void) {
-	return false;
+	return isLoaded;
 }
 
 bool SoundEffect::LoadBuffer(void) {
