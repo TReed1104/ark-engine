@@ -1,6 +1,8 @@
 #ifndef ARKENGINE_SOUNDEFFECT_H_
 #define ARKENGINE_SOUNDEFFECT_H_
 
+#include <string>
+
 // OpenAL
 #include <AL/al.h>
 #include <AL/alc.h>
@@ -12,7 +14,7 @@ public:
 	static Engine* Engine_Pointer;
 
 
-	SoundEffect();
+	SoundEffect(const std::string& soundName = "NOT SET", const std::string& filePath = "NOT SET");
 	~SoundEffect();
 	
 

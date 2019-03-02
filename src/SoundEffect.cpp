@@ -3,8 +3,8 @@
 
 Engine* SoundEffect::Engine_Pointer;
 
-SoundEffect::SoundEffect() {
-	
+SoundEffect::SoundEffect(const std::string & soundName, const std::string & filePath) {
 }
 SoundEffect::~SoundEffect() {
 }
+
