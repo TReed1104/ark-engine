@@ -8,3 +8,6 @@ SoundEffect::SoundEffect(const std::string & soundName, const std::string & file
 SoundEffect::~SoundEffect() {
 }
 
+bool SoundEffect::LoadBuffer(void) {
+	return false;
+}
