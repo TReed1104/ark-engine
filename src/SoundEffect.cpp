@@ -5,7 +5,7 @@ Engine* SoundEffect::Engine_Pointer;
 
 SoundEffect::SoundEffect(const std::string& soundName, const std::string& filePath) {
 	name = soundName;
-	isLoaded = LoadBuffer();
+	isLoaded = LoadBuffer(filePath);
 }
 SoundEffect::~SoundEffect() {
 }
