@@ -17,6 +17,8 @@ public:
 	SoundEffect(const std::string& soundName = "NOT SET", const std::string& filePath = "NOT SET");
 	~SoundEffect();
 	
+	const std::string GetName(void);
+	const bool IsLoaded(void);
 
 private:
 	std::string name;
