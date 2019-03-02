@@ -19,6 +19,7 @@ public:
 	
 
 private:
+	bool LoadBuffer(void);
 
 };
 
