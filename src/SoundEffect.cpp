@@ -3,7 +3,9 @@
 
 Engine* SoundEffect::Engine_Pointer;
 
-SoundEffect::SoundEffect(const std::string & soundName, const std::string & filePath) {
+SoundEffect::SoundEffect(const std::string& soundName, const std::string& filePath) {
+	name = soundName;
+	isLoaded = LoadBuffer();
 }
 SoundEffect::~SoundEffect() {
 }
@@ -16,6 +18,6 @@ const bool SoundEffect::IsLoaded(void) {
 	return isLoaded;
 }
 
-bool SoundEffect::LoadBuffer(void) {
+bool SoundEffect::LoadBuffer(const std::string& filePath) {
 	return false;
 }

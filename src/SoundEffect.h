@@ -24,7 +24,7 @@ private:
 	std::string name;
 	bool isLoaded = false;
 
-	bool LoadBuffer(void);
+	bool LoadBuffer(const std::string& filePath);
 
 };
 
