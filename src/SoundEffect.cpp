@@ -8,6 +8,7 @@ SoundEffect::SoundEffect(const std::string& soundName, const std::string& filePa
 	isLoaded = LoadBuffer(filePath);
 }
 SoundEffect::~SoundEffect() {
+	SDL_FreeWAV(wav_buffer);
 }
 
 const std::string SoundEffect::GetName(void) {
@@ -19,9 +20,6 @@ const bool SoundEffect::IsLoaded(void) {
 }
 
 bool SoundEffect::LoadBuffer(const std::string& filePath) {
-	Uint32 wav_length; // length of our sample
-	Uint8 *wav_buffer; // buffer containing our audio file
-	SDL_AudioSpec wav_spec; // the specs of our piece of music
 	if (SDL_LoadWAV(filePath.c_str(), &wav_spec, &wav_buffer, &wav_length) == NULL) {
 		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - SDL_LoadWav Error: " + (std::string)SDL_GetError());
 		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load: " + name);
