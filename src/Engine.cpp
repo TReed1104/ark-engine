@@ -116,6 +116,12 @@ void Engine::CleanUp(void) {
 		delete fontRegister[i];
 	}
 
+	// Delete the loaded Soundeffects
+	const size_t soundRegisterSize = soundRegister.size();
+	for (size_t i = 0; i < soundRegisterSize; i++) {
+		delete soundRegister[i];
+	}
+
 	// Delete the loaded Shaders.
 	const size_t shaderRegisterSize = shaderRegister.size();
 	for (size_t i = 0; i < shaderRegisterSize; i++) {
@@ -505,12 +511,13 @@ void Engine::LoadAudio(void) {
 	std::vector<std::string> listOfAudioFiles = FileSystemUtilities::GetFileList(contentDirectory + "audio");
 	const size_t numberOfAudioFiles = listOfAudioFiles.size();
 	for (size_t i = 0; i < numberOfAudioFiles; i++) {
-		SoundEffect newSound = SoundEffect("temp", listOfAudioFiles[i]);
-		if (newSound.IsLoaded()) {
+		SoundEffect* newSound = new SoundEffect("temp", listOfAudioFiles[i]);
+		if (newSound->IsLoaded()) {
 			soundRegister.push_back(newSound);
 		}
 		else {
 			// Failed to load the item, runtime does continue
+			delete newSound;
 			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Audio File: " + listOfAudioFiles[i]);
 			engineDebugger.WriteLine(">> 8 - FAILED");
 		}
