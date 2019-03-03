@@ -6,13 +6,13 @@
 // OpenAL
 #include <AL/al.h>
 #include <AL/alc.h>
+#include <SDL.h>
 
 class Engine;
 
 class SoundEffect {
 public:
 	static Engine* Engine_Pointer;
-
 
 	SoundEffect(const std::string& soundName = "NOT SET", const std::string& filePath = "NOT SET");
 	~SoundEffect();
