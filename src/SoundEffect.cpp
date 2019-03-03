@@ -26,5 +26,5 @@ bool SoundEffect::LoadBuffer(const std::string& filePath) {
 		return false;
 	}
 
-	return false;
+	return true;
 }
