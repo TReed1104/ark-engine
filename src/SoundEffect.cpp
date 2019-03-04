@@ -30,6 +30,7 @@ bool SoundEffect::LoadBuffer(const std::string& filePath) {
 		return false;
 	}
 
+	// Convert our format from SDL_WavSpec to ALenum wav format
 	ALenum wavFormat;
 	switch (wavSpec.format) {
 	case AUDIO_U8:
@@ -50,6 +51,8 @@ bool SoundEffect::LoadBuffer(const std::string& filePath) {
 		return false;
 	}
 
+	// Bind the buffer
+	alGenBuffers((ALuint)1, &alBuffer);
 	alBufferData(alBuffer, wavFormat, wavData, wavLength, wavSpec.freq);
 	SDL_FreeWAV(wavData);	// Clean up the SDL buffer now we are done
 
