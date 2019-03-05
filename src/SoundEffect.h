@@ -18,6 +18,9 @@ public:
 	
 	const std::string GetName(void);
 	const bool IsLoaded(void);
+	void Play(void);
+	void Pause(void);
+	void Stop(void);
 
 private:
 	std::string name;
