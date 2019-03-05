@@ -8,6 +8,7 @@ SoundEffect::SoundEffect(const std::string& soundName, const std::string& filePa
 	isLoaded = LoadBuffer(filePath);
 }
 SoundEffect::~SoundEffect() {
+	alDeleteSources(1, &alSource);
 	alDeleteBuffers(1, &alBuffer);
 }
 
