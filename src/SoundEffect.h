@@ -2,11 +2,10 @@
 #define ARKENGINE_SOUNDEFFECT_H_
 
 #include <string>
-
-// OpenAL
+#include <SDL.h>
+#include <glm/glm.hpp>
 #include <AL/al.h>
 #include <AL/alc.h>
-#include <SDL.h>
 
 class Engine;
 
@@ -28,6 +27,7 @@ private:
 
 	bool CheckOpenALErrors(const ALenum& errorCode);
 	bool LoadSource(void);
+	bool LoadSource(const float& pitch, const float& gain, const glm::vec3& position, const glm::vec3& velocity, const bool& isLooping);
 	bool LoadBuffer(const std::string& filePath);
 
 };
