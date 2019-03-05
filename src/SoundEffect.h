@@ -27,7 +27,7 @@ private:
 
 	bool CheckOpenALErrors(const ALenum& errorCode);
 	bool LoadSource(void);
-	bool LoadSource(const float& pitch, const float& gain, const glm::ivec3& position, const glm::ivec3& velocity, const bool& isLooping);
+	bool LoadSource(const float& pitch, const float& gain, const glm::vec3& position, const glm::vec3& velocity, const bool& isLooping);
 	bool LoadBuffer(const std::string& filePath);
 
 };

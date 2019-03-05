@@ -50,7 +50,7 @@ bool SoundEffect::LoadSource(void) {
 	alSourcei(alSource, AL_LOOPING, AL_FALSE);
 	return !CheckOpenALErrors(alGetError());
 }
-bool SoundEffect::LoadSource(const float& pitch, const float& gain, const glm::ivec3& position, const glm::ivec3& velocity, const bool& isLooping) {
+bool SoundEffect::LoadSource(const float& pitch, const float& gain, const glm::vec3& position, const glm::vec3& velocity, const bool& isLooping) {
 	alGenSources((ALuint)1, &alSource);
 	alSourcef(alSource, AL_PITCH, pitch);
 	alSourcef(alSource, AL_GAIN, gain);
