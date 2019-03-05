@@ -28,6 +28,12 @@ const std::string SoundEffect::GetName(void) {
 const bool SoundEffect::IsLoaded(void) {
 	return isLoaded;
 }
+void SoundEffect::Play(void) {
+}
+void SoundEffect::Pause(void) {
+}
+void SoundEffect::Stop(void) {
+}
 bool SoundEffect::CheckOpenALErrors(void) {
 	ALenum errorCode = alGetError();
 	switch (errorCode) {
