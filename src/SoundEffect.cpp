@@ -14,11 +14,9 @@ SoundEffect::~SoundEffect() {
 const std::string SoundEffect::GetName(void) {
 	return name;
 }
-
 const bool SoundEffect::IsLoaded(void) {
 	return isLoaded;
 }
-
 bool SoundEffect::CheckOpenALErrors(const ALenum& errorCode) {
 	switch (errorCode) {
 	case AL_NO_ERROR:
@@ -42,12 +40,10 @@ bool SoundEffect::CheckOpenALErrors(const ALenum& errorCode) {
 		return false;
 	}
 }
-
 bool SoundEffect::LoadSource(void) {
 
 	return false;
 }
-
 bool SoundEffect::LoadBuffer(const std::string& filePath) {
 	Uint32 wavLength;			// length of our sample
 	Uint8* wavData;				// buffer containing our audio file
