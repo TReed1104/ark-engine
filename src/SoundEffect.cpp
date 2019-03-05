@@ -41,8 +41,13 @@ bool SoundEffect::CheckOpenALErrors(const ALenum& errorCode) {
 	}
 }
 bool SoundEffect::LoadSource(void) {
-
-	return false;
+	alGenSources((ALuint)1, &alSource);
+	alSourcef(alSource, AL_PITCH, 1);
+	alSourcef(alSource, AL_GAIN, 1);
+	alSource3f(alSource, AL_POSITION, 0, 0, 0);
+	alSource3f(alSource, AL_VELOCITY, 0, 0, 0);
+	alSourcei(alSource, AL_LOOPING, AL_FALSE);
+	return !CheckOpenALErrors(alGetError());
 }
 bool SoundEffect::LoadBuffer(const std::string& filePath) {
 	Uint32 wavLength;			// length of our sample
