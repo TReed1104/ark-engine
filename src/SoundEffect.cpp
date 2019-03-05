@@ -19,6 +19,11 @@ const bool SoundEffect::IsLoaded(void) {
 	return isLoaded;
 }
 
+bool SoundEffect::LoadSource(void) {
+
+	return false;
+}
+
 bool SoundEffect::LoadBuffer(const std::string& filePath) {
 	Uint32 wavLength;			// length of our sample
 	Uint8* wavData;				// buffer containing our audio file
