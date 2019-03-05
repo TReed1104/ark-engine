@@ -26,9 +26,9 @@ private:
 	ALuint alBuffer;
 	ALuint alSource;
 
+	bool CheckOpenALErrors(const ALenum& errorCode);
 	bool LoadSource(void);
 	bool LoadBuffer(const std::string& filePath);
-	bool CheckOpenALErrors(const ALenum& errorCode);
 
 };
 
