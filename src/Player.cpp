@@ -36,6 +36,7 @@ void Player::HandleInputKeyboard(void) {
 			isJumping = true;
 			currentJumpingSpeed = baseJumpingSpeed;
 			movementDirection = Directions::Up;
+			Engine_Pointer->soundRegister[1]->Play(); // TEST CALL FOR THE JUMPING NOISE
 		}
 	}
 
