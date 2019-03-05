@@ -19,6 +19,30 @@ const bool SoundEffect::IsLoaded(void) {
 	return isLoaded;
 }
 
+bool SoundEffect::CheckOpenALErrors(const ALenum& errorCode) {
+	switch (errorCode) {
+	case AL_NO_ERROR:
+		return false;
+	case AL_INVALID_NAME:
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - OpenAL: AL_INVALID_NAME");
+		return true;
+	case AL_INVALID_ENUM:
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - OpenAL: AL_INVALID_ENUM");
+		return true;
+	case AL_INVALID_VALUE:
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - OpenAL: AL_INVALID_VALUE");
+		return true;
+	case AL_INVALID_OPERATION:
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - OpenAL: AL_INVALID_OPERATION");
+		return true;
+	case AL_OUT_OF_MEMORY:
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - OpenAL: AL_OUT_OF_MEMORY");
+		return true;
+	default:
+		return false;
+	}
+}
+
 bool SoundEffect::LoadSource(void) {
 
 	return false;
@@ -81,7 +105,7 @@ bool SoundEffect::LoadBuffer(const std::string& filePath) {
 	default:
 		break;
 	}
-	
+
 	SDL_FreeWAV(wavData);	// Clean up the SDL buffer now we are done
 
 	return true;
