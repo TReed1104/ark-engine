@@ -29,10 +29,31 @@ const bool SoundEffect::IsLoaded(void) {
 	return isLoaded;
 }
 void SoundEffect::Play(void) {
+	ALint sourceState;
+	alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
+	
+	// If the source is not playing, play it
+	if (sourceState != AL_PLAYING) {
+		alSourcePlay(alSource);
+	}
 }
 void SoundEffect::Pause(void) {
+	ALint sourceState;
+	alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
+
+	// if the source is playing, pause it
+	if (sourceState == AL_PLAYING) {
+		alSourcePause(alSource);
+	}
 }
 void SoundEffect::Stop(void) {
+	ALint sourceState;
+	alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
+
+	// if the source is not stopped, stop it
+	if (sourceState != AL_STOPPED) {
+		alSourceStop(alSource);
+	}
 }
 bool SoundEffect::CheckOpenALErrors(void) {
 	ALenum errorCode = alGetError();
