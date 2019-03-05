@@ -26,6 +26,7 @@ private:
 	ALuint alBuffer;
 	ALuint alSource;
 
+	bool LoadSource(void);
 	bool LoadBuffer(const std::string& filePath);
 
 };
