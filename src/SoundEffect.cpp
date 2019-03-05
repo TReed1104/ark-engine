@@ -50,6 +50,15 @@ bool SoundEffect::LoadSource(void) {
 	alSourcei(alSource, AL_LOOPING, AL_FALSE);
 	return !CheckOpenALErrors(alGetError());
 }
+bool SoundEffect::LoadSource(const float& pitch, const float& gain, const glm::ivec3& position, const glm::ivec3& velocity, const bool& isLooping) {
+	alGenSources((ALuint)1, &alSource);
+	alSourcef(alSource, AL_PITCH, pitch);
+	alSourcef(alSource, AL_GAIN, gain);
+	alSource3f(alSource, AL_POSITION, position.x, position.y, position.z);
+	alSource3f(alSource, AL_VELOCITY, velocity.x, velocity.y, velocity.z);
+	alSourcei(alSource, AL_LOOPING, isLooping);
+	return !CheckOpenALErrors(alGetError());
+}
 bool SoundEffect::LoadBuffer(const std::string& filePath) {
 	Uint32 wavLength;			// length of our sample
 	Uint8* wavData;				// buffer containing our audio file
