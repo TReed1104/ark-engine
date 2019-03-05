@@ -83,30 +83,6 @@ bool SoundEffect::LoadBuffer(const std::string& filePath) {
 	// Bind the buffer
 	alGenBuffers((ALuint)1, &alBuffer);
 	alBufferData(alBuffer, wavFormat, wavData, wavLength, wavSpec.freq);
-
-	switch (alGetError()) {
-	case AL_NO_ERROR:
-		break;
-	case AL_INVALID_NAME:
-		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - OpenAL: AL_INVALID_NAME");
-		break;
-	case AL_INVALID_ENUM:
-		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - OpenAL: AL_INVALID_ENUM");
-		break;
-	case AL_INVALID_VALUE:
-		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - OpenAL: AL_INVALID_VALUE");
-		break;
-	case AL_INVALID_OPERATION:
-		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - OpenAL: AL_INVALID_OPERATION");
-		break;
-	case AL_OUT_OF_MEMORY:
-		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - OpenAL: AL_OUT_OF_MEMORY");
-		break;
-	default:
-		break;
-	}
-
 	SDL_FreeWAV(wavData);	// Clean up the SDL buffer now we are done
-
-	return true;
+	return !CheckOpenALErrors(alGetError());
 }
