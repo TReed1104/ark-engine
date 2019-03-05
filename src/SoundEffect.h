@@ -25,7 +25,7 @@ private:
 	ALuint alBuffer;
 	ALuint alSource;
 
-	bool CheckOpenALErrors(const ALenum& errorCode);
+	bool CheckOpenALErrors(void);
 	bool LoadSource(void);
 	bool LoadSource(const float& pitch, const float& gain, const glm::vec3& position, const glm::vec3& velocity, const bool& isLooping);
 	bool LoadBuffer(const std::string& filePath);

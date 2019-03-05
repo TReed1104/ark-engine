@@ -10,7 +10,7 @@ SoundEffect::SoundEffect(const std::string& soundName, const std::string& filePa
 	// If the source and buffer are loaded, bind the buffer to the source
 	if (isLoaded) {
 		alSourcei(alSource, AL_BUFFER, alBuffer);
-		isLoaded = !CheckOpenALErrors(alGetError());
+		isLoaded = !CheckOpenALErrors();
 	}
 	else {
 		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Audio File: " + filePath);
@@ -28,7 +28,8 @@ const std::string SoundEffect::GetName(void) {
 const bool SoundEffect::IsLoaded(void) {
 	return isLoaded;
 }
-bool SoundEffect::CheckOpenALErrors(const ALenum& errorCode) {
+bool SoundEffect::CheckOpenALErrors(void) {
+	ALenum errorCode = alGetError();
 	switch (errorCode) {
 	case AL_NO_ERROR:
 		return false;
@@ -58,7 +59,7 @@ bool SoundEffect::LoadSource(void) {
 	alSource3f(alSource, AL_POSITION, 0, 0, 0);
 	alSource3f(alSource, AL_VELOCITY, 0, 0, 0);
 	alSourcei(alSource, AL_LOOPING, AL_FALSE);
-	return !CheckOpenALErrors(alGetError());
+	return !CheckOpenALErrors();
 }
 bool SoundEffect::LoadSource(const float& pitch, const float& gain, const glm::vec3& position, const glm::vec3& velocity, const bool& isLooping) {
 	alGenSources((ALuint)1, &alSource);
@@ -67,7 +68,7 @@ bool SoundEffect::LoadSource(const float& pitch, const float& gain, const glm::v
 	alSource3f(alSource, AL_POSITION, position.x, position.y, position.z);
 	alSource3f(alSource, AL_VELOCITY, velocity.x, velocity.y, velocity.z);
 	alSourcei(alSource, AL_LOOPING, isLooping);
-	return !CheckOpenALErrors(alGetError());
+	return !CheckOpenALErrors();
 }
 bool SoundEffect::LoadBuffer(const std::string& filePath) {
 	Uint32 wavLength;			// length of our sample
@@ -105,5 +106,5 @@ bool SoundEffect::LoadBuffer(const std::string& filePath) {
 	alGenBuffers((ALuint)1, &alBuffer);
 	alBufferData(alBuffer, wavFormat, wavData, wavLength, wavSpec.freq);
 	SDL_FreeWAV(wavData);	// Clean up the SDL buffer now we are done
-	return !CheckOpenALErrors(alGetError());
+	return !CheckOpenALErrors();
 }
