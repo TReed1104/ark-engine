@@ -18,6 +18,7 @@ SoundEffect::SoundEffect(const std::string& soundName, const std::string& filePa
 	}
 }
 SoundEffect::~SoundEffect() {
+	this->Stop();
 	alDeleteSources(1, &alSource);
 	alDeleteBuffers(1, &alBuffer);
 }
