@@ -6,6 +6,16 @@ Engine* SoundEffect::Engine_Pointer;
 SoundEffect::SoundEffect(const std::string& soundName, const std::string& filePath) {
 	name = soundName;
 	isLoaded = LoadSource() && LoadBuffer(filePath);
+
+	// If the source and buffer are loaded, bind the buffer to the source
+	if (isLoaded) {
+		alSourcei(alSource, AL_BUFFER, alBuffer);
+		isLoaded = !CheckOpenALErrors(alGetError());
+	}
+	else {
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Audio File: " + filePath);
+		return;
+	}
 }
 SoundEffect::~SoundEffect() {
 	alDeleteSources(1, &alSource);
