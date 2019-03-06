@@ -964,6 +964,9 @@ const int Engine::GetIndexOfRenderableText(const std::string& renderableTextName
 	}
 	return indexOfDesiredRenderableText;
 }
+const int Engine::GetIndexOfSoundEffect(const std::string & soundEffectName) {
+	return 0;
+}
 const int Engine::GetIndexOfTileset(const std::string& tilesetName) {
 	int indexOfDesiredTileset = -1;
 	const size_t tilesetRegisterSize = tilesetRegister.size();
