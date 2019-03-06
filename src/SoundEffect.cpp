@@ -3,14 +3,15 @@
 
 Engine* SoundEffect::Engine_Pointer;
 
-SoundEffect::SoundEffect(const std::string& soundName, const std::string& filePath) {
-	name = soundName;
-	isLoaded = LoadSource() && LoadBuffer(filePath);
+SoundEffect::SoundEffect(const std::string& soundName, const std::string& filePath, const bool& isLooped) {
+	this->name = soundName;
+	this->isLoaded = LoadSource() && LoadBuffer(filePath);
+	this->isLooped = isLooped;
 
 	// If the source and buffer are loaded, bind the buffer to the source
-	if (isLoaded) {
-		alSourcei(alSource, AL_BUFFER, alBuffer);
-		isLoaded = !CheckOpenALErrors();
+	if (this->isLoaded) {
+		alSourcei(this->alSource, AL_BUFFER, this->alBuffer);
+		this->isLoaded = !CheckOpenALErrors();
 	}
 	else {
 		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Audio File: " + filePath);

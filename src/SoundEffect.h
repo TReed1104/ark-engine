@@ -13,7 +13,7 @@ class SoundEffect {
 public:
 	static Engine* Engine_Pointer;
 
-	SoundEffect(const std::string& soundName = "NOT SET", const std::string& filePath = "NOT SET");
+	SoundEffect(const std::string& soundName = "NOT SET", const std::string& filePath = "NOT SET", const bool& isLooped = false);
 	~SoundEffect();
 	
 	const std::string GetName(void);
