@@ -964,8 +964,15 @@ const int Engine::GetIndexOfRenderableText(const std::string& renderableTextName
 	}
 	return indexOfDesiredRenderableText;
 }
-const int Engine::GetIndexOfSoundEffect(const std::string & soundEffectName) {
-	return 0;
+const int Engine::GetIndexOfSoundEffect(const std::string& soundEffectName) {
+	int indexOfDesiredSoundEffect = -1;
+	const size_t soundEffectRegisterSize = soundRegister.size();
+	for (size_t i = 0; i < soundEffectRegisterSize; i++) {
+		if (soundRegister[i]->GetName().find(soundEffectName) != std::string::npos) {
+			indexOfDesiredSoundEffect = (int)i;
+		}
+	}
+	return indexOfDesiredSoundEffect;
 }
 const int Engine::GetIndexOfTileset(const std::string& tilesetName) {
 	int indexOfDesiredTileset = -1;
