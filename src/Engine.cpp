@@ -117,9 +117,9 @@ void Engine::CleanUp(void) {
 	}
 
 	// Delete the loaded Soundeffects
-	const size_t soundRegisterSize = soundRegister.size();
+	const size_t soundRegisterSize = soundEffectRegister.size();
 	for (size_t i = 0; i < soundRegisterSize; i++) {
-		delete soundRegister[i];
+		delete soundEffectRegister[i];
 	}
 
 	// Delete the loaded Shaders.
@@ -512,7 +512,7 @@ void Engine::LoadSoundEffects(void) {
 	for (size_t i = 0; i < numberOfAudioFiles; i++) {
 		SoundEffect* newSound = new SoundEffect("temp", listOfAudioFiles[i]);
 		if (newSound->IsLoaded()) {
-			soundRegister.push_back(newSound);
+			soundEffectRegister.push_back(newSound);
 		}
 		else {
 			// Failed to load the item, runtime does continue
@@ -966,9 +966,9 @@ const int Engine::GetIndexOfRenderableText(const std::string& renderableTextName
 }
 const int Engine::GetIndexOfSoundEffect(const std::string& soundEffectName) {
 	int indexOfDesiredSoundEffect = -1;
-	const size_t soundEffectRegisterSize = soundRegister.size();
+	const size_t soundEffectRegisterSize = soundEffectRegister.size();
 	for (size_t i = 0; i < soundEffectRegisterSize; i++) {
-		if (soundRegister[i]->GetName().find(soundEffectName) != std::string::npos) {
+		if (soundEffectRegister[i]->GetName().find(soundEffectName) != std::string::npos) {
 			indexOfDesiredSoundEffect = (int)i;
 		}
 	}
