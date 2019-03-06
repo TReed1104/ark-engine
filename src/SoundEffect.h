@@ -25,6 +25,7 @@ public:
 private:
 	std::string name;
 	bool isLoaded = false;
+	bool isLooped = false;
 	ALuint alBuffer;
 	ALuint alSource;
 
