@@ -3,10 +3,20 @@
 
 Engine* SoundEffect::Engine_Pointer;
 
-SoundEffect::SoundEffect(const std::string& soundName, const std::string& filePath, const bool& isLooped) {
+SoundEffect::SoundEffect(const std::string& soundName, const std::string& filePath, const bool& isLooped, const glm::vec3& position, const glm::vec3& velocity, const float& pitch, const float& gain) {
+	// Configure the defaults for the soundeffect
 	this->name = soundName;
-	this->isLoaded = LoadSource() && LoadBuffer(filePath);
+	this->isLoaded = false;
+
+	// Configure the source variables
 	this->isLooped = isLooped;
+	this->position = position;
+	this->velocity = velocity;
+	this->pitch = pitch;
+	this->gain = gain;
+
+	// Load the Sound
+	this->isLoaded = LoadSource() && LoadBuffer(filePath);
 
 	// If the source and buffer are loaded, bind the buffer to the source
 	if (this->isLoaded) {
