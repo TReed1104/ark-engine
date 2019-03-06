@@ -18,6 +18,7 @@ public:
 	
 	const std::string GetName(void);
 	const bool IsLoaded(void);
+	const bool IsLooped(void);
 	void Play(void);
 	void Pause(void);
 	void Stop(void);
