@@ -93,13 +93,13 @@ bool SoundEffect::LoadSource(void) {
 	alSourcei(alSource, AL_LOOPING, AL_FALSE);
 	return !CheckOpenALErrors();
 }
-bool SoundEffect::LoadSource(const float& pitch, const float& gain, const glm::vec3& position, const glm::vec3& velocity, const bool& isLooping) {
+bool SoundEffect::LoadSource(const float& pitch, const float& gain, const glm::vec3& position, const glm::vec3& velocity) {
 	alGenSources((ALuint)1, &alSource);
 	alSourcef(alSource, AL_PITCH, pitch);
 	alSourcef(alSource, AL_GAIN, gain);
 	alSource3f(alSource, AL_POSITION, position.x, position.y, position.z);
 	alSource3f(alSource, AL_VELOCITY, velocity.x, velocity.y, velocity.z);
-	alSourcei(alSource, AL_LOOPING, isLooping);
+	alSourcei(alSource, AL_LOOPING, isLooped);
 	return !CheckOpenALErrors();
 }
 bool SoundEffect::LoadBuffer(const std::string& filePath) {
