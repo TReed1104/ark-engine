@@ -27,8 +27,8 @@ private:
 	std::string name;
 	bool isLoaded = false;
 	bool isLooped = false;
-	float pitch = 0.0f;
-	float gain = 0.0f;
+	float pitch = 1.0f;
+	float gain = 1.0f;
 	glm::vec3 position = glm::vec3(0);
 	glm::vec3 velocity = glm::vec3(0);
 
