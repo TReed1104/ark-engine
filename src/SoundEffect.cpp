@@ -29,6 +29,9 @@ const std::string SoundEffect::GetName(void) {
 const bool SoundEffect::IsLoaded(void) {
 	return isLoaded;
 }
+const bool SoundEffect::IsLooped(void) {
+	return false;
+}
 void SoundEffect::Play(void) {
 	ALint sourceState;
 	alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
