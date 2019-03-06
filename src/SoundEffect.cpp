@@ -86,15 +86,6 @@ bool SoundEffect::CheckOpenALErrors(void) {
 }
 bool SoundEffect::LoadSource(void) {
 	alGenSources((ALuint)1, &alSource);
-	alSourcef(alSource, AL_PITCH, 1);
-	alSourcef(alSource, AL_GAIN, 1);
-	alSource3f(alSource, AL_POSITION, 0, 0, 0);
-	alSource3f(alSource, AL_VELOCITY, 0, 0, 0);
-	alSourcei(alSource, AL_LOOPING, isLooped);
-	return !CheckOpenALErrors();
-}
-bool SoundEffect::LoadSource(const float& pitch, const float& gain, const glm::vec3& position, const glm::vec3& velocity) {
-	alGenSources((ALuint)1, &alSource);
 	alSourcef(alSource, AL_PITCH, pitch);
 	alSourcef(alSource, AL_GAIN, gain);
 	alSource3f(alSource, AL_POSITION, position.x, position.y, position.z);
