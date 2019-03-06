@@ -90,7 +90,7 @@ bool SoundEffect::LoadSource(void) {
 	alSourcef(alSource, AL_GAIN, 1);
 	alSource3f(alSource, AL_POSITION, 0, 0, 0);
 	alSource3f(alSource, AL_VELOCITY, 0, 0, 0);
-	alSourcei(alSource, AL_LOOPING, AL_FALSE);
+	alSourcei(alSource, AL_LOOPING, isLooped);
 	return !CheckOpenALErrors();
 }
 bool SoundEffect::LoadSource(const float& pitch, const float& gain, const glm::vec3& position, const glm::vec3& velocity) {
