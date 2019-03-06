@@ -504,7 +504,7 @@ void Engine::LoadTextObjects(void) {
 	textObjectRegister.push_back(new TextObject("DEBUG: Grid Position", "GridPos: (0, 0)", fontRegister[indexOfFont], glm::vec3(20.0f, 40.0f, 0.02f), glm::vec3(255 / 255.0f, 255 / 255.0f, 255 / 255.0f), true));
 	engineDebugger.WriteLine(">> 7 - COMPLETE");
 }
-void Engine::LoadAudio(void) {
+void Engine::LoadSoundEffects(void) {
 	engineDebugger.WriteLine(">> 8 - Loading Audio");
 	engineDebugger.WriteLine(">>>> NOT IMPLEMENTED");
 
@@ -756,7 +756,7 @@ void Engine::LoadEngine(void) {
 	// Load Game Content
 	LoadFonts();
 	LoadTextObjects();
-	LoadAudio();
+	LoadSoundEffects();
 	LoadTextures();
 	LoadModels();
 	LoadTilesets();
