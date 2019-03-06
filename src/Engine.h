@@ -168,7 +168,7 @@ private:
 	void LoadInputDevices(void);
 	void LoadFonts(void);
 	void LoadTextObjects(void);
-	void LoadAudio(void);
+	void LoadSoundEffects(void);
 	void LoadTextures(void);
 	void LoadModels(void);
 	void LoadTilesets(void);

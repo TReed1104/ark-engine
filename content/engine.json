@@ -61,7 +61,7 @@
 					"shaders": "shaders",
 					"fonts": "fonts",
 					"text": "text",
-					"audio": "audio",
+					"sounds": "sounds",
 					"textures": "textures",
 					"models": "models",
 					"tilesets": "tilesets",
