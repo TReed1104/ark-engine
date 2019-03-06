@@ -506,7 +506,6 @@ void Engine::LoadTextObjects(void) {
 }
 void Engine::LoadSoundEffects(void) {
 	engineDebugger.WriteLine(">> 8 - Loading Audio");
-	engineDebugger.WriteLine(">>>> NOT IMPLEMENTED");
 
 	std::vector<std::string> listOfAudioFiles = FileSystemUtilities::GetFileList(contentDirectory + "sounds");
 	const size_t numberOfAudioFiles = listOfAudioFiles.size();
