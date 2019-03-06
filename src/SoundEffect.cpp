@@ -30,7 +30,7 @@ const bool SoundEffect::IsLoaded(void) {
 	return isLoaded;
 }
 const bool SoundEffect::IsLooped(void) {
-	return false;
+	return isLooped;
 }
 void SoundEffect::Play(void) {
 	ALint sourceState;
