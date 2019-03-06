@@ -83,7 +83,7 @@ public:
 	std::vector<Texture> textureRegister;
 	std::vector<Font*> fontRegister;
 	std::vector<TextObject*> textObjectRegister;
-	std::vector<SoundEffect*> soundRegister;
+	std::vector<SoundEffect*> soundEffectRegister;
 	std::vector<Tileset*> tilesetRegister;
 	std::vector<Item*> itemRegister;
 	std::vector<NonPlayerCharacter*> entityRegister;
