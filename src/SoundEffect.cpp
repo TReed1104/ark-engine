@@ -49,6 +49,9 @@ const float SoundEffect::GetPitch(void) {
 const float SoundEffect::GetGain(void) {
 	return gain;
 }
+const glm::vec3 SoundEffect::GetPosition(void) {
+	return position;
+}
 void SoundEffect::Play(void) {
 	ALint sourceState;
 	alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
