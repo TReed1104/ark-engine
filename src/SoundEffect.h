@@ -29,6 +29,7 @@ public:
 	void SetPitch(const float& newPitch);
 	void SetGain(const float& newGain);
 	void SetPosition(const glm::vec3 newPosition);
+	void SetVelocity(const glm::vec3& newVelocity);
 
 	// Playback functions
 	void Play(void);
