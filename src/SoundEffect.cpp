@@ -46,6 +46,9 @@ const bool SoundEffect::IsLooped(void) {
 const float SoundEffect::GetPitch(void) {
 	return pitch;
 }
+const float SoundEffect::GetGain(void) {
+	return gain;
+}
 void SoundEffect::Play(void) {
 	ALint sourceState;
 	alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
