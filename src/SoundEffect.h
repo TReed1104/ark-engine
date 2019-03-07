@@ -27,6 +27,7 @@ public:
 	
 	// Sets
 	void SetPitch(const float& newPitch);
+	void SetGain(const float& newGain);
 
 	// Playback functions
 	void Play(void);

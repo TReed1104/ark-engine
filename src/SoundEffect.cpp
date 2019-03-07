@@ -59,6 +59,10 @@ void SoundEffect::SetPitch(const float& newPitch) {
 	pitch = newPitch;
 	alSourcef(alSource, AL_PITCH, pitch);
 }
+void SoundEffect::SetGain(const float & newGain) {
+	gain = newGain;
+	alSourcef(alSource, AL_GAIN, gain);
+}
 void SoundEffect::Play(void) {
 	ALint sourceState;
 	alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
