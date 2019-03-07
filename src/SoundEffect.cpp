@@ -34,6 +34,7 @@ SoundEffect::~SoundEffect() {
 	alDeleteBuffers(1, &alBuffer);
 }
 
+// Gets
 const std::string SoundEffect::GetName(void) {
 	return name;
 }
@@ -55,6 +56,8 @@ const glm::vec3 SoundEffect::GetPosition(void) {
 const glm::vec3 SoundEffect::GetVelocity(void) {
 	return velocity;
 }
+
+// Sets
 void SoundEffect::SetPitch(const float& newPitch) {
 	pitch = newPitch;
 	alSourcef(alSource, AL_PITCH, pitch);
@@ -71,6 +74,8 @@ void SoundEffect::SetVelocity(const glm::vec3& newVelocity) {
 	velocity = newVelocity;
 	alSource3f(alSource, AL_VELOCITY, velocity.x, velocity.y, velocity.z);
 }
+
+// Playback
 void SoundEffect::Play(void) {
 	ALint sourceState;
 	alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
@@ -98,6 +103,8 @@ void SoundEffect::Stop(void) {
 		alSourceStop(alSource);
 	}
 }
+
+// Error Handling
 bool SoundEffect::CheckOpenALErrors(void) {
 	ALenum errorCode = alGetError();
 	switch (errorCode) {
@@ -122,6 +129,8 @@ bool SoundEffect::CheckOpenALErrors(void) {
 		return false;
 	}
 }
+
+// Loading
 bool SoundEffect::LoadSource(void) {
 	alGenSources((ALuint)1, &alSource);
 	alSourcef(alSource, AL_PITCH, pitch);
