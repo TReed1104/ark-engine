@@ -25,6 +25,8 @@ public:
 	const glm::vec3 GetPosition(void);
 	const glm::vec3 GetVelocity(void);
 	
+	// Sets
+	void SetPitch(float newPitch);
 
 	// Playback functions
 	void Play(void);

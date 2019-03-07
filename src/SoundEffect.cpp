@@ -55,6 +55,10 @@ const glm::vec3 SoundEffect::GetPosition(void) {
 const glm::vec3 SoundEffect::GetVelocity(void) {
 	return velocity;
 }
+void SoundEffect::SetPitch(float newPitch) {
+	pitch = newPitch;
+	alSourcef(alSource, AL_PITCH, pitch);
+}
 void SoundEffect::Play(void) {
 	ALint sourceState;
 	alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
