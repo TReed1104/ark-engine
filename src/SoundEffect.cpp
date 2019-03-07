@@ -57,7 +57,6 @@ const glm::vec3 SoundEffect::GetVelocity(void) {
 	return velocity;
 }
 
-
 // Sets
 void SoundEffect::SetLoopState(const bool& newLoopState) {
 	isLooped = newLoopState;
