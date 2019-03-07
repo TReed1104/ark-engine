@@ -59,7 +59,7 @@ void SoundEffect::SetPitch(const float& newPitch) {
 	pitch = newPitch;
 	alSourcef(alSource, AL_PITCH, pitch);
 }
-void SoundEffect::SetGain(const float & newGain) {
+void SoundEffect::SetGain(const float& newGain) {
 	gain = newGain;
 	alSourcef(alSource, AL_GAIN, gain);
 }
