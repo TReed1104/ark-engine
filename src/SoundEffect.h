@@ -21,6 +21,7 @@ public:
 	const bool IsLoaded(void);
 	const bool IsLooped(void);
 	const float GetPitch(void);
+	const float GetGain(void);
 	
 
 	// Playback functions
