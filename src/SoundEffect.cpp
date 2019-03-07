@@ -43,6 +43,9 @@ const bool SoundEffect::IsLoaded(void) {
 const bool SoundEffect::IsLooped(void) {
 	return isLooped;
 }
+const float SoundEffect::GetPitch(void) {
+	return 0.0f;
+}
 void SoundEffect::Play(void) {
 	ALint sourceState;
 	alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
