@@ -52,6 +52,9 @@ const float SoundEffect::GetGain(void) {
 const glm::vec3 SoundEffect::GetPosition(void) {
 	return position;
 }
+const glm::vec3 SoundEffect::GetVelocity(void) {
+	return velocity;
+}
 void SoundEffect::Play(void) {
 	ALint sourceState;
 	alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
