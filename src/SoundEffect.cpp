@@ -63,6 +63,10 @@ void SoundEffect::SetGain(const float & newGain) {
 	gain = newGain;
 	alSourcef(alSource, AL_GAIN, gain);
 }
+void SoundEffect::SetPosition(const glm::vec3 newPosition) {
+	position = newPosition;
+	alSource3f(alSource, AL_POSITION, position.x, position.y, position.z);
+}
 void SoundEffect::Play(void) {
 	ALint sourceState;
 	alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);

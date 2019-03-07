@@ -28,6 +28,7 @@ public:
 	// Sets
 	void SetPitch(const float& newPitch);
 	void SetGain(const float& newGain);
+	void SetPosition(const glm::vec3 newPosition);
 
 	// Playback functions
 	void Play(void);
