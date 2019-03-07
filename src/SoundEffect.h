@@ -16,9 +16,14 @@ public:
 	SoundEffect(const std::string& soundName = "NOT SET", const std::string& filePath = "NOT SET", const bool& isLooped = false, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& velocity = glm::vec3(0.0f), const float& pitch = 1.0f, const float& gain = 1.0f);
 	~SoundEffect();
 	
+	// Gets
 	const std::string GetName(void);
 	const bool IsLoaded(void);
 	const bool IsLooped(void);
+	const float GetPitch(void);
+	
+
+	// Playback functions
 	void Play(void);
 	void Pause(void);
 	void Stop(void);
