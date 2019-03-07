@@ -23,6 +23,7 @@ public:
 	const float GetPitch(void);
 	const float GetGain(void);
 	const glm::vec3 GetPosition(void);
+	const glm::vec3 GetVelocity(void);
 	
 
 	// Playback functions
