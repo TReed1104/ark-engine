@@ -26,6 +26,7 @@ public:
 	const glm::vec3 GetVelocity(void);
 	
 	// Sets
+	void SetLoopState(const bool& newLoopState);
 	void SetPitch(const float& newPitch);
 	void SetGain(const float& newGain);
 	void SetPosition(const glm::vec3& newPosition);

@@ -57,6 +57,11 @@ const glm::vec3 SoundEffect::GetVelocity(void) {
 	return velocity;
 }
 
+void SoundEffect::SetLoopState(const bool& newLoopState) {
+	isLooped = newLoopState;
+	alSourcei(alSource, AL_LOOPING, isLooped);
+}
+
 // Sets
 void SoundEffect::SetPitch(const float& newPitch) {
 	pitch = newPitch;
