@@ -44,7 +44,7 @@ const bool SoundEffect::IsLooped(void) {
 	return isLooped;
 }
 const float SoundEffect::GetPitch(void) {
-	return 0.0f;
+	return pitch;
 }
 void SoundEffect::Play(void) {
 	ALint sourceState;
