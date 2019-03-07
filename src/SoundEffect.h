@@ -22,6 +22,7 @@ public:
 	const bool IsLooped(void);
 	const float GetPitch(void);
 	const float GetGain(void);
+	const glm::vec3 GetPosition(void);
 	
 
 	// Playback functions
