@@ -507,19 +507,28 @@ void Engine::LoadTextObjects(void) {
 void Engine::LoadSoundEffects(void) {
 	engineDebugger.WriteLine(">> 8 - Loading Audio");
 
-	std::vector<std::string> listOfAudioFiles = FileSystemUtilities::GetFileList(contentDirectory + "sounds");
-	const size_t numberOfAudioFiles = listOfAudioFiles.size();
-	for (size_t i = 0; i < numberOfAudioFiles; i++) {
-		SoundEffect* newSound = new SoundEffect("temp", listOfAudioFiles[i]);
-		if (newSound->IsLoaded()) {
-			soundEffectRegister.push_back(newSound);
-		}
-		else {
-			// Failed to load the item, runtime does continue
-			delete newSound;
-			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Audio File: " + listOfAudioFiles[i]);
-			engineDebugger.WriteLine(">> 8 - FAILED");
-		}
+	//std::vector<std::string> listOfAudioFiles = FileSystemUtilities::GetFileList(contentDirectory + "sounds");
+	//const size_t numberOfAudioFiles = listOfAudioFiles.size();
+	//for (size_t i = 0; i < numberOfAudioFiles; i++) {
+	//	SoundEffect* newSound = new SoundEffect("temp", listOfAudioFiles[i]);
+	//	if (newSound->IsLoaded()) {
+	//		soundEffectRegister.push_back(newSound);
+	//	}
+	//	else {
+	//		// Failed to load the item, runtime does continue
+	//		delete newSound;
+	//		engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Audio File: " + listOfAudioFiles[i]);
+	//		engineDebugger.WriteLine(">> 8 - FAILED");
+	//	}
+	//}
+
+	if (configFile->IsLoaded()) {
+
+	}
+	else {
+		engineDebugger.WriteLine(">>>> ERROR!!!! - Engine config wasn't loaded");
+		engineDebugger.WriteLine(">> 8 - FAILED");
+		this->Close();
 	}
 
 	engineDebugger.WriteLine(">> 8 - COMPLETE");
