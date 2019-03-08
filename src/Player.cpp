@@ -36,7 +36,17 @@ void Player::HandleInputKeyboard(void) {
 			isJumping = true;
 			currentJumpingSpeed = baseJumpingSpeed;
 			movementDirection = Directions::Up;
-			Engine_Pointer->soundEffectRegister[0]->Play(); // TEST CALL FOR THE JUMPING NOISE
+
+			// TEST CALL FOR PLAYING THE JUMP SOUND EFFECT
+			std::string jumpSoundEffectId = "player jump";
+			int indexOfJumpSoundEffect = Engine_Pointer->GetIndexOfSoundEffect(jumpSoundEffectId);
+			if (indexOfJumpSoundEffect != -1) {
+				Engine_Pointer->soundEffectRegister[indexOfJumpSoundEffect]->Play();
+			}
+			else {
+				Engine_Pointer->engineDebugger.WriteLine(">> ERROR!!!! - Could not find sound effect named: " + jumpSoundEffectId);
+			}
+			// END OF TEST CALL
 		}
 	}
 
