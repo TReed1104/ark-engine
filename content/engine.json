@@ -99,6 +99,24 @@
 							"size": 18
 						}
 					}
+				],
+				"sounds": [
+					{
+						"sound": {
+							"id": "player jump",
+							"source": "sound_jump.wav",
+							"isLooped": false,
+							"type": "sound_effect"
+						}
+					},
+					{
+						"sound": {
+							"id": "level_one_background",
+							"source": "background_spiritsgrave.wav",
+							"isLooped": true,
+							"type": "background_track"
+						}
+					}
 				]
 			}
 		},
