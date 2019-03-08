@@ -348,7 +348,7 @@ void Engine::LoadOpenAL(void) {
 	if (audioDevice) {
 		engineDebugger.WriteLine(">>>>>> Audio Device: " + (std::string)alcGetString(audioDevice, ALC_DEVICE_SPECIFIER) + " - initialised");
 		audioContext = alcCreateContext(audioDevice, NULL);	// Create the audio context for the engine to use
-		
+
 		if (audioContext) {
 			engineDebugger.WriteLine(">>>>>> Audio context created");
 			if (alcMakeContextCurrent(audioContext)) {
@@ -360,7 +360,7 @@ void Engine::LoadOpenAL(void) {
 				engineDebugger.WriteLine(">>>>>> ERROR!!!! - Failed to set Audio context");
 				engineDebugger.WriteLine(">>>>>> ERROR!!!! - OpenAL Error: " + alGetError());
 				engineDebugger.WriteLine(">>>> 2.4 - FAILED");
-				
+
 				// Cleanup
 				alcDestroyContext(audioContext);
 				alcCloseDevice(audioDevice);
@@ -371,7 +371,7 @@ void Engine::LoadOpenAL(void) {
 			engineDebugger.WriteLine(">>>>>> ERROR!!!! - Failed to create Audio context");
 			engineDebugger.WriteLine(">>>>>> ERROR!!!! - OpenAL Error: " + alGetError());
 			engineDebugger.WriteLine(">>>> 2.4 - FAILED");
-			
+
 			// Cleanup
 			alcCloseDevice(audioDevice);
 			return;
@@ -507,23 +507,29 @@ void Engine::LoadTextObjects(void) {
 void Engine::LoadSoundEffects(void) {
 	engineDebugger.WriteLine(">> 8 - Loading Audio");
 
-	//std::vector<std::string> listOfAudioFiles = FileSystemUtilities::GetFileList(contentDirectory + "sounds");
-	//const size_t numberOfAudioFiles = listOfAudioFiles.size();
-	//for (size_t i = 0; i < numberOfAudioFiles; i++) {
-	//	SoundEffect* newSound = new SoundEffect("temp", listOfAudioFiles[i]);
-	//	if (newSound->IsLoaded()) {
-	//		soundEffectRegister.push_back(newSound);
-	//	}
-	//	else {
-	//		// Failed to load the item, runtime does continue
-	//		delete newSound;
-	//		engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Audio File: " + listOfAudioFiles[i]);
-	//		engineDebugger.WriteLine(">> 8 - FAILED");
-	//	}
-	//}
-
 	if (configFile->IsLoaded()) {
+		size_t numberOfSoundEffects = configFile->SizeOfObjectArray("engine.configuration.content.sounds");
 
+		// Load each sound effect registered with the engine in the config
+		for (size_t i = 0; i < numberOfSoundEffects; i++) {
+			// Get the sounds config from the engine config
+			std::string soundEffectName = contentDirectory + "sounds\\" + configFile->Get<std::string>("engine.configuration.content.sounds." + std::to_string(i) + ".sound.id");
+			std::string filePath = contentDirectory + "sounds\\" + configFile->Get<std::string>("engine.configuration.content.sounds." + std::to_string(i) + ".sound.source");
+			bool isLooped = configFile->Get<bool>("engine.configuration.content.sounds." + std::to_string(i) + ".sound.source");
+
+			// Create a new sound
+			SoundEffect* newSound = new SoundEffect(soundEffectName, filePath, isLooped);
+
+			// Check the sound was loaded and created successfully
+			if (newSound->IsLoaded()) {
+				soundEffectRegister.push_back(newSound);
+			}
+			else {
+				// Failed to load the item, runtime does continue
+				delete newSound;
+				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Audio File: " + filePath);
+			}
+		}
 	}
 	else {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - Engine config wasn't loaded");
