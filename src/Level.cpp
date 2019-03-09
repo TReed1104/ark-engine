@@ -125,6 +125,7 @@ void Level::Reload(void) {
 			delete tileMap[i];
 		}
 		tileMap.clear();
+		//BackgroundSound->Restart();
 	}
 	isLoaded = Load();
 }
