@@ -515,7 +515,7 @@ void Engine::LoadSoundEffects(void) {
 			// Get the sounds config from the engine config
 			std::string soundEffectName = contentDirectory + "sounds\\" + configFile->Get<std::string>("engine.configuration.content.sounds." + std::to_string(i) + ".sound.id");
 			std::string filePath = contentDirectory + "sounds\\" + configFile->Get<std::string>("engine.configuration.content.sounds." + std::to_string(i) + ".sound.source");
-			bool isLooped = configFile->Get<bool>("engine.configuration.content.sounds." + std::to_string(i) + ".sound.source");
+			bool isLooped = configFile->Get<bool>("engine.configuration.content.sounds." + std::to_string(i) + ".sound.isLooped");
 
 			// Create a new sound
 			SoundEffect* newSound = new SoundEffect(soundEffectName, filePath, isLooped);
