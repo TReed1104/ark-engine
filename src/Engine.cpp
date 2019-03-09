@@ -1032,3 +1032,5 @@ Level* Engine::GetCurrentLevel(void) {
 		return levelRegister[indexOfCurrentLevel];
 	}
 }
+void Engine::ChangeLevel(const int& newLevelIndex) {
+}

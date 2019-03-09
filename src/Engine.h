@@ -130,6 +130,7 @@ public:
 	const int GetIndexOfEntity(const std::string& entityName);
 	const int GetIndexOfLevel(const std::string& levelName);
 	Level* GetCurrentLevel(void);
+	void ChangeLevel(const int& newLevelIndex);
 
 	// Engine Settings
 	void WindowResize(const glm::vec2& newScaler);
