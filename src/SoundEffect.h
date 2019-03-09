@@ -36,6 +36,7 @@ public:
 	void Play(void);
 	void Pause(void);
 	void Stop(void);
+	void Restart(void);
 
 private:
 	std::string name;

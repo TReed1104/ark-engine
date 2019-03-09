@@ -107,6 +107,9 @@ void SoundEffect::Stop(void) {
 		alSourceStop(alSource);
 	}
 }
+void SoundEffect::Restart(void) {
+
+}
 
 // Error Handling
 bool SoundEffect::CheckOpenALErrors(void) {
