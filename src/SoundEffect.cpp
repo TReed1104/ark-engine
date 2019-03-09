@@ -108,7 +108,13 @@ void SoundEffect::Stop(void) {
 	}
 }
 void SoundEffect::Restart(void) {
+	ALint sourceState;
+	alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
 
+	// if the source is not stopped, stop it
+	if (sourceState == AL_PLAYING || sourceState == AL_PAUSED || sourceState == AL_STOPPED) {
+		alSourcePlay(alSource);
+	}
 }
 
 // Error Handling
