@@ -1033,4 +1033,12 @@ Level* Engine::GetCurrentLevel(void) {
 	}
 }
 void Engine::ChangeLevel(const int& newLevelIndex) {
+	// Stop the background music of the level
+	//GetCurrentLevel()->BackGroundSound->Stop(); // PLACEHOLDER
+
+	// Change the index of the current level to use
+	indexOfCurrentLevel = newLevelIndex;
+
+	// Play the background music of the level
+	//GetCurrentLevel()->BackGroundSound->Play(); // PLACEHOLDER
 }
