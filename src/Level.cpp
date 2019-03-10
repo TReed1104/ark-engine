@@ -135,7 +135,11 @@ void Level::Reload(void) {
 			delete tileMap[i];
 		}
 		tileMap.clear();
-		//BackgroundSound->Restart();
+
+		// Stop the background music if its been set and is playing
+		if (backgroundSoundEffect != nullptr) {
+			backgroundSoundEffect->Stop();
+		}
 	}
 	isLoaded = Load();
 }
