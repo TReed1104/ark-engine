@@ -142,4 +142,9 @@ void Level::Reload(void) {
 		}
 	}
 	isLoaded = Load();
+	
+	// Start the background track playing again, now that we've reloaded the file
+	if (backgroundSoundEffect != nullptr) {
+		backgroundSoundEffect->Play();
+	}
 }
