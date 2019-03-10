@@ -4,9 +4,9 @@
 #include <glm/glm.hpp>
 #include "JsonParser.hpp"
 #include "Tile.h"
+#include "BoundingBox.h"
 
 class Engine;
-class BoundingBox;
 
 class Level
 {
@@ -20,6 +20,7 @@ public:
 	glm::vec2 pixelGridSize;
 	glm::vec2 playerStartPosition;
 	std::vector<Tile*> tileMap;
+
 
 	Level(const std::string& filePath);
 	~Level(void);
