@@ -1,6 +1,9 @@
 {
 	"level": {
 		"id": "test",
+		"sounds": {
+			"background": "spirits grave"
+		},
 		"tileset": "default",
 		"dimensions": {
 			"width": 50,
