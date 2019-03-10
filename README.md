@@ -15,4 +15,5 @@ The following are the libraries used within the engine, these are almost entirel
 - assimp - model object loading
 - rapidjson - used at the core of my "cpp-json-parser" api
 - freetype - used for loading and configuring true type fonts (.ttf)
+- OpenAL - used for rendering 3D sounds
 
