@@ -667,7 +667,6 @@ void Engine::LoadLevels(void) {
 			this->Close();
 		}
 	}
-	indexOfCurrentLevel = 0;
 
 	engineDebugger.WriteLine(">> 12 - COMPLETE");
 }
@@ -781,6 +780,8 @@ void Engine::LoadEngine(void) {
 	LoadItems();
 	LoadEntities();
 	LoadCameras();
+
+	ChangeLevel(0);		// Set the level to use, TODO: make it so we use the level in the player's save
 
 	// Load complete
 	isRunning = true;	// Allows the game loop to run
