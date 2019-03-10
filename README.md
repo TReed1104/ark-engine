@@ -1,7 +1,7 @@
 # ark-engine
 ark-engine is an open source customisable c++ game engine.
 
-## Introductiom
+## Introduction
 The engines itself is written entirely in c++ and uses cmake and conan for its build system.
 
 Customisation of the engine is done via Json config files within the content directory. These are loaded and edited using my "cpp-json-parser" api also found on my github profile.
