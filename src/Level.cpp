@@ -86,6 +86,17 @@ bool Level::Load(void) {
 		playerStartPosition = glm::vec2(configFile->Get<int>("level.player start position.x"), configFile->Get<int>("level.player start position.y"));
 		std::vector<int> rawMapData = configFile->GetVector<int>("level.tile grid");
 
+		// Sound effects
+		std::string soundEffectId = configFile->Get<std::string>("level.sounds.background");
+		int indexOfSoundEffect = Engine_Pointer->GetIndexOfSoundEffect(soundEffectId);
+		if (indexOfSoundEffect != -1) {
+			backgroundSoundEffect = Engine_Pointer->soundEffectRegister[indexOfSoundEffect];
+		}
+		else {
+			Engine_Pointer->engineDebugger.WriteLine(">>>> Could not find background sound effect: " + soundEffectId);
+			backgroundSoundEffect = nullptr;
+		}
+		
 		// Find the index of tileset to use for this level in the Engines tileset register.
 		indexOfTileset = -1;
 		for (size_t i = 0; i < Engine_Pointer->tilesetRegister.size(); i++) {
