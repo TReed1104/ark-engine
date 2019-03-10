@@ -667,6 +667,7 @@ void Engine::LoadLevels(void) {
 			this->Close();
 		}
 	}
+	indexOfCurrentLevel = 0;
 
 	engineDebugger.WriteLine(">> 12 - COMPLETE");
 }
