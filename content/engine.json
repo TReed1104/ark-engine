@@ -110,7 +110,7 @@
 					},
 					{
 						"sound": {
-							"id": "level_one_background",
+							"id": "spirits grave",
 							"source": "background_spiritsgrave.wav",
 							"isLooped": true
 						}
