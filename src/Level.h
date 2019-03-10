@@ -5,6 +5,7 @@
 #include "JsonParser.hpp"
 #include "Tile.h"
 #include "BoundingBox.h"
+#include "SoundEffect.h"
 
 class Engine;
 
@@ -20,6 +21,7 @@ public:
 	glm::vec2 pixelGridSize;
 	glm::vec2 playerStartPosition;
 	std::vector<Tile*> tileMap;
+	SoundEffect* backgroundSoundEffect = nullptr;
 
 
 	Level(const std::string& filePath);
