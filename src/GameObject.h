@@ -40,6 +40,7 @@ public:
 	const std::string GetName(void);
 	const bool IsLoaded(void);
 	void Reposition(const glm::vec2& newPosition);
+	void Reposition(const glm::vec3& newPosition);
 
 private:
 	void UpdateRotation(void);
