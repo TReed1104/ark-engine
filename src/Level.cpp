@@ -113,10 +113,14 @@ bool Level::Load(void) {
 		const std::vector<Tile>* tileSet = Engine_Pointer->tilesetRegister[indexOfTileset]->GetTiles();
 		for (int y = 0; y < (int)tileGridSize.y; y++) {
 			for (int x = 0; x < (int)tileGridSize.x; x++) {
-
+				// Get the tile from the tileset which we want to copy
 				Tile currentTile = tileSet->at(rawMapData[(y * (int)tileGridSize.x + x)]);
+				// Create the new tile, copying its state from the default tile
 				Tile* newTile = new Tile(currentTile);
+				// The copied tile will be at a default position, so reposition it
 				newTile->Reposition(glm::vec3(x * Engine_Pointer->tileSize.x, y * Engine_Pointer->tileSize.y, -0.01f));
+
+				// push our new tile to the tilemap
 				tileMap.push_back(newTile);
 			}
 		}
