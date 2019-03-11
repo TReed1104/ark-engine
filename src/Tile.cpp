@@ -1,6 +1,28 @@
 #include "Tile.h"
 #include "Engine.h"
 
+Tile::Tile(const Tile& otherTile) : GameObject() {
+	// copy constructor
+	this->name = otherTile.name;
+	this->type = otherTile.type;
+	this->isSlope = otherTile.isSlope;
+	this->slopeOffset = otherTile.slopeOffset;
+	this->slopeAngle = otherTile.slopeAngle;
+	this->texture = otherTile.texture;
+	this->sourceFramePosition = otherTile.sourceFramePosition;
+	this->position = otherTile.position;
+	this->gridPosition = otherTile.gridPosition;
+	this->drawOffset = otherTile.drawOffset;
+	this->drawPosition = otherTile.drawPosition;
+	this->boundingBoxOffset = otherTile.boundingBoxOffset;
+	this->boundingBox = otherTile.boundingBox;
+	model = Engine_Pointer->modelRegister[Engine_Pointer->indexOfTileModel];
+	model.SetMeshParents();
+	model.Translate(drawPosition);
+	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+	model.Scale(scale);
+	this->isLoaded = otherTile.isLoaded;
+}
 Tile::Tile(const Texture& texture, const int& tileType, const glm::ivec2& sourceFramePosition, const glm::vec3& position, const BoundingBox& boundingBox, const glm::ivec2& boundingBoxOffset, const bool& isSlope, const glm::ivec2& slopeOffset) : GameObject() {
 	this->name = "Tile";
 	this->type = (Type)tileType;
