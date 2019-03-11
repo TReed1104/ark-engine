@@ -113,10 +113,11 @@ bool Level::Load(void) {
 		const std::vector<Tile>* tileSet = Engine_Pointer->tilesetRegister[indexOfTileset]->GetTiles();
 		for (int y = 0; y < (int)tileGridSize.y; y++) {
 			for (int x = 0; x < (int)tileGridSize.x; x++) {
+
 				Tile currentTile = tileSet->at(rawMapData[(y * (int)tileGridSize.x + x)]);
-				glm::vec3 position = glm::vec3(x * Engine_Pointer->tileSize.x, y * Engine_Pointer->tileSize.y, -0.01f);
-				BoundingBox boundingBox = BoundingBox(glm::vec2(position) + currentTile.boundingBoxOffset, currentTile.boundingBox.GetDimensions());
-				tileMap.push_back(new Tile(*currentTile.texture, currentTile.type, currentTile.sourceFramePosition, position, boundingBox, currentTile.boundingBoxOffset, currentTile.isSlope, currentTile.slopeOffset));
+				Tile* newTile = new Tile(currentTile);
+				newTile->Reposition(glm::vec3(x * Engine_Pointer->tileSize.x, y * Engine_Pointer->tileSize.y, -0.01f));
+				tileMap.push_back(newTile);
 			}
 		}
 
