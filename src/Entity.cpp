@@ -20,7 +20,7 @@ Entity::Entity(const std::string& filePath) : GameObject(filePath) {
 		}
 
 		// Positions
-		position = glm::vec3(configFile->Get<int>("entity.start position.x"), configFile->Get<int>("entity.start position.y"), configFile->Get<int>("entity.start position.z"));
+		position = glm::vec3(configFile->Get<int>("entity.start position.x"), configFile->Get<int>("entity.start position.y"), 0);
 		gridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(this->position.x, this->position.y));
 		drawOffset = glm::ivec2(configFile->Get<int>("entity.rendering.draw offset.x"), configFile->Get<int>("entity.rendering.draw offset.y"));
 		drawPosition = this->position + glm::vec3(this->drawOffset, 0);
