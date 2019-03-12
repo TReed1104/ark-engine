@@ -10,8 +10,7 @@
 		},
 		"start position": {
 			"x": 250,
-			"y": 75,
-			"z": 0
+			"y": 75
 		},
 		"attributes:": {
 			"health": 100
