@@ -1047,11 +1047,13 @@ void Engine::ChangeLevel(const int& newLevelIndex) {
 
 	// Change the index of the current level to use
 	indexOfCurrentLevel = newLevelIndex;
-
 	currentLevel = GetCurrentLevel();	// Update the current level pointer now we've changed level
+	
+	player->Reposition(currentLevel->playerStartPosition);	// Reposition the player to the new start position
 	// Check the level has had its background sound set
 	if (currentLevel->backgroundSoundEffect != nullptr) {
 		// Play the background music of the level
 		currentLevel->backgroundSoundEffect->Play();
 	}
+
 }
