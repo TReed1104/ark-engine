@@ -1049,6 +1049,8 @@ void Engine::ChangeLevel(const int& newLevelIndex) {
 	indexOfCurrentLevel = newLevelIndex;
 	currentLevel = GetCurrentLevel();	// Update the current level pointer now we've changed level
 	
+	//TODO: Check start position against save position, change to the save position if they don't match and we know they've saved in that map
+
 	player->Reposition(currentLevel->playerStartPosition);	// Reposition the player to the new start position
 	// Check the level has had its background sound set
 	if (currentLevel->backgroundSoundEffect != nullptr) {
