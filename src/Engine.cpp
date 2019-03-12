@@ -711,6 +711,7 @@ void Engine::LoadEntities(void) {
 				engineDebugger.WriteLine(">> 14 - FAILED");
 				this->Close();
 			}
+			player->Reposition(GetCurrentLevel()->playerStartPosition);
 		}
 		else {
 			// Load the NPCs
