@@ -87,8 +87,20 @@
 				"textures" :[
 					{
 						"texture": {
-							"id": "",
-							"source": ""
+							"id": "default_texture",
+							"source": "default.png"
+						}
+					},
+					{
+						"texture": {
+							"id": "entity_player",
+							"source": "entity_player.png"
+						}
+					},
+					{
+						"texture": {
+							"id": "default_tileset",
+							"source": "tileset_default.png"
 						}
 					}
 				],
