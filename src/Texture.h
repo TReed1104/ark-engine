@@ -28,7 +28,7 @@ private:
 	std::string name;
 	bool isLoaded;
 
-	bool ImportTexture(void);
-	bool ImportTextureArray(void);
+	bool ImportTexture(const std::string& filepath);
+	bool ImportTextureArray(const std::string& filepath);
 };
 #endif
