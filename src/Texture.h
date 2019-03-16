@@ -17,7 +17,7 @@ public:
 	glm::ivec2 frameSizeWithBorder;
 	int numberOfFrames;
 
-	Texture(const std::string& filePath = "", const bool& load = false, const bool& isTextureArray = false);
+	Texture(const std::string& name = "", const std::string& filePath = "", const bool& load = false, const bool& isTextureArray = false);
 	~Texture();
 
 	const std::string GetName(void);

@@ -4,8 +4,8 @@
 
 Engine* Texture::Engine_Pointer;
 
-Texture::Texture(const std::string& filePath, const bool& load, const bool & isTextureArray) {
-	this->name = filePath;
+Texture::Texture(const std::string& name, const std::string& filePath, const bool& load, const bool & isTextureArray) {
+	this->name = name;
 	this->isLoaded = false;
 	this->textureID = -1;
 	this->dimensionsInPixels = glm::ivec2(0, 0);
