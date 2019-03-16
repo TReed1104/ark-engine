@@ -4,7 +4,7 @@
 
 Engine* Texture::Engine_Pointer;
 
-Texture::Texture(const std::string& path, const bool &load, const bool & isTextureArray) {
+Texture::Texture(const std::string& path, const bool& load, const bool & isTextureArray) {
 	this->name = path;
 	this->isLoaded = false;
 	this->textureID = -1;
@@ -15,10 +15,10 @@ Texture::Texture(const std::string& path, const bool &load, const bool & isTextu
 	this->numberOfFrames = 0;
 	if (load) {
 		if (!isTextureArray) {
-			isLoaded = ImportTexture();
+			isLoaded = ImportTexture(path);
 		}
 		else {
-			isLoaded = ImportTextureArray();
+			isLoaded = ImportTextureArray(path);
 		}
 	}
 }
@@ -31,13 +31,13 @@ const std::string Texture::GetName(void) {
 const bool Texture::IsLoaded(void) {
 	return isLoaded;
 }
-bool Texture::ImportTexture() {
+bool Texture::ImportTexture(const std::string& filepath){
 	// TODO: Implement single texture loading, look at source control to find the old code
 	Engine_Pointer->engineDebugger.WriteLine(">>>> NOT IMPLEMENTED Texture::LoadTexture()");
 	return false;
 }
-bool Texture::ImportTextureArray() {
-	SDL_Surface* image = IMG_Load(name.c_str());	// Produces an error, need to look into it ICCP - sRGB profile?
+bool Texture::ImportTextureArray(const std::string& filepath) {
+	SDL_Surface* image = IMG_Load(filepath.c_str());	// Produces an error, need to look into it ICCP - sRGB profile?
 
 	if (image == NULL) {
 		// If the texture was not loaded correctly, quit the program and show a error message on the console.
