@@ -84,6 +84,8 @@
 						"height": 64
 					}
 				},
+				"textures" :[
+				],
 				"fonts": [
 					{
 						"font": {
