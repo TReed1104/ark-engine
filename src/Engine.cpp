@@ -557,7 +557,7 @@ void Engine::LoadTextures(void) {
 
 	// Load the found textures
 	for (size_t i = 0; i < numberOfTextues; i++) {
-		Texture newTexture = Texture(listOfTextures[i], true, true);
+		Texture newTexture = Texture("test name", listOfTextures[i], true, true);
 		if (newTexture.IsLoaded()) {
 			textureRegister.push_back(newTexture);
 		}
