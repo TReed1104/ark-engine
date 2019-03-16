@@ -1,7 +1,7 @@
 {
 	"tileset": {
 		"id": "test tileset",
-		"texture": "tileset_default.png",
+		"texture": "default_tileset",
 		"tiles": [
 			{
 				"tile": {
