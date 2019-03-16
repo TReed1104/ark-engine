@@ -85,6 +85,12 @@
 					}
 				},
 				"textures" :[
+					{
+						"texture": {
+							"id": "",
+							"source": ""
+						}
+					}
 				],
 				"fonts": [
 					{
