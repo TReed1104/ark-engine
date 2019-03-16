@@ -55,7 +55,7 @@
 				"default content": {
 					"tile": "tile.obj",
 					"sprite": "sprite.obj",
-					"texture": "default.png"
+					"texture": "default_texture"
 				},
 				"directories": {
 					"shaders": "shaders",
