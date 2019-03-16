@@ -2,7 +2,7 @@
 	"entity": {
 		"id": "test mob",
 		"rendering": {
-			"texture": "entity_player.png",
+			"texture": "entity_player",
 			"draw offset": {
 				"x": -24,
 				"y": -24
