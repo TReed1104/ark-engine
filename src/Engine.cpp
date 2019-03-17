@@ -546,7 +546,7 @@ void Engine::LoadTextures(void) {
 	engineDebugger.WriteLine(">> 9 - Loading Textures");
 
 	if (configFile->IsLoaded()) {
-		size_t numberOfTextures = configFile->SizeOfObjectArray("engine.configuration.content.textures");
+		const size_t numberOfTextures = configFile->SizeOfObjectArray("engine.configuration.content.textures");
 
 		// If no textures are found, close the program
 		if (numberOfTextures == 0) {
