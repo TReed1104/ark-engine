@@ -12,11 +12,11 @@ Entity::Entity(const std::string& filePath) : GameObject(filePath) {
 		// Find the Texture for the Player.
 		if ((indexOfTexture = Engine_Pointer->GetIndexOfTexture(textureName)) != -1) {
 			// Desired text was found, set the texture.
-			texture = &Engine_Pointer->textureRegister[indexOfTexture];
+			texture = Engine_Pointer->textureRegister[indexOfTexture];
 		}
 		else {
 			// Texture could not be found, use the default.
-			texture = &Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture];
+			texture = Engine_Pointer->textureRegister[Engine_Pointer->indexOfDefaultTexture];
 		}
 
 		// Positions
