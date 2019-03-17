@@ -47,12 +47,12 @@ bool Tileset::Load() {
 			return true;
 		}
 		else {
-			Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR: Tileset texture was not found in the texture register");
+			Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Tileset texture was not found in the texture register");
 			return false;
 		}
 	}
 	else {
-		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR: Tileset config file wasn't loaded");
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Tileset config file wasn't loaded");
 		return false;
 	}
 }
