@@ -498,7 +498,7 @@ void Engine::LoadFonts(void) {
 }
 void Engine::LoadTextObjects(void) {
 	engineDebugger.WriteLine(">> 7 - Loading Text Objects");
-	
+
 	// TEST TEXTOBJECT CREATION
 	const int indexOfFont = GetIndexOfFont("Arial");
 	textObjectRegister.push_back(new TextObject("UI: Health", "Health: 100%", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 255 / 255.0f, 255 / 255.0f), true));
@@ -545,27 +545,41 @@ void Engine::LoadSoundEffects(void) {
 void Engine::LoadTextures(void) {
 	engineDebugger.WriteLine(">> 9 - Loading Textures");
 
-	std::vector<std::string> listOfTextures = FileSystemUtilities::GetFileList(contentDirectory + "textures");
-	const size_t numberOfTextues = listOfTextures.size();
-	// If no textures are found, close the program
+	if (configFile->IsLoaded()) {
+		size_t numberOfTextures = configFile->SizeOfObjectArray("engine.configuration.content.textures");
 
-	if (numberOfTextues == 0) {
-		engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to find textures ABORTING RUNTIME");
-		engineDebugger.WriteLine(">>>> 9 - FAILED");
-		this->Close();
-	}
-
-	// Load the found textures
-	for (size_t i = 0; i < numberOfTextues; i++) {
-		Texture newTexture = Texture("test name", listOfTextures[i], true, true);
-		if (newTexture.IsLoaded()) {
-			textureRegister.push_back(newTexture);
-		}
-		else {
-			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load texture" + listOfTextures[i]);
+		// If no textures are found, close the program
+		if (numberOfTextures == 0) {
+			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to find textures ABORTING RUNTIME");
 			engineDebugger.WriteLine(">>>> 9 - FAILED");
 			this->Close();
 		}
+
+		// Load each sound effect registered with the engine in the config
+		for (size_t i = 0; i < numberOfTextures; i++) {
+			// Get the texture details from the engine config
+			std::string textureName = configFile->Get<std::string>("engine.configuration.content.textures." + std::to_string(i) + ".texture.id");
+			std::string filePath = contentDirectory + "textures\\" + configFile->Get<std::string>("engine.configuration.content.textures." + std::to_string(i) + ".texture.source");
+
+			// Create a new Texture
+			Texture newTexture = Texture(textureName, filePath, true, true);
+
+			// Check the texture was loaded and created successfully
+			if (newTexture.IsLoaded()) {
+				textureRegister.push_back(newTexture);
+			}
+			else {
+				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load texture: " + textureName);
+				engineDebugger.WriteLine(">>>> 9 - FAILED");
+				this->Close();
+			}
+		}
+
+	}
+	else {
+		engineDebugger.WriteLine(">>>> ERROR!!!! - Engine config wasn't loaded");
+		engineDebugger.WriteLine(">> 9 - FAILED");
+		this->Close();
 	}
 
 	// Find the default texture for when textures are failed to be found.
@@ -1048,7 +1062,7 @@ void Engine::ChangeLevel(const int& newLevelIndex) {
 	// Change the index of the current level to use
 	indexOfCurrentLevel = newLevelIndex;
 	currentLevel = GetCurrentLevel();	// Update the current level pointer now we've changed level
-	
+
 	//TODO: Check start position against save position, change to the save position if they don't match and we know they've saved in that map
 
 	player->Reposition(currentLevel->playerStartPosition);	// Reposition the player to the new start position
