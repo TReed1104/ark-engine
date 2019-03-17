@@ -115,6 +115,12 @@ void Engine::CleanUp(void) {
 	for (size_t i = 0; i < fontRegisterSize; i++) {
 		delete fontRegister[i];
 	}
+	
+	// Delete the loaded textures
+	const size_t textureRegisterSize = textureRegister.size();
+	for (size_t i = 0; i < textureRegisterSize; i++) {
+		delete textureRegister[i];
+	}
 
 	// Delete the loaded Soundeffects
 	const size_t soundRegisterSize = soundEffectRegister.size();
@@ -562,13 +568,14 @@ void Engine::LoadTextures(void) {
 			std::string filePath = contentDirectory + "textures\\" + configFile->Get<std::string>("engine.configuration.content.textures." + std::to_string(i) + ".texture.source");
 
 			// Create a new Texture
-			Texture newTexture = Texture(textureName, filePath, true, true);
+			Texture* newTexture = new Texture(textureName, filePath, true, true);
 
 			// Check the texture was loaded and created successfully
-			if (newTexture.IsLoaded()) {
+			if (newTexture->IsLoaded()) {
 				textureRegister.push_back(newTexture);
 			}
 			else {
+				delete newTexture;
 				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load texture: " + textureName);
 				engineDebugger.WriteLine(">>>> 9 - FAILED");
 				this->Close();
@@ -973,7 +980,7 @@ const int Engine::GetIndexOfTexture(const std::string& textureName) {
 	int indexOfDesiredTexture = -1;
 	const size_t textureRegisterSize = textureRegister.size();
 	for (size_t i = 0; i < textureRegisterSize; i++) {
-		if (textureRegister[i].GetName().find(textureName) != std::string::npos) {
+		if (textureRegister[i]->GetName().find(textureName) != std::string::npos) {
 			indexOfDesiredTexture = (int)i;
 		}
 	}

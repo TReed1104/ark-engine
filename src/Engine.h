@@ -80,7 +80,7 @@ public:
 	// Registers
 	std::vector<Shader*> shaderRegister;
 	std::vector<Model> modelRegister;
-	std::vector<Texture> textureRegister;
+	std::vector<Texture*> textureRegister;
 	std::vector<Font*> fontRegister;
 	std::vector<TextObject*> textObjectRegister;
 	std::vector<SoundEffect*> soundEffectRegister;
