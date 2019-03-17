@@ -511,7 +511,7 @@ void Engine::LoadSoundEffects(void) {
 	engineDebugger.WriteLine(">> 8 - Loading Audio");
 
 	if (configFile->IsLoaded()) {
-		size_t numberOfSoundEffects = configFile->SizeOfObjectArray("engine.configuration.content.sounds");
+		const size_t numberOfSoundEffects = configFile->SizeOfObjectArray("engine.configuration.content.sounds");
 
 		// Load each sound effect registered with the engine in the config
 		for (size_t i = 0; i < numberOfSoundEffects; i++) {
