@@ -403,7 +403,7 @@ void Engine::LoadShaders(void) {
 	engineDebugger.WriteLine(">> 4 - Loading Shaders");
 
 	if (configFile->IsLoaded()) {
-		size_t numberOfShaders = configFile->SizeOfObjectArray("engine.configuration.shaders");
+		const size_t numberOfShaders = configFile->SizeOfObjectArray("engine.configuration.shaders");
 
 		// If no shaders are found, close the program
 		if (numberOfShaders == 0) {
