@@ -471,7 +471,7 @@ void Engine::LoadFonts(void) {
 	engineDebugger.WriteLine(">> 6 - Loading Fonts");
 
 	if (configFile->IsLoaded()) {
-		size_t numberOfFonts = configFile->SizeOfObjectArray("engine.configuration.content.fonts");
+		const size_t numberOfFonts = configFile->SizeOfObjectArray("engine.configuration.content.fonts");
 		for (size_t i = 0; i < numberOfFonts; i++) {
 			std::string fontName = configFile->Get<std::string>("engine.configuration.content.fonts." + std::to_string(i) + ".font.id");
 			std::string fontPath = contentDirectory + "fonts/" + configFile->Get<std::string>("engine.configuration.content.fonts." + std::to_string(i) + ".font.source");
