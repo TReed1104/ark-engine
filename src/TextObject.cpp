@@ -109,13 +109,26 @@ void TextObject::LoadText() {
 	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 	model.Scale(scale);
 
-	// Go through and move the glyphs to their respective positions in the text.
-	glm::vec3 cursorPosition = position;	// The cursor for where the Glyph is to be rendered
+	// Configure the positioning of each glyph in a piece of text
+	glm::vec3 cursorPosition = position;	// The cursor is the horizontal position along a line of text where a character is to be rendered
 	for (size_t i = 0; i < lengthOfText; i++) {
+		// Create a reference directly to the glyph and model mesh to configure
 		Glyph& currentGlyph = glyphs[i];
 		Model::Mesh& currentMesh = model.meshes[i];
 
-		currentMesh.SetTranslation(false, cursorPosition);
+		/* Create the draw position for the glyph, this uses the cursor position and the glyph metrics for its bearings, 
+		the bearing is the values deciding how the glyph itself is positioned in comparison to the line the text is rendered along.
+		E.g. how the letter 'g' hangs half below the line of text, or how an apostrophe is at the top of the line. */
+		glm::vec3 drawPosition = cursorPosition;
+		drawPosition.x = cursorPosition.x + currentGlyph.horizontalBearing.x;	// shift right
+		drawPosition.y = cursorPosition.y - currentGlyph.horizontalBearing.y;	// shift down, oddly this has to be inverted
+		
+		//TODO: Implement the ability to the text to go vertically, this uses currentGlyph.verticalBearing.
+
+		// Move the mesh to the position the cursor dictates
+		currentMesh.SetTranslation(false, drawPosition);
+
+		// Move the cursor to the correct position ready for the next character
 		cursorPosition.x += currentGlyph.advance.x;
 	}
 }
