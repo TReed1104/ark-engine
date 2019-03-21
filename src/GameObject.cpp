@@ -141,6 +141,9 @@ void GameObject::Reposition(const glm::vec3& newPosition) {
 	model.Translate(drawPosition);
 	boundingBox.UpdatePosition(glm::vec2(position.x, position.y) + boundingBoxOffset);					// Update the bounding box to match the new positions
 }
+const glm::vec2 GameObject::GetGridPosition(void) {
+	return gridPosition;
+}
 void GameObject::UpdatePosition() {
 	position += glm::vec3(velocity, 0.0f);
 	velocity = glm::vec2(0, 0);																			// Reset Velocity, because the movement has taken place

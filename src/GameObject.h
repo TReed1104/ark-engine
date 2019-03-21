@@ -41,6 +41,7 @@ public:
 	const bool IsLoaded(void);
 	void Reposition(const glm::vec2& newPosition);
 	void Reposition(const glm::vec3& newPosition);
+	const glm::vec2 GetGridPosition(void);
 
 private:
 	void UpdateRotation(void);
