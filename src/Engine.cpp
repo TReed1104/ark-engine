@@ -948,6 +948,8 @@ void Engine::Run(void) {
 			secondsCounter = 0;
 		}
 		oldFrameTime = currentFrameTime;
+
+		textObjectRegister[3]->UpdateText("GridPos(" + std::to_string(player->GetGridPosition().x) + ", " + std::to_string(player->GetGridPosition().y) + ")");
 	}
 
 	engineDebugger.WriteLine("## Game Runtime - Finished");
