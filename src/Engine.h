@@ -72,7 +72,6 @@ public:
 	ALCdevice* audioDevice;
 	ALCcontext* audioContext;
 
-
 	// Cameras
 	Camera* mainCamera;
 	GameObject* mainCameraFocus;
