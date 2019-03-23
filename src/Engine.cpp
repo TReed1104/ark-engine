@@ -949,6 +949,7 @@ void Engine::Run(void) {
 		}
 		oldFrameTime = currentFrameTime;
 
+		// Update the debug text for the player grid position
 		textObjectRegister[3]->UpdateText("GridPos(" + std::to_string(player->GetGridPosition().x) + ", " + std::to_string(player->GetGridPosition().y) + ")");
 	}
 
