@@ -825,8 +825,8 @@ void Engine::WindowRename(const std::string& newName) {
 	SDL_SetWindowTitle(sdlWindow, windowTitle.c_str());
 }
 void Engine::SetVSyncState(const bool& newState) {
-	SDL_GL_SetSwapInterval(newState);	// Toggles V-Sync on and off for the SDL Window
-
+	// Toggles V-Sync on and off for the SDL Window
+	SDL_GL_SetSwapInterval(newState);
 }
 
 // Core game loop steps
