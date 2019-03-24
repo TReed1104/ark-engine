@@ -6,7 +6,7 @@
 class Background {
 public:
 
-	Background();
+	Background(const std::string name);
 	~Background();
 
 	const std::string GetName(void);

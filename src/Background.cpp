@@ -1,6 +1,7 @@
 #include "Background.h"
 
-Background::Background() {
+Background::Background(const std::string name) {
+	this->name = name;
 }
 Background::~Background() {
 }
