@@ -43,6 +43,7 @@ Engine::Engine(char* gameName) {
 	Animation::Frame::Engine_Pointer = this;
 	GameObject::Engine_Pointer = this;
 	Tileset::Engine_Pointer = this;
+	Background::Engine_Pointer = this;
 	Level::Engine_Pointer = this;
 	Camera::Engine_Pointer = this;
 
