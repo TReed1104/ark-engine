@@ -9,6 +9,8 @@ public:
 	Background(const std::string name);
 	~Background();
 
+	void Update(const float& deltaTime);
+	void Draw(void);
 	const std::string GetName(void);
 
 private:
