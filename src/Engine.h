@@ -37,6 +37,7 @@
 #include "Tile.h"
 #include "Tileset.h"
 #include "Item.h"
+#include "Background.h"
 #include "Level.h"
 #include "Entity.h"
 #include "NonPlayerCharacter.h"
