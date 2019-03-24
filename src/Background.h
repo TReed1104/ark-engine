@@ -3,8 +3,11 @@
 
 #include <string>
 
+class Engine;
+
 class Background {
 public:
+	static Engine* Engine_Pointer;
 
 	Background(const std::string name);
 	~Background();

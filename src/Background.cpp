@@ -1,4 +1,7 @@
 #include "Background.h"
+#include "Engine.h"
+
+Engine* Background::Engine_Pointer;
 
 Background::Background(const std::string name) {
 	this->name = name;
@@ -6,7 +9,7 @@ Background::Background(const std::string name) {
 Background::~Background() {
 }
 
-void Background::Update(const float & deltaTime) {
+void Background::Update(const float& deltaTime) {
 
 }
 void Background::Draw(void) {
