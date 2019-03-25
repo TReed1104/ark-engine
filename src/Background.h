@@ -22,6 +22,8 @@ public:
 private:
 	std::string name;
 	bool isLoaded = false;
+
+	bool LoadBackground(const std::string& texturePath);
 };
 
 #endif
