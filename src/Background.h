@@ -2,6 +2,8 @@
 #define ARKENGINE_BACKGROUND_H_
 
 #include <string>
+#include "Texture.h"
+#include "Model.h"
 
 class Engine;
 
