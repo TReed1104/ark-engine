@@ -5,13 +5,7 @@ Engine* Background::Engine_Pointer;
 
 Background::Background(const std::string& name, const std::string& texturePath) {
 	this->name = name;
-
-	if (texturePath != "") {
-		isLoaded = Load(texturePath);
-	}
-	else {
-		isLoaded = false;
-	}
+	isLoaded = Load(texturePath);
 }
 Background::~Background() {
 	// If the texture has been created on the heap, delete it
@@ -33,6 +27,12 @@ const bool Background::IsLoaded(void) {
 	return isLoaded;
 }
 bool Background::Load(const std::string& texturePath) {
+	if (texturePath != "") {
+		texture = new Texture(name, texturePath, true, false);
 
-	return false;
+		return false;
+	}
+	else {
+		return false;
+	}
 }
