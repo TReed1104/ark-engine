@@ -32,9 +32,6 @@ const bool Texture::IsLoaded(void) {
 	return isLoaded;
 }
 bool Texture::ImportTexture(const std::string& filepath){
-	// TODO: Implement single texture loading, look at source control to find the old code
-	Engine_Pointer->engineDebugger.WriteLine(">>>> NOT IMPLEMENTED Texture::LoadTexture()");
-
 	SDL_Surface* image = IMG_Load(filepath.c_str());	// Produces an error, need to look into it ICCP - sRGB profile?
 
 	if (image == NULL) {
