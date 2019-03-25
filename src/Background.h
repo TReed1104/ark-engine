@@ -11,7 +11,7 @@ class Background {
 public:
 	static Engine* Engine_Pointer;
 
-	Background(const std::string name);
+	Background(const std::string& name);
 	~Background();
 
 	void Update(const float& deltaTime);

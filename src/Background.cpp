@@ -3,7 +3,7 @@
 
 Engine* Background::Engine_Pointer;
 
-Background::Background(const std::string name) {
+Background::Background(const std::string& name) {
 	this->name = name;
 }
 Background::~Background() {
