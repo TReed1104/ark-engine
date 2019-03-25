@@ -23,7 +23,7 @@ private:
 	std::string name;
 	bool isLoaded = false;
 
-	bool LoadBackground(const std::string& texturePath);
+	bool Load(const std::string& texturePath);
 };
 
 #endif

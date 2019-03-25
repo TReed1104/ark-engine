@@ -21,7 +21,7 @@ const std::string Background::GetName() {
 const bool Background::IsLoaded(void) {
 	return isLoaded;
 }
-bool Background::LoadBackground(const std::string & texturePath) {
+bool Background::Load(const std::string & texturePath) {
 
 	return false;
 }
