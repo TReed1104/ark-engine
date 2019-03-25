@@ -3,8 +3,9 @@
 
 Engine* Background::Engine_Pointer;
 
-Background::Background(const std::string& name) {
+Background::Background(const std::string& name, const std::string& texturePath) {
 	this->name = name;
+
 }
 Background::~Background() {
 }
@@ -21,7 +22,7 @@ const std::string Background::GetName() {
 const bool Background::IsLoaded(void) {
 	return isLoaded;
 }
-bool Background::Load(const std::string & texturePath) {
+bool Background::Load(const std::string& texturePath) {
 
 	return false;
 }
