@@ -27,12 +27,17 @@ const bool Background::IsLoaded(void) {
 	return isLoaded;
 }
 bool Background::Load(const std::string& texturePath) {
-	if (texturePath != "") {
-		texture = new Texture(name, texturePath, true, false);
+	texture = new Texture(name, texturePath, true, false);
+	if (texture->IsLoaded()) {
+		// Texture was successfully loaded
+		
+		// TODO: create the Model + Meshes for the size of the texture
 
-		return false;
+		return true;
 	}
 	else {
+		// Texture failed to load, Background::Load() failed
+		Engine_Pointer->engineDebugger.WriteLine("ERROR!!!! - Background " + name + " failed to load");
 		return false;
 	}
 }
