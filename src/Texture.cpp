@@ -34,7 +34,53 @@ const bool Texture::IsLoaded(void) {
 bool Texture::ImportTexture(const std::string& filepath){
 	// TODO: Implement single texture loading, look at source control to find the old code
 	Engine_Pointer->engineDebugger.WriteLine(">>>> NOT IMPLEMENTED Texture::LoadTexture()");
-	return false;
+
+	SDL_Surface* image = IMG_Load(filepath.c_str());	// Produces an error, need to look into it ICCP - sRGB profile?
+
+	if (image == NULL) {
+		// If the texture was not loaded correctly, quit the program and show a error message on the console.
+		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load: " + name);
+		return false;
+	}
+	else {
+		Engine_Pointer->engineDebugger.WriteLine(">>>> Texture Loaded! - " + name);
+	}
+	
+	// Set up the texture metadata, as its not an array we are just using one texture
+	dimensionsInPixels = glm::ivec2(image->w, image->h);
+	dimensionsInFrames = glm::ivec2(1, 1);
+	frameSize = glm::ivec2(image->w, image->h);
+	frameSizeWithBorder = glm::ivec2(image->w, image->h);
+	numberOfFrames = 1;
+
+	// Initialise the texture buffer
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	// Setup the colour format to use
+	Uint8 colours = image->format->BytesPerPixel;
+	GLenum textureFormat = GL_RGBA8;
+	if (colours == 4) {
+		textureFormat = GL_RGBA8;
+	}
+	else {
+		textureFormat = GL_RGB8;
+	}
+
+	// Load the data into the Texture buffer
+	glTexImage2D(GL_TEXTURE_2D, 0, textureFormat, image->w, image->h, 0, textureFormat, GL_UNSIGNED_BYTE, image->pixels);
+
+	// Wrapping settings
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	// Filtering settings
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	// Clean up
+	glBindTexture(GL_TEXTURE_2D, 0);			// Unbind the texture
+	SDL_FreeSurface(image);						// Clear up the memory used by SDL's image loader.
+	return true;
 }
 bool Texture::ImportTextureArray(const std::string& filepath) {
 	SDL_Surface* image = IMG_Load(filepath.c_str());	// Produces an error, need to look into it ICCP - sRGB profile?
@@ -66,8 +112,8 @@ bool Texture::ImportTextureArray(const std::string& filepath) {
 	// Initialise the texture buffer
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
-	// Initialise the size of the 3D texture array
-
+	
+	// Setup the colour format to use
 	Uint8 colours = image->format->BytesPerPixel;
 	GLenum textureFormat = GL_RGBA8;
 	if (colours == 4) {
@@ -77,6 +123,7 @@ bool Texture::ImportTextureArray(const std::string& filepath) {
 		textureFormat = GL_RGB8;
 	}
 
+	// Initialise the size of the 3D texture array
 	glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, textureFormat, frameSize.x, frameSize.y, numberOfFrames);
 
 	int textureArrayLayerIndexer = 0;	// Stores the current layer level we are putting the new texture into
