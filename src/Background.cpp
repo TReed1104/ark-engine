@@ -18,3 +18,6 @@ void Background::Draw(void) {
 const std::string Background::GetName() {
 	return name;
 }
+const bool Background::IsLoaded(void) {
+	return isLoaded;
+}

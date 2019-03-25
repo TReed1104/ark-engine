@@ -17,9 +17,11 @@ public:
 	void Update(const float& deltaTime);
 	void Draw(void);
 	const std::string GetName(void);
+	const bool IsLoaded(void);
 
 private:
 	std::string name;
+	bool isLoaded = false;
 };
 
 #endif
