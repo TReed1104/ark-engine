@@ -6,6 +6,12 @@ Engine* Background::Engine_Pointer;
 Background::Background(const std::string& name, const std::string& texturePath) {
 	this->name = name;
 
+	if (texturePath != "") {
+		isLoaded = Load(texturePath);
+	}
+	else {
+		isLoaded = false;
+	}
 }
 Background::~Background() {
 }
