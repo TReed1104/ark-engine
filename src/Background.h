@@ -23,6 +23,8 @@ private:
 	std::string name;
 	bool isLoaded = false;
 
+	Texture* texture = nullptr;
+
 	bool Load(const std::string& texturePath);
 };
 

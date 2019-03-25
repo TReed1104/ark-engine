@@ -14,6 +14,10 @@ Background::Background(const std::string& name, const std::string& texturePath) 
 	}
 }
 Background::~Background() {
+	// If the texture has been created on the heap, delete it
+	if (texture != nullptr) {
+		delete texture;
+	}
 }
 
 void Background::Update(const float& deltaTime) {
