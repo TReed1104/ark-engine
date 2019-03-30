@@ -83,3 +83,7 @@ bool Background::Load(const std::string& texturePath) {
 		return false;
 	}
 }
+
+Model::Mesh Background::GenerateMeshForTexture(const Texture & textureToUse) {
+	return Model::Mesh();
+}
