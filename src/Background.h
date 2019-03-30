@@ -24,6 +24,7 @@ private:
 	bool isLoaded = false;
 
 	Texture* texture = nullptr;
+	Model* model = nullptr;
 
 	bool Load(const std::string& texturePath);
 };
