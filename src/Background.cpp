@@ -50,6 +50,14 @@ bool Background::Load(const std::string& texturePath) {
 		backgroundMesh.uvs.push_back(glm::vec2(1.0f, 0.0f));
 		backgroundMesh.uvs.push_back(glm::vec2(1.0f, 1.0f));
 		backgroundMesh.uvs.push_back(glm::vec2(0.0f, 1.0f));
+		backgroundMesh.isSetupForTextures = true;
+
+		// Set the colour data and surface normal for each vertexPosition (these are all default)
+		const size_t numberOfVertices = backgroundMesh.vertexPositions.size();
+		for (size_t i = 0; i < numberOfVertices; i++) {
+			backgroundMesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+			backgroundMesh.surfaceNormals.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
+		}
 
 
 		//OverideLoadState(true);
