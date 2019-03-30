@@ -12,6 +12,9 @@ Background::~Background() {
 	if (texture != nullptr) {
 		delete texture;
 	}
+	if (model != nullptr) {
+		delete model;
+	}
 }
 
 void Background::Update(const float& deltaTime) {
