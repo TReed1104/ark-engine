@@ -31,10 +31,23 @@ const bool Background::IsLoaded(void) {
 }
 bool Background::Load(const std::string& texturePath) {
 	texture = new Texture(name, texturePath, true, false);
+	
+	// Texture was successfully loaded
 	if (texture->IsLoaded()) {
-		// Texture was successfully loaded
 		
-		// TODO: create the Model + Meshes for the size of the texture
+		// Create the mesh using the dimensions of the texture
+		model = new Model(name, false);
+		Model::Mesh backgroundMesh = Model::Mesh();
+
+		// Specify four corner positions of the backgrounds quad 
+		backgroundMesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+		backgroundMesh.vertexPositions.push_back(glm::vec3(0.0f + texture->dimensionsInPixels.x, 0.0f, 0.0f));
+		backgroundMesh.vertexPositions.push_back(glm::vec3(0.0f + texture->dimensionsInPixels.x, 0.0f + texture->dimensionsInPixels.y, 0.0f));
+		backgroundMesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f + texture->dimensionsInPixels.y, 0.0f));
+
+
+
+		//OverideLoadState(true);
 
 		return true;
 	}
