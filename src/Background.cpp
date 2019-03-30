@@ -45,6 +45,11 @@ bool Background::Load(const std::string& texturePath) {
 		backgroundMesh.vertexPositions.push_back(glm::vec3(0.0f + texture->dimensionsInPixels.x, 0.0f + texture->dimensionsInPixels.y, 0.0f));
 		backgroundMesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f + texture->dimensionsInPixels.y, 0.0f));
 
+		// Set the UVs for the background quad
+		backgroundMesh.uvs.push_back(glm::vec2(0.0f, 0.0f));
+		backgroundMesh.uvs.push_back(glm::vec2(1.0f, 0.0f));
+		backgroundMesh.uvs.push_back(glm::vec2(1.0f, 1.0f));
+		backgroundMesh.uvs.push_back(glm::vec2(0.0f, 1.0f));
 
 
 		//OverideLoadState(true);
