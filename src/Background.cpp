@@ -37,43 +37,9 @@ bool Background::Load(const std::string& texturePath) {
 
 		// Create the mesh using the dimensions of the texture
 		model = new Model(name, false);
-		Model::Mesh backgroundMesh = Model::Mesh();
-
-		// Specify four corner positions of the backgrounds quad 
-		backgroundMesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
-		backgroundMesh.vertexPositions.push_back(glm::vec3(0.0f + texture->dimensionsInPixels.x, 0.0f, 0.0f));
-		backgroundMesh.vertexPositions.push_back(glm::vec3(0.0f + texture->dimensionsInPixels.x, 0.0f + texture->dimensionsInPixels.y, 0.0f));
-		backgroundMesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f + texture->dimensionsInPixels.y, 0.0f));
-
-		// Set the UVs for the background quad
-		backgroundMesh.uvs.push_back(glm::vec2(0.0f, 0.0f));
-		backgroundMesh.uvs.push_back(glm::vec2(1.0f, 0.0f));
-		backgroundMesh.uvs.push_back(glm::vec2(1.0f, 1.0f));
-		backgroundMesh.uvs.push_back(glm::vec2(0.0f, 1.0f));
-		backgroundMesh.isSetupForTextures = true;
-
-		// Set the colour data and surface normal for each vertexPosition (these are all default)
-		const size_t numberOfVertices = backgroundMesh.vertexPositions.size();
-		for (size_t i = 0; i < numberOfVertices; i++) {
-			backgroundMesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-			backgroundMesh.surfaceNormals.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
-		}
-
-		// Set the indices for the mesh (the order to draw between the vertex positions
-		backgroundMesh.indices.push_back(0);
-		backgroundMesh.indices.push_back(1);
-		backgroundMesh.indices.push_back(2);
-		backgroundMesh.indices.push_back(0);
-		backgroundMesh.indices.push_back(2);
-		backgroundMesh.indices.push_back(3);
-
-		// Bind the data to buffers ready to pass to the shaders
-		backgroundMesh.BindBuffers();
 
 
-
-
-		//OverideLoadState(true);
+		//model->OverrideLoadState(true);
 
 		return true;
 	}
@@ -84,6 +50,41 @@ bool Background::Load(const std::string& texturePath) {
 	}
 }
 
-Model::Mesh Background::GenerateMeshForTexture(const Texture & textureToUse) {
-	return Model::Mesh();
+Model::Mesh Background::GenerateMeshForTexture(const Texture& textureToUse) {
+	// Create the mesh we are going to return to the function call
+	Model::Mesh backgroundMesh = Model::Mesh();
+
+	// Specify four corner positions of the backgrounds quad 
+	backgroundMesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+	backgroundMesh.vertexPositions.push_back(glm::vec3(0.0f + textureToUse.dimensionsInPixels.x, 0.0f, 0.0f));
+	backgroundMesh.vertexPositions.push_back(glm::vec3(0.0f + textureToUse.dimensionsInPixels.x, 0.0f + textureToUse.dimensionsInPixels.y, 0.0f));
+	backgroundMesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f + textureToUse.dimensionsInPixels.y, 0.0f));
+
+	// Set the UVs for the background quad
+	backgroundMesh.uvs.push_back(glm::vec2(0.0f, 0.0f));
+	backgroundMesh.uvs.push_back(glm::vec2(1.0f, 0.0f));
+	backgroundMesh.uvs.push_back(glm::vec2(1.0f, 1.0f));
+	backgroundMesh.uvs.push_back(glm::vec2(0.0f, 1.0f));
+	backgroundMesh.isSetupForTextures = true;	// Confirm the mesh can be textured
+
+	// Set the colour data and surface normal for each vertexPosition (these are all default)
+	const size_t numberOfVertices = backgroundMesh.vertexPositions.size();
+	for (size_t i = 0; i < numberOfVertices; i++) {
+		backgroundMesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));		// All white
+		backgroundMesh.surfaceNormals.push_back(glm::vec3(0.0f, 0.0f, 1.0f));	// All orientated towards our 2D cameras
+	}
+
+	// Set the indices for the mesh (the order to draw between the vertex positions
+	backgroundMesh.indices.push_back(0);
+	backgroundMesh.indices.push_back(1);
+	backgroundMesh.indices.push_back(2);
+	backgroundMesh.indices.push_back(0);
+	backgroundMesh.indices.push_back(2);
+	backgroundMesh.indices.push_back(3);
+
+	// Bind the data to buffers ready to pass to the shaders
+	backgroundMesh.BindBuffers();
+
+	// Return our generated mesh
+	return backgroundMesh;
 }
