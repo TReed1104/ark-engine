@@ -37,9 +37,14 @@ bool Background::Load(const std::string& texturePath) {
 
 		// Create the mesh using the dimensions of the texture
 		model = new Model(name, false);
-
-
+		model->meshes.clear();	// Clear the mesh list just for safety
+		model->meshes.push_back(GenerateMeshForTexture(*(this->texture)));
+		model->SetMeshParents();
+		// TODO: Set position for the background object before confirming its loaded
+		
+		
 		//model->OverrideLoadState(true);
+
 
 		return true;
 	}
