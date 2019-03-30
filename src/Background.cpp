@@ -31,10 +31,10 @@ const bool Background::IsLoaded(void) {
 }
 bool Background::Load(const std::string& texturePath) {
 	texture = new Texture(name, texturePath, true, false);
-	
+
 	// Texture was successfully loaded
 	if (texture->IsLoaded()) {
-		
+
 		// Create the mesh using the dimensions of the texture
 		model = new Model(name, false);
 		Model::Mesh backgroundMesh = Model::Mesh();
@@ -66,6 +66,11 @@ bool Background::Load(const std::string& texturePath) {
 		backgroundMesh.indices.push_back(0);
 		backgroundMesh.indices.push_back(2);
 		backgroundMesh.indices.push_back(3);
+
+		// Bind the data to buffers ready to pass to the shaders
+		backgroundMesh.BindBuffers();
+
+
 
 
 		//OverideLoadState(true);
