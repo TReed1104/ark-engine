@@ -59,6 +59,14 @@ bool Background::Load(const std::string& texturePath) {
 			backgroundMesh.surfaceNormals.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
 		}
 
+		// Set the indices for the mesh (the order to draw between the vertex positions
+		backgroundMesh.indices.push_back(0);
+		backgroundMesh.indices.push_back(1);
+		backgroundMesh.indices.push_back(2);
+		backgroundMesh.indices.push_back(0);
+		backgroundMesh.indices.push_back(2);
+		backgroundMesh.indices.push_back(3);
+
 
 		//OverideLoadState(true);
 
