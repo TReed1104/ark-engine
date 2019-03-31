@@ -87,6 +87,9 @@ void TextObject::UpdateFont(Font* font) {
 	this->font = font;
 	LoadText();
 }
+const glm::vec3 TextObject::GetPosition(void) {
+	return position;
+}
 void TextObject::Reposition(const glm::vec3& newPosition) {
 	position = newPosition;
 	model.Translate(position);

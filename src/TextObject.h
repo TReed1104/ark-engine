@@ -27,6 +27,7 @@ public:
 	void IsEnabled(const bool& enableState);
 	void UpdateText(const std::string& newText);
 	void UpdateFont(Font* font);
+	const glm::vec3 GetPosition(void);
 	void Reposition(const glm::vec3& newPosition);
 
 private:
