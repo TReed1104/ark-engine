@@ -18,6 +18,8 @@ public:
 	void Draw(void);
 	const std::string GetName(void);
 	const bool IsLoaded(void);
+	const glm::vec3 GetPosition(void);
+	const void SetPosition(const glm::vec3& newPosition);
 
 private:
 	std::string name;
@@ -25,6 +27,7 @@ private:
 
 	Texture* texture = nullptr;
 	Model* model = nullptr;
+	glm::vec3 position;
 
 	bool Load(const std::string& texturePath);
 	Model::Mesh GenerateMeshForTexture(const Texture& textureToUse);

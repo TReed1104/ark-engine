@@ -29,6 +29,13 @@ const std::string Background::GetName() {
 const bool Background::IsLoaded(void) {
 	return isLoaded;
 }
+const glm::vec3 Background::GetPosition(void) {
+	return position;
+}
+const void Background::SetPosition(const glm::vec3 & newPosition) {
+	this->position = newPosition;
+	model->Translate(position);
+}
 bool Background::Load(const std::string& texturePath) {
 	texture = new Texture(name, texturePath, true, false);
 
