@@ -48,11 +48,8 @@ bool Background::Load(const std::string& texturePath) {
 		model->meshes.clear();	// Clear the mesh list just for safety
 		model->meshes.push_back(GenerateMeshForTexture(*(this->texture)));
 		model->SetMeshParents();
-		// TODO: Set position for the background object before confirming its loaded
-		
-		
-		//model->OverrideLoadState(true);
-
+		model->Translate(position);
+		model->OverrideLoadState(true);
 
 		return true;
 	}
@@ -62,7 +59,6 @@ bool Background::Load(const std::string& texturePath) {
 		return false;
 	}
 }
-
 Model::Mesh Background::GenerateMeshForTexture(const Texture& textureToUse) {
 	// Create the mesh we are going to return to the function call
 	Model::Mesh backgroundMesh = Model::Mesh();
