@@ -5,6 +5,7 @@ Engine* Background::Engine_Pointer;
 
 Background::Background(const std::string& name, const std::string& texturePath) {
 	this->name = name;
+	this->indexOfCurrentShader = Engine_Pointer->GetIndexOfShader("background renderer");
 	isLoaded = Load(texturePath);
 	position = glm::vec3(0.0f, 0.0f, -0.02);	// Position the background behind the level's tiles, which are at -0.01f
 }
@@ -22,7 +23,32 @@ void Background::Update(const float& deltaTime) {
 
 }
 void Background::Draw(void) {
-
+	glEnable(GL_BLEND);
+	for (int i = 0; i < model->meshes.size(); i++) {
+		Engine_Pointer->shaderRegister[indexOfCurrentShader]->Activate();
+		Model::Mesh &currentMesh = model->meshes[i];
+		glBindVertexArray(currentMesh.vertexArrayObject);
+		const GLuint* shader = Engine_Pointer->shaderRegister[indexOfCurrentShader]->GetShader();
+		glUniformMatrix4fv(glGetUniformLocation(*shader, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->viewMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(*shader, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->projectionMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(*shader, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
+		bool useTextures = (texture->textureID != -1 && currentMesh.isSetupForTextures);
+		glUniform1i(glGetUniformLocation(*shader, "hasTexture"), useTextures);
+		if (useTextures) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, texture->textureID);
+			glUniform1i(glGetUniformLocation(*shader, "textureSampler"), 0);
+		}
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
+		glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
+		if (useTextures) {
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
+		glUseProgram(0);
+	}
+	glDisable(GL_BLEND);
 }
 const std::string Background::GetName() {
 	return name;
