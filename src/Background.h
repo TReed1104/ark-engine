@@ -32,6 +32,7 @@ private:
 
 	bool Load(const std::string& texturePath);
 	Model::Mesh GenerateMeshForTexture(const Texture& textureToUse);
+	void BehaviourHandler(const float& deltaTime);
 };
 
 #endif

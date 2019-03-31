@@ -20,7 +20,8 @@ Background::~Background() {
 }
 
 void Background::Update(const float& deltaTime) {
-
+	BehaviourHandler(deltaTime);	// Where the magic for the background effects happens
+	model->Translate(position);
 }
 void Background::Draw(void) {
 	glEnable(GL_BLEND);
@@ -122,4 +123,7 @@ Model::Mesh Background::GenerateMeshForTexture(const Texture& textureToUse) {
 
 	// Return our generated mesh
 	return backgroundMesh;
+}
+void Background::BehaviourHandler(const float& deltaTime) {
+	// TODO: Implement background magic
 }
