@@ -79,12 +79,19 @@ void TextObject::Draw(void) {
 		glDisable(GL_BLEND);
 	}
 }
-void TextObject::UpdateText(const std::string & newText) {
+void TextObject::UpdateText(const std::string& newText) {
 	this->text = newText;
 	this->LoadText();
 }
 void TextObject::UpdateFont(Font* font) {
 	this->font = font;
+	LoadText();
+}
+void TextObject::Reposition(const glm::vec3& newPosition) {
+	position = newPosition;
+	model.Translate(position);
+
+	// TODO: Model/Mesh classes need to be rewritten to make it so full reloading isn't required
 	LoadText();
 }
 const std::string TextObject::GetName(void) {
