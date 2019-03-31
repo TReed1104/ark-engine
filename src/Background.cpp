@@ -6,6 +6,7 @@ Engine* Background::Engine_Pointer;
 Background::Background(const std::string& name, const std::string& texturePath) {
 	this->name = name;
 	isLoaded = Load(texturePath);
+	position = glm::vec3(0.0f, 0.0f, -0.02);	// Position the background behind the level's tiles, which are at -0.01f
 }
 Background::~Background() {
 	// If the texture has been created on the heap, delete it
@@ -29,11 +30,11 @@ const std::string Background::GetName() {
 const bool Background::IsLoaded(void) {
 	return isLoaded;
 }
-const glm::vec3 Background::GetPosition(void) {
-	return position;
+const glm::vec2 Background::GetPosition(void) {
+	return glm::vec2(position);
 }
-const void Background::SetPosition(const glm::vec3 & newPosition) {
-	this->position = newPosition;
+const void Background::SetPosition(const glm::vec2& newPosition) {
+	this->position = glm::vec3(newPosition.x, newPosition.y, position.z);
 	model->Translate(position);
 }
 bool Background::Load(const std::string& texturePath) {

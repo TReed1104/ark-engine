@@ -18,8 +18,8 @@ public:
 	void Draw(void);
 	const std::string GetName(void);
 	const bool IsLoaded(void);
-	const glm::vec3 GetPosition(void);
-	const void SetPosition(const glm::vec3& newPosition);
+	const glm::vec2 GetPosition(void);
+	const void SetPosition(const glm::vec2& newPosition);
 
 private:
 	std::string name;
