@@ -6,7 +6,7 @@
 		},
 		"background" : {
 			"id": "test background",
-			"texture": "test_background.jpg",
+			"texture": "test_background.png",
 			"shader": "background renderer"
 		},
 		"tileset": "default",
