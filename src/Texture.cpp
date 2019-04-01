@@ -80,13 +80,13 @@ bool Texture::ImportTexture(const std::string& filepath) {
 bool Texture::ImportTextureArray(const std::string& filepath) {
 	SDL_Surface* image = IMG_Load(filepath.c_str());	// Produces an error, need to look into it ICCP - sRGB profile?
 
-	if (image == NULL) {
+	if (image != NULL) {
+		Engine_Pointer->engineDebugger.WriteLine(">>>> Texture Loaded! - " + name);
+	}
+	else {
 		// If the texture was not loaded correctly, quit the program and show a error message on the console.
 		Engine_Pointer->engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load: " + name);
 		return false;
-	}
-	else {
-		Engine_Pointer->engineDebugger.WriteLine(">>>> Texture Loaded! - " + name);
 	}
 	// Create the texture
 	dimensionsInPixels = glm::ivec2(image->w, image->h);
