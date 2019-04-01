@@ -114,6 +114,16 @@ bool Level::Load(void) {
 			Engine_Pointer->engineDebugger.WriteLine(">>>> Could not find background sound effect: " + soundEffectId);
 			backgroundSoundEffect = nullptr;
 		}
+
+		// Backgrounds
+		std::string backgroundID = configFile->Get<std::string>("level.background.id");
+		std::string backgroundTexture = configFile->Get<std::string>("level.background.texture");
+		std::string backgroundShaderID = configFile->Get<std::string>("level.background.shader");
+		levelBackground = new Background(backgroundID, backgroundTexture, backgroundShaderID);
+		if (!levelBackground->IsLoaded()) {
+			delete levelBackground;
+			levelBackground = nullptr;
+		}
 		
 		// Find the index of tileset to use for this level in the Engines tileset register.
 		indexOfTileset = -1;
