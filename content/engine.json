@@ -54,7 +54,7 @@
 					"shader": {
 						"id": "background renderer",
 						"vertex": "default.vert",
-						"fragment": "texture_simple.frag"
+						"fragment": "texture_array.frag"
 					}
 				}
 			],
