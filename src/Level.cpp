@@ -8,9 +8,17 @@ Level::Level(const std::string& filePath) {
 	isLoaded = Load();
 }
 Level::~Level(void) {
+	// Delete the config file from memory
 	if (configFile != nullptr) {
 		delete configFile;
 	}
+
+	// Delete the background effect
+	if (levelBackground != nullptr) {
+		delete levelBackground;
+	}
+
+	// Delete the tilemap
 	for (int i = 0; i < tileMap.size(); i++) {
 		delete tileMap[i];
 	}

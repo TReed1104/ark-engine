@@ -6,6 +6,7 @@
 #include "Tile.h"
 #include "BoundingBox.h"
 #include "SoundEffect.h"
+#include "Background.h"
 
 class Engine;
 
@@ -22,6 +23,7 @@ public:
 	glm::vec2 playerStartPosition;
 	std::vector<Tile*> tileMap;
 	SoundEffect* backgroundSoundEffect = nullptr;
+	Background* levelBackground = nullptr;
 
 
 	Level(const std::string& filePath);
