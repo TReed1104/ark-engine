@@ -5,6 +5,10 @@
 			"background": "spirits grave"
 		},
 		"tileset": "default",
+		"background" : {
+			"shader": "background renderer",
+			"texture": "test_background.jpg"
+		},
 		"dimensions": {
 			"width": 50,
             "height": 64
