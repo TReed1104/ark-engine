@@ -7,7 +7,7 @@ Background::Background(const std::string& name, const std::string& texturePath, 
 	this->name = name;
 	this->indexOfCurrentShader = Engine_Pointer->GetIndexOfShader(shaderName);
 	isLoaded = Load(texturePath);
-	position = glm::vec3(0.0f, 0.0f, -0.02);	// Position the background behind the level's tiles, which are at -0.01f
+	position = glm::vec3(0.0f, 0.0f, -0.02f);	// Position the background behind the level's tiles, which are at -0.01f
 }
 Background::~Background() {
 	// If the texture has been created on the heap, delete it
