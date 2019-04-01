@@ -49,6 +49,13 @@
 						"vertex": "default.vert",
 						"fragment": "default.frag"
 					}
+				},
+				{
+					"shader": {
+						"id": "background renderer",
+						"vertex": "default.vert",
+						"fragment": "texture_simple.frag"
+					}
 				}
 			],
 			"content": {
