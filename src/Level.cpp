@@ -46,6 +46,10 @@ void Level::Update(const float& deltaTime) {
 	}
 }
 void Level::Draw(void) {
+	// Render the level background
+	if (levelBackground != nullptr) {
+		levelBackground->Draw();
+	}
 	// Use the cameras position (top left of its viewport) to calculate where to update
 	glm::vec2 topLeftGridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(Engine_Pointer->mainCamera->position.x, Engine_Pointer->mainCamera->position.y));
 	glm::vec2 bottomRightGridPosition = topLeftGridPosition + (Engine_Pointer->windowGridSize + glm::vec2(1, 1));	// the +(1,1) here is to render one extra line of tiles on each axis, preventing terrain popping in and out of existence.
@@ -61,10 +65,6 @@ void Level::Draw(void) {
 		}
 	}
 
-	// Render the level background
-	if (levelBackground != nullptr) {
-		levelBackground->Draw();
-	}
 }
 const bool Level::IsLoaded(void) {
 	return isLoaded;
