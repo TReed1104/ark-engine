@@ -3,9 +3,9 @@
 
 Engine* Background::Engine_Pointer;
 
-Background::Background(const std::string& name, const std::string& texturePath) {
+Background::Background(const std::string& name, const std::string& texturePath, const std::string& shaderName) {
 	this->name = name;
-	this->indexOfCurrentShader = Engine_Pointer->GetIndexOfShader("background renderer");
+	this->indexOfCurrentShader = Engine_Pointer->GetIndexOfShader(shaderName);
 	isLoaded = Load(texturePath);
 	position = glm::vec3(0.0f, 0.0f, -0.02);	// Position the background behind the level's tiles, which are at -0.01f
 }
