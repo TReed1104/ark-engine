@@ -6,8 +6,9 @@
 		},
 		"tileset": "default",
 		"background" : {
-			"shader": "background renderer",
-			"texture": "test_background.jpg"
+			"id": "test background",
+			"texture": "test_background.jpg",
+			"shader": "background renderer"
 		},
 		"dimensions": {
 			"width": 50,
