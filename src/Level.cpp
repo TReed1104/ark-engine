@@ -39,6 +39,11 @@ void Level::Update(const float& deltaTime) {
 			tileMap[index]->Update(deltaTime);
 		}
 	}
+
+	// Update the level background
+	if (levelBackground != nullptr) {
+		levelBackground->Update(deltaTime);
+	}
 }
 void Level::Draw(void) {
 	// Use the cameras position (top left of its viewport) to calculate where to update
@@ -54,6 +59,11 @@ void Level::Draw(void) {
 			int index = y * (int)tileGridSize.x + x;
 			tileMap[index]->Draw();
 		}
+	}
+
+	// Render the level background
+	if (levelBackground != nullptr) {
+		levelBackground->Draw();
 	}
 }
 const bool Level::IsLoaded(void) {
