@@ -4,12 +4,12 @@
 		"sounds": {
 			"background": "spirits grave"
 		},
-		"tileset": "default",
 		"background" : {
 			"id": "test background",
 			"texture": "test_background.jpg",
 			"shader": "background renderer"
 		},
+		"tileset": "default",
 		"dimensions": {
 			"width": 50,
             "height": 64
