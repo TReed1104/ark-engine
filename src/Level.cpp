@@ -117,9 +117,9 @@ bool Level::Load(void) {
 
 		// Backgrounds
 		std::string backgroundID = configFile->Get<std::string>("level.background.id");
-		std::string backgroundTexture = configFile->Get<std::string>("level.background.texture");
+		std::string backgroundTexturePath = Engine_Pointer->contentDirectory + "textures\\" + configFile->Get<std::string>("level.background.texture");
 		std::string backgroundShaderID = configFile->Get<std::string>("level.background.shader");
-		levelBackground = new Background(backgroundID, backgroundTexture, backgroundShaderID);
+		levelBackground = new Background(backgroundID, backgroundTexturePath, backgroundShaderID);
 		if (!levelBackground->IsLoaded()) {
 			delete levelBackground;
 			levelBackground = nullptr;
