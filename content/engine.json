@@ -52,7 +52,7 @@
 				},
 				{
 					"shader": {
-						"id": "background renderer",
+						"id": "level background",
 						"vertex": "default.vert",
 						"fragment": "texture_simple.frag"
 					}
