@@ -9,7 +9,6 @@ uniform sampler2D textureSampler;
 
 void main() {
 	if (hasTexture) {
-		// Set the colour to pass to the rasteriser.
 		outputColour = texture2D(textureSampler, UV);
 	}
 	else {
