@@ -43,37 +43,45 @@ bool Texture::ImportTexture(const std::string& filepath) {
 		return false;
 	}
 
-	// Set up the texture metadata, as its not an array we are just using one texture
+	// Set the texture metadata
 	dimensionsInPixels = glm::ivec2(image->w, image->h);
-	dimensionsInFrames = glm::ivec2(1, 1);
 	frameSize = glm::ivec2(image->w, image->h);
-	frameSizeWithBorder = glm::ivec2(image->w, image->h);
-	numberOfFrames = 1;
+	frameSizeWithBorder = frameSize;
+	dimensionsInFrames = glm::ivec2(1, 1);
+	numberOfFrames = (dimensionsInFrames.x * dimensionsInFrames.y);
 
-	// Generate the texture buffer
+	// Initialise the texture buffer
 	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
 
 	// Setup the colour format to use
 	Uint8 colours = image->format->BytesPerPixel;
-	GLenum textureFormat = GL_RGBA;
+	GLenum textureFormat = GL_RGBA8;
 	if (colours == 4) {
-		textureFormat = GL_RGBA;
+		textureFormat = GL_RGBA8;
 	}
 	else {
-		textureFormat = GL_RGB;
+		textureFormat = GL_RGB8;
 	}
 
-	glTexImage2D(GL_TEXTURE_2D, 0, textureFormat, image->w, image->h, 0, textureFormat, GL_UNSIGNED_BYTE, image->pixels);
+	// Initialise the size of the 3D texture array
+	glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, textureFormat, image->w, image->h, 1);
 
-	// Wrapping Settings
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// Unpacks the full texture into a single SubImage
+	glPixelStorei(GL_UNPACK_ROW_LENGTH, image->w);
+	glPixelStorei(GL_UNPACK_SKIP_PIXELS, 1);
+	glPixelStorei(GL_UNPACK_SKIP_ROWS, 1);
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, 0, image->w, image->h, 1, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+
+	// Wrapping settings
+	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
 	// Filtering settings
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-	glBindTexture(GL_TEXTURE_2D, 0);			// Unbind the texture
+	glBindTexture(GL_TEXTURE_2D_ARRAY, 0);			// Unbind the texture
 	SDL_FreeSurface(image);							// Clear up the memory used by SDL's image loader.
 	return true;
 }
