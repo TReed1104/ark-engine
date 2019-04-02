@@ -10,7 +10,6 @@ uniform int textureArrayLayer;
 
 void main() {
 	if (hasTexture) {
-		// Set the colour to pass to the rasteriser.
 		outputColour = texture(textureSampler, vec3(UV, textureArrayLayer));
 	}
 	else {
