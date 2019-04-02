@@ -37,13 +37,13 @@ void Background::Draw(void) {
 		glUniform1i(glGetUniformLocation(*shader, "hasTexture"), useTextures);
 		if (useTextures) {
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D_ARRAY, texture->textureID);
+			glBindTexture(GL_TEXTURE_2D, texture->textureID);
 			glUniform1i(glGetUniformLocation(*shader, "textureSampler"), 0);
 		}
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
 		glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
 		if (useTextures) {
-			glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
+			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
