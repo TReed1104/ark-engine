@@ -11,7 +11,7 @@ class Background {
 public:
 	static Engine* Engine_Pointer;
 
-	Background(const std::string& name, const std::string& texturePath, const std::string& shaderName = "background renderer");
+	Background(const std::string& name, const std::string& texturePath, const std::string& shaderName = "level background");
 	~Background();
 
 	void Update(const float& deltaTime);
