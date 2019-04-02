@@ -16,7 +16,7 @@ TextObject::TextObject(const std::string& name, const std::string& text, Font* f
 	
 	// Rendering
 	this->colour = colour;
-	this->indexOfTextShader = Engine_Pointer->GetIndexOfShader("text renderer");
+	this->indexOfShader = Engine_Pointer->GetIndexOfShader("text renderer");
 	this->model = Model(text, false);
 	this->model.OverrideLoadState(true);
 	this->useCamera = useCamera;
@@ -50,11 +50,11 @@ void TextObject::Draw(void) {
 		glEnable(GL_BLEND);
 		const size_t numberOfMeshes = model.meshes.size();
 		for (size_t i = 0; i < numberOfMeshes; i++) {
-			Engine_Pointer->shaderRegister[indexOfTextShader]->Activate();
+			Engine_Pointer->shaderRegister[indexOfShader]->Activate();
 			Model::Mesh &currentMesh = model.meshes[i];
 			glBindVertexArray(currentMesh.vertexArrayObject);
 
-			const GLuint* shader = Engine_Pointer->shaderRegister[indexOfTextShader]->GetShader();
+			const GLuint* shader = Engine_Pointer->shaderRegister[indexOfShader]->GetShader();
 			glUniformMatrix4fv(glGetUniformLocation(*shader, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
 			glUniformMatrix4fv(glGetUniformLocation(*shader, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
 			glUniformMatrix4fv(glGetUniformLocation(*shader, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));

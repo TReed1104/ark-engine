@@ -28,7 +28,7 @@ private:
 	Texture* texture = nullptr;
 	Model* model = nullptr;
 	glm::vec3 position;
-	int indexOfCurrentShader;
+	int indexOfShader;
 
 	bool Load(const std::string& texturePath);
 	Model::Mesh GenerateMeshForTexture(const Texture& textureToUse);

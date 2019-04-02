@@ -39,7 +39,7 @@ private:
 	
 	// Rendering
 	bool useCamera;
-	int indexOfTextShader;
+	int indexOfShader;
 	glm::vec3 colour;
 	std::vector<Glyph> glyphs;	// The glyphs making up the text
 	Model model;

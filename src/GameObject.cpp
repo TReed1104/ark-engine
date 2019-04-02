@@ -18,7 +18,7 @@ GameObject::GameObject(const std::string& filePath) {
 	}
 
 	name = "Unnamed";
-	indexOfCurrentShader = Engine_Pointer->GetIndexOfShader("default");
+	indexOfShader = Engine_Pointer->GetIndexOfShader("default");
 
 	// Animation Setup
 	animationIndex = 0;
@@ -71,14 +71,14 @@ void GameObject::Draw(void) {
 	// Loop through each mesh of the model
 	for (int i = 0; i < model.meshes.size(); i++) {
 
-		Engine_Pointer->shaderRegister[indexOfCurrentShader]->Activate();
+		Engine_Pointer->shaderRegister[indexOfShader]->Activate();
 		Model::Mesh &currentMesh = model.meshes[i];	// Ref to the current mesh for easier access.
 
 		// Bind the VAO to be used in this draw.
 		glBindVertexArray(currentMesh.vertexArrayObject);
 
 		// Passes the Matrices to the shader
-		const GLuint* shader = Engine_Pointer->shaderRegister[indexOfCurrentShader]->GetShader();
+		const GLuint* shader = Engine_Pointer->shaderRegister[indexOfShader]->GetShader();
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->viewMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->projectionMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));

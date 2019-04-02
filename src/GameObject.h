@@ -59,7 +59,7 @@ protected:
 	std::vector<Animation> animations;
 
 	// Shader indexer
-	int indexOfCurrentShader;
+	int indexOfShader;
 
 	// Transformations
 	glm::vec3 position;

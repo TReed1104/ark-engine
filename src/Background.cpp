@@ -5,7 +5,7 @@ Engine* Background::Engine_Pointer;
 
 Background::Background(const std::string& name, const std::string& texturePath, const std::string& shaderName) {
 	this->name = name;
-	this->indexOfCurrentShader = Engine_Pointer->GetIndexOfShader(shaderName);
+	this->indexOfShader = Engine_Pointer->GetIndexOfShader(shaderName);
 	isLoaded = Load(texturePath);
 	position = glm::vec3(0.0f, 0.0f, -0.02f);	// Position the background behind the level's tiles, which are at -0.01f
 }
@@ -26,10 +26,10 @@ void Background::Update(const float& deltaTime) {
 void Background::Draw(void) {
 	glEnable(GL_BLEND);
 	for (int i = 0; i < model->meshes.size(); i++) {
-		Engine_Pointer->shaderRegister[indexOfCurrentShader]->Activate();
+		Engine_Pointer->shaderRegister[indexOfShader]->Activate();
 		Model::Mesh &currentMesh = model->meshes[i];
 		glBindVertexArray(currentMesh.vertexArrayObject);
-		const GLuint* shader = Engine_Pointer->shaderRegister[indexOfCurrentShader]->GetShader();
+		const GLuint* shader = Engine_Pointer->shaderRegister[indexOfShader]->GetShader();
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->viewMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->projectionMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
