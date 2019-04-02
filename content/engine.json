@@ -61,7 +61,7 @@
 					"shader": {
 						"id": "level background custom",
 						"vertex": "default.vert",
-						"fragment": "texture_simple.frag"
+						"fragment": "background_effect.frag"
 					}
 				}
 			],
