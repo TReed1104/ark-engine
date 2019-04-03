@@ -54,14 +54,14 @@
 					"shader": {
 						"id": "level background",
 						"vertex": "default.vert",
-						"fragment": "texture_simple.frag"
+						"fragment": "default_textured.frag"
 					}
 				},
 				{
 					"shader": {
 						"id": "level background custom",
 						"vertex": "default.vert",
-						"fragment": "background_effect.frag"
+						"fragment": "noise_effect.frag"
 					}
 				}
 			],
