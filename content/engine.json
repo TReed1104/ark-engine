@@ -61,7 +61,7 @@
 					"shader": {
 						"id": "level background custom",
 						"vertex": "default.vert",
-						"fragment": "noise_effect.frag"
+						"fragment": "background_textured_noise.frag"
 					}
 				}
 			],
