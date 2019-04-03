@@ -6,6 +6,7 @@ out vec4 outputColour;
 
 uniform bool hasTexture;
 uniform sampler2D textureSampler;
+uniform float time;
 
 void main() {
 	if (hasTexture) {
