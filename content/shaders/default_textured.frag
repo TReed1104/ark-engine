@@ -4,12 +4,12 @@ in vec2 UV;
 
 out vec4 outputColour;
 
-uniform bool hasTexture;
-uniform sampler2D textureSampler;
+uniform bool u_hasTexture;
+uniform sampler2D u_textureSampler;
 
 void main() {
-	if (hasTexture) {
-		outputColour = texture2D(textureSampler, UV);
+	if (u_hasTexture) {
+		outputColour = texture2D(u_textureSampler, UV);
 	}
 	else {
 		// Texturing has not been setup, use the colour buffer.

@@ -4,13 +4,13 @@ in vec2 UV;
 
 out vec4 outputColour;
 
-uniform bool hasTexture;
-uniform sampler2DArray textureSampler;
-uniform int textureArrayLayer;
+uniform bool u_hasTexture;
+uniform sampler2DArray u_textureSampler;
+uniform int u_textureArrayLayer;
 
 void main() {
-	if (hasTexture) {
-		outputColour = texture(textureSampler, vec3(UV, textureArrayLayer));
+	if (u_hasTexture) {
+		outputColour = texture(u_textureSampler, vec3(UV, u_textureArrayLayer));
 	}
 	else {
 		// Texturing has not been setup, use the colour buffer.
