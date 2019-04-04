@@ -15,8 +15,7 @@ uniform vec3 u_textColour;
 
 void main() {
 	if (u_hasTexture) {
-		vec4 sampled = vec4(1.0, 1.0, 1.0, texture(u_textureSampler, UV).r);
-    	outputColour = vec4(u_textColour, 1.0) * sampled;
+    	outputColour = vec4(u_textColour, 1.0) * vec4(1.0, 1.0, 1.0, texture(u_textureSampler, UV).r);
 	}
 	else {
 		// Texturing has not been setup, use the colour buffer.

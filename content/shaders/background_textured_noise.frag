@@ -1,5 +1,4 @@
 #version 330
-in vec3 fragmentColour;
 in vec2 UV;
 
 out vec4 outputColour;
