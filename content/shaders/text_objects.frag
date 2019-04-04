@@ -4,7 +4,11 @@ in vec2 UV;
 
 out vec4 outputColour;
 
+// Universal uniforms
 uniform float u_time;
+uniform vec2 u_resolution;
+
+// Universal uniforms
 uniform bool u_hasTexture;
 uniform sampler2D u_textureSampler;
 uniform vec3 u_textColour;

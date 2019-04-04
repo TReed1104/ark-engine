@@ -4,7 +4,11 @@ in vec2 UV;
 
 out vec4 outputColour;
 
+// Universal uniforms
 uniform float u_time;
+uniform vec2 u_resolution;
+
+// Shader specific uniforms
 uniform bool u_hasTexture;
 uniform sampler2D u_textureSampler;
 
