@@ -39,7 +39,8 @@ void Background::Draw(void) {
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture->textureID);
 			glUniform1i(glGetUniformLocation(*shader, "textureSampler"), 0);
-			glUniform1f(glGetUniformLocation(*shader, "time"), SDL_GetTicks());	// Pass a randomised number to the shader
+			// TODO: Change to not use SDL_Ticks, due to SDL_Ticks being consistent in its values
+			glUniform1f(glGetUniformLocation(*shader, "time"), SDL_GetTicks());	// Pass SDL_Ticks to the shader as a timer
 		}
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
 		glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
