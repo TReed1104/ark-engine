@@ -55,17 +55,17 @@ void TextObject::Draw(void) {
 			glBindVertexArray(currentMesh.vertexArrayObject);
 
 			const GLuint* shader = Engine_Pointer->shaderRegister[indexOfShader]->GetShader();
-			glUniformMatrix4fv(glGetUniformLocation(*shader, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
-			glUniformMatrix4fv(glGetUniformLocation(*shader, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
-			glUniformMatrix4fv(glGetUniformLocation(*shader, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
+			glUniformMatrix4fv(glGetUniformLocation(*shader, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
+			glUniformMatrix4fv(glGetUniformLocation(*shader, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
+			glUniformMatrix4fv(glGetUniformLocation(*shader, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 
 			bool useTextures = (glyphs[i].texture.textureID != -1 && currentMesh.isSetupForTextures);
-			glUniform1i(glGetUniformLocation(*shader, "hasTexture"), useTextures);
+			glUniform1i(glGetUniformLocation(*shader, "u_hasTexture"), useTextures);
 			if (useTextures) {
 				glActiveTexture(GL_TEXTURE0);
 				glBindTexture(GL_TEXTURE_2D, glyphs[i].texture.textureID);
-				glUniform1i(glGetUniformLocation(*shader, "textureSampler"), 0);
-				glUniform3fv(glGetUniformLocation(*shader, "textColour"), 1, glm::value_ptr(colour));
+				glUniform1i(glGetUniformLocation(*shader, "u_textureSampler"), 0);
+				glUniform3fv(glGetUniformLocation(*shader, "u_textColour"), 1, glm::value_ptr(colour));
 			}
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
 			glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);

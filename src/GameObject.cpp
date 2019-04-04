@@ -79,21 +79,21 @@ void GameObject::Draw(void) {
 
 		// Passes the Matrices to the shader
 		const GLuint* shader = Engine_Pointer->shaderRegister[indexOfShader]->GetShader();
-		glUniformMatrix4fv(glGetUniformLocation(*shader, "viewMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->viewMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(*shader, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->projectionMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(*shader, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
+		glUniformMatrix4fv(glGetUniformLocation(*shader, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->viewMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(*shader, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->projectionMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(*shader, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 
 		bool useTextures = (texture->textureID != -1 && currentMesh.isSetupForTextures);
-		glUniform1i(glGetUniformLocation(*shader, "hasTexture"), useTextures);
+		glUniform1i(glGetUniformLocation(*shader, "u_hasTexture"), useTextures);
 		if (useTextures) {
 			// Textures are setup correctly, tell the shader to usse the texture and setup the source frame.
 			int textureLayerIndex = (sourceFramePosition.x + (texture->dimensionsInFrames.x * sourceFramePosition.y));
-			glUniform1i(glGetUniformLocation(*shader, "textureArrayLayer"), textureLayerIndex);
+			glUniform1i(glGetUniformLocation(*shader, "u_textureArrayLayer"), textureLayerIndex);
 
 			// Activate the correct texture.
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D_ARRAY, texture->textureID);
-			glUniform1i(glGetUniformLocation(*shader, "textureSampler"), 0);
+			glUniform1i(glGetUniformLocation(*shader, "u_textureSampler"), 0);
 		}
 
 		// Tell the shader how to draw between each point.
