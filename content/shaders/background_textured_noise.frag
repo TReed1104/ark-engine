@@ -30,17 +30,7 @@ float noise(in vec2 st){
 	return mix(a,b,u.x)+(c-a)*u.y*(1.f-u.x)+(d-b)*u.x*u.y;
 }
 void main(){
-	vec2 st=gl_FragCoord.xy;
-	
-	// Scale the coordinate system to see
-	// some noise in action
-	vec2 pos=vec2(st);
-	
-	// Use the noise function
-	float n=noise(pos)*(time);
-	
-	// clamp the noise to a value between 0 and 1 for use in the fragment colour
-	float clampedNosie=mod(n,1);
+	float clampedNosie=mod(noise(gl_FragCoord.xy)*(time),1);
 	if(hasTexture){
 		outputColour=texture2D(textureSampler,UV)*vec4(vec3(clampedNosie),1.f);
 	}
