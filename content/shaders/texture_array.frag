@@ -4,6 +4,7 @@ in vec2 UV;
 
 out vec4 outputColour;
 
+uniform float u_time;
 uniform bool u_hasTexture;
 uniform sampler2DArray u_textureSampler;
 uniform int u_textureArrayLayer;

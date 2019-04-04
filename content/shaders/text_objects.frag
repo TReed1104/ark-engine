@@ -4,6 +4,7 @@ in vec2 UV;
 
 out vec4 outputColour;
 
+uniform float u_time;
 uniform bool u_hasTexture;
 uniform sampler2D u_textureSampler;
 uniform vec3 u_textColour;
