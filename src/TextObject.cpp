@@ -59,6 +59,9 @@ void TextObject::Draw(void) {
 			glUniformMatrix4fv(glGetUniformLocation(*shader, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
 			glUniformMatrix4fv(glGetUniformLocation(*shader, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 
+			// TODO: Change to not use SDL_Ticks, due to SDL_Ticks being consistent in its values
+			glUniform1f(glGetUniformLocation(*shader, "u_time"), (float)SDL_GetTicks());	// Pass SDL_Ticks to the shader as a timer
+
 			bool useTextures = (glyphs[i].texture.textureID != -1 && currentMesh.isSetupForTextures);
 			glUniform1i(glGetUniformLocation(*shader, "u_hasTexture"), useTextures);
 			if (useTextures) {
