@@ -44,3 +44,10 @@ Currently Ark-Engine only has a stable build for Windows. However, the Linux bui
     * Linux - build_ubuntu.sh **(EXPERIMENTAL)**
     * MacOS - TO BE IMPLEMENTED
 5. Find the compiled engine in the "build/bin" directory, or find the generated IDE solution in "build/"
+
+<br/>
+
+---
+
+## TODO
+UNDER CONSTRUCTION
