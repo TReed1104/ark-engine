@@ -27,18 +27,20 @@ The following are the libraries used within the engine, these are almost entirel
 * freetype - used for loading and configuring true type fonts (.ttf)
 * OpenAL - used for rendering 3D sounds
 
-## Building the engine
-Currently the build system works for Windows and is untested on Linux and MacOS (they are on the to-do list).
+<br/>
 
-Currently the Windows build script only supports Visual studio 2017's compiler, again this is going to be changed.
+---
 
-### Instructions
+## Building The Engine
+Currently Ark-Engine only has a stable build for Windows. However, the Linux build is being worked on, with MacOS to follow afterwords.
+
+### Guide
 1. Ensure CMake is installed on your system.
 2. Ensure Conan.io is installed on your system.
 3. Ensure that Bincrafters and Zimmerk are registered with Conan as repositories for recipes.
     * If not, run the commands in the gist file found [here](https://gist.github.com/TReed1104/14e9e9c4e0f07c4fdc9373cb287bdf6b)
 4. Run the build script for your platform:
     * Windows 10 - build_vs17.bat
-    * Linux - TO BE IMPLEMENTED
+    * Linux - build_ubuntu.sh **(EXPERIMENTAL)**
     * MacOS - TO BE IMPLEMENTED
 5. Find the compiled engine in the "build/bin" directory, or find the generated IDE solution in "build/"
