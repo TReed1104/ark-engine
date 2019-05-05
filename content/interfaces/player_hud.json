@@ -1,0 +1,15 @@
+{
+    "interface": {
+        "id": "player_hud",
+        "background": {
+            "texture": "interface.png",
+            "shader": "default"
+        },
+        "size": {
+            "width": 64,
+            "height": 32
+        },
+        "text objects": [
+        ]
+    }
+}
