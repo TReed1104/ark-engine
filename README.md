@@ -1,12 +1,22 @@
 # ark-engine
 ark-engine is an open source customisable c++ game engine.
 
-## Introduction
-The engines itself is written entirely in c++ and uses cmake and conan for its build system.
+<br/>
 
-Customisation of the engine is done via Json config files within the content directory. These are loaded and edited using my "cpp-json-parser" api also found on my github profile.
+---
 
-## Engine dependencies
+## The Aim
+The aim of Ark-Engine was to create a customisable multiplatform game engine, to be used for my personal game development projects.
+
+The engines itself is written entirely in c++, using cmake and conan as a build system.
+
+The Customisation of the engine is done via Json config files within the content directory. These are loaded and edited using my "cpp-json-parser" api also found on my github profile ([here](https://github.com/TReed1104/cpp-json-parser)).
+
+<br/>
+
+---
+
+## Engine Dependencies (Libraries)
 The following are the libraries used within the engine, these are almost entirely compiled and built via the conan package manager.
 * SDL2 - window and event management
 * SDL2_image - texture loading
