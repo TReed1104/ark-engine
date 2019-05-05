@@ -1,9 +1,4 @@
-# ark-engine
-ark-engine is an open source customisable c++ game engine.
-
-<br/>
-
----
+# Ark-Engine
 
 ## The Aim
 The aim of Ark-Engine was to create a customisable multiplatform game engine, to be used for my personal game development projects.
