@@ -966,7 +966,7 @@ const int Engine::GetIndexOfShader(const std::string& shaderName) {
 	int indexOfDesiredShader = -1;
 	const size_t shaderRegisterSize = shaderRegister.size();
 	for (size_t i = 0; i < shaderRegisterSize; i++) {
-		if (shaderRegister[i]->GetName().find(shaderName) != std::string::npos) {
+		if (shaderRegister[i]->GetName() == shaderName) {
 			indexOfDesiredShader = (int)i;
 		}
 	}
