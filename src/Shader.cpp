@@ -4,7 +4,7 @@
 Engine* Shader::Engine_Pointer;
 
 Shader::Shader(const std::string& name, const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {
-	this->name = name;
+	this->name = StringUtilities::Split(name, '\\').back();
 	isLoaded = Load(vertexShaderPath, fragmentShaderPath);
 }
 Shader::~Shader() {
