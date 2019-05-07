@@ -48,18 +48,18 @@
 						"id": "textureless",
 						"vertex": "default.vert",
 						"fragment": "default.frag"
-					}
+					}	
 				},
 				{
 					"shader": {
-						"id": "level background",
+						"id": "level background - default",
 						"vertex": "default.vert",
 						"fragment": "default_textured.frag"
 					}
 				},
 				{
 					"shader": {
-						"id": "level background custom",
+						"id": "level background - textured noise",
 						"vertex": "default.vert",
 						"fragment": "background_textured_noise.frag"
 					}
