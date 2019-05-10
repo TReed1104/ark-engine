@@ -14,7 +14,7 @@ uniform vec4 iMouse;
 
 // Texturing uniforms
 uniform bool u_hasTexture;
-uniform sampler2DArray u_textureSampler;
+uniform sampler2D u_textureSampler;
 
 float random(vec2 p) {
 	// Pseudo random number generator from seed
