@@ -1,21 +1,27 @@
 #version 330
+// Generic In variables for a fragment shader (mesh colour and TexCoords)
+in vec3 fragmentColour;
 in vec2 UV;
+in vec3 normal;
 
+// Generic Out variables for a fragment shader
 out vec4 outputColour;
 
-// Universal uniforms
-uniform float u_time;
-uniform vec2 u_resolution;
+// Universal uniforms, these match shadertoys
+uniform vec3 iResolution;
+uniform float iTime;
+uniform vec4 iMouse;
 
-// Shader specific uniforms
+// Texturing uniforms
 uniform bool u_hasTexture;
-uniform sampler2D u_textureSampler;
+uniform sampler2DArray u_textureSampler;
 
-float random(vec2 p){
-	// Pseudo random
+float random(vec2 p) {
+	// Pseudo random number generator from seed
 	const vec2 r = vec2(23.1406926327792690, 2.6651441426902251);// e^pi (Gelfond's constant) & 2^sqrt(2) (Gelfond-Schneider constant)
 	return fract(cos(mod(123456789.0f, 1e-7+256.0f * dot(p, r))));
 }
+
 float noise(in vec2 st){
 	// taken from examples online
 	vec2 i = floor(st);
@@ -32,6 +38,7 @@ float noise(in vec2 st){
 	
 	return mix(a, b, u.x) + (c - a) * u.y * (1.0f - u.x) + (d - b) * u.x * u.y;
 }
+
 void main() {
 	float clampedNosie = mod(noise(gl_FragCoord.xy) * (u_time), 1);
 	if(u_hasTexture) {
