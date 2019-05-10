@@ -28,6 +28,12 @@ void main() {
     vec3 lightDirection = normalize(lightingPosition - fragmentPosition);
     vec3 diffuse = max(dot(normalize(fragmentNormal), lightDirection), 0.0) * lightingColor;
 
-    // Calculate the fragment colour using the vertex colour, ambient and diffuse lighting values
-    outputColour = vec4(((ambient + diffuse) * fragmentColour), 1.0);
+    // Specular calculations
+    vec3 viewDirection = normalize(cameraPosition - fragmentPosition);
+    vec3 reflectDirection = reflect(-lightDirection, fragmentNormal);
+    float shininess = 32;
+    vec3 specular = specularStrength * pow(max(dot(viewDirection, reflectDirection), 0.0), shininess) * lightingColor;  
+
+    // Calculate the fragment colour using the vertex colour, ambient, diffuse and specular lighting values
+    outputColour = vec4(((ambient + diffuse + specular) * fragmentColour), 1.0);
 }

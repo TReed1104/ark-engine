@@ -1,8 +1,9 @@
 #version 330
-// Generic In variables for a fragment shader (mesh colour and TexCoords)
+// Generic In variables for a fragment shader
+in vec3 fragmentPosition;
 in vec3 fragmentColour;
-in vec2 UV;
-in vec3 normal;
+in vec2 fragmentUV;
+in vec3 fragmentNormal;
 
 // Generic Out variables for a fragment shader
 out vec4 outputColour;
@@ -40,9 +41,9 @@ float noise(in vec2 st){
 }
 
 void main() {
-	float clampedNosie = mod(noise(gl_FragCoord.xy) * (iTime), 1);
+	float clampedNosie = mod(noise(fragmentPosition.xy) * (iTime), 1);
 	if(u_hasTexture) {
-		outputColour = texture2D(u_textureSampler, UV) * vec4(vec3(clampedNosie), 1.0f);
+		outputColour = texture2D(u_textureSampler, fragmentUV) * vec4(vec3(clampedNosie), 1.0f);
 	}
 	else{
 		// Texturing has not been setup, use the colour buffer.

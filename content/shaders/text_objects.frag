@@ -1,8 +1,9 @@
 #version 330
-// Generic In variables for a fragment shader (mesh colour and TexCoords)
+// Generic In variables for a fragment shader
+in vec3 fragmentPosition;
 in vec3 fragmentColour;
-in vec2 UV;
-in vec3 normal;
+in vec2 fragmentUV;
+in vec3 fragmentNormal;
 
 // Generic Out variables for a fragment shader
 out vec4 outputColour;
@@ -19,7 +20,7 @@ uniform vec3 u_textColour;
 
 void main() {
 	if (u_hasTexture) {
-    	outputColour = vec4(u_textColour, 1.0) * vec4(1.0, 1.0, 1.0, texture(u_textureSampler, UV).r);
+    	outputColour = vec4(u_textColour, 1.0) * vec4(1.0, 1.0, 1.0, texture(u_textureSampler, fragmentUV).r);
 	}
 	else {
 		// Texturing has not been setup, use the colour buffer.
