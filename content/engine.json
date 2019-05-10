@@ -39,7 +39,7 @@
 				{
 					"shader": {
 						"id": "text renderer",
-						"vertex": "text_objects.vert",
+						"vertex": "default.vert",
 						"fragment": "text_objects.frag"
 					}
 				},
