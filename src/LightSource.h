@@ -6,6 +6,8 @@ class Engine;
 
 class LightSource {
 public:
+	static Engine* Engine_Pointer;
+
 	LightSource();
 	~LightSource();
 
