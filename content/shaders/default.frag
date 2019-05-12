@@ -12,6 +12,7 @@ out vec4 outputColour;
 uniform vec3 iResolution;
 uniform float iTime;
 uniform vec4 iMouse;
+uniform vec3 iCameraPosition;
 
 void main() {
 	outputColour = vec4(fragmentColour, 1.0f);

@@ -12,6 +12,7 @@ out vec4 outputColour;
 uniform vec3 iResolution;
 uniform float iTime;
 uniform vec4 iMouse;
+uniform vec3 iCameraPosition;
 
 float random(vec2 p) {
 	// Pseudo random number generator from seed

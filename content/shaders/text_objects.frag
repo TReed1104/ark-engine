@@ -12,6 +12,7 @@ out vec4 outputColour;
 uniform vec3 iResolution;
 uniform float iTime;
 uniform vec4 iMouse;
+uniform vec3 iCameraPosition;
 
 // Texturing uniforms
 uniform bool u_hasTexture;

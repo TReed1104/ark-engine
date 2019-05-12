@@ -12,11 +12,11 @@ out vec4 outputColour;
 uniform vec3 iResolution;
 uniform float iTime;
 uniform vec4 iMouse;
+uniform vec3 iCameraPosition;
 
 // Lighting uniforms
 uniform vec3 lightingColor;
 uniform vec3 lightingPosition;
-uniform vec3 cameraPosition;
 uniform float ambientStrength;      // How strong is the ambient lighting?
 uniform float specularStrength;     // How intense if the specular lighting?
 
