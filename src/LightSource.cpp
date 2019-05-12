@@ -14,11 +14,9 @@ LightSource::~LightSource() {
 }
 
 // Gets
-
 const std::string LightSource::GetName(void) {
 	return name;
 }
-
 const glm::vec3 LightSource::GetPosition(void) {
 	return this->position;
 }
