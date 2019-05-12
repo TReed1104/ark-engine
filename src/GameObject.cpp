@@ -84,8 +84,9 @@ void GameObject::Draw(void) {
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 		
 		// Universal uniforms all shaders for this engine should support
-		glUniform2fv(glGetUniformLocation(*shader, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));	// screen resolution to the fragment shader
+		glUniform2fv(glGetUniformLocation(*shader, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
 		glUniform1f(glGetUniformLocation(*shader, "iTime"), (float)SDL_GetTicks());	// TODO: Change to not use SDL_Ticks, due to SDL_Ticks being consistent in its values
+		glUniform3fv(glGetUniformLocation(*shader, "iCameraPosition"), 1, glm::value_ptr(Engine_Pointer->mainCamera->position));
 
 		bool useTextures = (texture->textureID != -1 && currentMesh.isSetupForTextures);
 		glUniform1i(glGetUniformLocation(*shader, "u_hasTexture"), useTextures);
