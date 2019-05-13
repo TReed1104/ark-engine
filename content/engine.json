@@ -63,6 +63,13 @@
 						"vertex": "default.vert",
 						"fragment": "background_textured_noise.frag"
 					}
+				},
+				{
+					"shader": {
+						"id": "default lighting",
+						"vertex": "default.vert",
+						"fragment": "lighting_phong.frag"
+					}
 				}
 			],
 			"content": {
