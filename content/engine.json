@@ -33,26 +33,33 @@
 					"shader": {
 						"id": "default",
 						"vertex": "default.vert",
+						"fragment": "default.frag"
+					}
+				},
+				{
+					"shader": {
+						"id": "game object - texture array",
+						"vertex": "default.vert",
 						"fragment": "default_texture_array.frag"
 					}
 				},
 				{
 					"shader": {
-						"id": "text renderer",
+						"id": "game object - lighting and texture array",
+						"vertex": "default.vert",
+						"fragment": "lighting_texture_array.frag"
+					}
+				},
+				{
+					"shader": {
+						"id": "text object - default",
 						"vertex": "default.vert",
 						"fragment": "default_text.frag"
 					}
 				},
 				{
 					"shader": {
-						"id": "textureless",
-						"vertex": "default.vert",
-						"fragment": "default.frag"
-					}
-				},
-				{
-					"shader": {
-						"id": "level background - default",
+						"id": "level background - textured",
 						"vertex": "default.vert",
 						"fragment": "default_texture.frag"
 					}
@@ -76,13 +83,6 @@
 						"id": "lighting - textured",
 						"vertex": "default.vert",
 						"fragment": "lighting_textured.frag"
-					}
-				},
-				{
-					"shader": {
-						"id": "lighting - texture array",
-						"vertex": "default.vert",
-						"fragment": "lighting_texture_array.frag"
 					}
 				}
 			],
