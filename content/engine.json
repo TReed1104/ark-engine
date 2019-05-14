@@ -33,14 +33,14 @@
 					"shader": {
 						"id": "default",
 						"vertex": "default.vert",
-						"fragment": "texture_array.frag"
+						"fragment": "default_texture_array.frag"
 					}
 				},
 				{
 					"shader": {
 						"id": "text renderer",
 						"vertex": "default.vert",
-						"fragment": "text_objects.frag"
+						"fragment": "default_text.frag"
 					}
 				},
 				{
@@ -54,14 +54,14 @@
 					"shader": {
 						"id": "level background - default",
 						"vertex": "default.vert",
-						"fragment": "default_textured.frag"
+						"fragment": "default_texture.frag"
 					}
 				},
 				{
 					"shader": {
 						"id": "level background - textured noise",
 						"vertex": "default.vert",
-						"fragment": "background_textured_noise.frag"
+						"fragment": "background_textured_noise_effect.frag"
 					}
 				},
 				{
