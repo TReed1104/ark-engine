@@ -16,7 +16,7 @@ TextObject::TextObject(const std::string& name, const std::string& text, Font* f
 	
 	// Rendering
 	this->colour = colour;
-	this->indexOfShader = Engine_Pointer->GetIndexOfShader("text renderer");
+	this->indexOfShader = Engine_Pointer->GetIndexOfShader("text object - default");
 	this->model = Model(text, false);
 	this->model.OverrideLoadState(true);
 	this->useCamera = useCamera;

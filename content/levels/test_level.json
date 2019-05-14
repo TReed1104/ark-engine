@@ -7,7 +7,7 @@
 		"background" : {
 			"id": "test background",
 			"texture": "test_background.png",
-			"shader": "level background - default"
+			"shader": "level background - textured"
 		},
 		"tileset": "default",
 		"dimensions": {
