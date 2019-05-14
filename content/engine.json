@@ -70,6 +70,20 @@
 						"vertex": "default.vert",
 						"fragment": "lighting_phong.frag"
 					}
+				},
+				{
+					"shader": {
+						"id": "lighting - textured",
+						"vertex": "default.vert",
+						"fragment": "lighting_textured.frag"
+					}
+				},
+				{
+					"shader": {
+						"id": "lighting - texture array",
+						"vertex": "default.vert",
+						"fragment": "lighting_texture_array.frag"
+					}
 				}
 			],
 			"content": {
