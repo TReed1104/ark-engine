@@ -40,7 +40,7 @@ void main() {
     vec3 specular = specularStrength * pow(max(dot(viewDirection, reflectDirection), 0.0), shininess) * lightingColor;  
 
     if (u_hasTexture) {
-        outputColour = texture(u_textureSampler, vec3(fragmentUV, u_textureArrayLayer)) * vec4(((ambient + diffuse + specular), 1.0);
+        outputColour = texture(u_textureSampler, vec3(fragmentUV, u_textureArrayLayer)) * vec4((ambient + diffuse + specular), 1.0);
     }
     else {
         // Calculate the fragment colour using the vertex colour, ambient, diffuse and specular lighting values
