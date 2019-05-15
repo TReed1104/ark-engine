@@ -118,7 +118,7 @@ bool Level::Load(void) {
 			glm::vec3 lightColour = glm::vec3(configFile->Get<float>("level.lightsources." + std::to_string(i) + ".light.colour.red"), configFile->Get<float>("level.lightsources." + std::to_string(i) + ".light.colour.green"), configFile->Get<float>("level.lightsources." + std::to_string(i) + ".light.colour.blue"));
 			float lightAmbientStrength = configFile->Get<float>("level.lightsources." + std::to_string(i) + ".light.ambient strength");
 			float lightSpecularStrength = configFile->Get<float>("level.lightsources." + std::to_string(i) + ".light.specular strength");
-			lightSourcesRegister.push_back(new LightSource(lightID, lightPosition, lightColour));
+			lightSourcesRegister.push_back(new LightSource(lightID, lightPosition, lightColour, lightAmbientStrength, lightSpecularStrength));
 		}
 
 		// Sound effects
