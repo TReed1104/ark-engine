@@ -5,6 +5,7 @@
 #include "JsonParser.hpp"
 #include "Tile.h"
 #include "BoundingBox.h"
+#include "LightSource.h"
 #include "SoundEffect.h"
 #include "Background.h"
 
