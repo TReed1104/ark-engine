@@ -5,6 +5,23 @@
 			"background": "spirits grave"
 		},
 		"lightsources": [
+			{
+				"light": {
+					"id": "global level light",
+					"position": {
+						"x": 0,
+						"y": 0,
+						"z": 0
+					},
+					"colour": {
+						"red": 1.0,
+						"green": 1.0,
+						"blue": 1.0
+					},
+					"ambient strength": 0.1,
+					"specular strength": 0.5
+				}
+			}
 		],
 		"background" : {
 			"id": "test background",
