@@ -4,6 +4,8 @@
 		"sounds": {
 			"background": "spirits grave"
 		},
+		"lightsources": [
+		],
 		"background" : {
 			"id": "test background",
 			"texture": "test_background.png",
