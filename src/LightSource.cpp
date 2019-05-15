@@ -4,10 +4,12 @@
 Engine* LightSource::Engine_Pointer;
 
 // Constructors and deconstructors
-LightSource::LightSource(const std::string& lightName, const glm::vec3& lightPosition, const glm::vec3& lightColour) {
+LightSource::LightSource(const std::string& lightName, const glm::vec3& lightPosition, const glm::vec3& lightColour, const float& lightAmbientStrength, const float& lightSpecularStrength) {
 	this->name = lightName;
 	this->position = lightPosition;
 	this->colour = lightColour;
+	this->ambientStrength = lightAmbientStrength;
+	this->specularStrength = lightSpecularStrength;
 }
 LightSource::~LightSource() {
 
