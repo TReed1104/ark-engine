@@ -13,6 +13,12 @@ Level::~Level(void) {
 		delete configFile;
 	}
 
+	// Delete the lightsources
+	const size_t numberOfLightSources = lightSourcesRegister.size();
+	for (size_t i = 0; i < numberOfLightSources; i++) {
+		delete lightSourcesRegister[i];
+	}
+
 	// Delete the background effect
 	if (levelBackground != nullptr) {
 		delete levelBackground;
