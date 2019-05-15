@@ -110,6 +110,13 @@ bool Level::Load(void) {
 		playerStartPosition = glm::vec2(configFile->Get<int>("level.player start position.x"), configFile->Get<int>("level.player start position.y"));
 		std::vector<int> rawMapData = configFile->GetVector<int>("level.tile grid");
 
+		// Light Sources
+		size_t numberOfLightSources = configFile->SizeOfObjectArray("level.lightsources");
+		for (size_t i = 0; i < numberOfLightSources; i++) {
+			std::string lightID = configFile->Get<std::string>("level.lightsources." + std::to_string(i) + ".light.id");
+			lightSourcesRegister.push_back(new LightSource(lightID));
+		}
+
 		// Sound effects
 		std::string soundEffectId = configFile->Get<std::string>("level.sounds.background");
 		int indexOfSoundEffect = Engine_Pointer->GetIndexOfSoundEffect(soundEffectId);
