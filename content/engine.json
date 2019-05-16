@@ -47,7 +47,7 @@
 					"shader": {
 						"id": "game object - lighting and texture array",
 						"vertex": "default.vert",
-						"fragment": "lighting_texture_array.frag"
+						"fragment": "lighting_directional_texture_array.frag"
 					}
 				},
 				{
@@ -73,16 +73,46 @@
 				},
 				{
 					"shader": {
-						"id": "lighting - default",
+						"id": "lighting - directional",
 						"vertex": "default.vert",
-						"fragment": "lighting_phong.frag"
+						"fragment": "lighting_directional.frag"
+					}
+				}
+				,
+				{
+					"shader": {
+						"id": "lighting - directional and textured",
+						"vertex": "default.vert",
+						"fragment": "lighting_directional_textured.frag"
 					}
 				},
 				{
 					"shader": {
-						"id": "lighting - textured",
+						"id": "lighting - directional and texture array",
 						"vertex": "default.vert",
-						"fragment": "lighting_textured.frag"
+						"fragment": "lighting_directional_texture_array.frag"
+					}
+				},
+				{
+					"shader": {
+						"id": "lighting - point",
+						"vertex": "default.vert",
+						"fragment": "lighting_point.frag"
+					}
+				}
+				,
+				{
+					"shader": {
+						"id": "lighting - point and textured",
+						"vertex": "default.vert",
+						"fragment": "lighting_point_textured.frag"
+					}
+				},
+				{
+					"shader": {
+						"id": "lighting - point and texture array",
+						"vertex": "default.vert",
+						"fragment": "lighting_point_texture_array.frag"
 					}
 				}
 			],
