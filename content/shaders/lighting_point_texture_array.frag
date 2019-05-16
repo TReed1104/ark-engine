@@ -19,23 +19,25 @@ uniform bool u_hasTexture;
 uniform sampler2DArray u_textureSampler;
 uniform int u_textureArrayLayer;
 
-// Object holding all of a light's attributes
+// Light Struct, encapsulates the light attributes
 struct Light {
     // General lighting attributes
     vec3 position; 
     vec3 direction;
+
+    // Colours and intensities
     vec3 ambientIntensity;
     vec3 diffuseColour;
     vec3 specularIntensity;
 
     // Spotlighting
-    float cutOff;
-    float outerCutOff;
+    float spotlightCutOff;
+    float spotlightCutOffOuter;
     
     // Attenuation
-    float constant;
-    float linear;
-    float quadratic;
+    float attenuationConstant;
+    float attenuationLinear;
+    float attenuationQuadratic;
 };
 
 uniform Light light;
@@ -58,7 +60,7 @@ void main() {
 
         // Attenuation
         float distanceFromLight = length(light.position - fragmentPosition);
-        float attenuation = 1.0 / (light.constant + light.linear * distanceFromLight + light.quadratic * (distanceFromLight * distanceFromLight));  
+        float attenuation = 1.0 / (light.attenuationConstant + light.attenuationLinear * distanceFromLight + light.attenuationQuadratic * (distanceFromLight * distanceFromLight));
         ambient *= attenuation;
         diffuse *= attenuation;
         specular *= attenuation;
@@ -83,7 +85,7 @@ void main() {
 
         // Attenuation
         float distanceFromLight = length(light.position - fragmentPosition);
-        float attenuation = 1.0 / (light.constant + light.linear * distanceFromLight + light.quadratic * (distanceFromLight * distanceFromLight));  
+        float attenuation = 1.0 / (light.attenuationConstant + light.attenuationLinear * distanceFromLight + light.attenuationQuadratic * (distanceFromLight * distanceFromLight));
         ambient *= attenuation;
         diffuse *= attenuation;
         specular *= attenuation;
