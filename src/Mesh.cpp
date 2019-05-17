@@ -43,6 +43,13 @@ void Model::Mesh::BindBuffers() {
 			glEnableVertexAttribArray(2);
 		}
 	}
+	if (surfaceNormals.size() > 0) {
+		glGenBuffers(1, &normalsBufferObject);
+		glBindBuffer(GL_ARRAY_BUFFER, normalsBufferObject);
+		glBufferData(GL_ARRAY_BUFFER, surfaceNormals.size() * sizeof(glm::vec3), &surfaceNormals[0], GL_STATIC_DRAW);
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (GLvoid*)0);
+		glEnableVertexAttribArray(3);
+	}
 	glBindVertexArray(0);
 }
 void Model::Mesh::SetTranslation(bool isModelUpdate, const glm::vec3& translation) {
