@@ -47,7 +47,7 @@
 					"shader": {
 						"id": "game object - lighting and texture array",
 						"vertex": "default.vert",
-						"fragment": "lighting_directional_texture_array.frag"
+						"fragment": "lighting_point_texture_array.frag"
 					}
 				},
 				{
