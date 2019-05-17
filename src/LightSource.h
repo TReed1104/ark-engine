@@ -12,9 +12,9 @@ public:
 	enum LightingType { Directional, Point, Spotlight };
 
 	// Constructors and deconstructors
-	LightSource(const std::string& name, const LightingType& type, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& direction = glm::vec3(0.0f, 0.0f, 1.0f), 
+	LightSource(const std::string& name, const LightingType& type, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& direction = glm::vec3(0.0f, 0.0f, -1.0f), 
 				const glm::vec3& ambientColour = glm::vec3(0.2f), const glm::vec3& diffuseColour = glm::vec3(1.0f), const glm::vec3& specularColour = glm::vec3(1.0f),
-				const float& spotlightCutOff = 12.5f, const float& spotlightCutOffOuter = 17.5f, const float& attenuationConstant = 1.0f, const float& attenuationLinear = 0.7f, const float& attentuationQuadratic = 1.8f);
+				const float& spotlightCutOff = 12.5f, const float& spotlightCutOffOuter = 17.5f, const float& attenuationConstant = 1.0f, const float& attenuationLinear = 0.0014f, const float& attentuationQuadratic = 0.000007f);
 	~LightSource();
 
 	// Get Attributes
