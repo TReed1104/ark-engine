@@ -58,7 +58,7 @@ void main() {
         vec3 specular = light.specularColour * pow(max(dot(viewDirection, reflectdirection), 0.0f), shininess) * texture(u_textureSampler, fragmentUV).rgb;
 
         // Set the output colour
-        outputColour = vec4((ambient + diffuse + specular), 1.0);
+        outputColour = vec4((ambient + diffuse + specular), texture(u_textureSampler, fragmentUV).a);
     }
     else {
         // Ambient

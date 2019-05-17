@@ -65,7 +65,7 @@ void main() {
         specular *= attenuation;
 
         // Set the output colour
-        outputColour = vec4((ambient + diffuse + specular), 1.0);
+        outputColour = vec4((ambient + diffuse + specular), texture(u_textureSampler, fragmentUV).a);
     }
     else {
         // Ambient
