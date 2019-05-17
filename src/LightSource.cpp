@@ -62,6 +62,9 @@ const float LightSource::GetSpotlightCutOffOuter(void) {
 const float LightSource::GetAttenuationConstant(void) {
 	return this->attenuationConstant;
 }
+const float LightSource::GetAttenuationLinear(void) {
+	return this->attenuationLinear;
+}
 const float LightSource::GetAttenuationQuadratic(void) {
 	return this->attenuationQuadratic;
 }
