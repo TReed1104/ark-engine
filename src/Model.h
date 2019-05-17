@@ -23,6 +23,7 @@ public:
 		GLuint indicesBufferObject;
 		GLuint colourBufferObject;
 		GLuint uvBufferObject;
+		GLuint normalsBufferObject;
 		GLuint vertexArrayObject;
 
 		// The attributes of the mesh itself.
