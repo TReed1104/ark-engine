@@ -114,6 +114,28 @@
 						"vertex": "default.vert",
 						"fragment": "lighting_point_texture_array.frag"
 					}
+				},
+				{
+					"shader": {
+						"id": "lighting - spotlight",
+						"vertex": "default.vert",
+						"fragment": "lighting_spotlight.frag"
+					}
+				}
+				,
+				{
+					"shader": {
+						"id": "lighting - spotlight and textured",
+						"vertex": "default.vert",
+						"fragment": "lighting_spotlight_textured.frag"
+					}
+				},
+				{
+					"shader": {
+						"id": "lighting - spotlight and texture array",
+						"vertex": "default.vert",
+						"fragment": "lighting_spotlight_texture_array.frag"
+					}
 				}
 			],
 			"content": {
