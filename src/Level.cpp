@@ -114,11 +114,7 @@ bool Level::Load(void) {
 		size_t numberOfLightSources = configFile->SizeOfObjectArray("level.lightsources");
 		for (size_t i = 0; i < numberOfLightSources; i++) {
 			std::string lightID = configFile->Get<std::string>("level.lightsources." + std::to_string(i) + ".light.id");
-			glm::vec3 lightPosition = glm::vec3(configFile->Get<int>("level.lightsources." + std::to_string(i) + ".light.position.x"), configFile->Get<int>("level.lightsources." + std::to_string(i) + ".light.position.y"), configFile->Get<int>("level.lightsources." + std::to_string(i) + ".light.position.z"));
-			glm::vec3 lightColour = glm::vec3(configFile->Get<float>("level.lightsources." + std::to_string(i) + ".light.colour.red"), configFile->Get<float>("level.lightsources." + std::to_string(i) + ".light.colour.green"), configFile->Get<float>("level.lightsources." + std::to_string(i) + ".light.colour.blue"));
-			float lightAmbientStrength = configFile->Get<float>("level.lightsources." + std::to_string(i) + ".light.ambient strength");
-			float lightSpecularStrength = configFile->Get<float>("level.lightsources." + std::to_string(i) + ".light.specular strength");
-			lightSourcesRegister.push_back(new LightSource(lightID, lightPosition, lightColour, lightAmbientStrength, lightSpecularStrength));
+			//lightSourcesRegister.push_back(new LightSource(lightID, LightSource::Point, glm::vec3(10.0f)));
 		}
 
 		// Sound effects
