@@ -14,30 +14,32 @@ uniform float iTime;
 uniform vec4 iMouse;
 uniform vec3 iCameraPosition;
 
-// Object holding all of a light's attributes
+// Light Struct, encapsulates the light attributes
 struct Light {
     // General lighting attributes
     vec3 position; 
     vec3 direction;
-    vec3 ambientIntensity;
+
+    // Colours and intensities
+    vec3 ambientColour;
     vec3 diffuseColour;
-    vec3 specularIntensity;
+    vec3 specularColour;
 
     // Spotlighting
-    float cutOff;
-    float outerCutOff;
+    float spotlightCutOff;
+    float spotlightCutOffOuter;
     
     // Attenuation
-    float constant;
-    float linear;
-    float quadratic;
+    float attenuationConstant;
+    float attenuationLinear;
+    float attenuationQuadratic;
 };
 
 uniform Light light;
 
 void main() {
     // Ambient
-    vec3 ambient = light.ambientIntensity * fragmentColour;
+    vec3 ambient = light.ambientColour * fragmentColour;
 
     // Diffuse
     vec3 normal = normalize(fragmentNormal);
@@ -48,7 +50,7 @@ void main() {
     vec3 viewDirection = normalize(iCameraPosition - fragmentPosition);
     vec3 reflectdirection = reflect(-lightDirection, normal);
     float shininess = 32;
-    vec3 specular = light.specularIntensity * pow(max(dot(viewDirection, reflectdirection), 0.0f), shininess) * fragmentColour;
+    vec3 specular = light.specularColour * pow(max(dot(viewDirection, reflectdirection), 0.0f), shininess) * fragmentColour;
     
     // Set the output colour
     outputColour = vec4((ambient + diffuse + specular), 1.0);

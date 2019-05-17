@@ -25,9 +25,9 @@ struct Light {
     vec3 direction;
 
     // Colours and intensities
-    vec3 ambientIntensity;
+    vec3 ambientColour;
     vec3 diffuseColour;
-    vec3 specularIntensity;
+    vec3 specularColour;
 
     // Spotlighting
     float spotlightCutOff;
@@ -44,7 +44,7 @@ uniform Light light;
 void main() {
     if (u_hasTexture) {
         // Ambient
-        vec3 ambient = light.ambientIntensity * texture(u_textureSampler, fragmentUV).rgb;
+        vec3 ambient = light.ambientColour * texture(u_textureSampler, fragmentUV).rgb;
 
         // Diffuse
         vec3 normal = normalize(fragmentNormal);
@@ -55,7 +55,7 @@ void main() {
         vec3 viewDirection = normalize(iCameraPosition - fragmentPosition);
         vec3 reflectdirection = reflect(-lightDirection, normal);
         float shininess = 32;
-        vec3 specular = light.specularIntensity * pow(max(dot(viewDirection, reflectdirection), 0.0f), shininess) * texture(u_textureSampler, fragmentUV).rgb;
+        vec3 specular = light.specularColour * pow(max(dot(viewDirection, reflectdirection), 0.0f), shininess) * texture(u_textureSampler, fragmentUV).rgb;
 
         // Attenuation
         float distanceFromLight = length(light.position - fragmentPosition);
@@ -69,7 +69,7 @@ void main() {
     }
     else {
         // Ambient
-        vec3 ambient = light.ambientIntensity * fragmentColour;
+        vec3 ambient = light.ambientColour * fragmentColour;
 
         // Diffuse
         vec3 normal = normalize(fragmentNormal);
@@ -80,7 +80,7 @@ void main() {
         vec3 viewDirection = normalize(iCameraPosition - fragmentPosition);
         vec3 reflectdirection = reflect(-lightDirection, normal);
         float shininess = 32;
-        vec3 specular = light.specularIntensity * pow(max(dot(viewDirection, reflectdirection), 0.0f), shininess) * fragmentColour;
+        vec3 specular = light.specularColour * pow(max(dot(viewDirection, reflectdirection), 0.0f), shininess) * fragmentColour;
 
         // Attenuation
         float distanceFromLight = length(light.position - fragmentPosition);
