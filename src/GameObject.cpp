@@ -18,7 +18,7 @@ GameObject::GameObject(const std::string& filePath) {
 	}
 
 	name = "Unnamed";
-	indexOfShader = Engine_Pointer->GetIndexOfShader("game object - lighting and texture array");
+	indexOfShader = Engine_Pointer->GetIndexOfShader("game object - texture array");
 
 	// Animation Setup
 	animationIndex = 0;
