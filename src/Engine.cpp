@@ -882,6 +882,28 @@ void Engine::Update(const float& deltaTime) {
 		textObjectRegister[i]->Update(deltaTime);
 	}
 
+	// Move Lights Debugging
+	glm::vec3 pos = GetCurrentLevel()->lightSourcesRegister[0]->GetPosition();
+	if (deviceKeyboard->GetKeyState(Keyboard::u)) {
+		GetCurrentLevel()->lightSourcesRegister[0]->SetPosition(glm::vec3(pos.x, pos.y, pos.z + 1));
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::U)) {
+		GetCurrentLevel()->lightSourcesRegister[0]->SetPosition(glm::vec3(pos.x, pos.y, pos.z - 1));
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::I)) {
+		GetCurrentLevel()->lightSourcesRegister[0]->SetPosition(glm::vec3(pos.x + 1, pos.y, pos.z));
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::i)) {
+		GetCurrentLevel()->lightSourcesRegister[0]->SetPosition(glm::vec3(pos.x - 1, pos.y, pos.z));
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::O)) {
+		GetCurrentLevel()->lightSourcesRegister[0]->SetPosition(glm::vec3(pos.x, pos.y - 1, pos.z));
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::o)) {
+		GetCurrentLevel()->lightSourcesRegister[0]->SetPosition(glm::vec3(pos.x, pos.y + 1, pos.z));
+	}
+	engineDebugger.WriteLine(std::to_string(pos.x) + "," + std::to_string(pos.y) + "," + std::to_string(pos.z));
+
 	// Check the camera target has been initialised
 	if (mainCameraFocus != nullptr) {
 		// Run the camera's update function
