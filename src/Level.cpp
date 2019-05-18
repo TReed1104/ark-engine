@@ -115,7 +115,8 @@ bool Level::Load(void) {
 		for (size_t i = 0; i < numberOfLightSources; i++) {
 			std::string lightID = configFile->Get<std::string>("level.lightsources." + std::to_string(i) + ".light.id");
 
-			lightSourcesRegister.push_back(new LightSource(lightID, LightSource::Point, glm::vec3(100.0f, 16.0f, 1.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.5f), glm::vec3(10.0f, 1.0f, 1.0f), glm::vec3(1.0f), 12.5f, 17.5f, 1.0f, 0.0014f, 0.000007f));
+			//lightSourcesRegister.push_back(new LightSource(lightID, LightSource::Point, glm::vec3(200.0f, 200.0f, 80.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.2f), glm::vec3(1.0f), glm::vec3(1.0f), 12.5f, 17.5f, 1.0f, 0.010f, 0.00005f));	// Test point light
+			lightSourcesRegister.push_back(new LightSource(lightID, LightSource::Point, glm::vec3(200.0f, 200.0f, 80.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.2f), glm::vec3(1.0f), glm::vec3(1.0f), 12.5f, 17.5f, 1.0f, 0.010f, 0.00005f));
 		}
 
 		// Sound effects
