@@ -53,9 +53,7 @@ void main() {
 
         // Specular
         vec3 viewDirection = normalize(iCameraPosition - fragmentPosition);
-        vec3 reflectdirection = reflect(-lightDirection, normal);
-        float shininess = 32;
-        vec3 specular = light.specularColour * pow(max(dot(viewDirection, reflectdirection), 0.0f), shininess) * texture(u_textureSampler, fragmentUV).rgb;
+        vec3 specular = light.specularColour * pow(max(dot(viewDirection, normal), 0.0f), 32) * texture(u_textureSampler, fragmentUV).rgb;
 
         // Attenuation
         float distanceFromLight = length(light.position - fragmentPosition);
