@@ -101,21 +101,21 @@ void GameObject::Draw(void) {
 			glUniform1i(glGetUniformLocation(*shader, "u_textureSampler"), 0);
 		}
 
-		// Lighting
-		LightSource* levelLight = Engine_Pointer->GetCurrentLevel()->lightSourcesRegister[0];
-		glUniform3fv(glGetUniformLocation(*shader, "light.position"), 1, glm::value_ptr(levelLight->GetPosition()));
-		glUniform3fv(glGetUniformLocation(*shader, "light.direction"), 1, glm::value_ptr(levelLight->GetDirection()));
+		//// Lighting
+		//LightSource* levelLight = Engine_Pointer->GetCurrentLevel()->lightSourcesRegister[0];
+		//glUniform3fv(glGetUniformLocation(*shader, "light.position"), 1, glm::value_ptr(levelLight->GetPosition()));
+		//glUniform3fv(glGetUniformLocation(*shader, "light.direction"), 1, glm::value_ptr(levelLight->GetDirection()));
 
-		glUniform3fv(glGetUniformLocation(*shader, "light.ambientColour"), 1, glm::value_ptr(levelLight->GetAmbientColour()));
-		glUniform3fv(glGetUniformLocation(*shader, "light.diffuseColour"), 1, glm::value_ptr(levelLight->GetDiffuseColour()));
-		glUniform3fv(glGetUniformLocation(*shader, "light.specularColour"), 1, glm::value_ptr(levelLight->GetSpecularColour()));
+		//glUniform3fv(glGetUniformLocation(*shader, "light.ambientColour"), 1, glm::value_ptr(levelLight->GetAmbientColour()));
+		//glUniform3fv(glGetUniformLocation(*shader, "light.diffuseColour"), 1, glm::value_ptr(levelLight->GetDiffuseColour()));
+		//glUniform3fv(glGetUniformLocation(*shader, "light.specularColour"), 1, glm::value_ptr(levelLight->GetSpecularColour()));
 
-		glUniform1f(glGetUniformLocation(*shader, "light.spotlightCutOff"), levelLight->GetSpotlightCutOff());
-		glUniform1f(glGetUniformLocation(*shader, "light.spotlightCutOffOuter"), levelLight->GetSpotlightCutOffOuter());
+		//glUniform1f(glGetUniformLocation(*shader, "light.spotlightCutOff"), levelLight->GetSpotlightCutOff());
+		//glUniform1f(glGetUniformLocation(*shader, "light.spotlightCutOffOuter"), levelLight->GetSpotlightCutOffOuter());
 
-		glUniform1f(glGetUniformLocation(*shader, "light.attenuationConstant"), levelLight->GetAttenuationConstant());
-		glUniform1f(glGetUniformLocation(*shader, "light.attenuationLinear"), levelLight->GetAttenuationLinear());
-		glUniform1f(glGetUniformLocation(*shader, "light.attenuationQuadratic"), levelLight->GetAttenuationQuadratic());
+		//glUniform1f(glGetUniformLocation(*shader, "light.attenuationConstant"), levelLight->GetAttenuationConstant());
+		//glUniform1f(glGetUniformLocation(*shader, "light.attenuationLinear"), levelLight->GetAttenuationLinear());
+		//glUniform1f(glGetUniformLocation(*shader, "light.attenuationQuadratic"), levelLight->GetAttenuationQuadratic());
 
 
 		// Tell the shader how to draw between each point.
