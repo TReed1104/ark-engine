@@ -45,13 +45,6 @@
 				},
 				{
 					"shader": {
-						"id": "game object - lighting and texture array",
-						"vertex": "default.vert",
-						"fragment": "lighting_point_texture_array.frag"
-					}
-				},
-				{
-					"shader": {
 						"id": "text object - default",
 						"vertex": "default.vert",
 						"fragment": "default_text.frag"
@@ -61,7 +54,7 @@
 					"shader": {
 						"id": "level background - textured",
 						"vertex": "default.vert",
-						"fragment": "lighting_point_textured.frag"
+						"fragment": "default_texture.frag"
 					}
 				},
 				{
@@ -69,49 +62,6 @@
 						"id": "level background - textured noise",
 						"vertex": "default.vert",
 						"fragment": "background_textured_noise_effect.frag"
-					}
-				},
-				{
-					"shader": {
-						"id": "lighting - directional",
-						"vertex": "default.vert",
-						"fragment": "lighting_directional.frag"
-					}
-				}
-				,
-				{
-					"shader": {
-						"id": "lighting - directional and textured",
-						"vertex": "default.vert",
-						"fragment": "lighting_directional_textured.frag"
-					}
-				},
-				{
-					"shader": {
-						"id": "lighting - directional and texture array",
-						"vertex": "default.vert",
-						"fragment": "lighting_directional_texture_array.frag"
-					}
-				},
-				{
-					"shader": {
-						"id": "lighting - point",
-						"vertex": "default.vert",
-						"fragment": "lighting_point.frag"
-					}
-				},
-				{
-					"shader": {
-						"id": "lighting - point and textured",
-						"vertex": "default.vert",
-						"fragment": "lighting_point_textured.frag"
-					}
-				},
-				{
-					"shader": {
-						"id": "lighting - point and texture array",
-						"vertex": "default.vert",
-						"fragment": "lighting_point_texture_array.frag"
 					}
 				}
 			],
