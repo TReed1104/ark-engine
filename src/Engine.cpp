@@ -876,6 +876,36 @@ void Engine::Update(const float& deltaTime) {
 	// Run the player's update function
 	player->Update(deltaTime);
 
+	// Move Lights Debugging
+	glm::vec3 pos = GetCurrentLevel()->lightSourcesRegister[0]->GetPosition();
+	float rad = GetCurrentLevel()->lightSourcesRegister[0]->GetRadius();
+	if (deviceKeyboard->GetKeyState(Keyboard::u)) {
+		GetCurrentLevel()->lightSourcesRegister[0]->SetPosition(glm::vec3(pos.x, pos.y, pos.z + 1));
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::U)) {
+		GetCurrentLevel()->lightSourcesRegister[0]->SetPosition(glm::vec3(pos.x, pos.y, pos.z - 1));
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::I)) {
+		GetCurrentLevel()->lightSourcesRegister[0]->SetPosition(glm::vec3(pos.x + 1, pos.y, pos.z));
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::i)) {
+		GetCurrentLevel()->lightSourcesRegister[0]->SetPosition(glm::vec3(pos.x - 1, pos.y, pos.z));
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::O)) {
+		GetCurrentLevel()->lightSourcesRegister[0]->SetPosition(glm::vec3(pos.x, pos.y - 1, pos.z));
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::o)) {
+		GetCurrentLevel()->lightSourcesRegister[0]->SetPosition(glm::vec3(pos.x, pos.y + 1, pos.z));
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::K)) {
+		GetCurrentLevel()->lightSourcesRegister[0]->SetRadius(rad + 1);
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::k)) {
+		GetCurrentLevel()->lightSourcesRegister[0]->SetRadius(rad - 1);
+	}
+	engineDebugger.WriteLine(std::to_string(rad));
+	engineDebugger.WriteLine(std::to_string(pos.x) + "," + std::to_string(pos.y) + "," + std::to_string(pos.z));
+
 	// Update the text objects
 	const size_t renderableTextRegisterSize = textObjectRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
 	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
