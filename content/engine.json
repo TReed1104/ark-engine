@@ -40,7 +40,7 @@
 					"shader": {
 						"id": "game object - texture array",
 						"vertex": "default.vert",
-						"fragment": "default_texture_array.frag"
+						"fragment": "lighting2D_point_texture_array.frag"
 					}
 				},
 				{
@@ -54,7 +54,7 @@
 					"shader": {
 						"id": "level background - textured",
 						"vertex": "default.vert",
-						"fragment": "default_texture.frag"
+						"fragment": "lighting2D_point_textured.frag"
 					}
 				},
 				{
