@@ -33,7 +33,7 @@ void Background::Draw(void) {
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->viewMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->projectionMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
-		
+
 		// Universal uniforms all shaders for this engine should support
 		glUniform2fv(glGetUniformLocation(*shader, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
 		glUniform1f(glGetUniformLocation(*shader, "iTime"), (float)SDL_GetTicks());	// TODO: Change to not use SDL_Ticks, due to SDL_Ticks being consistent in its values
@@ -48,9 +48,10 @@ void Background::Draw(void) {
 		}
 
 		// Lighting
-		glUniform3fv(glGetUniformLocation(*shader, "light.position"), 1, glm::value_ptr(glm::vec3(50.0f, 50.0f, 1.0f)));
-		glUniform3fv(glGetUniformLocation(*shader, "light.colour"), 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
-		glUniform1f(glGetUniformLocation(*shader, "light.ambientIntensity"), 0.3f);
+		LightSource* levelLight = Engine_Pointer->GetCurrentLevel()->lightSourcesRegister[0];
+		glUniform3fv(glGetUniformLocation(*shader, "light.position"), 1, glm::value_ptr(levelLight->GetPosition()));
+		glUniform3fv(glGetUniformLocation(*shader, "light.colour"), 1, glm::value_ptr(levelLight->GetColour()));
+		glUniform1f(glGetUniformLocation(*shader, "light.radius"), levelLight->GetRadius());
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
 		glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);

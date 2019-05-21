@@ -102,11 +102,10 @@ void GameObject::Draw(void) {
 		}
 
 		// Lighting
-		glUniform3fv(glGetUniformLocation(*shader, "light.position"), 1, glm::value_ptr(glm::vec3(50.0f, 50.0f, 1.0f)));
-		glUniform3fv(glGetUniformLocation(*shader, "light.colour"), 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
-		glUniform1f(glGetUniformLocation(*shader, "light.ambientIntensity"), 0.3f);
-
-
+		LightSource* levelLight = Engine_Pointer->GetCurrentLevel()->lightSourcesRegister[0];
+		glUniform3fv(glGetUniformLocation(*shader, "light.position"), 1, glm::value_ptr(levelLight->GetPosition()));
+		glUniform3fv(glGetUniformLocation(*shader, "light.colour"), 1, glm::value_ptr(levelLight->GetColour()));
+		glUniform1f(glGetUniformLocation(*shader, "light.radius"), levelLight->GetRadius());
 
 		// Tell the shader how to draw between each point.
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
