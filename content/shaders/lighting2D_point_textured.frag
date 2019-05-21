@@ -21,23 +21,25 @@ uniform sampler2D u_textureSampler;
 // 2D Light Struct
 struct Light2D {
     vec3 position;
-    vec2 direction;     // used for spotlighting
-
     vec3 colour;
-    float ambientIntensity;
-    float attenuation;    // How far can the light reach?
-    
-    float spotlightAngle;
-    float spotlightCutOff;
+    float radius;
 };
 
 uniform Light2D light;
 
-
 void main() {
-    vec3 ambient = (light.colour * light.ambientIntensity) * texture(u_textureSampler, fragmentUV).rgb;
-    vec3 diffuse = light.colour * texture(u_textureSampler, fragmentUV).rgb;
-
-    outputColour = vec4((ambient + diffuse), texture(u_textureSampler, fragmentUV).a);
-
+    // Calculate the distance to the light
+    vec3 distanceFromLight = (light.position - fragmentPosition);
+    
+    // Calculate how bright the colour on the surface is depending on its surface normal in comparison to the light
+    float surfaceBrightness = clamp(dot(normalize(distanceFromLight), fragmentNormal), 0.0, 1.0);
+    
+    // Reduce the intensity of the light on the surface dependant on its distance to the light
+    float lightIntensity = surfaceBrightness * clamp(1.0 - (length(distanceFromLight) / light.radius), 0.0, 1.0);
+    
+    // Adjust the colour of the texture using the light colour and the calculated intensity
+    vec3 pixelColour = light.colour * texture(u_textureSampler, fragmentUV).rgb * lightIntensity;
+    
+    // Set the output colour of the fragment
+    outputColour = vec4(pixelColour, texture(u_textureSampler, fragmentUV).a);
 }
