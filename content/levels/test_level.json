@@ -9,17 +9,16 @@
 				"light": {
 					"id": "global level light",
 					"position": {
-						"x": 12,
-						"y": 50,
-						"z": -2
+						"x": 250,
+						"y": 100,
+						"z": 20
 					},
 					"colour": {
-						"red": 0.6,
-						"green": 0.2,
-						"blue": 0.9
+						"red": 1.0,
+						"green": 1.0,
+						"blue": 1.0
 					},
-					"ambient strength": 0.1,
-					"specular strength": 0.5
+					"radius": 250
 				}
 			}
 		],
