@@ -116,7 +116,7 @@ bool Level::Load(void) {
 			std::string lightID = configFile->Get<std::string>("level.lightsources." + std::to_string(i) + ".light.id");
 			glm::vec3 lightPosition = glm::vec3(configFile->Get<int>("level.lightsources." + std::to_string(i) + ".light.position.x"), configFile->Get<int>("level.lightsources." + std::to_string(i) + ".light.position.y"), configFile->Get<int>("level.lightsources." + std::to_string(i) + ".light.position.z"));
 			glm::vec3 lightColour = glm::vec3(configFile->Get<float>("level.lightsources." + std::to_string(i) + ".light.colour.red"), configFile->Get<float>("level.lightsources." + std::to_string(i) + ".light.colour.green"), configFile->Get<float>("level.lightsources." + std::to_string(i) + ".light.colour.blue"));
-			int lightRadius = configFile->Get<int>("level.lightsources." + std::to_string(i) + ".light.radius");
+			float lightRadius = configFile->Get<float>("level.lightsources." + std::to_string(i) + ".light.radius");
 			lightSourcesRegister.push_back(new LightSource(lightID, lightPosition, lightColour, lightRadius));
 		}
 
