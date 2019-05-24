@@ -9,9 +9,12 @@ LightSource::LightSource(const std::string& name, const glm::vec3& position, con
 	this->colour = colour;
 	this->radius = radius;
 }
-
 LightSource::~LightSource() {
 
+}
+
+void LightSource::Update(float deltaTime) {
+	// Logic for the light
 }
 const std::string LightSource::GetName(void) {
 	return name;
