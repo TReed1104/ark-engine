@@ -46,6 +46,12 @@ void Level::Update(const float& deltaTime) {
 		}
 	}
 
+	// Update the level lights
+	const size_t numberOfLights = lightSourcesRegister.size();
+	for (size_t i = 0; i < numberOfLights; i++) {
+		lightSourcesRegister[i]->Update(deltaTime);
+	}
+
 	// Update the level background
 	if (levelBackground != nullptr) {
 		levelBackground->Update(deltaTime);
