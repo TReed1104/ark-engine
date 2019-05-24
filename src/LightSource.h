@@ -15,6 +15,8 @@ public:
 	LightSource(const std::string& name, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& colour = glm::vec3(1.0f), const float& radius = 128.0f);
 	~LightSource();
 
+	void Update(float deltaTime);
+
 	// Get Attributes
 	const std::string GetName(void);
 	const glm::vec3 GetPosition(void);
