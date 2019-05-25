@@ -140,9 +140,9 @@ public:
 	void WindowResize(const glm::vec2& newScaler);
 	void WindowRename(const std::string& newName);
 	void SetVSyncState(const bool& newState);
-	void SetSoundStateEngine(const bool& newState);
-	void SetSoundStateBackground(const bool& newState);
-	void SetSoundStateSoundEffects(const bool& newState);
+	void SetSoundStateEngine(const bool& muteSounds);
+	void SetSoundStateBackground(const bool& muteBackgroundSounds);
+	void SetSoundStateSoundEffects(const bool& muteSoundEffects);
 
 private:
 	// GL variables
