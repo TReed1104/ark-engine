@@ -153,6 +153,11 @@
 			}
 		},
 		"user settings": {
+			"sound": {
+				"engine mute state": false,
+				"background sound mute state": false,
+				"sound effect mute state": false
+			},
 			"vsync": false,
 			"key bindings": [
 				{
