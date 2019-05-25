@@ -838,6 +838,21 @@ void Engine::SetVSyncState(const bool& newState) {
 	// Toggles V-Sync on and off for the SDL Window
 	SDL_GL_SetSwapInterval(newState);
 }
+void Engine::SetSoundStateEngine(const bool& newState) {
+	isEngineMuted = true;
+	SetSoundStateBackground(true);
+	SetSoundStateSoundEffects(true);
+}
+void Engine::SetSoundStateBackground(const bool& newState) {
+	areBackgroundSoundsMuted = true;
+
+	// Stop all background sounds playing
+}
+void Engine::SetSoundStateSoundEffects(const bool& newState) {
+	areSoundEffectsMuted = true;
+
+	// Stop all sound effects playing
+}
 
 // Core game loop steps
 void Engine::EventHandler(void) {
