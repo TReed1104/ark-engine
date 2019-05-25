@@ -846,20 +846,40 @@ void Engine::SetVSyncState(const bool& newState) {
 	// Toggles V-Sync on and off for the SDL Window
 	SDL_GL_SetSwapInterval(newState);
 }
-void Engine::SetSoundStateEngine(const bool& newState) {
-	isEngineMuted = true;
-	SetSoundStateBackground(true);
-	SetSoundStateSoundEffects(true);
+void Engine::SetSoundStateEngine(const bool& muteSounds) {
+	isEngineMuted = muteSounds;
+	SetSoundStateBackground(muteSounds);
+	SetSoundStateSoundEffects(muteSounds);
 }
-void Engine::SetSoundStateBackground(const bool& newState) {
-	areBackgroundSoundsMuted = true;
+void Engine::SetSoundStateBackground(const bool& muteBackgroundSounds) {
+	areBackgroundSoundsMuted = muteBackgroundSounds;
 
-	// Stop all background sounds playing
+	if (muteBackgroundSounds) {
+		// Stop all the background sounds playing
+		size_t numberOfSoundEffects = soundEffectRegister.size();
+		for (size_t i = 0; i < numberOfSoundEffects; i++) {
+			if (soundEffectRegister[i]->GetSoundType() == SoundEffect::BACKGROUND) {
+				soundEffectRegister[i]->Stop();
+			}
+		}
+	}
+	else {
+		// Find the correct background sound, play it
+		GetCurrentLevel()->backgroundSoundEffect->Play();
+	}
 }
-void Engine::SetSoundStateSoundEffects(const bool& newState) {
-	areSoundEffectsMuted = true;
+void Engine::SetSoundStateSoundEffects(const bool& muteSoundEffects) {
+	areSoundEffectsMuted = muteSoundEffects;
 
-	// Stop all sound effects playing
+	if (muteSoundEffects) {
+		// Stop all the sound effects playing
+		size_t numberOfSoundEffects = soundEffectRegister.size();
+		for (size_t i = 0; i < numberOfSoundEffects; i++) {
+			if (soundEffectRegister[i]->GetSoundType() == SoundEffect::SOUND_EFFECT) {
+				soundEffectRegister[i]->Stop();
+			}
+		}
+	}
 }
 
 // Core game loop steps
