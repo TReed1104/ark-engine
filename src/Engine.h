@@ -73,6 +73,9 @@ public:
 	// OpenAL
 	ALCdevice* audioDevice;
 	ALCcontext* audioContext;
+	bool isEngineMuted;
+	bool areBackgroundSoundsMuted;
+	bool areSoundEffectsMuted;
 
 	// Cameras
 	Camera* mainCamera;

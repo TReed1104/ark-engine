@@ -17,6 +17,9 @@ Engine::Engine(char* gameName) {
 
 	contentDirectory = "content\\";
 
+	isEngineMuted = false;
+	areBackgroundSoundsMuted = false;
+	areSoundEffectsMuted = false;
 
 	indexOfDefaultShader = 0;
 	indexOfCurrentLevel = -1;
