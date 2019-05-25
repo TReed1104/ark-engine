@@ -927,6 +927,14 @@ void Engine::Update(const float& deltaTime) {
 	// Run the player's update function
 	player->Update(deltaTime);
 
+	// Sound mute debugging
+	if (deviceKeyboard->GetKeyState(Keyboard::m)) {
+		SetSoundStateEngine(true);
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::M)) {
+		SetSoundStateEngine(false);
+	}
+
 	// Update the text objects
 	const size_t renderableTextRegisterSize = textObjectRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
 	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
