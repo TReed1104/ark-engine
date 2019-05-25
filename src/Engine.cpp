@@ -240,6 +240,11 @@ void Engine::LoadUserSettings(void) {
 	engineDebugger.WriteLine(">> 3 - Loading User Settings");
 
 	if (configFile->IsLoaded()) {
+		// Load the sound states
+		isEngineMuted = configFile->Get<bool>("engine.user settings.sound.engine mute state");
+		areBackgroundSoundsMuted = configFile->Get<bool>("engine.user settings.sound.background sound mute state");
+		areSoundEffectsMuted = configFile->Get<bool>("engine.user settings.sound.sound effect mute state");
+
 		// Loading User settings
 		SetVSyncState(configFile->Get<bool>("engine.user settings.vsync"));
 
