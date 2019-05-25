@@ -139,14 +139,16 @@
 						"sound": {
 							"id": "player jump",
 							"source": "sound_jump.wav",
-							"isLooped": false
+							"isLooped": false,
+							"type": "sound effect"
 						}
 					},
 					{
 						"sound": {
 							"id": "spirits grave",
 							"source": "background_spiritsgrave.wav",
-							"isLooped": true
+							"isLooped": true,
+							"type": "background"
 						}
 					}
 				]
