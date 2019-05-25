@@ -13,11 +13,14 @@ class SoundEffect {
 public:
 	static Engine* Engine_Pointer;
 
-	SoundEffect(const std::string& soundName = "NOT SET", const std::string& filePath = "NOT SET", const bool& isLooped = false, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& velocity = glm::vec3(0.0f), const float& pitch = 1.0f, const float& gain = 1.0f);
+	enum SoundType { SOUND_EFFECT, BACKGROUND };
+
+	SoundEffect(const std::string& soundName = "NOT SET", const std::string& filePath = "NOT SET", const SoundType& type = SoundType::SOUND_EFFECT, const bool& isLooped = false, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& velocity = glm::vec3(0.0f), const float& pitch = 1.0f, const float& gain = 1.0f);
 	~SoundEffect();
 	
 	// Gets
 	const std::string GetName(void);
+	const SoundType GetSoundType(void);
 	const bool IsLoaded(void);
 	const bool IsLooped(void);
 	const float GetPitch(void);
@@ -26,6 +29,7 @@ public:
 	const glm::vec3 GetVelocity(void);
 	
 	// Sets
+	void SetSoundType(const SoundType& newType);
 	void SetLoopState(const bool& newLoopState);
 	void SetPitch(const float& newPitch);
 	void SetGain(const float& newGain);
@@ -40,6 +44,7 @@ public:
 
 private:
 	std::string name;
+	SoundType type;
 	bool isLoaded = false;
 	bool isLooped = false;
 	float pitch = 1.0f;

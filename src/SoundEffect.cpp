@@ -3,9 +3,10 @@
 
 Engine* SoundEffect::Engine_Pointer;
 
-SoundEffect::SoundEffect(const std::string& soundName, const std::string& filePath, const bool& isLooped, const glm::vec3& position, const glm::vec3& velocity, const float& pitch, const float& gain) {
+SoundEffect::SoundEffect(const std::string& soundName, const std::string& filePath, const SoundType& type, const bool& isLooped, const glm::vec3& position, const glm::vec3& velocity, const float& pitch, const float& gain) {
 	// Configure the defaults for the soundeffect
 	this->name = soundName;
+	this->type = type;
 	this->isLoaded = false;
 
 	// Configure the source variables
@@ -38,6 +39,9 @@ SoundEffect::~SoundEffect() {
 const std::string SoundEffect::GetName(void) {
 	return name;
 }
+const SoundEffect::SoundType SoundEffect::GetSoundType(void) {
+	return type;
+}
 const bool SoundEffect::IsLoaded(void) {
 	return isLoaded;
 }
@@ -55,6 +59,10 @@ const glm::vec3 SoundEffect::GetPosition(void) {
 }
 const glm::vec3 SoundEffect::GetVelocity(void) {
 	return velocity;
+}
+
+void SoundEffect::SetSoundType(const SoundType& newType) {
+	type = newType;
 }
 
 // Sets
