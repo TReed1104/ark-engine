@@ -121,7 +121,7 @@ void Engine::CleanUp(void) {
 	for (size_t i = 0; i < fontRegisterSize; i++) {
 		delete fontRegister[i];
 	}
-	
+
 	// Delete the loaded textures
 	const size_t textureRegisterSize = textureRegister.size();
 	for (size_t i = 0; i < textureRegisterSize; i++) {
@@ -844,30 +844,30 @@ void Engine::EventHandler(void) {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
-		case SDL_QUIT:
-			isRunning = false;
-			break;
-		case SDL_KEYDOWN:			// Key down handling.
-			deviceKeyboard->UpdateKeyStates_Down(event.key);
-			break;
-		case SDL_KEYUP:				// Key up handling.
-			deviceKeyboard->UpdateKeyStates_Up(event.key);
-			break;
-		case SDL_CONTROLLERAXISMOTION:
-			for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
-				deviceGameControllerRegister[i]->UpdateThumbSticks();
-			}
-			break;
-		case SDL_CONTROLLERBUTTONDOWN:
-			for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
-				deviceGameControllerRegister[i]->UpdateButtonStates();
-			}
-			break;
-		case SDL_CONTROLLERBUTTONUP:
-			for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
-				deviceGameControllerRegister[i]->UpdateButtonStates();
-			}
-			break;
+			case SDL_QUIT:
+				isRunning = false;
+				break;
+			case SDL_KEYDOWN:			// Key down handling.
+				deviceKeyboard->UpdateKeyStates_Down(event.key);
+				break;
+			case SDL_KEYUP:				// Key up handling.
+				deviceKeyboard->UpdateKeyStates_Up(event.key);
+				break;
+			case SDL_CONTROLLERAXISMOTION:
+				for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+					deviceGameControllerRegister[i]->UpdateThumbSticks();
+				}
+				break;
+			case SDL_CONTROLLERBUTTONDOWN:
+				for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+					deviceGameControllerRegister[i]->UpdateButtonStates();
+				}
+				break;
+			case SDL_CONTROLLERBUTTONUP:
+				for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+					deviceGameControllerRegister[i]->UpdateButtonStates();
+				}
+				break;
 		}
 	}
 }
