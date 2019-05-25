@@ -534,12 +534,20 @@ void Engine::LoadSoundEffects(void) {
 		// Load each sound effect registered with the engine in the config
 		for (size_t i = 0; i < numberOfSoundEffects; i++) {
 			// Get the sounds config from the engine config
-			std::string soundEffectName = contentDirectory + "sounds\\" + configFile->Get<std::string>("engine.configuration.content.sounds." + std::to_string(i) + ".sound.id");
+			std::string soundEffectName = configFile->Get<std::string>("engine.configuration.content.sounds." + std::to_string(i) + ".sound.id");
 			std::string filePath = contentDirectory + "sounds\\" + configFile->Get<std::string>("engine.configuration.content.sounds." + std::to_string(i) + ".sound.source");
+			SoundEffect::SoundType type;
+			std::string soundTypeString = configFile->Get<std::string>("engine.configuration.content.sounds." + std::to_string(i) + ".sound.type");
+			if (soundTypeString == "background") {
+				type = SoundEffect::BACKGROUND;
+			}
+			else {
+				type = SoundEffect::SOUND_EFFECT;
+			}
 			bool isLooped = configFile->Get<bool>("engine.configuration.content.sounds." + std::to_string(i) + ".sound.isLooped");
 
 			// Create a new sound
-			SoundEffect* newSound = new SoundEffect(soundEffectName, filePath, isLooped);
+			SoundEffect* newSound = new SoundEffect(soundEffectName, filePath, type, isLooped);
 
 			// Check the sound was loaded and created successfully
 			if (newSound->IsLoaded()) {
