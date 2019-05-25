@@ -89,9 +89,20 @@ void SoundEffect::SetVelocity(const glm::vec3& newVelocity) {
 
 // Playback
 void SoundEffect::Play(void) {
+	// Check the engine isn't muted
+	if (Engine_Pointer->isEngineMuted) {
+		return;
+	}
+	if (type == SoundType::SOUND_EFFECT && Engine_Pointer->areSoundEffectsMuted) {
+		return;
+	}
+	if (type == SoundType::BACKGROUND && Engine_Pointer->areBackgroundSoundsMuted) {
+		return;
+	}
+
 	ALint sourceState;
 	alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
-	
+
 	// If the source is not playing, play it
 	if (sourceState != AL_PLAYING) {
 		alSourcePlay(alSource);
