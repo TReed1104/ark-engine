@@ -61,7 +61,7 @@
 					"shader": {
 						"id": "level background - textured",
 						"vertex": "default.vert",
-						"fragment": "lighting2D_point_textured.frag"
+						"fragment": "default_textured.frag"
 					}
 				},
 				{
