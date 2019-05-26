@@ -66,6 +66,13 @@
 				},
 				{
 					"shader": {
+						"id": "level background - textured and lighting",
+						"vertex": "default.vert",
+						"fragment": "lighting2D_point_textured.frag"
+					}
+				},
+				{
+					"shader": {
 						"id": "level background - textured noise",
 						"vertex": "default.vert",
 						"fragment": "background_textured_noise_effect.frag"
