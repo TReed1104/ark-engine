@@ -20,6 +20,22 @@
 					},
 					"radius": 250.0
 				}
+			},
+			{
+				"light": {
+					"id": "global level light",
+					"position": {
+						"x": 250,
+						"y": 200,
+						"z": 20
+					},
+					"colour": {
+						"red": 1.0,
+						"green": 1.0,
+						"blue": 1.0
+					},
+					"radius": 100.0
+				}
 			}
 		],
 		"background" : {
