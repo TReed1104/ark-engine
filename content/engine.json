@@ -45,6 +45,13 @@
 				},
 				{
 					"shader": {
+						"id": "game object - texture array and lighting",
+						"vertex": "default.vert",
+						"fragment": "lighting2D_point_texture_array.frag"
+					}
+				},
+				{
+					"shader": {
 						"id": "text object - default",
 						"vertex": "default.vert",
 						"fragment": "default_text.frag"
