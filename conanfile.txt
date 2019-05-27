@@ -4,7 +4,7 @@ sdl2_image/2.0.4@bincrafters/stable
 glew/2.1.0@bincrafters/stable
 glm/0.9.8.5@bincrafters/stable
 Assimp/4.1.0@jacmoe/stable
-freetype/2.9.0@bincrafters/stable
+freetype/2.9.1@bincrafters/stable
 rapidjson/1.1.0@bincrafters/stable
 openal/1.19.0@bincrafters/stable
 
