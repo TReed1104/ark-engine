@@ -1076,7 +1076,7 @@ const int Engine::GetIndexOfSoundEffect(const std::string& soundEffectName) {
 	int indexOfDesiredSoundEffect = -1;
 	const size_t soundEffectRegisterSize = soundEffectRegister.size();
 	for (size_t i = 0; i < soundEffectRegisterSize; i++) {
-		if (soundEffectRegister[i]->GetName().find(soundEffectName) != std::string::npos) {
+		if (soundEffectRegister[i]->GetName() == soundEffectName) {
 			indexOfDesiredSoundEffect = (int)i;
 		}
 	}
