@@ -1106,7 +1106,7 @@ const int Engine::GetIndexOfLevel(const std::string& levelName) {
 	int indexOfDesiredLevel = -1;
 	const size_t levelRegisterSize = levelRegister.size();
 	for (size_t i = 0; i < levelRegisterSize; i++) {
-		if (levelRegister[i]->name.find(levelName) != std::string::npos) {
+		if (levelRegister[i]->name == levelName) {
 			indexOfDesiredLevel = (int)i;
 		}
 	}
