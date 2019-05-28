@@ -1086,7 +1086,7 @@ const int Engine::GetIndexOfTileset(const std::string& tilesetName) {
 	int indexOfDesiredTileset = -1;
 	const size_t tilesetRegisterSize = tilesetRegister.size();
 	for (size_t i = 0; i < tilesetRegisterSize; i++) {
-		if (tilesetRegister[i]->GetName().find(tilesetName) != std::string::npos) {
+		if (tilesetRegister[i]->GetName() == tilesetName) {
 			indexOfDesiredTileset = (int)i;
 		}
 	}
