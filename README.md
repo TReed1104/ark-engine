@@ -31,7 +31,7 @@ Currently Ark-Engine only has a stable build for Windows. However, the Linux bui
 
 ### Guide
 1. Ensure CMake is installed on your system.
-2. Ensure Conan.io is installed on your system.
+2. Ensure Conan.io is installed on your system (**1.15 onwards, a recent change to external packages made this required**).
 3. Ensure that Bincrafters and Zimmerk are registered with Conan as repositories for recipes.
     * If not, run the commands in the gist file found [here](https://gist.github.com/TReed1104/14e9e9c4e0f07c4fdc9373cb287bdf6b)
 4. Run the build script for your platform:
