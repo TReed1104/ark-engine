@@ -1046,7 +1046,7 @@ const int Engine::GetIndexOfTexture(const std::string& textureName) {
 	int indexOfDesiredTexture = -1;
 	const size_t textureRegisterSize = textureRegister.size();
 	for (size_t i = 0; i < textureRegisterSize; i++) {
-		if (textureRegister[i]->GetName().find(textureName) != std::string::npos) {
+		if (textureRegister[i]->GetName() == textureName) {
 			indexOfDesiredTexture = (int)i;
 		}
 	}
