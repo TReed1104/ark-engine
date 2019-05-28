@@ -1066,7 +1066,7 @@ const int Engine::GetIndexOfRenderableText(const std::string& renderableTextName
 	int indexOfDesiredRenderableText = -1;
 	const size_t renderableTextRegisterSize = textObjectRegister.size();
 	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
-		if (textObjectRegister[i]->GetName().find(renderableTextName) != std::string::npos) {
+		if (textObjectRegister[i]->GetName() == renderableTextName) {
 			indexOfDesiredRenderableText = (int)i;
 		}
 	}
