@@ -1056,7 +1056,7 @@ const int Engine::GetIndexOfFont(const std::string& fontName) {
 	int indexOfDesiredFont = -1;
 	const size_t fontRegisterSize = fontRegister.size();
 	for (size_t i = 0; i < fontRegisterSize; i++) {
-		if (fontRegister[i]->name.find(fontName) != std::string::npos) {
+		if (fontRegister[i]->name == fontName) {
 			indexOfDesiredFont = (int)i;
 		}
 	}
