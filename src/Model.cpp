@@ -5,8 +5,9 @@
 Engine* Model::Engine_Pointer;
 
 Model::Model(const std::string& modelPath, const bool& load) {
-	this->name = modelPath;
+	name = modelPath;
 	if (modelPath != "" && load) {
+		this->name = StringUtilities::Split(modelPath, '\\').back();
 		Assimp::Importer importer;	// An importer for importing the model data.
 		const aiScene* scene = importer.ReadFile(modelPath, aiProcess_Triangulate | aiProcess_GenNormals);		// Read the Model file.
 
