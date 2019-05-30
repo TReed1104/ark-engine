@@ -6,13 +6,21 @@
 
 class LevelManager {
 public:
-	~LevelManager();
+	static LevelManager& GetInstance();
+	LevelManager(LevelManager const&) = delete;
+	void operator=(LevelManager const&) = delete;
 
-	static LevelManager* GetInstance();
+	void RegisterLevel(Level& newLevel);
+	const int GetIndexOfLevel(const std::string& levelName);
+	const Level* GetLevel(const std::string& levelName);
+	const Level* GetCurrentLevel(void);
+	bool SetCurrentLevel(const std::string& levelName);
 
 private:
-	static LevelManager* instance;
-	LevelManager();
+	std::vector<Level*> levelRegister;
+	int indexOfCurrentLevel = -1;
+
+	LevelManager() {}
 
 };
 
