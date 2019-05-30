@@ -12,8 +12,8 @@ public:
 
 	void RegisterLevel(Level& newLevel);
 	const int GetIndexOfLevel(const std::string& levelName);
-	const Level* GetLevel(const std::string& levelName);
-	const Level* GetCurrentLevel(void);
+	Level* GetLevel(const std::string& levelName);
+	Level* GetCurrentLevel(void);
 	bool SetCurrentLevel(const std::string& levelName);
 
 private:
