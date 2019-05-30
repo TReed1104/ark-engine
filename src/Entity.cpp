@@ -104,7 +104,7 @@ void Entity::PhysicsHandlerCrawling(const float& deltaTime) {
 			for (int x = 0; x <= deltaGridX && !doubleBreak; x++) {
 				for (int y = 0; y <= deltaGridY; y++) {
 					glm::ivec2 gridPositionToCheck = boundingBox.TopLeftGridPosition() + glm::ivec2(x, -y);
-					isColliding = Engine_Pointer->GetCurrentLevel()->IsTileSolid(gridPositionToCheck);
+					isColliding = LevelManager::GetInstance().GetCurrentLevel()->IsTileSolid(gridPositionToCheck);
 					if (isColliding) {
 						doubleBreak = true;	// Break out both for-loops
 						break;				// Break out this nested for-loop
@@ -152,7 +152,7 @@ void Entity::PhysicsHandlerJumping(const float& deltaTime) {
 		// For every delta, do another check until we run out of checks or find a collision
 		for (size_t i = 0; i <= deltaGridX; i++) {
 			glm::ivec2 gridPositionToCheck = newBoundingBox.TopLeftGridPosition() + glm::ivec2(i, 0);					// Position of the overlap
-			BoundingBox* overlapToCheck = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(gridPositionToCheck);	// The AABB of the grid cell
+			BoundingBox* overlapToCheck = LevelManager::GetInstance().GetCurrentLevel()->GetTileBoundingBox(gridPositionToCheck);	// The AABB of the grid cell
 			if (overlapToCheck != nullptr) {
 				isColliding = newBoundingBox.Intersect(*overlapToCheck);													// Do the actual intersection check
 				if (isColliding) {
@@ -218,7 +218,7 @@ void Entity::PhysicsHandlerMovement(const float& deltaTime) {
 		// For every delta, do another check until we run out of checks or find a collision
 		for (size_t i = 0; i <= deltaGridY; i++) {
 			glm::ivec2 gridPositionToCheck = newBoundingBox.TopLeftGridPosition() + glm::ivec2(0, i);					// Position of the overlap
-			BoundingBox* overlapToCheck = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(gridPositionToCheck);	// The AABB of the position
+			BoundingBox* overlapToCheck = LevelManager::GetInstance().GetCurrentLevel()->GetTileBoundingBox(gridPositionToCheck);	// The AABB of the position
 			if (overlapToCheck != nullptr) {
 				isColliding = newBoundingBox.Intersect(*overlapToCheck);	// Do the actual intersection check
 				if (isColliding) {
@@ -249,7 +249,7 @@ void Entity::PhysicsHandlerMovement(const float& deltaTime) {
 		// For every delta, do another check until we run out of checks or find a collision
 		for (size_t i = 0; i <= deltaGridY; i++) {
 			glm::ivec2 gridPositionToCheck = newBoundingBox.TopRightGridPosition() + glm::ivec2(0, i);					// Position of the overlap
-			BoundingBox* overlapToCheck = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(gridPositionToCheck);	// The AABB of the position
+			BoundingBox* overlapToCheck = LevelManager::GetInstance().GetCurrentLevel()->GetTileBoundingBox(gridPositionToCheck);	// The AABB of the position
 			if (overlapToCheck != nullptr) {
 				isColliding = newBoundingBox.Intersect(*overlapToCheck);	// Do the actual intersection check
 				if (isColliding) {
