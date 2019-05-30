@@ -102,7 +102,7 @@ void GameObject::Draw(void) {
 		}
 
 		// Lighting
-		LightSource* levelLight = Engine_Pointer->GetCurrentLevel()->lightSourcesRegister[0];
+		LightSource* levelLight = LevelManager::GetInstance().GetCurrentLevel()->lightSourcesRegister[0];
 		glUniform3fv(glGetUniformLocation(*shader, "light.position"), 1, glm::value_ptr(levelLight->GetPosition()));
 		glUniform3fv(glGetUniformLocation(*shader, "light.colour"), 1, glm::value_ptr(levelLight->GetColour()));
 		glUniform1f(glGetUniformLocation(*shader, "light.radius"), levelLight->GetRadius());
@@ -189,7 +189,7 @@ void GameObject::PhysicsHandlerFalling(const float& deltaTime) {
 		// For every delta, do another check until we run out of checks or find a collision
 		for (size_t i = 0; i <= deltaGridX; i++) {
 			glm::ivec2 gridPositionToCheck = newBoundingBox.BottomLeftGridPosition() + glm::ivec2(i, 0);				// Position of the overlap
-			BoundingBox* overlapToCheck = Engine_Pointer->GetCurrentLevel()->GetTileBoundingBox(gridPositionToCheck);	// The AABB of the grid cell
+			BoundingBox* overlapToCheck = LevelManager::GetInstance().GetCurrentLevel()->GetTileBoundingBox(gridPositionToCheck);	// The AABB of the grid cell
 			if (overlapToCheck != nullptr) {
 				isColliding = newBoundingBox.Intersect(*overlapToCheck);												// Do the actual intersection check
 				if (isColliding) {
