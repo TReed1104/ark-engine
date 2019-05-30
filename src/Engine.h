@@ -40,6 +40,7 @@
 #include "Item.h"
 #include "Background.h"
 #include "Level.h"
+#include "LevelManager.h"
 #include "Entity.h"
 #include "NonPlayerCharacter.h"
 #include "Player.h"
@@ -91,13 +92,11 @@ public:
 	std::vector<Tileset*> tilesetRegister;
 	std::vector<Item*> itemRegister;
 	std::vector<NonPlayerCharacter*> entityRegister;
-	std::vector<Level*> levelRegister;
 	Player* player;
 
 	// Indexers
 	int indexOfPlayerController;
 	int indexOfDefaultShader;
-	int indexOfCurrentLevel;
 	int indexOfTileModel;
 	int indexOfSpriteModel;
 	int indexOfDefaultTexture;
@@ -132,9 +131,7 @@ public:
 	const int GetIndexOfSoundEffect(const std::string& soundEffectName);
 	const int GetIndexOfTileset(const std::string& tilesetName);
 	const int GetIndexOfEntity(const std::string& entityName);
-	const int GetIndexOfLevel(const std::string& levelName);
-	Level* GetCurrentLevel(void);
-	void ChangeLevel(const int& newLevelIndex);
+	void ChangeLevel(const std::string& newLevelID);
 
 	// Engine Settings
 	void WindowResize(const glm::vec2& newScaler);
