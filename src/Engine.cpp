@@ -22,7 +22,6 @@ Engine::Engine(char* gameName) {
 	areSoundEffectsMuted = false;
 
 	indexOfDefaultShader = 0;
-	indexOfCurrentLevel = -1;
 
 	nameOfDefaultTileModel = "";
 	nameOfDefaultSpriteModel = "";
@@ -69,11 +68,8 @@ void Engine::CleanUp(void) {
 		delete configFile;
 	}
 
-	// Delete all the levels.
-	const size_t levelRegisterSize = levelRegister.size();
-	for (size_t i = 0; i < levelRegisterSize; i++) {
-		delete levelRegister[i];
-	}
+	// Tell the LevelManager to delete all the registered levels
+	LevelManager::GetInstance().DeleteAllLevels();
 
 	// Delete all the Tileset
 	const size_t tilesetRegisterSize = tilesetRegister.size();
@@ -700,7 +696,8 @@ void Engine::LoadLevels(void) {
 	for (size_t i = 0; i < numberOfLevels; i++) {
 		Level* newLevel = new Level(listOfLevelFiles[i]);
 		if (newLevel->IsLoaded()) {
-			levelRegister.push_back(newLevel);
+			LevelManager::GetInstance().RegisterLevel(*newLevel);
+
 		}
 		else {
 			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Level " + listOfLevelFiles[i]);
@@ -708,7 +705,8 @@ void Engine::LoadLevels(void) {
 			this->Close();
 		}
 	}
-	indexOfCurrentLevel = 0;
+
+	LevelManager::GetInstance().SetCurrentLevel("test");
 
 	engineDebugger.WriteLine(">> 12 - COMPLETE");
 }
@@ -752,7 +750,7 @@ void Engine::LoadEntities(void) {
 				engineDebugger.WriteLine(">> 14 - FAILED");
 				this->Close();
 			}
-			player->Reposition(GetCurrentLevel()->playerStartPosition);
+			player->Reposition(LevelManager::GetInstance().GetCurrentLevel()->playerStartPosition);
 		}
 		else {
 			// Load the NPCs
@@ -824,7 +822,7 @@ void Engine::LoadEngine(void) {
 	LoadEntities();
 	LoadCameras();
 
-	ChangeLevel(0);		// Set the level to use, TODO: make it so we use the level in the player's save
+	ChangeLevel("test");		// Set the level to use, TODO: make it so we use the level in the player's save
 
 	// Load complete
 	isRunning = true;	// Allows the game loop to run
@@ -865,7 +863,7 @@ void Engine::SetSoundStateBackground(const bool& muteBackgroundSounds) {
 	}
 	else {
 		// Find the correct background sound, play it
-		GetCurrentLevel()->backgroundSoundEffect->Play();
+		LevelManager::GetInstance().GetCurrentLevel()->backgroundSoundEffect->Play();
 	}
 }
 void Engine::SetSoundStateSoundEffects(const bool& muteSoundEffects) {
@@ -918,11 +916,11 @@ void Engine::Update(const float& deltaTime) {
 
 	// DEBUGGING
 	if (deviceKeyboard->GetKeyState(Keyboard::P)) {
-		GetCurrentLevel()->Reload();
+		LevelManager::GetInstance().GetCurrentLevel()->Reload();
 	}
 
 	// Run the current Level's update function
-	GetCurrentLevel()->Update(deltaTime);
+	LevelManager::GetInstance().GetCurrentLevel()->Update(deltaTime);
 
 	// Run the player's update function
 	player->Update(deltaTime);
@@ -954,7 +952,7 @@ void Engine::Render(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Draw the level
-	GetCurrentLevel()->Draw();
+	LevelManager::GetInstance().GetCurrentLevel()->Draw();
 
 	// Draw the player
 	player->Draw();
@@ -1102,29 +1100,11 @@ const int Engine::GetIndexOfEntity(const std::string& entityName) {
 	}
 	return indexOfDesiredEntity;
 }
-const int Engine::GetIndexOfLevel(const std::string& levelName) {
-	int indexOfDesiredLevel = -1;
-	const size_t levelRegisterSize = levelRegister.size();
-	for (size_t i = 0; i < levelRegisterSize; i++) {
-		if (levelRegister[i]->name == levelName) {
-			indexOfDesiredLevel = (int)i;
-		}
-	}
-	return indexOfDesiredLevel;
-}
-Level* Engine::GetCurrentLevel(void) {
-	if (indexOfCurrentLevel == -1 || indexOfCurrentLevel > levelRegister.size()) {
-		engineDebugger.WriteLine(">>>> ERROR!!!! - Tried to access a level outside the range of the register");
-		this->Close();
-		return nullptr;
-	}
-	else {
-		return levelRegister[indexOfCurrentLevel];
-	}
-}
-void Engine::ChangeLevel(const int& newLevelIndex) {
+
+// Manager interactions
+void Engine::ChangeLevel(const std::string & newLevelID) {
 	// Get and store a pointer to our current level to prevent having to call GetCurrentLevel() multiple times
-	const Level* currentLevel = GetCurrentLevel();
+	const Level* currentLevel = LevelManager::GetInstance().GetCurrentLevel();
 
 	// Check the level has had its background sound set
 	if (currentLevel->backgroundSoundEffect != nullptr) {
@@ -1132,9 +1112,8 @@ void Engine::ChangeLevel(const int& newLevelIndex) {
 		currentLevel->backgroundSoundEffect->Stop();
 	}
 
-	// Change the index of the current level to use
-	indexOfCurrentLevel = newLevelIndex;
-	currentLevel = GetCurrentLevel();	// Update the current level pointer now we've changed level
+	LevelManager::GetInstance().SetCurrentLevel(newLevelID);
+	currentLevel = LevelManager::GetInstance().GetCurrentLevel();
 
 	//TODO: Check start position against save position, change to the save position if they don't match and we know they've saved in that map
 
@@ -1144,5 +1123,4 @@ void Engine::ChangeLevel(const int& newLevelIndex) {
 		// Play the background music of the level
 		currentLevel->backgroundSoundEffect->Play();
 	}
-
 }
