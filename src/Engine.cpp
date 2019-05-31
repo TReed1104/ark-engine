@@ -32,24 +32,24 @@ Engine::Engine(char* gameName) {
 
 	// Set each of the classes static engine pointer to this engine instance
 	Shader::Engine_Pointer = this;
+	Keyboard::Engine_Pointer = this;
+	KeybindingHandler::Engine_Pointer = this;
+	GameController::Engine_Pointer = this;
 	Texture::Engine_Pointer = this;
 	Model::Engine_Pointer = this;
 	Font::Engine_Pointer = this;
 	TextObject::Engine_Pointer = this;
 	SoundEffect::Engine_Pointer = this;
-	Keyboard::Engine_Pointer = this;
-	KeybindingHandler::Engine_Pointer = this;
-	GameController::Engine_Pointer = this;
-	BoundingBox::Engine_Pointer = this;
-	Animation::Engine_Pointer = this;
-	Animation::Frame::Engine_Pointer = this;
 	UserInterface::Engine_Pointer = this;
 	LightSource::Engine_Pointer = this;
+	BoundingBox::Engine_Pointer = this;
+	Animation::Frame::Engine_Pointer = this;
+	Animation::Engine_Pointer = this;
 	GameObject::Engine_Pointer = this;
+	Camera::Engine_Pointer = this;
 	Tileset::Engine_Pointer = this;
 	Background::Engine_Pointer = this;
 	Level::Engine_Pointer = this;
-	Camera::Engine_Pointer = this;
 
 	freeTypeLibrary = NULL;
 }
