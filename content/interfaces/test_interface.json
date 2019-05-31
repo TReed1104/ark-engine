@@ -9,7 +9,23 @@
             "width": 100,
             "height": 40
         },
-        "interface elements": [],
+        "interface elements": [
+            {
+                "element": {
+                    "id": "button one",
+                    "type": "button",
+                    "texture": "button.png",
+                    "size": {
+                        "width": 20,
+                        "height": 5
+                    },
+                    "events": {
+                        "click": "TO BE IMPLEMENTED",
+                        "mouse over": "TO BE IMPLEMENTED"
+                    }
+                }
+            }
+        ],
         "text objects": []
     }
 }
