@@ -1,0 +1,15 @@
+{
+    "interface": {
+        "id": "test interface",
+        "background": {
+            "texture": "interface.png",
+            "shader": "default"
+        },
+        "size": {
+            "width": 100,
+            "height": 40
+        },
+        "interface elements": [],
+        "text objects": []
+    }
+}
