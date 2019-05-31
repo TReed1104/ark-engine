@@ -48,7 +48,7 @@ void Background::Draw(void) {
 		}
 
 		// Lighting
-		LightSource* levelLight = LevelManager::GetInstance().GetCurrentLevel()->lightSourcesRegister[0];
+		LightSource* levelLight = LevelManager::GetInstance()->GetCurrentLevel()->lightSourcesRegister[0];
 		glUniform3fv(glGetUniformLocation(*shader, "light.position"), 1, glm::value_ptr(levelLight->GetPosition()));
 		glUniform3fv(glGetUniformLocation(*shader, "light.colour"), 1, glm::value_ptr(levelLight->GetColour()));
 		glUniform1f(glGetUniformLocation(*shader, "light.radius"), levelLight->GetRadius());

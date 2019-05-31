@@ -22,8 +22,8 @@ void Camera::Update(const float& deltaTime, GameObject& object) {
 	(controlMode == CameraMode::Follow) ? FollowObject(deltaTime, object) : ManualControl();
 
 	// Clamp the position to the world bounds
-	position.x = glm::clamp(position.x, 0.0f, (LevelManager::GetInstance().GetCurrentLevel()->pixelGridSize.x - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).x));
-	position.y = glm::clamp(position.y, 0.0f, (LevelManager::GetInstance().GetCurrentLevel()->pixelGridSize.y - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).y));
+	position.x = glm::clamp(position.x, 0.0f, (LevelManager::GetInstance()->GetCurrentLevel()->pixelGridSize.x - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).x));
+	position.y = glm::clamp(position.y, 0.0f, (LevelManager::GetInstance()->GetCurrentLevel()->pixelGridSize.y - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).y));
 
 
 	// Create the new View matrix from the updated values
@@ -45,8 +45,8 @@ void Camera::FollowObject(const float& deltaTime, GameObject& object) {
 			// Calculate the position we want to move the camera to
 			glm::vec3 targetPosition = glm::vec3(glm::vec2(centerPoint.x, centerPoint.y) - (viewPort / 2.0f), position.z);
 			// Clamp the targetPosition to the bounds of the world as the camera's position already is.
-			targetPosition.x = glm::clamp(targetPosition.x, 0.0f, (LevelManager::GetInstance().GetCurrentLevel()->pixelGridSize.x - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).x));
-			targetPosition.y = glm::clamp(targetPosition.y, 0.0f, (LevelManager::GetInstance().GetCurrentLevel()->pixelGridSize.y - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).y));
+			targetPosition.x = glm::clamp(targetPosition.x, 0.0f, (LevelManager::GetInstance()->GetCurrentLevel()->pixelGridSize.x - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).x));
+			targetPosition.y = glm::clamp(targetPosition.y, 0.0f, (LevelManager::GetInstance()->GetCurrentLevel()->pixelGridSize.y - (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize).y));
 			// Calculate the difference between the targetposition and where the camera currently is
 			glm::vec3 cameraDelta = (targetPosition - position);
 			// Set the Speed the camera is to move at

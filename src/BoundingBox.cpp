@@ -26,7 +26,7 @@ BoundingBox::~BoundingBox(void) {
 }
 
 bool BoundingBox::Intersect(BoundingBox otherBB) {
-	if (!LevelManager::GetInstance().GetCurrentLevel()->IsTileSolid(otherBB.GetGridPosition())) {
+	if (!LevelManager::GetInstance()->GetCurrentLevel()->IsTileSolid(otherBB.GetGridPosition())) {
 		return false;
 	}
 	else {
