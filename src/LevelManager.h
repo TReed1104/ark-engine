@@ -17,6 +17,9 @@ public:
 	Level* GetCurrentLevel(void);
 	bool SetCurrentLevel(const std::string& levelName);
 
+	bool Update(const float& deltaTime);
+	bool Render(void);
+
 private:
 	std::vector<Level*> levelRegister;
 	int indexOfCurrentLevel = -1;
