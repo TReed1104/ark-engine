@@ -43,6 +43,7 @@ Engine::Engine(char* gameName) {
 	BoundingBox::Engine_Pointer = this;
 	Animation::Engine_Pointer = this;
 	Animation::Frame::Engine_Pointer = this;
+	UserInterface::Engine_Pointer = this;
 	LightSource::Engine_Pointer = this;
 	GameObject::Engine_Pointer = this;
 	Tileset::Engine_Pointer = this;
