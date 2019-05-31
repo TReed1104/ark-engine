@@ -920,7 +920,9 @@ void Engine::Update(const float& deltaTime) {
 	}
 
 	// Run the current Level's update function
-	LevelManager::GetInstance()->GetCurrentLevel()->Update(deltaTime);
+	if (!LevelManager::GetInstance()->Update(deltaTime)) {
+		this->Close();
+	}
 
 	// Run the player's update function
 	player->Update(deltaTime);
@@ -952,7 +954,9 @@ void Engine::Render(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Draw the level
-	LevelManager::GetInstance()->GetCurrentLevel()->Draw();
+	if (!LevelManager::GetInstance()->Render()) {
+		this->Close();
+	}
 
 	// Draw the player
 	player->Draw();
