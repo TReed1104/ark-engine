@@ -1,8 +1,8 @@
 #include "LevelManager.h"
 
-LevelManager& LevelManager::GetInstance() {
+LevelManager* LevelManager::GetInstance() {
 	static LevelManager instance;
-	return instance;
+	return &instance;
 }
 
 void LevelManager::RegisterLevel(Level& newLevel) {

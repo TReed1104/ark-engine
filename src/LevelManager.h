@@ -6,7 +6,7 @@
 
 class LevelManager {
 public:
-	static LevelManager& GetInstance();
+	static LevelManager* GetInstance();
 	LevelManager(LevelManager const&) = delete;
 	void operator=(LevelManager const&) = delete;
 
