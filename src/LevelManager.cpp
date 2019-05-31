@@ -54,3 +54,21 @@ bool LevelManager::SetCurrentLevel(const std::string& levelName) {
 		return false;
 	}
 }
+bool LevelManager::Update(const float& deltaTime) {
+	if (indexOfCurrentLevel == -1 || indexOfCurrentLevel > levelRegister.size()) {
+		return false;
+	}
+	else {
+		levelRegister[indexOfCurrentLevel]->Update(deltaTime);
+		return true;
+	}
+}
+bool LevelManager::Render(void) {
+	if (indexOfCurrentLevel == -1 || indexOfCurrentLevel > levelRegister.size()) {
+		return false;
+	}
+	else {
+		levelRegister[indexOfCurrentLevel]->Draw();
+		return true;
+	}
+}
