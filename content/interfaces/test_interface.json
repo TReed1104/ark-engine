@@ -34,6 +34,16 @@
                     "text": "Test text",
                     "data bindings": []
                 }
+            },
+            {
+                "text": {
+                    "id": "health text",
+                    "font": "arial.ttf",
+                    "text": "Health: {health}",
+                    "data bindings": [
+                        "health"
+                    ]
+                }
             }
         ]
     }
