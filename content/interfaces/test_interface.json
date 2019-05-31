@@ -26,6 +26,15 @@
                 }
             }
         ],
-        "text objects": []
+        "text objects": [
+            {
+                "text": {
+                    "id": "text one",
+                    "font": "arial.ttf",
+                    "text": "Test text",
+                    "data bindings": []
+                }
+            }
+        ]
     }
 }
