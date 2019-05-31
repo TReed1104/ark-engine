@@ -32,6 +32,7 @@
 #include "Font.h"
 #include "TextObject.h"
 #include "SoundEffect.h"
+#include "UserInterface.h"
 #include "LightSource.h"
 #include "GameObject.h"
 #include "Camera.h"
