@@ -108,7 +108,7 @@ void Engine::CleanUp(void) {
 	}
 
 	// Delete the Interfaces
-	UserInterfaceManager::GetInstance()->DeleteAllInterfaces();
+	UserInterfaceManager::GetInstance()->Close();
 
 	// Delete the loaded Renderable Texts
 	const size_t renderableTextRegisterSize = textObjectRegister.size();
