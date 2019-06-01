@@ -12,7 +12,7 @@ public:
 	void operator=(UserInterfaceManager const&) = delete;
 
 	void RegisterInterface(UserInterface& newInterface);
-	void DeleteAllInterfaces(void);
+	void Close(void);
 
 	bool Update(const float& deltaTime);
 	bool Render(void);
