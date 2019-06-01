@@ -11,10 +11,12 @@ UserInterface::UserInterface(const std::string& filePath) {
 		}
 		else {
 			Engine_Pointer->engineDebugger.WriteLine(">>>> UserInteface failed to load Config File: " + filePath);
+			isLoaded = false;
 		}
 	}
 	else {
 		configFile = nullptr;
+		isLoaded = false;
 	}
 }
 UserInterface::~UserInterface() {
@@ -22,6 +24,9 @@ UserInterface::~UserInterface() {
 
 const std::string UserInterface::GetName(void) {
 	return this->name;
+}
+const bool UserInterface::IsLoaded(void) {
+	return isLoaded;
 }
 void UserInterface::Update(const float& deltaTime) {
 
