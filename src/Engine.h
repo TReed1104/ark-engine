@@ -176,6 +176,7 @@ private:
 	void LoadFonts(void);
 	void LoadTextObjects(void);
 	void LoadSoundEffects(void);
+	void LoadUserInterfaces(void);
 	void LoadTextures(void);
 	void LoadModels(void);
 	void LoadTilesets(void);
