@@ -829,6 +829,7 @@ void Engine::LoadEngine(void) {
 	LoadFonts();
 	LoadTextObjects();
 	LoadSoundEffects();
+	LoadUserInterfaces();
 	LoadTextures();
 	LoadModels();
 	LoadTilesets();
