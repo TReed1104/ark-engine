@@ -107,6 +107,9 @@ void Engine::CleanUp(void) {
 		delete deviceGameControllerRegister[i];
 	}
 
+	// Delete the Interfaces
+	UserInterfaceManager::GetInstance()->DeleteAllInterfaces();
+
 	// Delete the loaded Renderable Texts
 	const size_t renderableTextRegisterSize = textObjectRegister.size();
 	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
