@@ -70,7 +70,7 @@ void Engine::CleanUp(void) {
 	}
 
 	// Tell the LevelManager to delete all the registered levels
-	LevelManager::GetInstance()->DeleteAllLevels();
+	LevelManager::GetInstance()->Close();
 
 	// Delete all the Tileset
 	const size_t tilesetRegisterSize = tilesetRegister.size();

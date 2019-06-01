@@ -8,7 +8,7 @@ LevelManager* LevelManager::GetInstance() {
 void LevelManager::RegisterLevel(Level& newLevel) {
 	levelRegister.push_back(&newLevel);
 }
-void LevelManager::DeleteAllLevels(void) {
+void LevelManager::Close(void) {
 	// Delete all the levels.
 	const size_t levelRegisterSize = levelRegister.size();
 	for (size_t i = 0; i < levelRegisterSize; i++) {

@@ -11,7 +11,7 @@ public:
 	void operator=(LevelManager const&) = delete;
 
 	void RegisterLevel(Level& newLevel);
-	void DeleteAllLevels(void);
+	void Close(void);
 	const int GetIndexOfLevel(const std::string& levelName);
 	Level* GetLevel(const std::string& levelName);
 	Level* GetCurrentLevel(void);
