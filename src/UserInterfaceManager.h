@@ -12,7 +12,6 @@ public:
 	void operator=(UserInterfaceManager const&) = delete;
 
 	void RegisterInterface(UserInterface& newInterface);
-	void DeleteInterface(const std::string& interfaceName);
 	void DeleteAllInterfaces(void);
 
 	bool Update(const float& deltaTime);
