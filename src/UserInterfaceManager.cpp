@@ -5,8 +5,8 @@ UserInterfaceManager* UserInterfaceManager::GetInstance() {
 	return &instance;
 }
 
-void UserInterfaceManager::RegisterInterface(UserInterface & newInterface) {
-
+void UserInterfaceManager::RegisterInterface(UserInterface& newInterface) {
+	interfaceRegister.push_back(&newInterface);
 }
 bool UserInterfaceManager::Update(const float & deltaTime) {
 	return true;
