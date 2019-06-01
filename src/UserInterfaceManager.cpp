@@ -8,6 +8,9 @@ UserInterfaceManager* UserInterfaceManager::GetInstance() {
 void UserInterfaceManager::RegisterInterface(UserInterface& newInterface) {
 	interfaceRegister.push_back(&newInterface);
 }
+void UserInterfaceManager::DeleteInterface(const std::string interfaceName) {
+
+}
 void UserInterfaceManager::DeleteAllInterfaces(void) {
 	// Delete all the levels.
 	const size_t interfaceRegisterSize = interfaceRegister.size();
