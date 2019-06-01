@@ -14,14 +14,13 @@
 #include "Font.h"
 #include "TextObject.h"
 
-
 class Engine;
 
 class UserInterface {
 public:
 	static Engine* Engine_Pointer;
 
-	UserInterface(const std::string& name, const std::string& configFile);
+	UserInterface(const std::string& filePath = "NOT LOADED");
 	~UserInterface();
 
 	const std::string GetName(void);
