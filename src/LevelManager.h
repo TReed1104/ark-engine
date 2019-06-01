@@ -1,5 +1,5 @@
-#ifndef ARKENGINE_LEVELMANAGER_H_
-#define ARKENGINE_LEVELMANAGER_H_
+#ifndef ARKENGINE_LEVEL_MANAGER_H_
+#define ARKENGINE_LEVEL_MANAGER_H_
 
 #include <vector>
 #include "Level.h"
