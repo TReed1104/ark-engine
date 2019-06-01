@@ -565,6 +565,20 @@ void Engine::LoadSoundEffects(void) {
 
 	engineDebugger.WriteLine(">> 8 - COMPLETE");
 }
+void Engine::LoadUserInterfaces(void) {
+	engineDebugger.WriteLine(">> 9 - Loading User Interfaces");
+
+	if (configFile->IsLoaded()) {
+
+	}
+	else {
+		engineDebugger.WriteLine(">>>> ERROR!!!! - Engine config wasn't loaded");
+		engineDebugger.WriteLine(">> 9 - FAILED");
+		this->Close();
+	}
+
+	engineDebugger.WriteLine(">> 9 - COMPLETE");
+}
 void Engine::LoadTextures(void) {
 	engineDebugger.WriteLine(">> 9 - Loading Textures");
 
