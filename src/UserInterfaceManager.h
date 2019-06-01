@@ -11,7 +11,7 @@ public:
 	UserInterfaceManager(UserInterfaceManager const&) = delete;
 	void operator=(UserInterfaceManager const&) = delete;
 
-	void RegisterInterface(const UserInterface& newInterface);
+	void RegisterInterface(UserInterface& newInterface);
 
 	bool Update(const float& deltaTime);
 	bool Render(void);
