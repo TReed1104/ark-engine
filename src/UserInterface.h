@@ -24,12 +24,14 @@ public:
 	~UserInterface();
 
 	const std::string GetName(void);
+	const bool IsLoaded(void);
 	void Update(const float& deltaTime);
 	void Draw(void);
 
 private:
 	JsonFile* configFile = nullptr;
 	std::string name;
+	bool isLoaded = false;
 };
 
 #endif
