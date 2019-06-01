@@ -17,6 +17,8 @@ public:
 	bool Render(void);
 
 private:
+	std::vector<UserInterface*> interfaceRegister;
+	
 	UserInterfaceManager() {}
 };
 
