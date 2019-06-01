@@ -1,6 +1,9 @@
 #ifndef ARKENGINE_USERINTERFACE_MANAGER_H_
 #define ARKENGINE_USERINTERFACE_MANAGER_H_
 
+#include <vector>
+#include "UserInterface.h"
+
 class UserInterfaceManager {
 public:
 	static UserInterfaceManager* GetInstance();
