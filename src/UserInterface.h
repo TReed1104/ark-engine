@@ -29,7 +29,6 @@ public:
 		void(*OnClick)();
 		void(*MouseOver)();
 		void Update(const float& deltaTime);
-		void Draw(void);
 
 	private:
 		std::string name;
