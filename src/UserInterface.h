@@ -20,6 +20,18 @@ class UserInterface {
 public:
 	static Engine* Engine_Pointer;
 
+	class Button {
+	public:
+		Button(std::string name);
+		~Button();
+
+		const std::string GetName(void);
+
+	private:
+		std::string name;
+	};
+
+
 	UserInterface(const std::string& filePath = "NOT LOADED");
 	~UserInterface();
 
