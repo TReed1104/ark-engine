@@ -51,7 +51,10 @@ const bool UserInterface::IsLoaded(void) {
 	return isLoaded;
 }
 void UserInterface::Update(const float& deltaTime) {
-
+	size_t numberOfButtons = buttonRegister.size();
+	for (size_t i = 0; i < numberOfButtons; i++) {
+		buttonRegister[i]->Update(deltaTime);
+	}
 }
 void UserInterface::Draw(void) {
 
