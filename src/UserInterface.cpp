@@ -3,6 +3,17 @@
 
 Engine* UserInterface::Engine_Pointer;
 
+UserInterface::Button::Button(std::string name) {
+
+}
+UserInterface::Button::~Button() {
+
+}
+
+const std::string UserInterface::Button::GetName(void) {
+	return name;
+}
+
 UserInterface::UserInterface(const std::string& filePath) {
 	if (filePath != "NOT LOADED") {
 		configFile = new JsonFile(filePath);
@@ -33,14 +44,4 @@ void UserInterface::Update(const float& deltaTime) {
 }
 void UserInterface::Draw(void) {
 
-}
-
-UserInterface::Button::Button(std::string name) {
-
-}
-UserInterface::Button::~Button() {
-
-}
-const std::string UserInterface::Button::GetName(void) {
-	return name;
 }
