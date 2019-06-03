@@ -13,6 +13,12 @@ UserInterface::Button::~Button() {
 const std::string UserInterface::Button::GetName(void) {
 	return name;
 }
+void UserInterface::Button::Update(const float & deltaTime) {
+
+}
+void UserInterface::Button::Draw(void) {
+
+}
 
 UserInterface::UserInterface(const std::string& filePath) {
 	if (filePath != "NOT LOADED") {
