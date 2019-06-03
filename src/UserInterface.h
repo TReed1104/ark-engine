@@ -26,7 +26,8 @@ public:
 		~Button();
 
 		const std::string GetName(void);
-		void (*OnClick)();
+		void(*OnClick)();
+		void(*MouseOver)();
 
 	private:
 		std::string name;
