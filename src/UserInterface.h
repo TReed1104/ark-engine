@@ -46,6 +46,8 @@ private:
 	JsonFile* configFile = nullptr;
 	std::string name;
 	bool isLoaded = false;
+
+	std::vector<Button*> buttonRegister;
 };
 
 #endif
