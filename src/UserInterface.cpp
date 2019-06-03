@@ -31,6 +31,11 @@ UserInterface::UserInterface(const std::string& filePath) {
 	}
 }
 UserInterface::~UserInterface() {
+	// Clean up the created buttons
+	size_t numberOfButtons = buttonRegister.size();
+	for (size_t i = 0; i < numberOfButtons; i++) {
+		delete buttonRegister[i];
+	}
 }
 
 const std::string UserInterface::GetName(void) {
