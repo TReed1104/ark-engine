@@ -34,3 +34,13 @@ void UserInterface::Update(const float& deltaTime) {
 void UserInterface::Draw(void) {
 
 }
+
+UserInterface::Button::Button(std::string name) {
+
+}
+UserInterface::Button::~Button() {
+
+}
+const std::string UserInterface::Button::GetName(void) {
+	return name;
+}
