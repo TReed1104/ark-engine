@@ -14,7 +14,14 @@ const std::string UserInterface::Button::GetName(void) {
 	return name;
 }
 void UserInterface::Button::Update(const float & deltaTime) {
-
+	// Check the OnClick is set
+	if (OnClick != nullptr) {
+		OnClick();
+	}
+	// Check the MouseOver is set
+	if (MouseOver != nullptr) {
+		MouseOver();
+	}
 }
 void UserInterface::Button::Draw(void) {
 
