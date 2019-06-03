@@ -45,8 +45,12 @@ public:
 
 private:
 	JsonFile* configFile = nullptr;
-	std::string name;
+	std::string name = "";
 	bool isLoaded = false;
+	glm::vec2 sizeOfUIBase;
+	int indexOfShader = -1;
+	Texture* texture;
+	Model* model;
 
 	std::vector<Button*> buttonRegister;
 };
