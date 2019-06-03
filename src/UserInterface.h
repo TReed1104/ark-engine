@@ -26,6 +26,7 @@ public:
 		~Button();
 
 		const std::string GetName(void);
+		void (*OnClick)();
 
 	private:
 		std::string name;
