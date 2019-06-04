@@ -781,6 +781,8 @@ void Engine::LoadEntities(void) {
 			// Load the player config
 			player = new Player(contentDirectory + "entities\\player.json");
 			if (!player->IsLoaded()) {
+				delete player;
+				player = nullptr;	// Set the player back to a nullptr after the delete.
 				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load player");
 				engineDebugger.WriteLine(">> 14 - FAILED");
 				this->Close();
@@ -800,6 +802,7 @@ void Engine::LoadEntities(void) {
 				}
 				else {
 					// Failed to load the entity, runtime does continue
+					delete newEntity;
 					engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load entity " + listOfEntityFiles[i]);
 					engineDebugger.WriteLine(">> 14 - FAILED");
 				}
