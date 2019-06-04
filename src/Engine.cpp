@@ -571,20 +571,26 @@ void Engine::LoadSoundEffects(void) {
 void Engine::LoadUserInterfaces(void) {
 	engineDebugger.WriteLine(">> 9 - Loading User Interfaces");
 
-	if (configFile->IsLoaded()) {
-		// Get the number of interfaces to load
-		const size_t numberOfSoundEffects = configFile->SizeOfObjectArray("engine.configuration.content.interfaces");
+	std::vector<std::string> listOfUserInterfaceConfigs = FileSystemUtilities::GetFileList(contentDirectory + "interfaces");
+	const size_t numberOfUserInterfaces = listOfUserInterfaceConfigs.size();
 
-		// Load the interfaces
-		for (size_t i = 0; i < numberOfSoundEffects; i++) {
-			std::string interfaceName = configFile->Get<std::string>("engine.configuration.content.interfaces." + std::to_string(i) + ".interface.id");
-			std::string interfaceConfig = configFile->Get<std::string>("engine.configuration.content.interfaces." + std::to_string(i) + ".interface.config");
-		}
-	}
-	else {
-		engineDebugger.WriteLine(">>>> ERROR!!!! - Engine config wasn't loaded");
+	// If there are no interface configs, just return
+	if (numberOfUserInterfaces == 0) {
+		engineDebugger.WriteLine(">>>> ERROR!!!! - No User Interfaces found");
 		engineDebugger.WriteLine(">> 9 - FAILED");
-		this->Close();
+		return;
+	}
+
+	// Load each of the configs found in the directory
+	for (size_t i = 0; i < numberOfUserInterfaces; i++) {
+		UserInterface* newUserInterface = new UserInterface(listOfUserInterfaceConfigs[i]);
+		if (newUserInterface->IsLoaded()) {
+
+		}
+		else {
+			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Tileset " + listOfUserInterfaceConfigs[i]);
+			delete newUserInterface;
+		}
 	}
 
 	engineDebugger.WriteLine(">> 9 - COMPLETE");
