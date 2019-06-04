@@ -177,7 +177,7 @@
 				"interfaces": [
 					{
 						"interface": {
-							"id": "test interfaces",
+							"id": "test interface",
 							"config": "test_interface.json"
 						}
 					}
