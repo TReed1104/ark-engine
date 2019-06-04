@@ -703,6 +703,7 @@ void Engine::LoadTilesets(void) {
 			tilesetRegister.push_back(newTileSet);
 		}
 		else {
+			delete newTileSet;	 // Delete the created TileSet object and close
 			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Tileset " + listOfTilesets[i]);
 			engineDebugger.WriteLine(">> 11 - FAILED");
 			this->Close();
