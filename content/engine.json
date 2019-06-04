@@ -97,6 +97,7 @@
 					"fonts": "fonts",
 					"text": "text",
 					"sounds": "sounds",
+					"interfaces": "interfaces",
 					"textures": "textures",
 					"models": "models",
 					"tilesets": "tilesets",
