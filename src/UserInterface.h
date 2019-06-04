@@ -49,8 +49,8 @@ private:
 	bool isLoaded = false;
 	glm::ivec2 dimensions;
 	int indexOfShader = -1;
-	Texture* texture;
-	Model* model;
+	Texture* texture = nullptr;
+	Model* model = nullptr;
 
 	std::vector<Button*> buttonRegister;
 };
