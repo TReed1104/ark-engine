@@ -572,7 +572,14 @@ void Engine::LoadUserInterfaces(void) {
 	engineDebugger.WriteLine(">> 9 - Loading User Interfaces");
 
 	if (configFile->IsLoaded()) {
+		// Get the number of interfaces to load
+		const size_t numberOfSoundEffects = configFile->SizeOfObjectArray("engine.configuration.content.interfaces");
 
+		// Load the interfaces
+		for (size_t i = 0; i < numberOfSoundEffects; i++) {
+			std::string interfaceName = configFile->Get<std::string>("engine.configuration.content.interfaces." + std::to_string(i) + ".interface.id");
+			std::string interfaceConfig = configFile->Get<std::string>("engine.configuration.content.interfaces." + std::to_string(i) + ".interface.config");
+		}
 	}
 	else {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - Engine config wasn't loaded");
