@@ -732,6 +732,7 @@ void Engine::LoadLevels(void) {
 
 		}
 		else {
+			delete newLevel;
 			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Level " + listOfLevelFiles[i]);
 			engineDebugger.WriteLine(">> 12 - FAILED");
 			this->Close();
