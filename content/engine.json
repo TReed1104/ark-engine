@@ -173,6 +173,14 @@
 							"type": "background"
 						}
 					}
+				],
+				"interfaces": [
+					{
+						"interface": {
+							"id": "test interfaces",
+							"config": "test_interface.json"
+						}
+					}
 				]
 			}
 		},
