@@ -2,7 +2,7 @@
     "interface": {
         "id": "test interface",
         "texture": "interface.png",
-        "shader": "default",
+        "shader": "user interface - default",
         "dimensions": {
             "width": 100,
             "height": 40
