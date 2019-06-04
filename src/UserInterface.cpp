@@ -46,6 +46,16 @@ UserInterface::~UserInterface() {
 	for (size_t i = 0; i < numberOfButtons; i++) {
 		delete buttonRegister[i];
 	}
+
+	// If the texture has been loaded, delete it
+	if (texture != nullptr) {
+		delete texture;
+	}
+
+	// If the model has been generated, delete it
+	if (model != nullptr) {
+		delete model;
+	}
 }
 
 const std::string UserInterface::GetName(void) {
