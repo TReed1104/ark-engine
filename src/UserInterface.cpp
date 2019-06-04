@@ -29,6 +29,15 @@ UserInterface::UserInterface(const std::string& filePath) {
 		configFile = new JsonFile(filePath);
 		if (configFile->IsLoaded()) {
 			name = configFile->Get<std::string>("interface.id");
+			dimensions = glm::ivec2(configFile->Get<int>("interface.dimensions.width"), configFile->Get<int>("interface.dimensions.height"));
+			texture = new Texture(name, configFile->Get<std::string>("interface.texture"), true, false);
+
+			if (texture->IsLoaded()) {
+
+			}
+			else {
+				isLoaded = false;
+			}
 		}
 		else {
 			Engine_Pointer->engineDebugger.WriteLine(">>>> UserInteface failed to load Config File: " + filePath);
