@@ -52,6 +52,13 @@
 				},
 				{
 					"shader": {
+						"id": "user interface - default",
+						"vertex": "default.vert",
+						"fragment": "default_textured.frag"
+					}
+				},
+				{
+					"shader": {
 						"id": "text object - default",
 						"vertex": "default.vert",
 						"fragment": "default_text.frag"
