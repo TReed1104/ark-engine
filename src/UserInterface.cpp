@@ -30,14 +30,22 @@ UserInterface::UserInterface(const std::string& filePath) {
 		if (configFile->IsLoaded()) {
 			name = configFile->Get<std::string>("interface.id");
 			dimensions = glm::ivec2(configFile->Get<int>("interface.dimensions.width"), configFile->Get<int>("interface.dimensions.height"));
-			texture = new Texture(name, configFile->Get<std::string>("interface.texture"), true, false);
+			indexOfShader = Engine_Pointer->GetIndexOfShader(configFile->Get<std::string>("interface.shader"));
+			if (indexOfShader != -1) {
+				isLoaded = false;
+				return;
+			}
 
+			texture = new Texture(name, configFile->Get<std::string>("interface.texture"), true, false);
+			// Check we actually loaded the texture correctly
 			if (texture->IsLoaded()) {
+				// Create the UIs model
 
 			}
 			else {
 				isLoaded = false;
 			}
+
 		}
 		else {
 			Engine_Pointer->engineDebugger.WriteLine(">>>> UserInteface failed to load Config File: " + filePath);
