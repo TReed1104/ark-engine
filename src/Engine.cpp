@@ -754,8 +754,10 @@ void Engine::LoadItems(void) {
 		}
 		else {
 			// Failed to load the item, runtime does continue
+			delete newItem;
 			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Item " + listOfItemFiles[i]);
 			engineDebugger.WriteLine(">> 13 - FAILED");
+			this->Close();
 		}
 	}
 
