@@ -729,7 +729,7 @@ void Engine::LoadLevels(void) {
 	for (size_t i = 0; i < numberOfLevels; i++) {
 		Level* newLevel = new Level(listOfLevelFiles[i]);
 		if (newLevel->IsLoaded()) {
-			LevelManager::GetInstance()->RegisterLevel(*newLevel);
+			LevelManager::GetInstance()->RegisterLevel(newLevel);
 
 		}
 		else {
