@@ -869,11 +869,6 @@ void Engine::LoadEngine(void) {
 	engineDebugger.WriteLine("#### ARKENGINE LOAD COMPLETE");
 }
 
-// Debugging functions
-void Engine::DebuggingModeUpdates(void) {
-
-}
-
 // Configuration functions
 void Engine::WindowResize(const glm::vec2& newScaler) {
 	// Resizes the window
@@ -925,6 +920,26 @@ void Engine::SetSoundStateSoundEffects(const bool& muteSoundEffects) {
 	}
 }
 
+// Debugging functions
+void Engine::DebuggingModeUpdates(const float& deltaTime) {
+	// Quick Reload the level config
+	if (deviceKeyboard->GetKeyState(Keyboard::P)) {
+		LevelManager::GetInstance()->GetCurrentLevel()->Reload();
+	}
+	// Sound mute debugging
+	if (deviceKeyboard->GetKeyState(Keyboard::m)) {
+		SetSoundStateEngine(true);
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::M)) {
+		SetSoundStateEngine(false);
+	}
+	// Update the text objects
+	const size_t renderableTextRegisterSize = textObjectRegister.size();
+	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
+		textObjectRegister[i]->Update(deltaTime);
+	}
+}
+
 // Core game loop steps
 void Engine::EventHandler(void) {
 	SDL_Event event;
@@ -958,11 +973,7 @@ void Engine::EventHandler(void) {
 	}
 }
 void Engine::Update(const float& deltaTime) {
-
-	// DEBUGGING
-	if (deviceKeyboard->GetKeyState(Keyboard::P)) {
-		LevelManager::GetInstance()->GetCurrentLevel()->Reload();
-	}
+	DebuggingModeUpdates(deltaTime);
 
 	// Run the current Level's update function
 	if (!LevelManager::GetInstance()->Update(deltaTime)) {
@@ -971,20 +982,6 @@ void Engine::Update(const float& deltaTime) {
 
 	// Run the player's update function
 	player->Update(deltaTime);
-
-	// Sound mute debugging
-	if (deviceKeyboard->GetKeyState(Keyboard::m)) {
-		SetSoundStateEngine(true);
-	}
-	if (deviceKeyboard->GetKeyState(Keyboard::M)) {
-		SetSoundStateEngine(false);
-	}
-
-	// Update the text objects
-	const size_t renderableTextRegisterSize = textObjectRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
-	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
-		textObjectRegister[i]->Update(deltaTime);
-	}
 
 	// Check the camera target has been initialised
 	if (mainCameraFocus != nullptr) {
