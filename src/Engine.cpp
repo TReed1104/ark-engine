@@ -1008,6 +1008,11 @@ void Engine::Render(void) {
 	// Draw the player
 	player->Draw();
 
+	// Run the User interface manager update
+	if (!UserInterfaceManager::GetInstance()->Render()) {
+		this->Close();
+	}
+
 	// Render the text objects
 	const size_t renderableTextRegisterSize = textObjectRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
 	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
