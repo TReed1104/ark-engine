@@ -988,6 +988,11 @@ void Engine::Update(const float& deltaTime) {
 		// Run the camera's update function
 		mainCamera->Update(deltaTime, *mainCameraFocus);
 	}
+
+	// Run the User interface manager update
+	if (!UserInterfaceManager::GetInstance()->Update(deltaTime)) {
+		this->Close();
+	}
 }
 void Engine::Render(void) {
 	// Pre-render
