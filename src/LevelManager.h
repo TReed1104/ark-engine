@@ -10,7 +10,7 @@ public:
 	LevelManager(LevelManager const&) = delete;
 	void operator=(LevelManager const&) = delete;
 
-	void RegisterLevel(Level& newLevel);
+	void RegisterLevel(Level* newLevel);
 	void Close(void);
 	const int GetIndexOfLevel(const std::string& levelName);
 	Level* GetLevel(const std::string& levelName);

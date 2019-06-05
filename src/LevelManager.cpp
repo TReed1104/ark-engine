@@ -5,8 +5,8 @@ LevelManager* LevelManager::GetInstance() {
 	return &instance;
 }
 
-void LevelManager::RegisterLevel(Level& newLevel) {
-	levelRegister.push_back(&newLevel);
+void LevelManager::RegisterLevel(Level* newLevel) {
+	levelRegister.push_back(newLevel);
 }
 void LevelManager::Close(void) {
 	// Delete all the levels.
