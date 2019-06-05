@@ -921,7 +921,7 @@ void Engine::SetSoundStateSoundEffects(const bool& muteSoundEffects) {
 }
 
 // Debugging functions
-void Engine::DebuggingModeUpdates(const float& deltaTime) {
+void Engine::DebuggingUpdate(const float& deltaTime) {
 	// Quick Reload the level config
 	if (deviceKeyboard->GetKeyState(Keyboard::P)) {
 		LevelManager::GetInstance()->GetCurrentLevel()->Reload();
@@ -973,7 +973,7 @@ void Engine::EventHandler(void) {
 	}
 }
 void Engine::Update(const float& deltaTime) {
-	DebuggingModeUpdates(deltaTime);
+	DebuggingUpdate(deltaTime);
 
 	// Run the current Level's update function
 	if (!LevelManager::GetInstance()->Update(deltaTime)) {

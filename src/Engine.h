@@ -190,7 +190,7 @@ private:
 	void LoadEngine(void);
 
 	// Debugging functions
-	void DebuggingModeUpdates(const float& deltaTime);
+	void DebuggingUpdate(const float& deltaTime);
 
 	// Game loop related functions
 	void EventHandler(void);
