@@ -869,6 +869,11 @@ void Engine::LoadEngine(void) {
 	engineDebugger.WriteLine("#### ARKENGINE LOAD COMPLETE");
 }
 
+// Debugging functions
+void Engine::DebuggingModeUpdates(void) {
+
+}
+
 // Configuration functions
 void Engine::WindowResize(const glm::vec2& newScaler) {
 	// Resizes the window

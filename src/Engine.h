@@ -189,6 +189,9 @@ private:
 	// Master load function
 	void LoadEngine(void);
 
+	// Debugging functions
+	void DebuggingModeUpdates(void);
+
 	// Game loop related functions
 	void EventHandler(void);
 	void Update(const float& deltaTime);
