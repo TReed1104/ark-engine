@@ -5,8 +5,8 @@ UserInterfaceManager* UserInterfaceManager::GetInstance() {
 	return &instance;
 }
 
-void UserInterfaceManager::RegisterInterface(UserInterface& newInterface) {
-	interfaceRegister.push_back(&newInterface);
+void UserInterfaceManager::RegisterInterface(UserInterface* newInterface) {
+	interfaceRegister.push_back(newInterface);
 }
 void UserInterfaceManager::Close(void) {
 	// Delete all the levels.
