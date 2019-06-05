@@ -15,7 +15,7 @@ void UserInterfaceManager::Close(void) {
 		delete interfaceRegister[i];
 	}
 }
-bool UserInterfaceManager::Update(const float & deltaTime) {
+bool UserInterfaceManager::Update(const float& deltaTime) {
 	return true;
 }
 bool UserInterfaceManager::Render(void) {
