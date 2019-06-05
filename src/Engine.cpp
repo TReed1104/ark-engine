@@ -585,7 +585,8 @@ void Engine::LoadUserInterfaces(void) {
 	for (size_t i = 0; i < numberOfUserInterfaces; i++) {
 		UserInterface* newUserInterface = new UserInterface(listOfUserInterfaceConfigs[i]);
 		if (newUserInterface->IsLoaded()) {
-
+			// Register the interface with the UI manager
+			UserInterfaceManager::GetInstance()->RegisterInterface(newUserInterface);
 		}
 		else {
 			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Tileset " + listOfUserInterfaceConfigs[i]);
