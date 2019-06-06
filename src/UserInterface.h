@@ -57,6 +57,8 @@ private:
 	Model* model = nullptr;
 
 	std::vector<Button*> buttonRegister;
+
+	Model::Mesh GenerateMeshForTexture(const Texture& texture);
 };
 
 #endif
