@@ -990,9 +990,7 @@ void Engine::Update(const float& deltaTime) {
 	}
 
 	// Run the User interface manager update
-	if (!UserInterfaceManager::GetInstance()->Update(deltaTime)) {
-		this->Close();
-	}
+	UserInterfaceManager::GetInstance()->Update(deltaTime);
 }
 void Engine::Render(void) {
 	// Pre-render
@@ -1009,9 +1007,7 @@ void Engine::Render(void) {
 	player->Draw();
 
 	// Run the User interface manager update
-	if (!UserInterfaceManager::GetInstance()->Render()) {
-		this->Close();
-	}
+	UserInterfaceManager::GetInstance()->Render();
 
 	// Render the text objects
 	const size_t renderableTextRegisterSize = textObjectRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
