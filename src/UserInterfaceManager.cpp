@@ -15,15 +15,13 @@ void UserInterfaceManager::Close(void) {
 		delete interfaceRegister[i];
 	}
 }
-bool UserInterfaceManager::Update(const float& deltaTime) {
+void UserInterfaceManager::Update(const float& deltaTime) {
 	// Update the interfaces
 	size_t numberOfInterfaces = interfaceRegister.size();
 	for (size_t i = 0; i < numberOfInterfaces; i++) {
 		interfaceRegister[i]->Update(deltaTime);
 	}
-
-	return true;
 }
-bool UserInterfaceManager::Render(void) {
-	return true;
+void UserInterfaceManager::Render(void) {
+
 }

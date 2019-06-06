@@ -14,8 +14,8 @@ public:
 	void RegisterInterface(UserInterface* newInterface);
 	void Close(void);
 
-	bool Update(const float& deltaTime);
-	bool Render(void);
+	void Update(const float& deltaTime);
+	void Render(void);
 
 private:
 	std::vector<UserInterface*> interfaceRegister;
