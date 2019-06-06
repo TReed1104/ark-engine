@@ -40,6 +40,9 @@ public:
 
 	const std::string GetName(void);
 	const bool IsLoaded(void);
+	const bool IsActive(void);
+	void SetActiveState(const bool& newState);
+
 	void Update(const float& deltaTime);
 	void Draw(void);
 
