@@ -62,16 +62,6 @@ const bool UserInterface::IsActive(void) {
 void UserInterface::SetActiveState(const bool& newState) {
 	this->isActive = newState;
 }
-void UserInterface::Update(const float& deltaTime) {
-	size_t numberOfButtons = buttonRegister.size();
-	for (size_t i = 0; i < numberOfButtons; i++) {
-		buttonRegister[i]->Update(deltaTime);
-	}
-}
-void UserInterface::Draw(void) {
-
-}
-
 Model::Mesh UserInterface::GenerateMeshForTexture(const Texture & texture) {
 	// Create the mesh we are going to return to the function call
 	Model::Mesh backgroundMesh = Model::Mesh();
@@ -109,4 +99,69 @@ Model::Mesh UserInterface::GenerateMeshForTexture(const Texture & texture) {
 
 	// Return our generated mesh
 	return backgroundMesh;
+}
+bool UserInterface::Load(const std::string& configFilePath) {
+	if (configFilePath != "NOT LOADED") {
+		// Reloading check
+		if (configFile != nullptr) {
+			delete configFile;
+			configFile = nullptr;
+		}
+
+		configFile = new JsonFile(configFilePath);
+		if (configFile->IsLoaded()) {
+			name = configFile->Get<std::string>("interface.id");
+			dimensions = glm::ivec2(configFile->Get<int>("interface.dimensions.width"), configFile->Get<int>("interface.dimensions.height"));
+			indexOfShader = Engine_Pointer->GetIndexOfShader(configFile->Get<std::string>("interface.shader"));
+			if (indexOfShader != -1) {
+				return false;
+			}
+
+			// Reloading check
+			if (texture != nullptr) {
+				delete texture;
+				texture = nullptr;
+			}
+
+			texture = new Texture(name, configFile->Get<std::string>("interface.texture"), true, false);
+			// Check we actually loaded the texture correctly
+			if (texture->IsLoaded()) {
+
+				// Reloading check
+				if (model != nullptr) {
+					delete model;
+					model = nullptr;
+				}
+
+				// Generate the UIs model
+				model = new Model(name, false);
+				model->meshes.push_back(GenerateMeshForTexture(*(this->texture)));
+				model->SetMeshParents();
+				model->OverrideLoadState(true);
+
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			Engine_Pointer->engineDebugger.WriteLine(">>>> UserInteface failed to load Config File: " + configFilePath);
+			return false;
+		}
+	}
+	else {
+		configFile = nullptr;
+		return false;
+	}
+}
+
+void UserInterface::Update(const float& deltaTime) {
+	size_t numberOfButtons = buttonRegister.size();
+	for (size_t i = 0; i < numberOfButtons; i++) {
+		buttonRegister[i]->Update(deltaTime);
+	}
+}
+void UserInterface::Draw(void) {
+
 }
