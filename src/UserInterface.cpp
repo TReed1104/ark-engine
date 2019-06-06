@@ -81,6 +81,12 @@ const std::string UserInterface::GetName(void) {
 const bool UserInterface::IsLoaded(void) {
 	return isLoaded;
 }
+const bool UserInterface::IsActive(void) {
+	return isActive;
+}
+void UserInterface::SetActiveState(const bool& newState) {
+	this->isActive = newState;
+}
 void UserInterface::Update(const float& deltaTime) {
 	size_t numberOfButtons = buttonRegister.size();
 	for (size_t i = 0; i < numberOfButtons; i++) {
