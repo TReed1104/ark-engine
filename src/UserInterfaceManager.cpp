@@ -26,5 +26,12 @@ void UserInterfaceManager::Update(const float& deltaTime) {
 	}
 }
 void UserInterfaceManager::Render(void) {
-
+	// Draw the interfaces
+	size_t numberOfInterfaces = interfaceRegister.size();
+	for (size_t i = 0; i < numberOfInterfaces; i++) {
+		// If the UI is active, render it
+		if (interfaceRegister[i]->IsActive()) {
+			interfaceRegister[i]->Draw();
+		}
+	}
 }
