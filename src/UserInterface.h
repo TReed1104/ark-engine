@@ -47,6 +47,7 @@ private:
 	JsonFile* configFile = nullptr;
 	std::string name = "";
 	bool isLoaded = false;
+	bool isActive = false;
 	glm::ivec2 dimensions;
 	int indexOfShader = -1;
 	Texture* texture = nullptr;
