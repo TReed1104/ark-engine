@@ -73,6 +73,11 @@ UserInterface::~UserInterface() {
 	if (model != nullptr) {
 		delete model;
 	}
+
+	// Delete the config file
+	if (configFile != nullptr) {
+		delete configFile;
+	}
 }
 
 const std::string UserInterface::GetName(void) {
