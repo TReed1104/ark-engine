@@ -59,6 +59,7 @@ private:
 	std::vector<Button*> buttonRegister;
 
 	Model::Mesh GenerateMeshForTexture(const Texture& texture);
+	bool Load(const std::string& configFilePath);
 };
 
 #endif
