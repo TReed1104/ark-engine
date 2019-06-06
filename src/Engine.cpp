@@ -498,6 +498,7 @@ void Engine::LoadFonts(void) {
 				fontRegister.push_back(newFont);
 			}
 			else {
+				delete newFont;
 				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Font: " + fontPath);
 				engineDebugger.WriteLine(">> 6 - FAILED");
 				this->Close();
