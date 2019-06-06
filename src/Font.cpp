@@ -18,6 +18,7 @@ Font::Font(const std::string& fontName, const std::string& fontPath, const int& 
 		}
 		else {
 			isLoaded = false;
+			fontFace = NULL;
 		}
 	}
 }
