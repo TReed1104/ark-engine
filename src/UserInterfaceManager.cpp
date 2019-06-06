@@ -19,7 +19,10 @@ void UserInterfaceManager::Update(const float& deltaTime) {
 	// Update the interfaces
 	size_t numberOfInterfaces = interfaceRegister.size();
 	for (size_t i = 0; i < numberOfInterfaces; i++) {
-		interfaceRegister[i]->Update(deltaTime);
+		// Check the UI is active, only update active UIs
+		if (interfaceRegister[i]->IsActive()) {
+			interfaceRegister[i]->Update(deltaTime);
+		}
 	}
 }
 void UserInterfaceManager::Render(void) {
