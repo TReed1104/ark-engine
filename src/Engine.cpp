@@ -441,6 +441,7 @@ void Engine::LoadShaders(void) {
 				shaderRegister.push_back(newShader);	// Loaded successfully, storing it for use
 			}
 			else {
+				delete newShader;
 				engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to compile Shader " + nameOfShader);
 				engineDebugger.WriteLine(">> 4 - FAILED");
 				this->Close();
