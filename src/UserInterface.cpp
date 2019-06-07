@@ -119,7 +119,7 @@ bool UserInterface::Load(const std::string& configFilePath) {
 			name = configFile->Get<std::string>("interface.id");
 			dimensions = glm::ivec2(configFile->Get<int>("interface.dimensions.width"), configFile->Get<int>("interface.dimensions.height"));
 			indexOfShader = Engine_Pointer->GetIndexOfShader(configFile->Get<std::string>("interface.shader"));
-			if (indexOfShader != -1) {
+			if (indexOfShader == -1) {
 				return false;
 			}
 
