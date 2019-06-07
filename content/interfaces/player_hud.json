@@ -1,7 +1,7 @@
 {
     "interface": {
         "id": "player_hud",
-        "texture": "interface.png",
+        "texture": "test_interface.png",
         "shader": "user interface - default",
         "dimensions": {
             "width": 64,
