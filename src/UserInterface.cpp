@@ -145,10 +145,17 @@ bool UserInterface::Load(const std::string& configFilePath) {
 				model->SetMeshParents();
 				model->OverrideLoadState(true);
 
-				// Create the UI buttons
+				// Load the interface elements from the config
+				size_t numberOfInterfaceElements = configFile->SizeOfObjectArray("interface.inteface elements");
+				for (size_t i = 0; i < numberOfInterfaceElements; i++) {
+					// Create the element
+				}
 
-
-				// Create the UI text objects
+				// Load the Text objects
+				size_t numberOfTextObjects = configFile->SizeOfObjectArray("interface.text objects");
+				for (size_t i = 0; i < numberOfTextObjects; i++) {
+					// Create the Text object
+				}
 
 
 				return true;
