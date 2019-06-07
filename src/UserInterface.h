@@ -57,6 +57,7 @@ private:
 	Model* model = nullptr;
 
 	std::vector<Button*> buttonRegister;
+	std::vector<TextObject*> textRegister;
 
 	Model::Mesh GenerateMeshForTexture(const Texture& texture);
 	bool Load(const std::string& configFilePath);

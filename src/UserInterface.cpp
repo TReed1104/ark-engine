@@ -34,6 +34,12 @@ UserInterface::~UserInterface() {
 		delete buttonRegister[i];
 	}
 
+	// Clean up the text objects
+	size_t numberOfTextObjects = textRegister.size();
+	for (size_t i = 0; i < numberOfTextObjects; i++) {
+		delete textRegister[i];
+	}
+
 	// If the texture has been loaded, delete it
 	if (texture != nullptr) {
 		delete texture;
