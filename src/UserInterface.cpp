@@ -166,9 +166,16 @@ bool UserInterface::Load(const std::string& configFilePath) {
 }
 
 void UserInterface::Update(const float& deltaTime) {
+	// Update the Buttons
 	size_t numberOfButtons = buttonRegister.size();
 	for (size_t i = 0; i < numberOfButtons; i++) {
 		buttonRegister[i]->Update(deltaTime);
+	}
+
+	// Update the Text objects
+	size_t numberOfTextObjects = textRegister.size();
+	for (size_t i = 0; i < numberOfTextObjects; i++) {
+		textRegister[i]->Update(deltaTime);
 	}
 }
 void UserInterface::Draw(void) {
