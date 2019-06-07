@@ -62,7 +62,7 @@ const bool UserInterface::IsActive(void) {
 void UserInterface::SetActiveState(const bool& newState) {
 	this->isActive = newState;
 }
-Model::Mesh UserInterface::GenerateMeshForTexture(const Texture & texture) {
+Model::Mesh UserInterface::GenerateMeshForTexture(const Texture& texture) {
 	// Create the mesh we are going to return to the function call
 	Model::Mesh backgroundMesh = Model::Mesh();
 
@@ -138,6 +138,9 @@ bool UserInterface::Load(const std::string& configFilePath) {
 				model->meshes.push_back(GenerateMeshForTexture(*(this->texture)));
 				model->SetMeshParents();
 				model->OverrideLoadState(true);
+
+
+
 
 				return true;
 			}
