@@ -129,7 +129,7 @@ bool UserInterface::Load(const std::string& configFilePath) {
 				texture = nullptr;
 			}
 
-			texture = new Texture(name, configFile->Get<std::string>("interface.texture"), true, false);
+			texture = new Texture(name, "content/textures/" + configFile->Get<std::string>("interface.texture"), true, false);
 			// Check we actually loaded the texture correctly
 			if (texture->IsLoaded()) {
 
