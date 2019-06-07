@@ -179,5 +179,9 @@ void UserInterface::Update(const float& deltaTime) {
 	}
 }
 void UserInterface::Draw(void) {
+	// Render background
 
+	// Render Buttons
+
+	// Render Text objects
 }
