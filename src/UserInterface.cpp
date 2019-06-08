@@ -150,6 +150,7 @@ bool UserInterface::Load(const std::string& configFilePath) {
 				model = new Model(name, false);
 				model->meshes.push_back(GenerateMeshForTexture(*(this->texture)));
 				model->SetMeshParents();
+				model->Translate(position);
 				model->OverrideLoadState(true);
 
 				// Load the interface elements from the config
@@ -194,6 +195,9 @@ void UserInterface::Update(const float& deltaTime) {
 	for (size_t i = 0; i < numberOfTextObjects; i++) {
 		textRegister[i]->Update(deltaTime);
 	}
+
+	// Update the position of the model before rendering
+	model->Translate(position);
 }
 void UserInterface::Draw(void) {
 	// Render background
