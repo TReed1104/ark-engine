@@ -59,6 +59,13 @@ UserInterface::~UserInterface() {
 const std::string UserInterface::GetName(void) {
 	return this->name;
 }
+const glm::vec2 UserInterface::GetPosition(void) {
+	return glm::vec2(position.x, position.y);
+}
+void UserInterface::SetPosition(const glm::vec2& newPosition) {
+	// Leave the Z component the same, as it's our render order
+	this->position = glm::vec3(newPosition.x, newPosition.y, position.z);
+}
 const bool UserInterface::IsLoaded(void) {
 	return isLoaded;
 }
