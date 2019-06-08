@@ -39,6 +39,8 @@ public:
 	~UserInterface();
 
 	const std::string GetName(void);
+	const glm::vec2 GetPosition(void);
+	void SetPosition(const glm::vec2& newPosition);
 	const bool IsLoaded(void);
 	const bool IsActive(void);
 	void SetActiveState(const bool& newState);
@@ -52,6 +54,7 @@ private:
 	bool isLoaded = false;
 	bool isActive = false;
 	glm::ivec2 dimensions;
+	glm::vec3 position;
 	int indexOfShader = -1;
 	Texture* texture = nullptr;
 	Model* model = nullptr;
