@@ -7,6 +7,10 @@
             "width": 64,
             "height": 32
         },
+        "position": {
+            "x": 80,
+            "y": 50
+        },
         "interface elements": [],
         "text objects": []
     }
