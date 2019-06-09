@@ -118,7 +118,7 @@ bool Level::Load(void) {
 		std::vector<int> rawMapData = configFile->GetVector<int>("level.tile grid");
 
 		// Light Sources
-		size_t numberOfLightSources = configFile->SizeOfObjectArray("level.lightsources");
+		const size_t numberOfLightSources = configFile->SizeOfObjectArray("level.lightsources");
 		for (size_t i = 0; i < numberOfLightSources; i++) {
 			std::string lightID = configFile->Get<std::string>("level.lightsources." + std::to_string(i) + ".light.id");
 			glm::vec3 lightPosition = glm::vec3(configFile->Get<int>("level.lightsources." + std::to_string(i) + ".light.position.x"), configFile->Get<int>("level.lightsources." + std::to_string(i) + ".light.position.y"), configFile->Get<int>("level.lightsources." + std::to_string(i) + ".light.position.z"));
