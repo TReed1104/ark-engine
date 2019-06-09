@@ -17,7 +17,7 @@
                     "id": "button one",
                     "type": "button",
                     "texture": "button.png",
-                    "shader" : "user interface - default",
+                    "shader": "user interface - default",
                     "size": {
                         "width": 20,
                         "height": 5
