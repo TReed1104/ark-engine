@@ -957,17 +957,20 @@ void Engine::EventHandler(void) {
 				deviceKeyboard->UpdateKeyStates_Up(event.key);
 				break;
 			case SDL_CONTROLLERAXISMOTION:
-				for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+				const size_t numberOfControllers = deviceGameControllerRegister.size();
+				for (size_t i = 0; i < numberOfControllers; i++) {
 					deviceGameControllerRegister[i]->UpdateThumbSticks();
 				}
 				break;
 			case SDL_CONTROLLERBUTTONDOWN:
-				for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+				const size_t numberOfControllers = deviceGameControllerRegister.size();
+				for (size_t i = 0; i < numberOfControllers; i++) {
 					deviceGameControllerRegister[i]->UpdateButtonStates();
 				}
 				break;
 			case SDL_CONTROLLERBUTTONUP:
-				for (int i = 0; i < deviceGameControllerRegister.size(); i++) {
+				const size_t numberOfControllers = deviceGameControllerRegister.size();
+				for (size_t i = 0; i < numberOfControllers; i++) {
 					deviceGameControllerRegister[i]->UpdateButtonStates();
 				}
 				break;
