@@ -207,7 +207,12 @@ void UserInterface::Update(const float& deltaTime) {
 	model->Translate(position);
 }
 void UserInterface::Draw(void) {
-	// Render background
+	// UIs are not Camera dependant, so we'll need to generate our own View & Projection (just like the text objects)
+	glm::vec2 viewPort = (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize);
+	glm::mat4* projectionMatrix = &(glm::ortho(0.0f, viewPort.x, viewPort.y, 0.0f, 0.0f, 2.0f));
+	glm::mat4* viewMatrix = &(glm::lookAt(glm::vec3(position.x, position.y, 1.0f), glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
+
+
 
 	// Render Buttons
 
