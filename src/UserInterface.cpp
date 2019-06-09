@@ -215,10 +215,11 @@ void UserInterface::Draw(void) {
 	glEnable(GL_BLEND);
 	const size_t numberOfMeshes = model->meshes.size();
 	for (size_t i = 0; i < numberOfMeshes; i++) {
-		Engine_Pointer->shaderRegister[indexOfShader]->Activate();
-		Model::Mesh &currentMesh = model->meshes[i];
-		
+		Shader* shader = Engine_Pointer->shaderRegister[indexOfShader];
+		const GLuint* shaderID = shader->GetShader();
 
+		shader->Activate();	// Active the shader for rendering
+		Model::Mesh &currentMesh = model->meshes[i];
 		glUseProgram(0);
 	}
 	glDisable(GL_BLEND);
