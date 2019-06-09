@@ -7,7 +7,12 @@ UserInterface::Button::Button(std::string name) {
 
 }
 UserInterface::Button::~Button() {
-
+	if (texture != nullptr) {
+		delete texture;
+	}
+	if (model != nullptr) {
+		delete model;
+	}
 }
 
 const std::string UserInterface::Button::GetName(void) {
