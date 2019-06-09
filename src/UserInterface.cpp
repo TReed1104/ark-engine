@@ -23,6 +23,8 @@ void UserInterface::Button::Update(const float & deltaTime) {
 		MouseOver();
 	}
 }
+void UserInterface::Button::Draw(void) {
+}
 
 UserInterface::UserInterface(const std::string& filePath) {
 	isLoaded = Load(filePath);
