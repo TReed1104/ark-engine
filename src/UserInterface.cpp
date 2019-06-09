@@ -36,13 +36,13 @@ UserInterface::UserInterface(const std::string& filePath) {
 }
 UserInterface::~UserInterface() {
 	// Clean up the created buttons
-	size_t numberOfButtons = buttonRegister.size();
+	const size_t numberOfButtons = buttonRegister.size();
 	for (size_t i = 0; i < numberOfButtons; i++) {
 		delete buttonRegister[i];
 	}
 
 	// Clean up the text objects
-	size_t numberOfTextObjects = textRegister.size();
+	const size_t numberOfTextObjects = textRegister.size();
 	for (size_t i = 0; i < numberOfTextObjects; i++) {
 		delete textRegister[i];
 	}
@@ -161,13 +161,13 @@ bool UserInterface::Load(const std::string& configFilePath) {
 				model->OverrideLoadState(true);
 
 				// Load the interface elements from the config
-				size_t numberOfInterfaceElements = configFile->SizeOfObjectArray("interface.inteface elements");
+				const size_t numberOfInterfaceElements = configFile->SizeOfObjectArray("interface.inteface elements");
 				for (size_t i = 0; i < numberOfInterfaceElements; i++) {
 					// Create the element
 				}
 
 				// Load the Text objects
-				size_t numberOfTextObjects = configFile->SizeOfObjectArray("interface.text objects");
+				const size_t numberOfTextObjects = configFile->SizeOfObjectArray("interface.text objects");
 				for (size_t i = 0; i < numberOfTextObjects; i++) {
 					// Create the Text object
 				}
@@ -192,13 +192,13 @@ bool UserInterface::Load(const std::string& configFilePath) {
 
 void UserInterface::Update(const float& deltaTime) {
 	// Update the Buttons
-	size_t numberOfButtons = buttonRegister.size();
+	const size_t numberOfButtons = buttonRegister.size();
 	for (size_t i = 0; i < numberOfButtons; i++) {
 		buttonRegister[i]->Update(deltaTime);
 	}
 
 	// Update the Text objects
-	size_t numberOfTextObjects = textRegister.size();
+	const size_t numberOfTextObjects = textRegister.size();
 	for (size_t i = 0; i < numberOfTextObjects; i++) {
 		textRegister[i]->Update(deltaTime);
 	}
