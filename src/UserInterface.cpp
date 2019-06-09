@@ -215,7 +215,8 @@ void UserInterface::Draw(void) {
 	glEnable(GL_BLEND);
 	const size_t numberOfMeshes = model->meshes.size();
 	for (size_t i = 0; i < numberOfMeshes; i++) {
-
+		Engine_Pointer->shaderRegister[indexOfShader]->Activate();
+		Model::Mesh &currentMesh = model->meshes[i];
 
 	}
 	glDisable(GL_BLEND);
