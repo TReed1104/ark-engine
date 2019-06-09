@@ -25,7 +25,8 @@ Level::~Level(void) {
 	}
 
 	// Delete the tilemap
-	for (int i = 0; i < tileMap.size(); i++) {
+	const size_t numberOfTiles = tileMap.size();
+	for (size_t i = 0; i < numberOfTiles; i++) {
 		delete tileMap[i];
 	}
 }
@@ -149,7 +150,8 @@ bool Level::Load(void) {
 		
 		// Find the index of tileset to use for this level in the Engines tileset register.
 		indexOfTileset = -1;
-		for (size_t i = 0; i < Engine_Pointer->tilesetRegister.size(); i++) {
+		const size_t numberOfTiles = Engine_Pointer->tilesetRegister.size();
+		for (size_t i = 0; i < numberOfTiles; i++) {
 			if (Engine_Pointer->tilesetRegister[i]->GetName() == nameOfTilest) {
 				indexOfTileset = (int)i;
 			}
@@ -186,7 +188,8 @@ void Level::Reload(void) {
 	Engine_Pointer->engineDebugger.WriteLine(">>>> Reloading Level: " + name);
 	if (configFile->IsLoaded()) {
 		delete configFile;
-		for (int i = 0; i < tileMap.size(); i++) {
+		const size_t numberOfTiles = tileMap.size();
+		for (size_t i = 0; i < numberOfTiles; i++) {
 			delete tileMap[i];
 		}
 		tileMap.clear();
