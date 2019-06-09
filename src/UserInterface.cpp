@@ -212,7 +212,13 @@ void UserInterface::Draw(void) {
 	glm::mat4* projectionMatrix = &(glm::ortho(0.0f, viewPort.x, viewPort.y, 0.0f, 0.0f, 2.0f));
 	glm::mat4* viewMatrix = &(glm::lookAt(glm::vec3(position.x, position.y, 1.0f), glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
 
+	glEnable(GL_BLEND);
+	const size_t numberOfMeshes = model->meshes.size();
+	for (size_t i = 0; i < numberOfMeshes; i++) {
 
+
+	}
+	glDisable(GL_BLEND);
 
 	// Render Buttons
 
