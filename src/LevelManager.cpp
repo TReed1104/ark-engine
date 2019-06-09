@@ -17,7 +17,8 @@ void LevelManager::Close(void) {
 }
 const int LevelManager::GetIndexOfLevel(const std::string & levelName) {
 	int indexOfLevel = -1;
-	for (size_t i = 0; i < levelRegister.size(); i++) {
+	const size_t numberOfLevels = levelRegister.size();
+	for (size_t i = 0; i < numberOfLevels; i++) {
 		if (levelRegister[i]->name == levelName) {
 			indexOfLevel = (int)i;
 		}
@@ -26,7 +27,8 @@ const int LevelManager::GetIndexOfLevel(const std::string & levelName) {
 }
 Level* LevelManager::GetLevel(const std::string& levelName) {
 	int indexOfLevel = -1;
-	for (size_t i = 0; i < levelRegister.size(); i++) {
+	const size_t numberOfLevels = levelRegister.size();
+	for (size_t i = 0; i < numberOfLevels; i++) {
 		if (levelRegister[i]->name == levelName) {
 			indexOfLevel = (int)i;;
 		}
