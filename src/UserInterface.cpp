@@ -220,6 +220,19 @@ void UserInterface::Draw(void) {
 
 		shader->Activate();	// Active the shader for rendering
 		Model::Mesh &currentMesh = model->meshes[i];
+
+		// Pass the Model, View and projection to the shader
+		glUniformMatrix4fv(glGetUniformLocation(*shaderID, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(*shaderID, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(*shaderID, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
+
+		// Pass the Universal uniforms
+		glUniform2fv(glGetUniformLocation(*shaderID, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
+		glUniform1f(glGetUniformLocation(*shaderID, "iTime"), (float)SDL_GetTicks());
+		glUniform3fv(glGetUniformLocation(*shaderID, "iCameraPosition"), 1, glm::value_ptr(Engine_Pointer->mainCamera->position));
+
+
+
 		glUseProgram(0);
 	}
 	glDisable(GL_BLEND);
