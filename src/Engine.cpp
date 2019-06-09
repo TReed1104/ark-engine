@@ -596,6 +596,8 @@ void Engine::LoadUserInterfaces(void) {
 		}
 	}
 
+	UserInterfaceManager::GetInstance()->GetUserInterface("test interface")->SetActiveState(true);
+
 	engineDebugger.WriteLine(">> 9 - COMPLETE");
 }
 void Engine::LoadTextures(void) {
