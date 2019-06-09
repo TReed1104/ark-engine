@@ -33,6 +33,11 @@ public:
 
 	private:
 		std::string name;
+		int indexOfShader = -1;
+		Texture* texture = nullptr;
+		Model* model = nullptr;
+		glm::vec2 dimensions;
+		glm::vec2 position;
 	};
 
 
