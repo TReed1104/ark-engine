@@ -131,8 +131,9 @@ bool UserInterface::Load(const std::string& configFilePath) {
 		configFile = new JsonFile(configFilePath);
 		if (configFile->IsLoaded()) {
 			name = configFile->Get<std::string>("interface.id");
-			dimensions = glm::ivec2(configFile->Get<int>("interface.dimensions.width"), configFile->Get<int>("interface.dimensions.height"));
 			indexOfShader = Engine_Pointer->GetIndexOfShader(configFile->Get<std::string>("interface.shader"));
+			dimensions = glm::ivec2(configFile->Get<int>("interface.dimensions.width"), configFile->Get<int>("interface.dimensions.height"));
+			position = glm::vec3(configFile->Get<int>("interface.position.x"), configFile->Get<int>("interface.position.y"), 0.01f);
 			if (indexOfShader == -1) {
 				return false;
 			}
