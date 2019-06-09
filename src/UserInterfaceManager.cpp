@@ -37,7 +37,7 @@ void UserInterfaceManager::Close(void) {
 }
 void UserInterfaceManager::Update(const float& deltaTime) {
 	// Update the interfaces
-	size_t numberOfInterfaces = interfaceRegister.size();
+	const size_t numberOfInterfaces = interfaceRegister.size();
 	for (size_t i = 0; i < numberOfInterfaces; i++) {
 		// Check the UI is active, only update active UIs
 		if (interfaceRegister[i]->IsActive()) {
@@ -47,7 +47,7 @@ void UserInterfaceManager::Update(const float& deltaTime) {
 }
 void UserInterfaceManager::Render(void) {
 	// Draw the interfaces
-	size_t numberOfInterfaces = interfaceRegister.size();
+	const size_t numberOfInterfaces = interfaceRegister.size();
 	for (size_t i = 0; i < numberOfInterfaces; i++) {
 		// If the UI is active, render it
 		if (interfaceRegister[i]->IsActive()) {
