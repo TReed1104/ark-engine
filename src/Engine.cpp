@@ -185,7 +185,7 @@ void Engine::ConfigureDebugging(void) {
 		engineDebugger.SetLoggingFilePath(debugConfigurationFile->Get<std::string>("debug.core engine debug.log file"));
 
 		// TODO: Load additional debuggers from the config
-		size_t numberOfAdditionalDebuggers = debugConfigurationFile->SizeOfObjectArray("debug.additional debuggers");
+		const size_t numberOfAdditionalDebuggers = debugConfigurationFile->SizeOfObjectArray("debug.additional debuggers");
 		if (numberOfAdditionalDebuggers > 0) {
 			// Load additional Debuggers
 			engineDebugger.WriteLine(">>>> NOT IMPLEMENTED - Addition Debugger loading");
@@ -249,7 +249,7 @@ void Engine::LoadUserSettings(void) {
 		SetVSyncState(configFile->Get<bool>("engine.user settings.vsync"));
 
 		// Loading keybinds
-		size_t numberOfKeybinds = configFile->SizeOfObjectArray("engine.user settings.key bindings");
+		const size_t numberOfKeybinds = configFile->SizeOfObjectArray("engine.user settings.key bindings");
 		for (size_t i = 0; i < numberOfKeybinds; i++) {
 			std::string nameOfBinding = configFile->Get<std::string>("engine.user settings.key bindings." + std::to_string(i) + ".binding.id");
 
@@ -896,7 +896,7 @@ void Engine::SetSoundStateBackground(const bool& muteBackgroundSounds) {
 
 	if (muteBackgroundSounds) {
 		// Stop all the background sounds playing
-		size_t numberOfSoundEffects = soundEffectRegister.size();
+		const size_t numberOfSoundEffects = soundEffectRegister.size();
 		for (size_t i = 0; i < numberOfSoundEffects; i++) {
 			if (soundEffectRegister[i]->GetSoundType() == SoundEffect::BACKGROUND) {
 				soundEffectRegister[i]->Stop();
@@ -913,7 +913,7 @@ void Engine::SetSoundStateSoundEffects(const bool& muteSoundEffects) {
 
 	if (muteSoundEffects) {
 		// Stop all the sound effects playing
-		size_t numberOfSoundEffects = soundEffectRegister.size();
+		const size_t numberOfSoundEffects = soundEffectRegister.size();
 		for (size_t i = 0; i < numberOfSoundEffects; i++) {
 			if (soundEffectRegister[i]->GetSoundType() == SoundEffect::SOUND_EFFECT) {
 				soundEffectRegister[i]->Stop();
