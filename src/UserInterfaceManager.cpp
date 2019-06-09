@@ -8,6 +8,26 @@ UserInterfaceManager* UserInterfaceManager::GetInstance() {
 void UserInterfaceManager::RegisterInterface(UserInterface* newInterface) {
 	interfaceRegister.push_back(newInterface);
 }
+UserInterface* UserInterfaceManager::GetUserInterface(const std::string& userInterfaceName) {
+	int indexOfInterface = -1;
+
+	// Search for the interface using the supplied ID
+	const size_t numberOfInterfaces = interfaceRegister.size();
+	for (size_t i = 0; i < numberOfInterfaces; i++) {
+		if (interfaceRegister[i]->GetName() == userInterfaceName) {
+			indexOfInterface = (int)i;
+			break;
+		}
+	}
+
+	// Check we found the interface
+	if (indexOfInterface == -1) {
+		return nullptr;
+	}
+
+	// Return the interface
+	return interfaceRegister[indexOfInterface];
+}
 void UserInterfaceManager::Close(void) {
 	// Delete all the levels.
 	const size_t interfaceRegisterSize = interfaceRegister.size();
