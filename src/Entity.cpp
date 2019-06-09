@@ -39,7 +39,7 @@ Entity::Entity(const std::string& filePath) : GameObject(filePath) {
 		baseJumpingSpeed = configFile->Get<float>("entity.physics.jumping.base speed");
 
 		// Bounding boxes
-		size_t numberOfBoundingBoxes = configFile->SizeOfObjectArray("entity.bounding boxes");
+		const size_t numberOfBoundingBoxes = configFile->SizeOfObjectArray("entity.bounding boxes");
 		for (size_t i = 0; i < numberOfBoundingBoxes; i++) {
 			std::string nameOfBoundingBoxes = configFile->Get<std::string>("entity.bounding boxes." + std::to_string(i) + ".bounding box.id");
 			if (nameOfBoundingBoxes == "default") {
@@ -278,12 +278,12 @@ void Entity::PhysicsController(const float& deltaTime) {
 void Entity::LoadAnimations(void) {
 	animations.clear();
 	if (configFile->IsLoaded()) {
-		size_t numberOfAnimations = configFile->SizeOfObjectArray("entity.animations");
+		const size_t numberOfAnimations = configFile->SizeOfObjectArray("entity.animations");
 		if (numberOfAnimations > 0) {
 			for (size_t animationIterator = 0; animationIterator < numberOfAnimations; animationIterator++) {
 				std::string animationName = configFile->Get<std::string>("entity.animations." + std::to_string(animationIterator) + ".animation.id");
 				Animation newAnimation = Animation(animationName);
-				size_t numberOfFrames = configFile->SizeOfObjectArray("entity.animations." + std::to_string(animationIterator) + ".animation.frames");
+				const size_t numberOfFrames = configFile->SizeOfObjectArray("entity.animations." + std::to_string(animationIterator) + ".animation.frames");
 				for (size_t frameIterator = 0; frameIterator < numberOfFrames; frameIterator++) {
 					int frameX = configFile->Get<int>("entity.animations." + std::to_string(animationIterator) + ".animation.frames." + std::to_string(frameIterator) + ".frame.x");
 					int frameY = configFile->Get<int>("entity.animations." + std::to_string(animationIterator) + ".animation.frames." + std::to_string(frameIterator) + ".frame.y");
