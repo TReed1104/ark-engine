@@ -29,7 +29,7 @@ bool Tileset::Load() {
 		std::string textureName = configFile->Get<std::string>("tileset.texture");
 		indexOfTileSetTexture = Engine_Pointer->GetIndexOfTexture(textureName);
 		if (indexOfTileSetTexture != -1) {
-			size_t numberOfTiles = configFile->SizeOfObjectArray("tileset.tiles");
+			const size_t numberOfTiles = configFile->SizeOfObjectArray("tileset.tiles");
 			for (size_t i = 0; i < numberOfTiles; i++) {
 				int tileType = configFile->Get<int>("tileset.tiles." + std::to_string(i) + ".tile.type");
 				bool isSlope = configFile->Get<bool>("tileset.tiles." + std::to_string(i) + ".tile.slope.is slope");
