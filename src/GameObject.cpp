@@ -69,7 +69,8 @@ void GameObject::Update(const float& deltaTime) {
 void GameObject::Draw(void) {
 	glEnable(GL_BLEND);
 	// Loop through each mesh of the model
-	for (int i = 0; i < model.meshes.size(); i++) {
+	const size_t numberOfMeshes = model.meshes.size();
+	for (size_t i = 0; i < numberOfMeshes; i++) {
 
 		Engine_Pointer->shaderRegister[indexOfShader]->Activate();
 		Model::Mesh &currentMesh = model.meshes[i];	// Ref to the current mesh for easier access.
@@ -82,7 +83,7 @@ void GameObject::Draw(void) {
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->viewMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->projectionMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(*shader, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
-		
+
 		// Universal uniforms all shaders for this engine should support
 		glUniform2fv(glGetUniformLocation(*shader, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
 		glUniform1f(glGetUniformLocation(*shader, "iTime"), (float)SDL_GetTicks());	// TODO: Change to not use SDL_Ticks, due to SDL_Ticks being consistent in its values
@@ -246,5 +247,4 @@ void GameObject::AnimationController(const float& deltaTime) {
 		// Run the animation
 		sourceFramePosition = animations[animationIndex].Run(deltaTime);
 	}
-
 }
