@@ -25,7 +25,8 @@ void Background::Update(const float& deltaTime) {
 }
 void Background::Draw(void) {
 	glEnable(GL_BLEND);
-	for (int i = 0; i < model->meshes.size(); i++) {
+	const size_t numberOfMeshes = model->meshes.size();
+	for (size_t i = 0; i < numberOfMeshes; i++) {
 		Engine_Pointer->shaderRegister[indexOfShader]->Activate();
 		Model::Mesh &currentMesh = model->meshes[i];
 		glBindVertexArray(currentMesh.vertexArrayObject);
