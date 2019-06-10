@@ -159,6 +159,7 @@ bool UserInterface::Load(const std::string& configFilePath) {
 				model->meshes.push_back(GenerateMeshForTexture(*(this->texture)));
 				model->SetMeshParents();
 				model->Translate(position);
+				model->SetMeshTranslation(0, position);
 				model->OverrideLoadState(true);
 
 				// Load the interface elements from the config
