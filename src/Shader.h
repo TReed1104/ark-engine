@@ -19,7 +19,7 @@ public:
 
 	void Activate(void);
 	const std::string GetName(void);
-	const GLuint* GetShader(void);
+	const GLuint* GetShaderID(void);
 	const bool IsLoaded(void);
 
 private:

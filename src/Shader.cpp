@@ -139,7 +139,7 @@ bool Shader::Load(const std::string& vertexSourcePath, const std::string& fragme
 }
 
 // Access and Activation functions
-const GLuint* Shader::GetShader(void) {
+const GLuint* Shader::GetShaderID(void) {
 	return &this->program;
 }
 const bool Shader::IsLoaded(void) {
