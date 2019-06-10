@@ -54,23 +54,23 @@ void TextObject::Draw(void) {
 			Model::Mesh &currentMesh = model.meshes[i];
 			glBindVertexArray(currentMesh.vertexArrayObject);
 
-			const GLuint* shader = Engine_Pointer->shaderRegister[indexOfShader]->GetShader();
-			glUniformMatrix4fv(glGetUniformLocation(*shader, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
-			glUniformMatrix4fv(glGetUniformLocation(*shader, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
-			glUniformMatrix4fv(glGetUniformLocation(*shader, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
+			const GLuint* shaderProgramID = Engine_Pointer->shaderRegister[indexOfShader]->GetShader();
+			glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
+			glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
+			glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
 			
 			// Universal uniforms all shaders for this engine should support
-			glUniform2fv(glGetUniformLocation(*shader, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
-			glUniform1f(glGetUniformLocation(*shader, "iTime"), (float)SDL_GetTicks());	// TODO: Change to not use SDL_Ticks, due to SDL_Ticks being consistent in its values
-			glUniform3fv(glGetUniformLocation(*shader, "iCameraPosition"), 1, glm::value_ptr(Engine_Pointer->mainCamera->position));
+			glUniform2fv(glGetUniformLocation(*shaderProgramID, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
+			glUniform1f(glGetUniformLocation(*shaderProgramID, "iTime"), (float)SDL_GetTicks());	// TODO: Change to not use SDL_Ticks, due to SDL_Ticks being consistent in its values
+			glUniform3fv(glGetUniformLocation(*shaderProgramID, "iCameraPosition"), 1, glm::value_ptr(Engine_Pointer->mainCamera->position));
 
 			bool useTextures = (glyphs[i].texture.textureID != -1 && currentMesh.isSetupForTextures);
-			glUniform1i(glGetUniformLocation(*shader, "u_hasTexture"), useTextures);
+			glUniform1i(glGetUniformLocation(*shaderProgramID, "u_hasTexture"), useTextures);
 			if (useTextures) {
 				glActiveTexture(GL_TEXTURE0);
 				glBindTexture(GL_TEXTURE_2D, glyphs[i].texture.textureID);
-				glUniform1i(glGetUniformLocation(*shader, "u_textureSampler"), 0);
-				glUniform3fv(glGetUniformLocation(*shader, "u_textColour"), 1, glm::value_ptr(colour));
+				glUniform1i(glGetUniformLocation(*shaderProgramID, "u_textureSampler"), 0);
+				glUniform3fv(glGetUniformLocation(*shaderProgramID, "u_textColour"), 1, glm::value_ptr(colour));
 			}
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
 			glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
