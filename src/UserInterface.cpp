@@ -218,28 +218,28 @@ void UserInterface::Draw(void) {
 	const size_t numberOfMeshes = model->meshes.size();
 	for (size_t i = 0; i < numberOfMeshes; i++) {
 		Shader* shader = Engine_Pointer->shaderRegister[indexOfShader];
-		const GLuint* shaderID = shader->GetShader();
+		const GLuint* shaderProgramID = shader->GetShader();
 
 		shader->Activate();	// Active the shader for rendering
 		Model::Mesh* currentMesh = &model->meshes[i];
 		glBindVertexArray(currentMesh->vertexArrayObject);
 
 		// Pass the Model, View and projection to the shader
-		glUniformMatrix4fv(glGetUniformLocation(*shaderID, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(*shaderID, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(*shaderID, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh->GetModelMatrix()));
+		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh->GetModelMatrix()));
 
 		// Pass the Universal uniforms
-		glUniform2fv(glGetUniformLocation(*shaderID, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
-		glUniform1f(glGetUniformLocation(*shaderID, "iTime"), (float)SDL_GetTicks());
-		glUniform3fv(glGetUniformLocation(*shaderID, "iCameraPosition"), 1, glm::value_ptr(Engine_Pointer->mainCamera->position));
+		glUniform2fv(glGetUniformLocation(*shaderProgramID, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
+		glUniform1f(glGetUniformLocation(*shaderProgramID, "iTime"), (float)SDL_GetTicks());
+		glUniform3fv(glGetUniformLocation(*shaderProgramID, "iCameraPosition"), 1, glm::value_ptr(Engine_Pointer->mainCamera->position));
 
 		bool useTextures = (texture->textureID != -1 && currentMesh->isSetupForTextures);
-		glUniform1i(glGetUniformLocation(*shaderID, "u_hasTexture"), useTextures);
+		glUniform1i(glGetUniformLocation(*shaderProgramID, "u_hasTexture"), useTextures);
 		if (useTextures) {
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture->textureID);
-			glUniform1i(glGetUniformLocation(*shaderID, "u_textureSampler"), 0);
+			glUniform1i(glGetUniformLocation(*shaderProgramID, "u_textureSampler"), 0);
 		}
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh->indicesBufferObject);
