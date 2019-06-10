@@ -65,8 +65,8 @@ bool Texture::ImportTexture(const std::string& filepath) {
 	}
 
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, image->w);
-	glPixelStorei(GL_UNPACK_SKIP_PIXELS, 1);
-	glPixelStorei(GL_UNPACK_SKIP_ROWS, 1);
+	glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
+	glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
 	glTexImage2D(GL_TEXTURE_2D, 0, textureFormat, image->w, image->h, 0, textureFormat, GL_UNSIGNED_BYTE, image->pixels);
 
 	// Wrapping Settings
