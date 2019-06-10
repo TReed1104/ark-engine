@@ -217,10 +217,9 @@ void UserInterface::Draw(void) {
 	glEnable(GL_BLEND);
 	const size_t numberOfMeshes = model->meshes.size();
 	for (size_t i = 0; i < numberOfMeshes; i++) {
-		Shader* shader = Engine_Pointer->shaderRegister[indexOfShader];
-		const GLuint* shaderProgramID = shader->GetShader();
+		Engine_Pointer->shaderRegister[indexOfShader]->Activate();	// Active the shader for rendering
+		const GLuint* shaderProgramID = Engine_Pointer->shaderRegister[indexOfShader]->GetShader();
 
-		shader->Activate();	// Active the shader for rendering
 		Model::Mesh* currentMesh = &model->meshes[i];
 		glBindVertexArray(currentMesh->vertexArrayObject);
 
