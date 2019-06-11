@@ -32,9 +32,9 @@
         "text objects": [
             {
                 "text": {
-                    "id": "text one",
+                    "id": "HUD Title",
                     "font": "Arial",
-                    "text": "Test text",
+                    "text": "Player HUD",
                     "data bindings": [],
                     "position": {
                         "x": 10,
