@@ -930,11 +930,6 @@ void Engine::DebuggingUpdate(const float& deltaTime) {
 	if (deviceKeyboard->GetKeyState(Keyboard::M)) {
 		SetSoundStateEngine(false);
 	}
-	// Update the text objects
-	const size_t renderableTextRegisterSize = textObjectRegister.size();
-	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
-		textObjectRegister[i]->Update(deltaTime);
-	}
 }
 
 // Core game loop steps
