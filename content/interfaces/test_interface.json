@@ -33,7 +33,7 @@
             {
                 "text": {
                     "id": "text one",
-                    "font": "arial.ttf",
+                    "font": "Arial",
                     "text": "Test text",
                     "data bindings": []
                 }
@@ -41,7 +41,7 @@
             {
                 "text": {
                     "id": "health text",
-                    "font": "arial.ttf",
+                    "font": "Arial",
                     "text": "Health: {health}",
                     "data bindings": [
                         "health"
