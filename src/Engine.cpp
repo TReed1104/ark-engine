@@ -1007,12 +1007,6 @@ void Engine::Render(void) {
 	// Run the User interface manager update
 	UserInterfaceManager::GetInstance()->Render();
 
-	// Render the text objects
-	const size_t renderableTextRegisterSize = textObjectRegister.size();	// Grab size once on the update cycle, to prevent re-calculation every iteration
-	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
-		textObjectRegister[i]->Draw();
-	}
-
 	// Post-Render
 	SDL_GL_SwapWindow(sdlWindow);	// Gives the frame buffer to the display (swapBuffers).
 }
