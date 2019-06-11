@@ -110,12 +110,6 @@ void Engine::CleanUp(void) {
 	// Delete the Interfaces
 	UserInterfaceManager::GetInstance()->Close();
 
-	// Delete the loaded Renderable Texts
-	const size_t renderableTextRegisterSize = textObjectRegister.size();
-	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
-		delete textObjectRegister[i];
-	}
-
 	// Delete the loaded Fonts
 	const size_t fontRegisterSize = fontRegister.size();
 	for (size_t i = 0; i < fontRegisterSize; i++) {
