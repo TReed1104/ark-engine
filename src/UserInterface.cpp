@@ -172,6 +172,21 @@ bool UserInterface::Load(const std::string& configFilePath) {
 				const size_t numberOfTextObjects = configFile->SizeOfObjectArray("interface.text objects");
 				for (size_t i = 0; i < numberOfTextObjects; i++) {
 					// Create the Text object
+					std::string textName = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.id");
+					const int indexOfFont = Engine_Pointer->GetIndexOfFont(configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.font"));
+					if (indexOfFont == -1) {
+						return false;
+					}
+					std::string textString = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.text");
+
+					//TODO: Data binding
+
+					glm::vec3 textPosition = glm::vec3(configFile->Get<int>("interface.text objects." + std::to_string(i) + ".text.position.x"), configFile->Get<int>("interface.text objects." + std::to_string(i) + ".text.position.y"), 0.015f);
+					glm::vec3 relativePosition = position + textPosition;	// Move the text object relative to the UI background
+					glm::vec3 textColour = glm::vec3(255 / configFile->Get<float>("interface.text objects." + std::to_string(i) + "text.colour.red"), 255 / configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.green"), 255 / configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.blue"));
+
+
+					textRegister.push_back(new TextObject(textName, textString, Engine_Pointer->fontRegister[indexOfFont], relativePosition, textColour, true, false));
 				}
 
 
