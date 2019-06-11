@@ -38,7 +38,7 @@
                     "data bindings": [],
                     "position": {
                         "x": 10,
-                        "y": 50
+                        "y": 10
                     },
                     "colour": {
                         "red": 255.0,
@@ -57,7 +57,7 @@
                     ],
                     "position": {
                         "x": 10,
-                        "y": 50
+                        "y": 20
                     },
                     "colour": {
                         "red": 255.0,
