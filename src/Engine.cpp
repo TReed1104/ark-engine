@@ -1046,14 +1046,11 @@ void Engine::Run(void) {
 		if (secondsCounter >= 1) {
 			// If it has been a second since the last FPS count, reset the counter and print.
 			WindowRename(defaultWindowTitle + " - FPS: " + std::to_string(fpsCounter));
-			textObjectRegister[2]->UpdateText("FPS: " + std::to_string(fpsCounter));	// TEST CALL
+			//textObjectRegister[2]->UpdateText("FPS: " + std::to_string(fpsCounter));	// TEST CALL
 			fpsCounter = 0;
 			secondsCounter = 0;
 		}
 		oldFrameTime = currentFrameTime;
-
-		// Update the debug text for the player grid position
-		textObjectRegister[3]->UpdateText("GridPos(" + std::to_string(player->GetGridPosition().x) + ", " + std::to_string(player->GetGridPosition().y) + ")");
 	}
 
 	engineDebugger.WriteLine("## Game Runtime - Finished");
