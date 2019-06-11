@@ -39,6 +39,11 @@
                     "position": {
                         "x": 10,
                         "y": 50
+                    },
+                    "colour": {
+                        "red": 255,
+                        "green": 255,
+                        "blue": 255
                     }
                 }
             },
@@ -53,6 +58,11 @@
                     "position": {
                         "x": 10,
                         "y": 50
+                    },
+                    "colour": {
+                        "red": 255,
+                        "green": 255,
+                        "blue": 255
                     }
                 }
             }
