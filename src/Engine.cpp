@@ -518,13 +518,6 @@ void Engine::LoadFonts(void) {
 void Engine::LoadTextObjects(void) {
 	engineDebugger.WriteLine(">> 7 - Loading Text Objects");
 
-	// TEST TEXTOBJECT CREATION
-	const int indexOfFont = GetIndexOfFont("Arial");
-	textObjectRegister.push_back(new TextObject("DEBUG: Font test", "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz .,'!?:;", fontRegister[indexOfFont], glm::vec3(20.0f, 10.0f, 0.02f), glm::vec3(255 / 255.0f, 0 / 255.0f, 0 / 255.0f), true));
-	textObjectRegister.push_back(new TextObject("UI: Health", "Health: 100%", fontRegister[indexOfFont], glm::vec3(20.0f, 20.0f, 0.02f), glm::vec3(255 / 255.0f, 255 / 255.0f, 255 / 255.0f), true));
-	textObjectRegister.push_back(new TextObject("DEBUG: FPS Counter", "FPS: 0", fontRegister[indexOfFont], glm::vec3(20.0f, 30.0f, 0.02f), glm::vec3(255 / 255.0f, 255 / 255.0f, 255 / 255.0f), true));
-	textObjectRegister.push_back(new TextObject("DEBUG: Grid Position", "GridPos: (0, 0)", fontRegister[indexOfFont], glm::vec3(20.0f, 40.0f, 0.02f), glm::vec3(255 / 255.0f, 255 / 255.0f, 255 / 255.0f), true));
-
 	engineDebugger.WriteLine(">> 7 - COMPLETE");
 }
 void Engine::LoadSoundEffects(void) {
