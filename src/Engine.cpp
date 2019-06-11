@@ -510,7 +510,7 @@ void Engine::LoadFonts(void) {
 	engineDebugger.WriteLine(">> 6 - COMPLETE");
 }
 void Engine::LoadSoundEffects(void) {
-	engineDebugger.WriteLine(">> 8 - Loading Audio");
+	engineDebugger.WriteLine(">> 7 - Loading Audio");
 
 	if (configFile->IsLoaded()) {
 		const size_t numberOfSoundEffects = configFile->SizeOfObjectArray("engine.configuration.content.sounds");
@@ -546,14 +546,14 @@ void Engine::LoadSoundEffects(void) {
 	}
 	else {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - Engine config wasn't loaded");
-		engineDebugger.WriteLine(">> 8 - FAILED");
+		engineDebugger.WriteLine(">> 7 - FAILED");
 		this->Close();
 	}
 
-	engineDebugger.WriteLine(">> 8 - COMPLETE");
+	engineDebugger.WriteLine(">> 7 - COMPLETE");
 }
 void Engine::LoadUserInterfaces(void) {
-	engineDebugger.WriteLine(">> 9 - Loading User Interfaces");
+	engineDebugger.WriteLine(">> 8 - Loading User Interfaces");
 
 	std::vector<std::string> listOfUserInterfaceConfigs = FileSystemUtilities::GetFileList(contentDirectory + "interfaces");
 	const size_t numberOfUserInterfaces = listOfUserInterfaceConfigs.size();
@@ -561,7 +561,7 @@ void Engine::LoadUserInterfaces(void) {
 	// If there are no interface configs, just return
 	if (numberOfUserInterfaces == 0) {
 		engineDebugger.WriteLine(">>>> ERROR!!!! - No User Interfaces found");
-		engineDebugger.WriteLine(">> 9 - FAILED");
+		engineDebugger.WriteLine(">> 8 - FAILED");
 		return;
 	}
 
@@ -580,7 +580,7 @@ void Engine::LoadUserInterfaces(void) {
 
 	UserInterfaceManager::GetInstance()->GetUserInterface("test interface")->SetActiveState(true);
 
-	engineDebugger.WriteLine(">> 9 - COMPLETE");
+	engineDebugger.WriteLine(">> 8 - COMPLETE");
 }
 void Engine::LoadTextures(void) {
 	engineDebugger.WriteLine(">> 9 - Loading Textures");
