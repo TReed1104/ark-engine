@@ -270,4 +270,8 @@ void UserInterface::Draw(void) {
 	// Render Buttons
 
 	// Render Text objects
+	const size_t numberOfTextObjects = textRegister.size();
+	for (size_t i = 0; i < numberOfTextObjects; i++) {
+		textRegister[i]->Draw();
+	}
 }
