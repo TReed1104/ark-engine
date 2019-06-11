@@ -1090,16 +1090,6 @@ const int Engine::GetIndexOfFont(const std::string& fontName) {
 	}
 	return indexOfDesiredFont;
 }
-const int Engine::GetIndexOfRenderableText(const std::string& renderableTextName) {
-	int indexOfDesiredRenderableText = -1;
-	const size_t renderableTextRegisterSize = textObjectRegister.size();
-	for (size_t i = 0; i < renderableTextRegisterSize; i++) {
-		if (textObjectRegister[i]->GetName() == renderableTextName) {
-			indexOfDesiredRenderableText = (int)i;
-		}
-	}
-	return indexOfDesiredRenderableText;
-}
 const int Engine::GetIndexOfSoundEffect(const std::string& soundEffectName) {
 	int indexOfDesiredSoundEffect = -1;
 	const size_t soundEffectRegisterSize = soundEffectRegister.size();
