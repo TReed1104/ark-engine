@@ -509,11 +509,6 @@ void Engine::LoadFonts(void) {
 
 	engineDebugger.WriteLine(">> 6 - COMPLETE");
 }
-void Engine::LoadTextObjects(void) {
-	engineDebugger.WriteLine(">> 7 - Loading Text Objects");
-
-	engineDebugger.WriteLine(">> 7 - COMPLETE");
-}
 void Engine::LoadSoundEffects(void) {
 	engineDebugger.WriteLine(">> 8 - Loading Audio");
 
