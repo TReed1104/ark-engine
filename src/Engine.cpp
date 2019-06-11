@@ -842,7 +842,6 @@ void Engine::LoadEngine(void) {
 
 	// Load Game Content
 	LoadFonts();
-	LoadTextObjects();
 	LoadSoundEffects();
 	LoadUserInterfaces();
 	LoadTextures();
