@@ -11,24 +11,7 @@
             "x": 20,
             "y": 10
         },
-        "interface elements": [
-            {
-                "element": {
-                    "id": "button one",
-                    "type": "button",
-                    "texture": "button.png",
-                    "shader": "user interface - default",
-                    "size": {
-                        "width": 20,
-                        "height": 5
-                    },
-                    "events": {
-                        "click": "TO BE IMPLEMENTED",
-                        "mouse over": "TO BE IMPLEMENTED"
-                    }
-                }
-            }
-        ],
+        "interface elements": [],
         "text objects": [
             {
                 "text": {
