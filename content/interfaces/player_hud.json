@@ -15,32 +15,15 @@
         "text objects": [
             {
                 "text": {
-                    "id": "HUD Title",
-                    "font": "Arial",
-                    "text": "Player HUD",
-                    "data bindings": [],
-                    "position": {
-                        "x": 10,
-                        "y": 10
-                    },
-                    "colour": {
-                        "red": 255.0,
-                        "green": 255.0,
-                        "blue": 255.0
-                    }
-                }
-            },
-            {
-                "text": {
                     "id": "health text",
                     "font": "Arial",
-                    "text": "Health: %health%",
+                    "text": "%health%",
                     "data bindings": [
                         "health"
                     ],
                     "position": {
-                        "x": 10,
-                        "y": 20
+                        "x": 5,
+                        "y": 10
                     },
                     "colour": {
                         "red": 255.0,
