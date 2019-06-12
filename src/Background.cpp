@@ -87,7 +87,7 @@ bool Background::Load(const std::string& texturePath) {
 		// Create the mesh using the dimensions of the texture
 		model = new Model(name, false);
 		model->meshes.clear();	// Clear the mesh list just for safety
-		model->meshes.push_back(GenerateMeshForTexture(*(this->texture)));
+		model->meshes.push_back(GenerateMesh(this->texture->dimensionsInPixels));
 		model->SetMeshParents();
 		model->Translate(position);
 		model->OverrideLoadState(true);
