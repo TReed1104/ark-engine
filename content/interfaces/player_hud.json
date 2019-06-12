@@ -1,6 +1,6 @@
 {
     "interface": {
-        "id": "test interface",
+        "id": "player hud",
         "texture": "test_interface.png",
         "shader": "user interface - default",
         "dimensions": {
