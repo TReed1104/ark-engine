@@ -82,6 +82,9 @@ const bool UserInterface::IsActive(void) {
 void UserInterface::SetActiveState(const bool& newState) {
 	this->isActive = newState;
 }
+Model::Mesh UserInterface::GenerateMeshFromDimensions(const glm::vec2 & dimensions) {
+	return Model::Mesh();
+}
 Model::Mesh UserInterface::GenerateMeshForTexture(const Texture& texture) {
 	// Create the mesh we are going to return to the function call
 	Model::Mesh backgroundMesh = Model::Mesh();
