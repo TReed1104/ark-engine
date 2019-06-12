@@ -1,0 +1,56 @@
+{
+    "interface": {
+        "id": "debugging interface",
+        "texture": "test_interface.png",
+        "shader": "user interface - default",
+        "dimensions": {
+            "width": 130,
+            "height": 40
+        },
+        "position": {
+            "x": 220,
+            "y": 10
+        },
+        "interface elements": [],
+        "text objects": [
+            {
+                "text": {
+                    "id": "debugging - FPS",
+                    "font": "Arial",
+                    "text": "FPS: %fps%",
+                    "data bindings": [
+                        "fps"
+                    ],
+                    "position": {
+                        "x": 10,
+                        "y": 30
+                    },
+                    "colour": {
+                        "red": 255.0,
+                        "green": 0.0,
+                        "blue": 0.0
+                    }
+                }
+            },
+            {
+                "text": {
+                    "id": "debugging - grid position",
+                    "font": "Arial",
+                    "text": "Grid Pos: %grid_position%",
+                    "data bindings": [
+                        "grid_position"
+                    ],
+                    "position": {
+                        "x": 10,
+                        "y": 30
+                    },
+                    "colour": {
+                        "red": 255.0,
+                        "green": 0.0,
+                        "blue": 0.0
+                    }
+                }
+            }
+        ]
+    }
+}
