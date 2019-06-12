@@ -138,6 +138,9 @@ Model::Mesh Background::GenerateMeshForTexture(const Texture& textureToUse) {
 	// Return our generated mesh
 	return backgroundMesh;
 }
+Model::Mesh Background::GenerateMesh(const glm::vec2& dimensions) {
+	return Model::Mesh();
+}
 void Background::BehaviourHandler(const float& deltaTime) {
 	// TODO: Implement background magic
 }
