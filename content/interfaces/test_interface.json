@@ -65,6 +65,25 @@
                         "blue": 255.0
                     }
                 }
+            },
+            {
+                "text": {
+                    "id": "position text",
+                    "font": "Arial",
+                    "text": "Grid Pos: %grid_position%",
+                    "data bindings": [
+                        "grid_position"
+                    ],
+                    "position": {
+                        "x": 10,
+                        "y": 30
+                    },
+                    "colour": {
+                        "red": 255.0,
+                        "green": 0.0,
+                        "blue": 0.0
+                    }
+                }
             }
         ]
     }
