@@ -69,7 +69,6 @@ private:
 	std::vector<TextObject*> textRegister;
 
 	Model::Mesh GenerateMeshFromDimensions(const glm::vec2& dimensions);
-	Model::Mesh GenerateMeshForTexture(const Texture& texture);
 	bool Load(const std::string& configFilePath);
 };
 
