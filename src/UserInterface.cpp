@@ -194,7 +194,7 @@ bool UserInterface::Load(const std::string& configFilePath) {
 
 				// Generate the UIs model
 				model = new Model(name, false);
-				model->meshes.push_back(GenerateMeshForTexture(*(this->texture)));
+				model->meshes.push_back(GenerateMeshFromDimensions(this->texture->dimensionsInPixels));
 				model->SetMeshParents();
 				model->Translate(position);
 				model->SetMeshTranslation(0, position);
