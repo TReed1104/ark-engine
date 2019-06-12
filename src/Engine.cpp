@@ -578,7 +578,9 @@ void Engine::LoadUserInterfaces(void) {
 		}
 	}
 
+	// Debugging interface activation, TODO: Implement a Scene manager that links with the UI manager to toggle interfaces on/off
 	UserInterfaceManager::GetInstance()->GetUserInterface("test interface")->SetActiveState(true);
+	UserInterfaceManager::GetInstance()->GetUserInterface("debugging interface")->SetActiveState(true);
 
 	engineDebugger.WriteLine(">> 8 - COMPLETE");
 }
