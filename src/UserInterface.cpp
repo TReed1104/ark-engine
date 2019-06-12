@@ -183,8 +183,7 @@ bool UserInterface::Load(const std::string& configFilePath) {
 
 					glm::vec3 textPosition = glm::vec3(configFile->Get<int>("interface.text objects." + std::to_string(i) + ".text.position.x"), configFile->Get<int>("interface.text objects." + std::to_string(i) + ".text.position.y"), 0.015f);
 					glm::vec3 relativePosition = position + textPosition;	// Move the text object relative to the UI background
-					glm::vec3 textColour = glm::vec3(255 / configFile->Get<float>("interface.text objects." + std::to_string(i) + "text.colour.red"), 255 / configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.green"), 255 / configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.blue"));
-
+					glm::vec3 textColour = glm::vec3(configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.red") / 255.0f, configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.green") / 255.0f, configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.blue") / 255.0f);
 
 					textRegister.push_back(new TextObject(textName, textString, Engine_Pointer->fontRegister[indexOfFont], relativePosition, textColour, true, false));
 				}
