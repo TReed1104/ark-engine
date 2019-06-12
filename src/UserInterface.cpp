@@ -82,7 +82,7 @@ const bool UserInterface::IsActive(void) {
 void UserInterface::SetActiveState(const bool& newState) {
 	this->isActive = newState;
 }
-Model::Mesh UserInterface::GenerateMeshFromDimensions(const glm::vec2& dimensions) {
+Model::Mesh UserInterface::GenerateMesh(const glm::vec2& dimensions) {
 	// Create the mesh we are going to return to the function call
 	Model::Mesh backgroundMesh = Model::Mesh();
 
@@ -156,7 +156,7 @@ bool UserInterface::Load(const std::string& configFilePath) {
 
 				// Generate the UIs model
 				model = new Model(name, false);
-				model->meshes.push_back(GenerateMeshFromDimensions(this->texture->dimensionsInPixels));
+				model->meshes.push_back(GenerateMesh(this->texture->dimensionsInPixels));
 				model->SetMeshParents();
 				model->Translate(position);
 				model->SetMeshTranslation(0, position);
