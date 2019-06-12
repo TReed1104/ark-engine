@@ -4,7 +4,7 @@
         "texture": "test_interface.png",
         "shader": "user interface - default",
         "dimensions": {
-            "width": 100,
+            "width": 130,
             "height": 40
         },
         "position": {
