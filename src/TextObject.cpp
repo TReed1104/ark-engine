@@ -13,7 +13,7 @@ TextObject::TextObject(const std::string& name, const std::string& text, Font* f
 	this->position = position;
 	this->rotation = 0.0f;
 	this->scale = glm::vec3(1.0f);
-	
+
 	// Rendering
 	this->colour = colour;
 	this->indexOfShader = Engine_Pointer->GetIndexOfShader("text object - default");
@@ -53,17 +53,19 @@ void TextObject::Draw(void) {
 			Engine_Pointer->shaderRegister[indexOfShader]->Activate();
 			Model::Mesh &currentMesh = model.meshes[i];
 			glBindVertexArray(currentMesh.vertexArrayObject);
-
 			const GLuint* shaderProgramID = Engine_Pointer->shaderRegister[indexOfShader]->GetShaderID();
+
+			// Transformations
 			glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
 			glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
 			glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
-			
+
 			// Universal uniforms all shaders for this engine should support
 			glUniform2fv(glGetUniformLocation(*shaderProgramID, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
 			glUniform1f(glGetUniformLocation(*shaderProgramID, "iTime"), (float)SDL_GetTicks());	// TODO: Change to not use SDL_Ticks, due to SDL_Ticks being consistent in its values
 			glUniform3fv(glGetUniformLocation(*shaderProgramID, "iCameraPosition"), 1, glm::value_ptr(Engine_Pointer->mainCamera->position));
 
+			// Texturing
 			bool useTextures = (glyphs[i].texture.textureID != -1 && currentMesh.isSetupForTextures);
 			glUniform1i(glGetUniformLocation(*shaderProgramID, "u_hasTexture"), useTextures);
 			if (useTextures) {
@@ -72,6 +74,8 @@ void TextObject::Draw(void) {
 				glUniform1i(glGetUniformLocation(*shaderProgramID, "u_textureSampler"), 0);
 				glUniform3fv(glGetUniformLocation(*shaderProgramID, "u_textColour"), 1, glm::value_ptr(colour));
 			}
+
+			// Draw calls
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
 			glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
 			if (useTextures) {
@@ -131,13 +135,13 @@ void TextObject::LoadText() {
 		Glyph& currentGlyph = glyphs[i];
 		Model::Mesh& currentMesh = model.meshes[i];
 
-		/* Create the draw position for the glyph, this uses the cursor position and the glyph metrics for its bearings, 
+		/* Create the draw position for the glyph, this uses the cursor position and the glyph metrics for its bearings,
 		the bearing is the values deciding how the glyph itself is positioned in comparison to the line the text is rendered along.
 		E.g. how the letter 'g' hangs half below the line of text, or how an apostrophe is at the top of the line. */
 		glm::vec3 drawPosition = cursorPosition;
 		drawPosition.x = cursorPosition.x + currentGlyph.horizontalBearing.x;	// shift right
 		drawPosition.y = cursorPosition.y - currentGlyph.horizontalBearing.y;	// shift down, oddly this has to be inverted
-		
+
 		//TODO: Implement the ability to the text to go vertically, this uses currentGlyph.verticalBearing.
 
 		// Move the mesh to the position the cursor dictates
