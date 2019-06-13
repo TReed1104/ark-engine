@@ -62,6 +62,7 @@ public:
 	Model(const std::string& modelPath = "", const bool& load = true);
 	~Model(void);
 
+	static Mesh GenerateMesh(const glm::vec2& dimensions);
 	const bool IsLoaded(void);
 	const void OverrideLoadState(const bool& newState);
 	void SetMeshParents(void);
