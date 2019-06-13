@@ -28,6 +28,15 @@ UserInterface* UserInterfaceManager::GetUserInterface(const std::string& userInt
 	// Return the interface
 	return interfaceRegister[indexOfInterface];
 }
+bool UserInterfaceManager::SetInterfaceActiveState(const std::string& userInterfaceName, const bool& newState) {
+	UserInterface* desiredInterface = GetUserInterface(userInterfaceName);
+	if (desiredInterface == nullptr) {
+		return false;
+	}
+
+	desiredInterface->SetActiveState(newState);
+	return true;
+}
 void UserInterfaceManager::Close(void) {
 	// Delete all the levels.
 	const size_t interfaceRegisterSize = interfaceRegister.size();
