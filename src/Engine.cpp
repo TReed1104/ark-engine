@@ -878,10 +878,9 @@ void Engine::SetSoundStateBackground(const bool& muteBackgroundSounds) {
 
 	if (muteBackgroundSounds) {
 		// Stop all the background sounds playing
-		const size_t numberOfSoundEffects = soundEffectRegister.size();
-		for (size_t i = 0; i < numberOfSoundEffects; i++) {
-			if (soundEffectRegister[i]->GetSoundType() == SoundEffect::BACKGROUND) {
-				soundEffectRegister[i]->Stop();
+		for (SoundEffect* sound : soundEffectRegister) {
+			if (sound->GetSoundType() == SoundEffect::BACKGROUND) {
+				sound->Stop();
 			}
 		}
 	}
@@ -895,10 +894,9 @@ void Engine::SetSoundStateSoundEffects(const bool& muteSoundEffects) {
 
 	if (muteSoundEffects) {
 		// Stop all the sound effects playing
-		const size_t numberOfSoundEffects = soundEffectRegister.size();
-		for (size_t i = 0; i < numberOfSoundEffects; i++) {
-			if (soundEffectRegister[i]->GetSoundType() == SoundEffect::SOUND_EFFECT) {
-				soundEffectRegister[i]->Stop();
+		for (SoundEffect* sound : soundEffectRegister) {
+			if (sound->GetSoundType() == SoundEffect::SOUND_EFFECT) {
+				sound->Stop();
 			}
 		}
 	}
