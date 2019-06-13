@@ -36,30 +36,33 @@ UserInterface::UserInterface(const std::string& filePath) {
 }
 UserInterface::~UserInterface() {
 	// Clean up the created buttons
-	const size_t numberOfButtons = buttonRegister.size();
-	for (size_t i = 0; i < numberOfButtons; i++) {
-		delete buttonRegister[i];
+	for (Button* button : buttonRegister) {
+		delete button;
+		button = nullptr;
 	}
 
 	// Clean up the text objects
-	const size_t numberOfTextObjects = textRegister.size();
-	for (size_t i = 0; i < numberOfTextObjects; i++) {
-		delete textRegister[i];
+	for (TextObject* text : textRegister) {
+		delete text;
+		text = nullptr;
 	}
 
 	// If the texture has been loaded, delete it
 	if (texture != nullptr) {
 		delete texture;
+		texture = nullptr;
 	}
 
 	// If the model has been generated, delete it
 	if (model != nullptr) {
 		delete model;
+		model = nullptr;
 	}
 
 	// Delete the config file
 	if (configFile != nullptr) {
 		delete configFile;
+		configFile = nullptr;
 	}
 }
 
