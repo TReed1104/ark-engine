@@ -156,7 +156,7 @@ bool UserInterface::Load(const std::string& configFilePath) {
 
 				// Generate the UIs model
 				model = new Model(name, false);
-				model->meshes.push_back(GenerateMesh(dimensions));
+				model->meshes.push_back(Model::GenerateMesh(dimensions));
 				model->SetMeshParents();
 				model->Translate(position);
 				model->SetMeshTranslation(0, position);
