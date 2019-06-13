@@ -142,6 +142,12 @@ bool UserInterface::Load(const std::string& configFilePath) {
 					std::string textString = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.text");
 
 					//TODO: Data binding
+					std::vector<std::string> bindings = configFile->GetVector<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings");
+					for (std::string& binding : bindings) {
+						/* check the text string for the binding string
+							if found, store the binding as a reference or pointer?
+							Implement a way of maintaining the ref/pointer during updates of the text, maybe store the base?*/
+					}
 
 					glm::vec3 textPosition = glm::vec3(configFile->Get<int>("interface.text objects." + std::to_string(i) + ".text.position.x"), configFile->Get<int>("interface.text objects." + std::to_string(i) + ".text.position.y"), 0.015f);
 					glm::vec3 relativePosition = position + textPosition;	// Move the text object relative to the UI background
