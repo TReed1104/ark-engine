@@ -62,84 +62,82 @@ void Engine::CleanUp(void) {
 	// Clear the Debugging config file from memory
 	if (debugConfigurationFile != nullptr) {
 		delete debugConfigurationFile;
+		debugConfigurationFile = nullptr;
 	}
 
 	// Clear the config file from memory
 	if (configFile != nullptr) {
 		delete configFile;
+		configFile = nullptr;
 	}
 
 	// Tell the LevelManager to delete all the registered levels
 	LevelManager::GetInstance()->Close();
 
 	// Delete all the Tileset
-	const size_t tilesetRegisterSize = tilesetRegister.size();
-	for (size_t i = 0; i < tilesetRegisterSize; i++) {
-		delete tilesetRegister[i];
+	for (Tileset* tileset : tilesetRegister) {
+		delete tileset;
+		tileset = nullptr;
 	}
 
 	// Delete all the items loaded.
-	const size_t itemRegisterSize = itemRegister.size();
-	for (size_t i = 0; i < itemRegisterSize; i++) {
-		delete itemRegister[i];
+	for (Item* item : itemRegister) {
+		delete item;
+		item = nullptr;
 	}
 
 	// Delete the camera
 	if (mainCamera != nullptr) {
 		delete mainCamera;
+		mainCamera = nullptr;
 	}
 
 	// Delete all the Entities.
 	if (player != nullptr) {
 		delete player;
+		player = nullptr;
 	}
-	const size_t entityRegisterSize = entityRegister.size();
-	for (size_t i = 0; i < entityRegisterSize; i++) {
-		delete entityRegister[i];
+	for (Entity* entity : entityRegister) {
+		delete entity;
+		entity = nullptr;
 	}
 
 	// Delete all the Input Devices.
 	if (deviceKeyboard != nullptr) {
 		delete deviceKeyboard;
+		deviceKeyboard = nullptr;
 	}
-	const size_t gameControllerRegisterSize = deviceGameControllerRegister.size();
-	for (size_t i = 0; i < gameControllerRegisterSize; i++) {
-		delete deviceGameControllerRegister[i];
+	for (GameController* gameController : deviceGameControllerRegister) {
+		SDL_GameControllerClose(gameController->GetSDLHook());
+		delete gameController;
+		gameController = nullptr;
 	}
 
 	// Delete the Interfaces
 	UserInterfaceManager::GetInstance()->Close();
 
 	// Delete the loaded Fonts
-	const size_t fontRegisterSize = fontRegister.size();
-	for (size_t i = 0; i < fontRegisterSize; i++) {
-		delete fontRegister[i];
+	for (Font* font : fontRegister) {
+		delete font;
+		font = nullptr;
 	}
 
 	// Delete the loaded textures
-	const size_t textureRegisterSize = textureRegister.size();
-	for (size_t i = 0; i < textureRegisterSize; i++) {
-		delete textureRegister[i];
+	for (Texture* texture : textureRegister) {
+		delete texture;
+		texture = nullptr;
 	}
 
 	// Delete the loaded Soundeffects
-	const size_t soundRegisterSize = soundEffectRegister.size();
-	for (size_t i = 0; i < soundRegisterSize; i++) {
-		delete soundEffectRegister[i];
+	for (SoundEffect* soundEffect : soundEffectRegister) {
+		delete soundEffect;
+		soundEffect = nullptr;
 	}
 
 	// Delete the loaded Shaders.
-	const size_t shaderRegisterSize = shaderRegister.size();
-	for (size_t i = 0; i < shaderRegisterSize; i++) {
-		delete shaderRegister[i];
-	}
-
-	// Delete the game controllers
-	if (SDL_NumJoysticks() > 0) {
-		const size_t deviceGameControllerRegisterSize = deviceGameControllerRegister.size();
-		for (size_t i = 0; i < deviceGameControllerRegisterSize; i++) {
-			SDL_GameControllerClose(deviceGameControllerRegister[i]->GetSDLHook());	// Close the controller.
-		}
+	for (Shader* shader : shaderRegister) {
+		delete shader;
+		shader = nullptr;
 	}
 
 	// Cleanup OpenAL
