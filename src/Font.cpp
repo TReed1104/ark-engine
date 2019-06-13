@@ -53,27 +53,22 @@ bool Font::LoadGlyphs(void) {
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.size.x, 0.0f, 0.0f));
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.size.x, 0.0f + newGlyph.size.y, 0.0f));
-				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
-				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f + newGlyph.size.x, 0.0f + newGlyph.size.y, 0.0f));
 				newGlyph.mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f + newGlyph.size.y, 0.0f));
 				newGlyph.mesh.uvs.push_back(glm::vec2(0.0f, 0.0f));
 				newGlyph.mesh.uvs.push_back(glm::vec2(1.0f, 0.0f));
 				newGlyph.mesh.uvs.push_back(glm::vec2(1.0f, 1.0f));
-				newGlyph.mesh.uvs.push_back(glm::vec2(0.0f, 0.0f));
-				newGlyph.mesh.uvs.push_back(glm::vec2(1.0f, 1.0f));
 				newGlyph.mesh.uvs.push_back(glm::vec2(0.0f, 1.0f));
 				newGlyph.mesh.isSetupForTextures = true;
-				const size_t numberOfVertices = newGlyph.mesh.vertexPositions.size();
-				for (size_t i = 0; i < numberOfVertices; i++) {
+				for (glm::vec3& vertice : newGlyph.mesh.vertexPositions) {
 					newGlyph.mesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
 					newGlyph.mesh.surfaceNormals.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
 				}
 				newGlyph.mesh.indices.push_back(0);
 				newGlyph.mesh.indices.push_back(1);
 				newGlyph.mesh.indices.push_back(2);
+				newGlyph.mesh.indices.push_back(0);
+				newGlyph.mesh.indices.push_back(2);
 				newGlyph.mesh.indices.push_back(3);
-				newGlyph.mesh.indices.push_back(4);
-				newGlyph.mesh.indices.push_back(5);
 				newGlyph.mesh.BindBuffers();
 
 				// Get the Texture of the Glyph for Rendering
