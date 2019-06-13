@@ -188,9 +188,9 @@ void Level::Reload(void) {
 	Engine_Pointer->engineDebugger.WriteLine(">>>> Reloading Level: " + name);
 	if (configFile->IsLoaded()) {
 		delete configFile;
-		const size_t numberOfTiles = tileMap.size();
-		for (size_t i = 0; i < numberOfTiles; i++) {
-			delete tileMap[i];
+		for (Tile* tile : tileMap) {
+			delete tile;
+			tile = nullptr;
 		}
 		tileMap.clear();
 
