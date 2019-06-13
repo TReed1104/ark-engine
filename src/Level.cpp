@@ -14,9 +14,9 @@ Level::~Level(void) {
 	}
 
 	// Delete the lightsources
-	const size_t numberOfLightSources = lightSourcesRegister.size();
-	for (size_t i = 0; i < numberOfLightSources; i++) {
-		delete lightSourcesRegister[i];
+	for (LightSource* light : lightSourcesRegister) {
+		delete light;
+		light = nullptr;
 	}
 
 	// Delete the background effect
@@ -25,9 +25,9 @@ Level::~Level(void) {
 	}
 
 	// Delete the tilemap
-	const size_t numberOfTiles = tileMap.size();
-	for (size_t i = 0; i < numberOfTiles; i++) {
-		delete tileMap[i];
+	for (Tile* tile : tileMap) {
+		delete tile;
+		tile = nullptr;
 	}
 }
 
