@@ -68,7 +68,6 @@ private:
 	std::vector<Button*> buttonRegister;
 	std::vector<TextObject*> textRegister;
 
-	Model::Mesh GenerateMesh(const glm::vec2& dimensions);
 	bool Load(const std::string& configFilePath);
 };
 
