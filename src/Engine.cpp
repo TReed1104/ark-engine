@@ -930,7 +930,6 @@ void Engine::DebuggingUpdate(const float& deltaTime) {
 // Core game loop steps
 void Engine::EventHandler(void) {
 	SDL_Event event;
-	const size_t numberOfControllers = deviceGameControllerRegister.size();
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
 			case SDL_QUIT:
@@ -943,18 +942,18 @@ void Engine::EventHandler(void) {
 				deviceKeyboard->UpdateKeyStates_Up(event.key);
 				break;
 			case SDL_CONTROLLERAXISMOTION:
-				for (size_t i = 0; i < numberOfControllers; i++) {
-					deviceGameControllerRegister[i]->UpdateThumbSticks();
+				for (GameController* gameController : deviceGameControllerRegister) {
+					gameController->UpdateThumbSticks();
 				}
 				break;
 			case SDL_CONTROLLERBUTTONDOWN:
-				for (size_t i = 0; i < numberOfControllers; i++) {
-					deviceGameControllerRegister[i]->UpdateButtonStates();
+				for (GameController* gameController : deviceGameControllerRegister) {
+					gameController->UpdateButtonStates();
 				}
 				break;
 			case SDL_CONTROLLERBUTTONUP:
-				for (size_t i = 0; i < numberOfControllers; i++) {
-					deviceGameControllerRegister[i]->UpdateButtonStates();
+				for (GameController* gameController : deviceGameControllerRegister) {
+					gameController->UpdateButtonStates();
 				}
 				break;
 		}
