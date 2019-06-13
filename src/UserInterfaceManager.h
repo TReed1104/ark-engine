@@ -13,6 +13,8 @@ public:
 
 	void RegisterInterface(UserInterface* newInterface);
 	UserInterface* GetUserInterface(const std::string& userInterfaceName);
+	bool ActivateInterface(const std::string& userInterfaceName);
+	bool DisableInterface(const std::string& userInterfaceName);
 	void Close(void);
 
 	void Update(const float& deltaTime);
