@@ -4,7 +4,42 @@
 // Static variables and functions
 Engine* Model::Engine_Pointer;
 Model::Mesh Model::GenerateMesh(const glm::vec2& dimensions) {
+	// Create the mesh we are going to return to the function call
+	Model::Mesh mesh = Model::Mesh();
 
+	// Specify four corner positions of the backgrounds quad 
+	mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+	mesh.vertexPositions.push_back(glm::vec3(0.0f + dimensions.x, 0.0f, 0.0f));
+	mesh.vertexPositions.push_back(glm::vec3(0.0f + dimensions.x, 0.0f + dimensions.y, 0.0f));
+	mesh.vertexPositions.push_back(glm::vec3(0.0f, 0.0f + dimensions.y, 0.0f));
+
+	// Set the UVs for the background quad
+	mesh.uvs.push_back(glm::vec2(0.0f, 0.0f));
+	mesh.uvs.push_back(glm::vec2(1.0f, 0.0f));
+	mesh.uvs.push_back(glm::vec2(1.0f, 1.0f));
+	mesh.uvs.push_back(glm::vec2(0.0f, 1.0f));
+	mesh.isSetupForTextures = true;	// Confirm the mesh can be textured
+
+	// Set the colour data and surface normal for each vertexPosition (these are all default)
+	const size_t numberOfVertices = mesh.vertexPositions.size();
+	for (size_t i = 0; i < numberOfVertices; i++) {
+		mesh.colourData.push_back(glm::vec3(1.0f, 1.0f, 1.0f));		// All white
+		mesh.surfaceNormals.push_back(glm::vec3(0.0f, 0.0f, 1.0f));	// All orientated towards our 2D cameras
+	}
+
+	// Set the indices for the mesh (the order to draw between the vertex positions
+	mesh.indices.push_back(0);
+	mesh.indices.push_back(1);
+	mesh.indices.push_back(2);
+	mesh.indices.push_back(0);
+	mesh.indices.push_back(2);
+	mesh.indices.push_back(3);
+
+	// Bind the data to buffers ready to pass to the shaders
+	mesh.BindBuffers();
+
+	// Return our generated mesh
+	return mesh;
 }
 
 Model::Model(const std::string& modelPath, const bool& load) {
