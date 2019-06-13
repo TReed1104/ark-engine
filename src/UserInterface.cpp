@@ -236,10 +236,12 @@ void UserInterface::Draw(void) {
 	glDisable(GL_BLEND);
 
 	// Render Buttons
+	for (Button* button : buttonRegister) {
+		button->Draw();
+	}
 
 	// Render Text objects
-	const size_t numberOfTextObjects = textRegister.size();
-	for (size_t i = 0; i < numberOfTextObjects; i++) {
-		textRegister[i]->Draw();
+	for (TextObject* text : textRegister) {
+		text->Draw();
 	}
 }
