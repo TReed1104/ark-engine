@@ -10,7 +10,7 @@ ECHO - Cleaning Conan Cache
 conan remove -f Assimp/4.1.0
 conan remove -f IrrXML/1.2
 conan remove -f bzip2/1.0.6
-conan remove -f freetype/2.9.0
+conan remove -f freetype/2.9.1
 conan remove -f glew/2.1.0
 conan remove -f glm/0.9.8.5
 conan remove -f libjpeg-turbo/1.5.2
