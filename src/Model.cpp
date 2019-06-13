@@ -1,8 +1,11 @@
 #include "Model.h"
 #include "Engine.h"
 
-// Model definitions
+// Static variables and functions
 Engine* Model::Engine_Pointer;
+Model::Mesh Model::GenerateMesh(const glm::vec2& dimensions) {
+
+}
 
 Model::Model(const std::string& modelPath, const bool& load) {
 	name = modelPath;
@@ -50,6 +53,7 @@ Model::Model(const std::string& modelPath, const bool& load) {
 Model::~Model() {
 
 }
+
 
 const bool Model::IsLoaded(void) {
 	return isLoaded;
