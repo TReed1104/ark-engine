@@ -38,29 +38,25 @@ bool UserInterfaceManager::SetInterfaceActiveState(const std::string& userInterf
 	return true;
 }
 void UserInterfaceManager::Close(void) {
-	// Delete all the levels.
-	const size_t interfaceRegisterSize = interfaceRegister.size();
-	for (size_t i = 0; i < interfaceRegisterSize; i++) {
-		delete interfaceRegister[i];
+	// Delete all the interfaces
+	for (UserInterface* userInterface : interfaceRegister) {
+		delete userInterface;
+		userInterface = nullptr;
 	}
 }
 void UserInterfaceManager::Update(const float& deltaTime) {
 	// Update the interfaces
-	const size_t numberOfInterfaces = interfaceRegister.size();
-	for (size_t i = 0; i < numberOfInterfaces; i++) {
-		// Check the UI is active, only update active UIs
-		if (interfaceRegister[i]->IsActive()) {
-			interfaceRegister[i]->Update(deltaTime);
+	for (UserInterface* userInterface : interfaceRegister) {
+		if (userInterface->IsActive()) {
+			userInterface->Update(deltaTime);
 		}
 	}
 }
 void UserInterfaceManager::Render(void) {
-	// Draw the interfaces
-	const size_t numberOfInterfaces = interfaceRegister.size();
-	for (size_t i = 0; i < numberOfInterfaces; i++) {
-		// If the UI is active, render it
-		if (interfaceRegister[i]->IsActive()) {
-			interfaceRegister[i]->Draw();
+	// Render the interfaces
+	for (UserInterface* userInterface : interfaceRegister) {
+		if (userInterface->IsActive()) {
+			userInterface->Draw();
 		}
 	}
 }
