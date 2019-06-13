@@ -198,37 +198,37 @@ void UserInterface::Draw(void) {
 	glm::mat4* viewMatrix = &(glm::lookAt(glm::vec3(position.x, position.y, 1.0f), glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
 
 	glEnable(GL_BLEND);
-	const size_t numberOfMeshes = model->meshes.size();
-	for (size_t i = 0; i < numberOfMeshes; i++) {
-		// Shader activation
+
+	for (Model::Mesh& mesh : model->meshes) {
 		Engine_Pointer->shaderRegister[indexOfShader]->Activate();
+		glBindVertexArray(mesh.vertexArrayObject);
 		const GLuint* shaderProgramID = Engine_Pointer->shaderRegister[indexOfShader]->GetShaderID();
-		// Get our model for the render
-		Model::Mesh* currentMesh = &model->meshes[i];
-		glBindVertexArray(currentMesh->vertexArrayObject);
-		// Pass the Model, View and projection to the shader
+
+		// Transformations
 		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh->GetModelMatrix()));
-		// Pass the Universal uniforms
+		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(mesh.GetModelMatrix()));
+
+		// Universal uniforms all shaders for this engine should support
 		glUniform2fv(glGetUniformLocation(*shaderProgramID, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
-		glUniform1f(glGetUniformLocation(*shaderProgramID, "iTime"), (float)SDL_GetTicks());
+		glUniform1f(glGetUniformLocation(*shaderProgramID, "iTime"), (float)SDL_GetTicks());	// TODO: Change to not use SDL_Ticks, due to SDL_Ticks being consistent in its values
 		glUniform3fv(glGetUniformLocation(*shaderProgramID, "iCameraPosition"), 1, glm::value_ptr(Engine_Pointer->mainCamera->position));
+
 		// Texturing
-		bool useTextures = (texture->textureID != -1 && currentMesh->isSetupForTextures);
+		bool useTextures = (texture->textureID != -1 && mesh.isSetupForTextures);
 		glUniform1i(glGetUniformLocation(*shaderProgramID, "u_hasTexture"), useTextures);
 		if (useTextures) {
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture->textureID);
 			glUniform1i(glGetUniformLocation(*shaderProgramID, "u_textureSampler"), 0);
 		}
-		// Draw the mesh
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh->indicesBufferObject);
-		glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh->indices.size(), GL_UNSIGNED_INT, (void*)0);
+
+		// Draw calls
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.indicesBufferObject);
+		glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
 		if (useTextures) {
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
-		// Clean up
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
 		glUseProgram(0);
