@@ -10,9 +10,9 @@ void LevelManager::RegisterLevel(Level* newLevel) {
 }
 void LevelManager::Close(void) {
 	// Delete all the levels.
-	const size_t levelRegisterSize = levelRegister.size();
-	for (size_t i = 0; i < levelRegisterSize; i++) {
-		delete levelRegister[i];
+	for (Level* level : levelRegister) {
+		delete level;
+		level = nullptr;
 	}
 }
 const int LevelManager::GetIndexOfLevel(const std::string & levelName) {
@@ -30,7 +30,7 @@ Level* LevelManager::GetLevel(const std::string& levelName) {
 	const size_t numberOfLevels = levelRegister.size();
 	for (size_t i = 0; i < numberOfLevels; i++) {
 		if (levelRegister[i]->name == levelName) {
-			indexOfLevel = (int)i;;
+			indexOfLevel = (int)i;
 		}
 	}
 	if (indexOfLevel == -1) {
