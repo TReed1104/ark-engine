@@ -31,7 +31,6 @@ private:
 	int indexOfShader;
 
 	bool Load(const std::string& texturePath);
-	Model::Mesh GenerateMesh(const glm::vec2& dimensions);
 	void BehaviourHandler(const float& deltaTime);
 };
 
