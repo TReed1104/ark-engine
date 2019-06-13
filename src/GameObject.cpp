@@ -68,35 +68,27 @@ void GameObject::Update(const float& deltaTime) {
 }
 void GameObject::Draw(void) {
 	glEnable(GL_BLEND);
-	// Loop through each mesh of the model
-	const size_t numberOfMeshes = model.meshes.size();
-	for (size_t i = 0; i < numberOfMeshes; i++) {
 
+	for (Model::Mesh& mesh : model.meshes) {
 		Engine_Pointer->shaderRegister[indexOfShader]->Activate();
-		Model::Mesh &currentMesh = model.meshes[i];	// Ref to the current mesh for easier access.
-
-		// Bind the VAO to be used in this draw.
-		glBindVertexArray(currentMesh.vertexArrayObject);
-
-		// Passes the Matrices to the shader
+		glBindVertexArray(mesh.vertexArrayObject);
 		const GLuint* shaderProgramID = Engine_Pointer->shaderRegister[indexOfShader]->GetShaderID();
+
+		 // Transformations
 		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->viewMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(Engine_Pointer->mainCamera->projectionMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
+		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(mesh.GetModelMatrix()));
 
 		// Universal uniforms all shaders for this engine should support
 		glUniform2fv(glGetUniformLocation(*shaderProgramID, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
 		glUniform1f(glGetUniformLocation(*shaderProgramID, "iTime"), (float)SDL_GetTicks());	// TODO: Change to not use SDL_Ticks, due to SDL_Ticks being consistent in its values
 		glUniform3fv(glGetUniformLocation(*shaderProgramID, "iCameraPosition"), 1, glm::value_ptr(Engine_Pointer->mainCamera->position));
 
-		bool useTextures = (texture->textureID != -1 && currentMesh.isSetupForTextures);
+		// Texturing
+		bool useTextures = (texture->textureID != -1 && mesh.isSetupForTextures);
 		glUniform1i(glGetUniformLocation(*shaderProgramID, "u_hasTexture"), useTextures);
 		if (useTextures) {
-			// Textures are setup correctly, tell the shader to usse the texture and setup the source frame.
-			int textureLayerIndex = (sourceFramePosition.x + (texture->dimensionsInFrames.x * sourceFramePosition.y));
-			glUniform1i(glGetUniformLocation(*shaderProgramID, "u_textureArrayLayer"), textureLayerIndex);
-
-			// Activate the correct texture.
+			glUniform1i(glGetUniformLocation(*shaderProgramID, "u_textureArrayLayer"), (sourceFramePosition.x + (texture->dimensionsInFrames.x * sourceFramePosition.y)));
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D_ARRAY, texture->textureID);
 			glUniform1i(glGetUniformLocation(*shaderProgramID, "u_textureSampler"), 0);
@@ -108,21 +100,13 @@ void GameObject::Draw(void) {
 		glUniform3fv(glGetUniformLocation(*shaderProgramID, "light.colour"), 1, glm::value_ptr(levelLight->GetColour()));
 		glUniform1f(glGetUniformLocation(*shaderProgramID, "light.radius"), levelLight->GetRadius());
 
-		// Tell the shader how to draw between each point.
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
-
-		// Executes the draw call. Draws triangles, drawing between the points in the order specified. Using the indicies buffer currently bound.
-		glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
-
-		// If the mesh was setup for texturing, this unbinds the textures used, clearing up ready for next time.
+		// Draw calls
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.indicesBufferObject);
+		glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
 		if (useTextures) {
 			glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 		}
-
-		// Unbinds the indices buffer.
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-		// Unbind the VAO, ready for the next object.
 		glBindVertexArray(0);
 		glUseProgram(0);
 	}
