@@ -580,7 +580,6 @@ void Engine::LoadUserInterfaces(void) {
 
 	// Debugging interface activation, TODO: Implement a Scene manager that links with the UI manager to toggle interfaces on/off
 	UserInterfaceManager::GetInstance()->SetInterfaceActiveState("player hud", true);
-	UserInterfaceManager::GetInstance()->SetInterfaceActiveState("debugging interface", true);
 
 	engineDebugger.WriteLine(">> 8 - COMPLETE");
 }
@@ -919,6 +918,14 @@ void Engine::DebuggingUpdate(const float& deltaTime) {
 	}
 	if (deviceKeyboard->GetKeyState(Keyboard::M)) {
 		SetSoundStateEngine(false);
+	}
+
+	// Toggle Debugging interface
+	if (deviceKeyboard->GetKeyState(Keyboard::j)) {
+		UserInterfaceManager::GetInstance()->SetInterfaceActiveState("debugging interface", true);
+	}
+	if (deviceKeyboard->GetKeyState(Keyboard::J)) {
+		UserInterfaceManager::GetInstance()->SetInterfaceActiveState("debugging interface", false);
 	}
 }
 
