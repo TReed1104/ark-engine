@@ -97,33 +97,29 @@ const void Model::OverrideLoadState(const bool& newState) {
 	this->isLoaded = newState;
 }
 void Model::SetMeshParents() {
-	const size_t numberOfMeshes = meshes.size();
-	for (size_t i = 0; i < numberOfMeshes; i++) {
-		meshes[i].SetParent(*this);
-		meshes[i].SetTranslation();
-		meshes[i].SetRotation();
-		meshes[i].SetScale();
+	for (Mesh& mesh : meshes) {
+		mesh.SetParent(*this);
+		mesh.SetTranslation();
+		mesh.SetRotation();
+		mesh.SetScale();
 	}
 }
 void Model::Translate(const glm::vec3& translation) {
 	modelTranslationMatrix = glm::translate(glm::mat4(1.0f), translation);
-	const size_t numberOfMeshes = meshes.size();
-	for (size_t i = 0; i < numberOfMeshes; i++) {
-		meshes[i].SetTranslation(true);
+	for (Mesh& mesh : meshes) {
+		mesh.SetTranslation(true);
 	}
 }
 void Model::Rotate(const float& rotationAngle, const glm::vec3& rotationAxis) {
 	modelRotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotationAngle), rotationAxis);
-	const size_t numberOfMeshes = meshes.size();
-	for (size_t i = 0; i < numberOfMeshes; i++) {
-		meshes[i].SetRotation(true);
+	for (Mesh& mesh : meshes) {
+		mesh.SetRotation(true);
 	}
 }
 void Model::Scale(const glm::vec3& scale) {
 	modelScaleMatrix = glm::scale(glm::mat4(1.0f), scale);
-	const size_t numberOfMeshes = meshes.size();
-	for (size_t i = 0; i < numberOfMeshes; i++) {
-		meshes[i].SetScale(true);
+	for (Mesh& mesh : meshes) {
+		mesh.SetScale(true);
 	}
 }
 void Model::SetMeshTranslation(const int& indexOfMesh, const glm::vec3& translation) {
