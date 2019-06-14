@@ -300,92 +300,92 @@ void Entity::LoadAnimations(void) {
 }
 void Entity::AnimationStateHandler(void) {
 	switch (spriteDirection) {
-	case Directions::Up:
-		animationState = AnimationState::AnimationJumpingLeft;
-		break;
-	case Directions::Down:
-		animationState = AnimationState::AnimationFallingLeft;
-		break;
-	case Directions::Left:
-		if (velocity.x != 0.0f) {
-			if (isCrawling) {
-				animationState = AnimationState::AnimationMovingCrawlingLeft;
+		case Directions::Up:
+			animationState = AnimationState::AnimationJumpingLeft;
+			break;
+		case Directions::Down:
+			animationState = AnimationState::AnimationFallingLeft;
+			break;
+		case Directions::Left:
+			if (velocity.x != 0.0f) {
+				if (isCrawling) {
+					animationState = AnimationState::AnimationMovingCrawlingLeft;
+				}
+				else {
+					animationState = AnimationState::AnimationMovingStandingLeft;
+				}
 			}
 			else {
-				animationState = AnimationState::AnimationMovingStandingLeft;
+				if (isCrawling) {
+					animationState = AnimationState::AnimationIdleCrawlingLeft;
+				}
+				else {
+					animationState = AnimationState::AnimationIdleStandingLeft;
+				}
 			}
-		}
-		else {
-			if (isCrawling) {
-				animationState = AnimationState::AnimationIdleCrawlingLeft;
-			}
-			else {
-				animationState = AnimationState::AnimationIdleStandingLeft;
-			}
-		}
-		break;
-	case Directions::Right:
-		if (velocity.x != 0.0f) {
-			if (isCrawling) {
-				animationState = AnimationState::AnimationMovingCrawlingRight;
-			}
-			else {
-				animationState = AnimationState::AnimationMovingStandingRight;
-			}
-		}
-		else {
-			if (isCrawling) {
-				animationState = AnimationState::AnimationIdleCrawlingRight;
+			break;
+		case Directions::Right:
+			if (velocity.x != 0.0f) {
+				if (isCrawling) {
+					animationState = AnimationState::AnimationMovingCrawlingRight;
+				}
+				else {
+					animationState = AnimationState::AnimationMovingStandingRight;
+				}
 			}
 			else {
-				animationState = AnimationState::AnimationIdleStandingRight;
+				if (isCrawling) {
+					animationState = AnimationState::AnimationIdleCrawlingRight;
+				}
+				else {
+					animationState = AnimationState::AnimationIdleStandingRight;
+				}
 			}
-		}
-		break;
-	default:
-		break;
+			break;
+		default:
+			break;
 	}
 }
 void Entity::AnimationIndexHandler(void) {
 	// Using the current animaiton state, work out which animation in the list to use.
 	switch (animationState) {
-	case Entity::AnimationIdleStandingLeft:
-		animationIndex = 0;
-		break;
-	case Entity::AnimationIdleStandingRight:
-		animationIndex = 1;
-		break;
-	case Entity::AnimationMovingStandingLeft:
-		animationIndex = 2;
-		break;
-	case Entity::AnimationMovingStandingRight:
-		animationIndex = 3;
-		break;
-	case Entity::AnimationIdleCrawlingLeft:
-		animationIndex = 4;
-		break;
-	case Entity::AnimationIdleCrawlingRight:
-		animationIndex = 5;
-		break;
-	case Entity::AnimationMovingCrawlingLeft:
-		animationIndex = 6;
-		break;
-	case Entity::AnimationMovingCrawlingRight:
-		animationIndex = 7;
-		break;
-	case Entity::AnimationJumpingLeft:
-		animationIndex = 0;
-		break;
-	case Entity::AnimationJumpingRight:
-		animationIndex = 0;
-		break;
-	case Entity::AnimationFallingLeft:
-		animationIndex = 0;
-		break;
-	case Entity::AnimationFallingRight:
-		animationIndex = 0;
-		break;
-	default:
-		break;
+		case Entity::AnimationIdleStandingLeft:
+			animationIndex = 0;
+			break;
+		case Entity::AnimationIdleStandingRight:
+			animationIndex = 1;
+			break;
+		case Entity::AnimationMovingStandingLeft:
+			animationIndex = 2;
+			break;
+		case Entity::AnimationMovingStandingRight:
+			animationIndex = 3;
+			break;
+		case Entity::AnimationIdleCrawlingLeft:
+			animationIndex = 4;
+			break;
+		case Entity::AnimationIdleCrawlingRight:
+			animationIndex = 5;
+			break;
+		case Entity::AnimationMovingCrawlingLeft:
+			animationIndex = 6;
+			break;
+		case Entity::AnimationMovingCrawlingRight:
+			animationIndex = 7;
+			break;
+		case Entity::AnimationJumpingLeft:
+			animationIndex = 0;
+			break;
+		case Entity::AnimationJumpingRight:
+			animationIndex = 0;
+			break;
+		case Entity::AnimationFallingLeft:
+			animationIndex = 0;
+			break;
+		case Entity::AnimationFallingRight:
+			animationIndex = 0;
+			break;
+		default:
+			break;
 	}
 }
