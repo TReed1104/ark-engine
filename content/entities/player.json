@@ -13,7 +13,11 @@
 			"y": 75
 		},
 		"attributes:": {
-			"health": 100
+			"health": 100,
+			"health bars": 1,
+			"energy": 100,
+			"base damage": 5,
+			"base special damage": 20
 		},
 		"physics": {
 			"use gravity": true,
