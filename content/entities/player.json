@@ -14,7 +14,7 @@
 		},
 		"attributes:": {
 			"health": 100,
-			"health bars": 1,
+			"health bars": 3,
 			"energy": 100,
 			"base damage": 5,
 			"base special damage": 20
