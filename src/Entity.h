@@ -35,6 +35,13 @@ protected:
 	float currentJumpingSpeed = 0.0f;
 	float jumpingTimer = 0.0f;
 
+	// Entity stats
+	int health = 100;
+	int healthBars = 1;
+	int energy = 100;
+	int standardDamage = 5;
+	int specialDamage = 20;
+
 	BoundingBox standingBoundingBox;
 	glm::vec2 standingBoundingBoxOffset;
 	BoundingBox crawlingBoundingBox;
