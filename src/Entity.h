@@ -18,6 +18,9 @@ public:
 	Entity(const std::string& filePath);
 	~Entity(void);
 
+	const int GetHealth(void);
+	void TakeDamage(const int& damageValue);
+
 	void Update(const float& deltaTime);
 
 private:
