@@ -34,7 +34,7 @@
                 "text": {
                     "id": "debugging - FPS",
                     "font": "Arial",
-                    "text": "FPS: %fps%",
+                    "text": "FPS: %fps",
                     "data bindings": [
                         "fps"
                     ],
@@ -53,7 +53,7 @@
                 "text": {
                     "id": "debugging - grid position",
                     "font": "Arial",
-                    "text": "Grid Pos: %grid_position%",
+                    "text": "Grid Pos: %grid_position",
                     "data bindings": [
                         "grid_position"
                     ],

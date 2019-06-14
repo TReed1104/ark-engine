@@ -17,7 +17,7 @@
                 "text": {
                     "id": "health text",
                     "font": "Arial",
-                    "text": "%health%",
+                    "text": "%health",
                     "data bindings": [
                         "health"
                     ],
