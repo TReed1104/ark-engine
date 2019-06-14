@@ -81,10 +81,41 @@ Entity::~Entity(void) {
 
 }
 
+const int Entity::GetHealth(void) {
+	return this->health;
+}
+void Entity::TakeDamage(const int& damageValue) {
+	health -= damageValue;
+	// TODO: Improve calculations to support damage values over 100
+	if (health <= 0) {
+		// Entity was on its last health bar
+		if (healthBars == 1) {
+			// Call death function and animation
+			// TODO: Implement Death
+			return;
+		}
+		// Entity has more health bars left, wrap over the daamge
+		if (healthBars > 1) {
+			// Calculate the damage wrap
+			int healthDeficit = health - damageValue;
+
+			// Ensure the wrap doesn't go positive
+			if (healthDeficit > 0) {
+				healthDeficit = 0;
+			}
+
+			// Apply the calculations
+			healthBars -= 1;				// Remove a health bar
+			health = 100 + healthDeficit;	// Remove the wrapped damage
+
+		}
+	}
+}
 void Entity::Update(const float& deltaTime) {
 	EntityController();
 	GameObject::Update(deltaTime);
 }
+
 void Entity::UpdatePosition(void) {
 	GameObject::UpdatePosition();
 	standingBoundingBox.UpdatePosition(glm::vec2(position.x, position.y) + standingBoundingBoxOffset);
