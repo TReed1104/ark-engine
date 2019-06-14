@@ -43,8 +43,8 @@ protected:
 	int health = 100;
 	int healthBars = 1;
 	int energy = 100;
-	int standardDamage = 5;
-	int specialDamage = 20;
+	int baseDamage = 5;
+	int baseSpecialDamage = 20;
 
 	// AABBs
 	BoundingBox standingBoundingBox;
