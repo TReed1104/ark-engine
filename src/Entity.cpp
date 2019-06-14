@@ -25,7 +25,12 @@ Entity::Entity(const std::string& filePath) : GameObject(filePath) {
 		drawOffset = glm::ivec2(configFile->Get<int>("entity.rendering.draw offset.x"), configFile->Get<int>("entity.rendering.draw offset.y"));
 		drawPosition = this->position + glm::vec3(this->drawOffset, 0);
 
-		//health = configFile->Get<int>("entity.attributes.health");
+		// Attributes
+		health = configFile->Get<int>("entity.attributes.health");
+		healthBars = configFile->Get<int>("entity.attributes.health bars");
+		energy = configFile->Get<int>("entity.attributes.energy");
+		standardDamage =  configFile->Get<int>("entity.attributes.base damage");
+		specialDamage = configFile->Get<int>("entity.attributes.base special damage");
 
 		// Physics
 		isAffectedByGravity = configFile->Get<bool>("entity.physics.use gravity");
