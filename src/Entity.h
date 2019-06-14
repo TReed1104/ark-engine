@@ -23,6 +23,7 @@ public:
 private:
 
 protected:
+	// Physics and movement values
 	bool canCrawl = false;
 	bool isTryingToCrawl = false;
 	bool isCrawling = false;
@@ -42,6 +43,7 @@ protected:
 	int standardDamage = 5;
 	int specialDamage = 20;
 
+	// AABBs
 	BoundingBox standingBoundingBox;
 	glm::vec2 standingBoundingBoxOffset;
 	BoundingBox crawlingBoundingBox;
