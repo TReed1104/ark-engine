@@ -143,19 +143,29 @@ bool UserInterface::Load(const std::string& configFilePath) {
 						return false;
 					}
 					std::string textString = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.text");
-
-					//TODO: Data binding
-					std::vector<std::string> bindings = configFile->GetVector<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings");
-					for (std::string& binding : bindings) {
-						/* check the text string for the binding string
-							if found, store the binding as a reference or pointer?
-							Implement a way of maintaining the ref/pointer during updates of the text, maybe store the base?*/
-					}
-
 					glm::vec3 textPosition = glm::vec3(configFile->Get<int>("interface.text objects." + std::to_string(i) + ".text.position.x"), configFile->Get<int>("interface.text objects." + std::to_string(i) + ".text.position.y"), 0.015f);
 					glm::vec3 relativePosition = position + textPosition;	// Move the text object relative to the UI background
 					glm::vec3 textColour = glm::vec3(configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.red") / 255.0f, configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.green") / 255.0f, configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.blue") / 255.0f);
 
+
+					// Data binding - WORK IN PROGRESS
+					std::string validBindings[] = { "health", "health_bars", "energy", "position", "grid_position", "target" };	// Move this to a config?
+					std::vector<std::string> bindings = configFile->GetVector<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings");
+					const char bindingSymbol = '%';
+					std::vector<std::string> splitTextString = StringUtilities::Split(textString, ' ');		// Split the string by spaces, this gives us each word
+					for (std::string& potentialBinding : splitTextString) {
+						// Check if the word (our potentially binding token) has the binding symbol
+						if (potentialBinding[0] != bindingSymbol) {
+							// No symbol found, continue to the next potentially binding
+							continue;
+						}
+
+						// Binding was found, check for the corresponding variable to bind
+						potentialBinding = potentialBinding.erase(0, 1);	// Remove our binding token to give us the identifying variable
+						Engine_Pointer->engineDebugger.WriteLine("Found bind - " + potentialBinding);
+					}
+
+					// Register the text object with the interface
 					textRegister.push_back(new TextObject(textName, textString, Engine_Pointer->fontRegister[indexOfFont], relativePosition, textColour, true, false));
 				}
 
