@@ -147,9 +147,20 @@ bool UserInterface::Load(const std::string& configFilePath) {
 					glm::vec3 relativePosition = position + textPosition;	// Move the text object relative to the UI background
 					glm::vec3 textColour = glm::vec3(configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.red") / 255.0f, configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.green") / 255.0f, configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.blue") / 255.0f);
 
-
-					// Data binding - WORK IN PROGRESS
-					std::string validBindings[] = { "health", "health_bars", "energy", "position", "grid_position", "target" };	// Move this to a config?
+					// Data binding
+					/*
+						Implementation ideas:
+						- Have the binding ids in the UI config or engine wide (UI Manager level)
+						- potentially whitelist the valid bindable variables using a dictionary of their binding ids and pointers to the variable itself (see below)
+						 ___________________________________________________
+						|     binding id        |     Variable              |
+						|-----------------------|---------------------------|
+						|   %health             |  Entity::health           |
+						|   %health_bars        |  Entity::healthBars       |
+						|   %energy             |  Entity::energy           |
+						|   %position           |  GameObject::position     |
+						|_______________________|___________________________|
+					*/
 					std::vector<std::string> bindings = configFile->GetVector<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings");
 					const char bindingSymbol = '%';
 					std::vector<std::string> splitTextString = StringUtilities::Split(textString, ' ');		// Split the string by spaces, this gives us each word
