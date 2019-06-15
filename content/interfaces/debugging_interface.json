@@ -38,6 +38,7 @@
                     "data bindings": [
                         {
                             "binding": {
+                                "object type": "engine",
                                 "object id": "engine",
                                 "token": "fps"
                             }
@@ -62,6 +63,7 @@
                     "data bindings": [
                         {
                             "binding": {
+                                "object type": "entity",
                                 "object id": "player",
                                 "token": "grid_position"
                             }
