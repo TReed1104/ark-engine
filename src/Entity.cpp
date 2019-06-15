@@ -121,6 +121,10 @@ void Entity::Update(const float& deltaTime) {
 	GameObject::Update(deltaTime);
 }
 
+std::map<std::string, std::string> Entity::ExportToUserInterface(void) {
+	return std::map<std::string, std::string>();
+}
+
 void Entity::UpdatePosition(void) {
 	GameObject::UpdatePosition();
 	standingBoundingBox.UpdatePosition(glm::vec2(position.x, position.y) + standingBoundingBoxOffset);
