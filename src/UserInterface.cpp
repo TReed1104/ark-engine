@@ -128,7 +128,7 @@ bool UserInterface::Load(const std::string& configFilePath) {
 				model->OverrideLoadState(true);
 
 				// Load the interface elements from the config
-				const size_t numberOfInterfaceElements = configFile->SizeOfObjectArray("interface.inteface elements");
+				const size_t numberOfInterfaceElements = configFile->SizeOfObjectArray("interface.interface elements");
 				for (size_t i = 0; i < numberOfInterfaceElements; i++) {
 					// Create the element
 				}
