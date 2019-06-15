@@ -7,7 +7,7 @@ public:
 	Item(const std::string& filePath);
 	~Item(void);
 
-	std::map<std::string, std::string> ExportToUserInterface(void);
+	std::map<std::string, std::string> ExportDataForBinding(void);
 private:
 
 protected:

@@ -22,7 +22,7 @@ public:
 	void TakeDamage(const int& damageValue);
 
 	void Update(const float& deltaTime);
-	std::map<std::string, std::string> ExportToUserInterface(void);
+	std::map<std::string, std::string> ExportDataForBinding(void);
 
 private:
 

@@ -120,7 +120,7 @@ void Entity::Update(const float& deltaTime) {
 	EntityController();
 	GameObject::Update(deltaTime);
 }
-std::map<std::string, std::string> Entity::ExportToUserInterface(void) {
+std::map<std::string, std::string> Entity::ExportDataForBinding(void) {
 	std::map<std::string, std::string> exportData;	// Create the "map" (its a dictionary lets be honest)
 
 	// Format the data into the strings which the UIs will be able to render

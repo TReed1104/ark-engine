@@ -70,7 +70,7 @@ Tile::~Tile(void) {
 void Tile::Update(const float& deltaTime) {
 	GameObject::Update(deltaTime);
 }
-std::map<std::string, std::string> Tile::ExportToUserInterface(void) {
+std::map<std::string, std::string> Tile::ExportDataForBinding(void) {
 	return std::map<std::string, std::string>();
 }
 float Tile::CalculateSlope(const glm::ivec2& slopeOffset) {
