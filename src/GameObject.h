@@ -43,7 +43,7 @@ public:
 	void Reposition(const glm::vec2& newPosition);
 	void Reposition(const glm::vec3& newPosition);
 	const glm::ivec2 GetGridPosition(void);
-	std::map<std::string, std::string> ExportToUserInterface(void);
+	virtual std::map<std::string, std::string> ExportToUserInterface(void) = 0;
 
 private:
 	void UpdateRotation(void);

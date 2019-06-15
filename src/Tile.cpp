@@ -70,6 +70,9 @@ Tile::~Tile(void) {
 void Tile::Update(const float& deltaTime) {
 	GameObject::Update(deltaTime);
 }
+std::map<std::string, std::string> Tile::ExportToUserInterface(void) {
+	return std::map<std::string, std::string>();
+}
 float Tile::CalculateSlope(const glm::ivec2& slopeOffset) {
 	glm::ivec2 left = glm::ivec2(position) + glm::ivec2(0, slopeOffset.x);
 	glm::ivec2 right = glm::ivec2(position.x + Engine_Pointer->tileSize.x, position.y) + glm::ivec2(0, slopeOffset.y);

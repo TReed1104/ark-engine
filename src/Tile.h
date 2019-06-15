@@ -16,6 +16,7 @@ public:
 	~Tile(void);
 
 	void Update(const float& deltaTime);
+	std::map<std::string, std::string> ExportToUserInterface(void);
 
 private:
 	float CalculateSlope(const glm::ivec2& slopeOffset);
