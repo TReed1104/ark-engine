@@ -120,9 +120,17 @@ void Entity::Update(const float& deltaTime) {
 	EntityController();
 	GameObject::Update(deltaTime);
 }
-
 std::map<std::string, std::string> Entity::ExportToUserInterface(void) {
-	return std::map<std::string, std::string>();
+	std::map<std::string, std::string> exportData;	// Create the "map" (its a dictionary lets be honest)
+
+	// Format the data into the strings which the UIs will be able to render
+	exportData["health"] = std::to_string(health);
+	exportData["energy"] = std::to_string(energy);
+	exportData["position"] = std::to_string(position.x) + ", " + std::to_string(position.y) + ", " + std::to_string(position.z);
+	exportData["draw_position"] = std::to_string(drawPosition.x) + ", " + std::to_string(drawPosition.y) + ", " + std::to_string(drawPosition.z);
+	exportData["grid_position"] = std::to_string(gridPosition.x) + ", " + std::to_string(gridPosition.y);
+
+	return exportData;
 }
 
 void Entity::UpdatePosition(void) {
