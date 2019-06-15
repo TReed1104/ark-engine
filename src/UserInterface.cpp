@@ -161,7 +161,8 @@ bool UserInterface::Load(const std::string& configFilePath) {
 						|   %position           |  GameObject::position     |
 						|_______________________|___________________________|
 					*/
-					std::vector<std::string> bindings = configFile->GetVector<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings");
+
+					//std::vector<std::string> bindings = configFile->GetVector<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings");
 					const char bindingSymbol = '%';
 					std::vector<std::string> splitTextString = StringUtilities::Split(textString, ' ');		// Split the string by spaces, this gives us each word
 					for (std::string& potentialBinding : splitTextString) {
