@@ -7,6 +7,7 @@ public:
 	Item(const std::string& filePath);
 	~Item(void);
 
+	std::map<std::string, std::string> ExportToUserInterface(void);
 private:
 
 protected:

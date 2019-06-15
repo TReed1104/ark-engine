@@ -13,6 +13,9 @@ Item::Item(const std::string& filePath) : GameObject(filePath) {
 }
 Item::~Item() {
 }
+std::map<std::string, std::string> Item::ExportToUserInterface(void) {
+	return std::map<std::string, std::string>();
+}
 void Item::LoadAnimations(void) {
 }
 void Item::AnimationStateHandler(void) {
