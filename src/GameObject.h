@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
 #include <glm/glm.hpp>
@@ -42,6 +43,7 @@ public:
 	void Reposition(const glm::vec2& newPosition);
 	void Reposition(const glm::vec3& newPosition);
 	const glm::ivec2 GetGridPosition(void);
+	std::map<std::string, std::string> ExportToUserInterface(void);
 
 private:
 	void UpdateRotation(void);
