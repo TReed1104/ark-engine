@@ -29,7 +29,7 @@ Entity::Entity(const std::string& filePath) : GameObject(filePath) {
 		health = configFile->Get<int>("entity.attributes.health");
 		healthBars = configFile->Get<int>("entity.attributes.health bars");
 		energy = configFile->Get<int>("entity.attributes.energy");
-		baseDamage =  configFile->Get<int>("entity.attributes.base damage");
+		baseDamage = configFile->Get<int>("entity.attributes.base damage");
 		baseSpecialDamage = configFile->Get<int>("entity.attributes.base special damage");
 
 		// Physics
