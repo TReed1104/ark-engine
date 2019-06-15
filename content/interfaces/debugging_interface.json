@@ -36,7 +36,12 @@
                     "font": "Arial",
                     "text": "FPS: %fps",
                     "data bindings": [
-                        "fps"
+                        {
+                            "binding": {
+                                "object id": "engine",
+                                "token": "fps"
+                            }
+                        }
                     ],
                     "position": {
                         "x": 10,
@@ -55,7 +60,12 @@
                     "font": "Arial",
                     "text": "Grid Pos: %grid_position",
                     "data bindings": [
-                        "grid_position"
+                        {
+                            "binding": {
+                                "object id": "player",
+                                "token": "grid_position"
+                            }
+                        }
                     ],
                     "position": {
                         "x": 10,

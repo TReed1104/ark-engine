@@ -19,7 +19,12 @@
                     "font": "Arial",
                     "text": "%health",
                     "data bindings": [
-                        "health"
+                        {
+                            "binding": {
+                                "object id": "player",
+                                "token": "health"
+                            }
+                        }
                     ],
                     "position": {
                         "x": 5,
