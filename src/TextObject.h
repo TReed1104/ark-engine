@@ -41,6 +41,7 @@ private:
 	std::string baseText = "";
 	std::string textToRender = "";		// String the class will represent
 	Font* font;
+	std::vector<DataBinding*> dataBindingRegister;
 	
 	// Rendering
 	bool useCamera;
