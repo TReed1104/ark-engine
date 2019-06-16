@@ -151,7 +151,27 @@ bool UserInterface::Load(const std::string& configFilePath) {
 					TextObject* newTextObject = new TextObject(textName, textString, Engine_Pointer->fontRegister[indexOfFont], relativePosition, textColour, true, false);
 
 					// Get the data bindings from the config and register them with the text object
+					const size_t numberOfDataBindings = configFile->SizeOfObjectArray("interface.text objects." + std::to_string(i) + ".text.data bindings");
+					for (size_t j = 0; j < numberOfDataBindings; j++) {
+						std::string dataBindingName = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.id");
+						std::string dataBindingObjectType = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.object type");
+						DataBinding::BindingTargetType bindingType = DataBinding::ENGINE;
+						if (dataBindingObjectType == "engine") {
+							bindingType = DataBinding::ENGINE;
+						}
+						else if (dataBindingObjectType == "entity") {
+							bindingType = DataBinding::OBJECT;
 
+						}
+						else if (dataBindingObjectType == "level") {
+							bindingType = DataBinding::LEVEL;
+
+						}
+						std::string dataBindingObjectID = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.object id");
+						std::string dataBindingToken = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.token");
+						DataBinding* dataBinding = new DataBinding(dataBindingName, bindingType, dataBindingObjectID, dataBindingToken);
+						newTextObject->RegisterDataBinding(dataBinding);
+					}
 
 					// Register the text object with the interface
 					textRegister.push_back(newTextObject);
