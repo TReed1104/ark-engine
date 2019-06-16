@@ -20,6 +20,24 @@ class UserInterface {
 public:
 	static Engine* Engine_Pointer;
 
+	class DataBinding {
+	public:
+		enum BindingTargetType { ENGINE, OBJECT, LEVEL };
+		DataBinding();
+		~DataBinding();
+
+		const std::string GetName(void);
+		const BindingTargetType GetTargetType(void);
+		const std::string GetTargetName(void);
+		const std::string GetBindingToken(void);
+
+	private:
+		std::string name;
+		BindingTargetType targetType;
+		std::string targetName;
+		std::string bindingToken;
+	};
+
 	class Button {
 	public:
 		Button(std::string name);
