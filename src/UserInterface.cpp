@@ -147,35 +147,7 @@ bool UserInterface::Load(const std::string& configFilePath) {
 					glm::vec3 relativePosition = position + textPosition;	// Move the text object relative to the UI background
 					glm::vec3 textColour = glm::vec3(configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.red") / 255.0f, configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.green") / 255.0f, configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.blue") / 255.0f);
 
-					// Data binding
-					/*
-						Implementation ideas:
-						- Have the binding ids in the UI config or engine wide (UI Manager level)
-						- potentially whitelist the valid bindable variables using a dictionary of their binding ids and pointers to the variable itself (see below)
-						 ___________________________________________________
-						|     binding id        |     Variable              |
-						|-----------------------|---------------------------|
-						|   %health             |  Entity::health           |
-						|   %health_bars        |  Entity::healthBars       |
-						|   %energy             |  Entity::energy           |
-						|   %position           |  GameObject::position     |
-						|_______________________|___________________________|
-					*/
-
-					//std::vector<std::string> bindings = configFile->GetVector<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings");
-					const char bindingSymbol = '%';
-					std::vector<std::string> splitTextString = StringUtilities::Split(textString, ' ');		// Split the string by spaces, this gives us each word
-					for (std::string& potentialBinding : splitTextString) {
-						// Check if the word (our potentially binding token) has the binding symbol
-						if (potentialBinding[0] != bindingSymbol) {
-							// No symbol found, continue to the next potentially binding
-							continue;
-						}
-
-						// Binding was found, check for the corresponding variable to bind
-						potentialBinding = potentialBinding.erase(0, 1);	// Remove our binding token to give us the identifying variable
-						Engine_Pointer->engineDebugger.WriteLine("Found bind - " + potentialBinding);
-					}
+					// Get the data bindings from the config and register them with the text object
 
 					// Register the text object with the interface
 					textRegister.push_back(new TextObject(textName, textString, Engine_Pointer->fontRegister[indexOfFont], relativePosition, textColour, true, false));
