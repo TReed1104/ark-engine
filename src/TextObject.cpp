@@ -39,6 +39,8 @@ void TextObject::Update(const float& deltaTime) {
 		return;
 	}
 
+	ExecuteDataBindings();
+
 	// Apply transformations
 	UpdatePosition();
 	UpdateRotation();
