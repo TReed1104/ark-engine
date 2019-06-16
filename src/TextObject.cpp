@@ -213,3 +213,39 @@ void TextObject::RemoveDataBinding(const std::string& bindingID) {
 		hasDataBindings = false;
 	}
 }
+void TextObject::ExecuteDataBindings(void) {
+	// Check we have any data bindings
+	if (!hasDataBindings) {
+		return;
+	}
+
+	// Go through each binding in the register
+	for (DataBinding* binding : dataBindingRegister) {
+		/*
+			Implementation ideas:
+			- Have the binding ids in the UI config or engine wide (UI Manager level)
+			- potentially whitelist the valid bindable variables using a dictionary of their binding ids and pointers to the variable itself (see below)
+			 ___________________________________________________
+			|     binding id        |     Variable              |
+			|-----------------------|---------------------------|
+			|   %health             |  Entity::health           |
+			|   %health_bars        |  Entity::healthBars       |
+			|   %energy             |  Entity::energy           |
+			|   %position           |  GameObject::position     |
+			|_______________________|___________________________|
+		*/
+		//const char bindingSymbol = '%';
+		//std::vector<std::string> splitTextString = StringUtilities::Split(baseText, ' ');		// Split the string by spaces, this gives us each word
+		//for (std::string& potentialBinding : splitTextString) {
+		//	// Check if the word (our potentially binding token) has the binding symbol
+		//	if (potentialBinding[0] != bindingSymbol) {
+		//		// No symbol found, continue to the next potentially binding
+		//		continue;
+		//	}
+
+		//	// Binding was found, check for the corresponding variable to bind
+		//	potentialBinding = potentialBinding.erase(0, 1);	// Remove our binding token to give us the identifying variable
+		//	Engine_Pointer->engineDebugger.WriteLine("Found bind - " + potentialBinding);
+		//}
+	}
+}
