@@ -117,10 +117,6 @@ const bool TextObject::IsEnabled(void) {
 void TextObject::SetEnabledState(const bool& enableState) {
 	this->isEnabled = enableState;
 }
-const bool TextObject::HasDataBindings(void) {
-	return this->hasDataBindings;
-}
-
 void TextObject::LoadText() {
 	glyphs.clear();
 	model.meshes.clear();
@@ -168,4 +164,9 @@ void TextObject::UpdateRotation() {
 }
 void TextObject::UpdateScale() {
 	model.Scale(scale);
+}
+
+// Data binding
+const bool TextObject::HasDataBindings(void) {
+	return this->hasDataBindings;
 }
