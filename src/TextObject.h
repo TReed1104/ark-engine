@@ -10,6 +10,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Model.h"
 #include "Font.h"
+#include "DataBinding.h"
 
 class Engine;
 
