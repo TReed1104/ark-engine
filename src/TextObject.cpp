@@ -43,56 +43,58 @@ void TextObject::Update(const float& deltaTime) {
 	}
 }
 void TextObject::Draw(void) {
-	if (isEnabled) {
-		// Setup the MVP matrix for the Text.
-		glm::vec2 viewPort = (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize);
-		glm::mat4* projectionMatrix = &(glm::ortho(0.0f, viewPort.x, viewPort.y, 0.0f, 0.0f, 2.0f));
-		glm::mat4* viewMatrix = &(glm::lookAt(glm::vec3(position.x, position.y, 1.0f), glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
-		if (useCamera) {
-			viewMatrix = &Engine_Pointer->mainCamera->viewMatrix;
-			projectionMatrix = &Engine_Pointer->mainCamera->projectionMatrix;
-		}
-
-		glEnable(GL_BLEND);
-		const size_t numberOfMeshes = model.meshes.size();
-		for (size_t i = 0; i < numberOfMeshes; i++) {
-			Engine_Pointer->shaderRegister[indexOfShader]->Activate();
-			Model::Mesh &currentMesh = model.meshes[i];
-			glBindVertexArray(currentMesh.vertexArrayObject);
-			const GLuint* shaderProgramID = Engine_Pointer->shaderRegister[indexOfShader]->GetShaderID();
-
-			// Transformations
-			glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
-			glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
-			glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
-
-			// Universal uniforms all shaders for this engine should support
-			glUniform2fv(glGetUniformLocation(*shaderProgramID, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
-			glUniform1f(glGetUniformLocation(*shaderProgramID, "iTime"), (float)SDL_GetTicks());	// TODO: Change to not use SDL_Ticks, due to SDL_Ticks being consistent in its values
-			glUniform3fv(glGetUniformLocation(*shaderProgramID, "iCameraPosition"), 1, glm::value_ptr(Engine_Pointer->mainCamera->position));
-
-			// Texturing
-			bool useTextures = (glyphs[i].texture.textureID != -1 && currentMesh.isSetupForTextures);
-			glUniform1i(glGetUniformLocation(*shaderProgramID, "u_hasTexture"), useTextures);
-			if (useTextures) {
-				glActiveTexture(GL_TEXTURE0);
-				glBindTexture(GL_TEXTURE_2D, glyphs[i].texture.textureID);
-				glUniform1i(glGetUniformLocation(*shaderProgramID, "u_textureSampler"), 0);
-				glUniform3fv(glGetUniformLocation(*shaderProgramID, "u_textColour"), 1, glm::value_ptr(colour));
-			}
-
-			// Draw calls
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
-			glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
-			if (useTextures) {
-				glBindTexture(GL_TEXTURE_2D, 0);
-			}
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-			glBindVertexArray(0);
-			glUseProgram(0);
-		}
-		glDisable(GL_BLEND);
+	if (!isEnabled) {
+		return;
 	}
+
+	// Setup the MVP matrix for the Text.
+	glm::vec2 viewPort = (Engine_Pointer->windowGridSize * Engine_Pointer->tileSize);
+	glm::mat4* projectionMatrix = &(glm::ortho(0.0f, viewPort.x, viewPort.y, 0.0f, 0.0f, 2.0f));
+	glm::mat4* viewMatrix = &(glm::lookAt(glm::vec3(position.x, position.y, 1.0f), glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
+	if (useCamera) {
+		viewMatrix = &Engine_Pointer->mainCamera->viewMatrix;
+		projectionMatrix = &Engine_Pointer->mainCamera->projectionMatrix;
+	}
+
+	glEnable(GL_BLEND);
+	const size_t numberOfMeshes = model.meshes.size();
+	for (size_t i = 0; i < numberOfMeshes; i++) {
+		Engine_Pointer->shaderRegister[indexOfShader]->Activate();
+		Model::Mesh &currentMesh = model.meshes[i];
+		glBindVertexArray(currentMesh.vertexArrayObject);
+		const GLuint* shaderProgramID = Engine_Pointer->shaderRegister[indexOfShader]->GetShaderID();
+
+		// Transformations
+		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(currentMesh.GetModelMatrix()));
+
+		// Universal uniforms all shaders for this engine should support
+		glUniform2fv(glGetUniformLocation(*shaderProgramID, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
+		glUniform1f(glGetUniformLocation(*shaderProgramID, "iTime"), (float)SDL_GetTicks());	// TODO: Change to not use SDL_Ticks, due to SDL_Ticks being consistent in its values
+		glUniform3fv(glGetUniformLocation(*shaderProgramID, "iCameraPosition"), 1, glm::value_ptr(Engine_Pointer->mainCamera->position));
+
+		// Texturing
+		bool useTextures = (glyphs[i].texture.textureID != -1 && currentMesh.isSetupForTextures);
+		glUniform1i(glGetUniformLocation(*shaderProgramID, "u_hasTexture"), useTextures);
+		if (useTextures) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, glyphs[i].texture.textureID);
+			glUniform1i(glGetUniformLocation(*shaderProgramID, "u_textureSampler"), 0);
+			glUniform3fv(glGetUniformLocation(*shaderProgramID, "u_textColour"), 1, glm::value_ptr(colour));
+		}
+
+		// Draw calls
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentMesh.indicesBufferObject);
+		glDrawElements(GL_TRIANGLES, (GLsizei)currentMesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
+		if (useTextures) {
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
+		glUseProgram(0);
+	}
+	glDisable(GL_BLEND);
 }
 void TextObject::UpdateText(const std::string& newText) {
 	this->textToRender = newText;
