@@ -24,7 +24,6 @@ public:
 	void Draw(void);
 
 	const std::string GetName(void);
-	const bool HasBindings(void);
 	void IsEnabled(const bool& enableState);
 	void UpdateText(const std::string& newText);
 	void UpdateFont(Font* font);
@@ -36,8 +35,6 @@ private:
 	std::string name;			// id of the text
 	bool isEnabled;
 	std::string text;			// String the class will represent
-	std::string baseText;		// Base text set in the object
-	bool hasBindings = false;
 	Font* font;
 	
 	// Rendering
