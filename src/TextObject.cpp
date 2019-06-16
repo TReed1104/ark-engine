@@ -178,3 +178,12 @@ void TextObject::UpdateScale() {
 const bool TextObject::HasDataBindings(void) {
 	return this->hasDataBindings;
 }
+void TextObject::RegisterDataBinding(DataBinding* newDataBinding) {
+	// Register the data binding with the object
+	dataBindingRegister.push_back(newDataBinding);
+
+	// Mark the object as having data bindings
+	if (hasDataBindings == false) {
+		hasDataBindings = true;
+	}
+}
