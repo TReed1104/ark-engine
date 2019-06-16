@@ -187,3 +187,29 @@ void TextObject::RegisterDataBinding(DataBinding* newDataBinding) {
 		hasDataBindings = true;
 	}
 }
+void TextObject::RemoveDataBinding(const std::string& bindingID) {
+	// Find the binding
+	int indexOfBinding = -1;
+
+	const size_t sizeOfBindingRegister = dataBindingRegister.size();
+	for (size_t i = 0; i < sizeOfBindingRegister; i++) {
+		if (dataBindingRegister[i]->GetName() == bindingID) {
+			indexOfBinding = (int)i;
+		}
+	}
+
+	// Binding wasn't found, exit the function
+	if (indexOfBinding == -1) {
+		return;
+	}
+
+	// Remove the binding
+	delete dataBindingRegister[indexOfBinding];
+	dataBindingRegister.erase(dataBindingRegister.begin() + indexOfBinding);
+
+	// If the binding register is now empty, set the hasBindings flag to false
+	const size_t newBindingRegisterSize = dataBindingRegister.size();
+	if (newBindingRegisterSize == 0) {
+		hasDataBindings = false;
+	}
+}
