@@ -12,6 +12,7 @@
 #include "BoundingBox.h"
 #include "JsonParser.hpp"
 #include "Font.h"
+#include "DataBinding.h"
 #include "TextObject.h"
 
 class Engine;
