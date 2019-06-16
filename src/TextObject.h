@@ -33,6 +33,11 @@ public:
 	const glm::vec3 GetPosition(void);
 	void Reposition(const glm::vec3& newPosition);
 
+	// Data binding
+	void RegisterDataBinding(DataBinding* newDataBinding);
+	void RemoveDataBinding(const std::string& bindingID);
+	void ExecuteDataBindings(void);
+
 private:
 	// General
 	std::string name;
