@@ -6,6 +6,8 @@ Engine* TextObject::Engine_Pointer;
 TextObject::TextObject(const std::string& name, const std::string& text, Font* font, const glm::vec3& position, const glm::vec3& colour, const bool& isEnabled, const bool& useCamera) {
 	// Informational
 	this->name = name;
+	this->baseText = text;
+	this->hasDataBindings = false;
 	this->textToRender = text;
 	this->font = font;
 
@@ -112,6 +114,11 @@ const std::string TextObject::GetName(void) {
 void TextObject::IsEnabled(const bool& enableState) {
 	this->isEnabled = enableState;
 }
+
+const bool TextObject::HasDataBindings(void) {
+	return this->hasDataBindings;
+}
+
 void TextObject::LoadText() {
 	glyphs.clear();
 	model.meshes.clear();

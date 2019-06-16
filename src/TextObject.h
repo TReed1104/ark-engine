@@ -25,6 +25,7 @@ public:
 
 	const std::string GetName(void);
 	void IsEnabled(const bool& enableState);
+	const bool HasDataBindings(void);
 	void UpdateText(const std::string& newText);
 	void UpdateFont(Font* font);
 	const glm::vec3 GetPosition(void);
@@ -33,8 +34,10 @@ public:
 private:
 	// General
 	std::string name;
-	bool isEnabled;
-	std::string textToRender;		// String the class will represent
+	bool isEnabled = false;
+	bool hasDataBindings = false;
+	std::string baseText = "";
+	std::string textToRender = "";		// String the class will represent
 	Font* font;
 	
 	// Rendering
@@ -43,7 +46,6 @@ private:
 	glm::vec3 colour;
 	std::vector<Glyph> glyphs;	// The glyphs making up the text
 	Model model;
-	// Transformations
 	glm::vec3 position;
 	float rotation;
 	glm::vec3 scale;
