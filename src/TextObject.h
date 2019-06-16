@@ -24,7 +24,7 @@ public:
 	void Draw(void);
 
 	const std::string GetName(void);
-	void IsEnabled(const bool& enableState);
+	void SetEnabledState(const bool& enableState);
 	const bool HasDataBindings(void);
 	void UpdateText(const std::string& newText);
 	void UpdateFont(Font* font);

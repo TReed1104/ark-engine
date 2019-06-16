@@ -111,10 +111,9 @@ void TextObject::Reposition(const glm::vec3& newPosition) {
 const std::string TextObject::GetName(void) {
 	return this->name;
 }
-void TextObject::IsEnabled(const bool& enableState) {
+void TextObject::SetEnabledState(const bool& enableState) {
 	this->isEnabled = enableState;
 }
-
 const bool TextObject::HasDataBindings(void) {
 	return this->hasDataBindings;
 }
