@@ -6,7 +6,7 @@ Engine* TextObject::Engine_Pointer;
 TextObject::TextObject(const std::string& name, const std::string& text, Font* font, const glm::vec3& position, const glm::vec3& colour, const bool& isEnabled, const bool& useCamera) {
 	// Informational
 	this->name = name;
-	this->text = text;
+	this->textToRender = text;
 	this->font = font;
 
 	// Transforms
@@ -89,7 +89,7 @@ void TextObject::Draw(void) {
 	}
 }
 void TextObject::UpdateText(const std::string& newText) {
-	this->text = newText;
+	this->textToRender = newText;
 	this->LoadText();
 }
 void TextObject::UpdateFont(Font* font) {
@@ -115,9 +115,9 @@ void TextObject::IsEnabled(const bool& enableState) {
 void TextObject::LoadText() {
 	glyphs.clear();
 	model.meshes.clear();
-	const size_t lengthOfText = text.size();
+	const size_t lengthOfText = textToRender.size();
 	for (size_t i = 0; i < lengthOfText; i++) {
-		Glyph& currentGlyph = font->GetGlyph(text[i]);
+		Glyph& currentGlyph = font->GetGlyph(textToRender[i]);
 		glyphs.push_back(currentGlyph);
 		model.meshes.push_back(currentGlyph.mesh);
 	}

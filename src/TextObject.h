@@ -32,9 +32,9 @@ public:
 
 private:
 	// General
-	std::string name;			// id of the text
+	std::string name;
 	bool isEnabled;
-	std::string text;			// String the class will represent
+	std::string textToRender;		// String the class will represent
 	Font* font;
 	
 	// Rendering
