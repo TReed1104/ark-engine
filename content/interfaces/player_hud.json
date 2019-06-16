@@ -21,9 +21,10 @@
                     "data bindings": [
                         {
                             "binding": {
+                                "id": "health",
                                 "object type": "entity",
                                 "object id": "player",
-                                "token": "health"
+                                "token": "%health"
                             }
                         }
                     ],

@@ -38,9 +38,10 @@
                     "data bindings": [
                         {
                             "binding": {
+                                "id": "fps",
                                 "object type": "engine",
                                 "object id": "engine",
-                                "token": "fps"
+                                "token": "%fps"
                             }
                         }
                     ],
@@ -63,9 +64,10 @@
                     "data bindings": [
                         {
                             "binding": {
+                                "id": "grid position",
                                 "object type": "entity",
                                 "object id": "player",
-                                "token": "grid_position"
+                                "token": "%grid_position"
                             }
                         }
                     ],
