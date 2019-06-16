@@ -35,12 +35,14 @@ TextObject::~TextObject() {
 }
 
 void TextObject::Update(const float& deltaTime) {
-	if (isEnabled) {
-		// Apply transformations
-		UpdatePosition();
-		UpdateRotation();
-		UpdateScale();
+	if (!isEnabled) {
+		return;
 	}
+
+	// Apply transformations
+	UpdatePosition();
+	UpdateRotation();
+	UpdateScale();
 }
 void TextObject::Draw(void) {
 	if (!isEnabled) {
