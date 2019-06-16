@@ -27,10 +27,14 @@ TextObject::TextObject(const std::string& name, const std::string& text, Font* f
 	LoadText();
 }
 TextObject::~TextObject() {
-
+	// Delete all the bindings
+	for (DataBinding* binding : dataBindingRegister) {
+		delete binding;
+		binding = nullptr;
+	}
 }
 
-void TextObject::Update(const float & deltaTime) {
+void TextObject::Update(const float& deltaTime) {
 	if (isEnabled) {
 		// Apply transformations
 		UpdatePosition();
