@@ -32,10 +32,11 @@ public:
 		const std::string GetBindingToken(void);
 
 	private:
-		std::string name;
-		BindingTargetType targetType;
-		std::string targetName;
-		std::string bindingToken;
+		// Binding settings
+		std::string name = "";
+		BindingTargetType targetType = BindingTargetType::ENGINE;
+		std::string targetName = "";
+		std::string bindingToken = "";
 	};
 
 	class Button {
