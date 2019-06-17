@@ -245,28 +245,50 @@ void TextObject::ExecuteDataBindings(void) {
 			Engine_Pointer->engineDebugger.WriteLine("Found Data Binding - " + potentialBinding);
 
 			// We've found our binding, lets find the object we wanna use
-			if (bindToExecute->GetTargetType() == DataBinding::ENGINE) {
-
-			}
-			else if(bindToExecute->GetTargetType() == DataBinding::ENTITY) {
-				if (bindToExecute->GetTargetName() == "player") {
-					Entity* entity = Engine_Pointer->player;
-					if (entity != nullptr) {
-						potentialBinding = entity->ExportDataForBinding()[bindToExecute->GetBindingToken()];
-					}
+			DataBinding::BindingTargetType objectType = bindToExecute->GetTargetType();
+			switch (objectType) {
+				case DataBinding::ENGINE:
+				{
+					break;
 				}
-				else {
-					int indexOfEntity = Engine_Pointer->GetIndexOfEntity(bindToExecute->GetTargetName());
-					if (indexOfEntity != -1) {
-						Entity* entity = Engine_Pointer->entityRegister[indexOfEntity];
-						potentialBinding = entity->ExportDataForBinding()[bindToExecute->GetBindingToken()];
+				case DataBinding::CAMERA:
+				{
+					break;
+				}
+				case DataBinding::LEVEL:
+				{
+					break;
+				}
+				case DataBinding::TILE:
+				{
+					break;
+				}
+				case DataBinding::ITEM:
+				{
+					break;
+				}
+				case DataBinding::ENTITY:
+				{
+					if (bindToExecute->GetTargetName() == "player") {
+						Entity* entity = Engine_Pointer->player;
+						if (entity != nullptr) {
+							potentialBinding = entity->ExportDataForBinding()[bindToExecute->GetBindingToken()];
+						}
 					}
+					else {
+						int indexOfEntity = Engine_Pointer->GetIndexOfEntity(bindToExecute->GetTargetName());
+						if (indexOfEntity != -1) {
+							Entity* entity = Engine_Pointer->entityRegister[indexOfEntity];
+							potentialBinding = entity->ExportDataForBinding()[bindToExecute->GetBindingToken()];
+						}
+					}
+					break;
+				}
+				default:
+				{
+					break;
 				}
 			}
-			else if (bindToExecute->GetTargetType() == DataBinding::LEVEL) {
-
-			}
-
 		}
 
 		// Reconstruct the text for rendering
