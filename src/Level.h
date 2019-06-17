@@ -36,6 +36,7 @@ public:
 	bool IsTileSolid(const glm::vec2& gridPosition);
 	BoundingBox* GetTileBoundingBox(const glm::vec2& gridPosition);
 	void Reload(void);
+	std::map<std::string, std::string> ExportDataForBinding(void);
 
 private:
 	JsonFile* configFile = nullptr;

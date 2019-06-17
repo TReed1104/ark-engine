@@ -205,3 +205,6 @@ void Level::Reload(void) {
 		backgroundSoundEffect->Play();
 	}
 }
+std::map<std::string, std::string> Level::ExportDataForBinding(void) {
+	return std::map<std::string, std::string>();
+}
