@@ -905,7 +905,7 @@ void Engine::SetSoundStateSoundEffects(const bool& muteSoundEffects) {
 std::map<std::string, std::string> Engine::ExportDataForBinding(void) {
 	std::map<std::string, std::string> exportData;
 
-	exportData["%fps"] = std::to_string(fpsCounter);
+	exportData["%fps"] = std::to_string(currentFPS);
 
 	return exportData;
 }
@@ -1015,7 +1015,7 @@ void Engine::Run(void) {
 	engineDebugger.WriteLine("\n## Game Runtime - Begun");
 
 	// FPS variables
-	fpsCounter = 0;
+	int fpsCounter = 0;
 	float secondsCounter = 0;
 	float maxDeltatime = 0.05f;	// Equivalent to 60 FPS timer
 
@@ -1041,7 +1041,7 @@ void Engine::Run(void) {
 		if (secondsCounter >= 1) {
 			// If it has been a second since the last FPS count, reset the counter and print.
 			WindowRename(defaultWindowTitle + " - FPS: " + std::to_string(fpsCounter));
-			//textObjectRegister[2]->UpdateText("FPS: " + std::to_string(fpsCounter));	// TEST CALL
+			currentFPS = fpsCounter;
 			fpsCounter = 0;
 			secondsCounter = 0;
 		}

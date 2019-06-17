@@ -64,7 +64,7 @@ public:
 	int thumbStickDeadZone;
 	int triggerDeadZone;
 	int pressedStateFlag;
-	int fpsCounter;
+	int currentFPS = 0;
 	const float physicsInterval = 0.1f;
 
 	// Input Interfaces
