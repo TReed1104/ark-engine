@@ -39,6 +39,7 @@ void TextObject::Update(const float& deltaTime) {
 		return;
 	}
 
+	// Execute our data bindings
 	ExecuteDataBindings();
 
 	// Apply transformations
