@@ -241,14 +241,18 @@ void TextObject::ExecuteDataBindings(void) {
 				continue;
 			}
 
-			// Debugging
-			Engine_Pointer->engineDebugger.WriteLine("Found Data Binding - " + potentialBinding);
-
 			// We've found our binding, lets find the object we wanna use
 			switch (bindToExecute->GetTargetType()) {
 				case DataBinding::ENGINE:
 				{
-					Engine_Pointer->engineDebugger.WriteLine("NOT IMPLEMENTED -> DataBinding object type - Engine");
+					// Check the token is a valid binding
+					std::map<std::string, std::string>& validData = Engine_Pointer->ExportDataForBinding();
+					if (validData.find(bindToExecute->GetBindingToken()) == validData.end()) {
+						break;
+					}
+
+					// Bind the data
+					potentialBinding = validData[bindToExecute->GetBindingToken()];
 					break;
 				}
 				case DataBinding::CAMERA:
