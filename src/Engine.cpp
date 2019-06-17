@@ -902,6 +902,12 @@ void Engine::SetSoundStateSoundEffects(const bool& muteSoundEffects) {
 	}
 }
 
+std::map<std::string, std::string> Engine::ExportDataForBinding(void) {
+	std::map<std::string, std::string> exportData;	// Create the "map" (its a dictionary lets be honest)
+
+	return exportData;
+}
+
 // Debugging functions
 void Engine::DebuggingUpdate(const float& deltaTime) {
 	// Quick Reload the level config

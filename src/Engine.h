@@ -141,6 +141,8 @@ public:
 	void SetSoundStateBackground(const bool& muteBackgroundSounds);
 	void SetSoundStateSoundEffects(const bool& muteSoundEffects);
 
+	std::map<std::string, std::string> ExportDataForBinding(void);
+
 private:
 	// GL variables
 	SDL_Window* sdlWindow;
@@ -161,7 +163,7 @@ private:
 	void ConfigureDebugging(void);
 	void LoadEngineConfig(void);
 	void LoadUserSettings(void);
-	
+
 	// External Library setup functions
 	void LoadSDL(void);
 	void LoadGLEW(void);
