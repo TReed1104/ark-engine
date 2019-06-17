@@ -224,32 +224,43 @@ void TextObject::ExecuteDataBindings(void) {
 	}
 
 	// Go through each binding in the register
-	for (DataBinding* binding : dataBindingRegister) {
-		/*
-			Implementation ideas:
-			- Have the binding ids in the UI config or engine wide (UI Manager level)
-			- potentially whitelist the valid bindable variables using a dictionary of their binding ids and pointers to the variable itself (see below)
-			 ___________________________________________________
-			|     binding id        |     Variable              |
-			|-----------------------|---------------------------|
-			|   %health             |  Entity::health           |
-			|   %health_bars        |  Entity::healthBars       |
-			|   %energy             |  Entity::energy           |
-			|   %position           |  GameObject::position     |
-			|_______________________|___________________________|
-		*/
-		//const char bindingSymbol = '%';
-		//std::vector<std::string> splitTextString = StringUtilities::Split(baseText, ' ');		// Split the string by spaces, this gives us each word
-		//for (std::string& potentialBinding : splitTextString) {
-		//	// Check if the word (our potentially binding token) has the binding symbol
-		//	if (potentialBinding[0] != bindingSymbol) {
-		//		// No symbol found, continue to the next potentially binding
-		//		continue;
-		//	}
+	for (DataBinding* bindToExecute : dataBindingRegister) {
+		// We split the base text of the 
+		std::vector<std::string> splitTextString = StringUtilities::Split(baseText, ' ');
 
-		//	// Binding was found, check for the corresponding variable to bind
-		//	potentialBinding = potentialBinding.erase(0, 1);	// Remove our binding token to give us the identifying variable
-		//	Engine_Pointer->engineDebugger.WriteLine("Found bind - " + potentialBinding);
-		//}
+
+		for (std::string& potentialBinding : splitTextString) {
+			// Check if the current word starts with a %
+			if (potentialBinding[0] != '%') {
+				// No symbol found, continue to the next potentially binding
+				continue;
+			}
+
+			// Check if the potential binding is the current binding we are executing
+			if (potentialBinding != bindToExecute->GetBindingToken()) {
+				continue;
+			}
+
+			// Debugging
+			Engine_Pointer->engineDebugger.WriteLine("Found Data Binding - " + potentialBinding);
+
+			// We've found our binding, lets find the object we wanna use
+
+		}
+
+		// Reconstruct the text for rendering
+		textToRender = "";
+		for (std::string& word : splitTextString) {
+			// check if its the last word in the string
+			if (splitTextString.back() == word) {
+				// Last word doesn't need a space
+				textToRender += word;
+			}
+			else {
+				textToRender += word + " ";
+			}
+		}
 	}
+
+	LoadText();	// Reload the text glyphs using the new text
 }
