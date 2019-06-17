@@ -206,5 +206,12 @@ void Level::Reload(void) {
 	}
 }
 std::map<std::string, std::string> Level::ExportDataForBinding(void) {
-	return std::map<std::string, std::string>();
+	std::map<std::string, std::string> exportData;	// Create the "map" (its a dictionary lets be honest)
+
+	// Format the data into the strings which the UIs will be able to render
+	exportData["%level_name"] = name;
+	exportData["%background"] = levelBackground->GetName();
+	exportData["%size_in_tiles"] = std::to_string(tileGridSize.x) + ", " + std::to_string(tileGridSize.y);
+
+	return exportData;
 }
