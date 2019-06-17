@@ -1,4 +1,5 @@
 [requires]
+libpng/1.6.37@bincrafters/stable    # Fixes a conflict where sdl2_image requires 1.6.36, but freetype uses 1.6.37
 sdl2/2.0.9@bincrafters/stable
 sdl2_image/2.0.4@bincrafters/stable
 glew/2.1.0@bincrafters/stable
