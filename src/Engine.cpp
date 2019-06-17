@@ -1013,7 +1013,7 @@ void Engine::Run(void) {
 	engineDebugger.WriteLine("\n## Game Runtime - Begun");
 
 	// FPS variables
-	int fpsCounter = 0;
+	fpsCounter = 0;
 	float secondsCounter = 0;
 	float maxDeltatime = 0.05f;	// Equivalent to 60 FPS timer
 
