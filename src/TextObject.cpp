@@ -270,16 +270,38 @@ void TextObject::ExecuteDataBindings(void) {
 				{
 					if (bindToExecute->GetTargetName() == "player") {
 						Entity* entity = Engine_Pointer->player;
-						if (entity != nullptr) {
-							potentialBinding = entity->ExportDataForBinding()[bindToExecute->GetBindingToken()];
+
+						// Check we found the player
+						if (entity == nullptr) {
+							break;
 						}
+
+						// Check the token is a valid binding
+						std::map<std::string, std::string>& validData = entity->ExportDataForBinding();
+						if (validData.find(bindToExecute->GetBindingToken()) == validData.end()) {
+							break;
+						}
+
+						// Bind the data
+						potentialBinding = validData[bindToExecute->GetBindingToken()];
+
 					}
 					else {
 						int indexOfEntity = Engine_Pointer->GetIndexOfEntity(bindToExecute->GetTargetName());
 						if (indexOfEntity != -1) {
-							Entity* entity = Engine_Pointer->entityRegister[indexOfEntity];
-							potentialBinding = entity->ExportDataForBinding()[bindToExecute->GetBindingToken()];
+							break;
 						}
+						Entity* entity = Engine_Pointer->entityRegister[indexOfEntity];
+
+						// Check the token is a valid binding
+						std::map<std::string, std::string>& validData = entity->ExportDataForBinding();
+						if (validData.find(bindToExecute->GetBindingToken()) == validData.end()) {
+							break;
+						}
+
+						// Bind the data
+						potentialBinding = validData[bindToExecute->GetBindingToken()];
+
 					}
 					break;
 				}
