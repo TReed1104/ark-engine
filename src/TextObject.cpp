@@ -245,8 +245,7 @@ void TextObject::ExecuteDataBindings(void) {
 			Engine_Pointer->engineDebugger.WriteLine("Found Data Binding - " + potentialBinding);
 
 			// We've found our binding, lets find the object we wanna use
-			DataBinding::BindingTargetType objectType = bindToExecute->GetTargetType();
-			switch (objectType) {
+			switch (bindToExecute->GetTargetType()) {
 				case DataBinding::ENGINE:
 				{
 					break;
