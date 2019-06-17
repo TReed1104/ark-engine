@@ -226,11 +226,12 @@ void TextObject::ExecuteDataBindings(void) {
 	// Store our last text
 	std::string previousText = textToRender;
 
+	// We split the base text by each space character, this gives us the 'words' of the text
+	std::vector<std::string> splitTextString = StringUtilities::Split(baseText, ' ');
+
 	// Go through each binding in the register
 	for (DataBinding* bindToExecute : dataBindingRegister) {
-		// We split the base text of the 
-		std::vector<std::string> splitTextString = StringUtilities::Split(baseText, ' ');
-
+		// For each binding, go through each word of the base text looking for it
 		for (std::string& potentialBinding : splitTextString) {
 			// Check if the current word starts with a %
 			if (potentialBinding[0] != '%') {
