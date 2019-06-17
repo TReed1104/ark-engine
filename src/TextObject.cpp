@@ -103,6 +103,7 @@ void TextObject::Draw(void) {
 }
 void TextObject::UpdateText(const std::string& newText) {
 	this->baseText = newText;
+	this->textToRender = newText;
 	this->LoadText();
 }
 void TextObject::UpdateFont(Font* font) {
