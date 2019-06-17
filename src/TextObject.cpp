@@ -255,6 +255,13 @@ void TextObject::ExecuteDataBindings(void) {
 						potentialBinding = entity->ExportDataForBinding()[bindToExecute->GetBindingToken()];
 					}
 				}
+				else {
+					int indexOfEntity = Engine_Pointer->GetIndexOfEntity(bindToExecute->GetTargetName());
+					if (indexOfEntity != -1) {
+						Entity* entity = Engine_Pointer->entityRegister[indexOfEntity];
+						potentialBinding = entity->ExportDataForBinding()[bindToExecute->GetBindingToken()];
+					}
+				}
 			}
 			else if (bindToExecute->GetTargetType() == DataBinding::LEVEL) {
 
