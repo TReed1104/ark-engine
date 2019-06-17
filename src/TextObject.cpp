@@ -245,13 +245,19 @@ void TextObject::ExecuteDataBindings(void) {
 			Engine_Pointer->engineDebugger.WriteLine("Found Data Binding - " + potentialBinding);
 
 			// We've found our binding, lets find the object we wanna use
-			if(bindToExecute->GetTargetType() == DataBinding::OBJECT) {
+			if (bindToExecute->GetTargetType() == DataBinding::ENGINE) {
+
+			}
+			else if(bindToExecute->GetTargetType() == DataBinding::OBJECT) {
 				if (bindToExecute->GetTargetName() == "player") {
 					Entity* entity = Engine_Pointer->player;
 					if (entity != nullptr) {
 						potentialBinding = entity->ExportDataForBinding()[bindToExecute->GetBindingToken()];
 					}
 				}
+			}
+			else if (bindToExecute->GetTargetType() == DataBinding::LEVEL) {
+
 			}
 
 		}
