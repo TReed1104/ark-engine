@@ -248,7 +248,7 @@ void TextObject::ExecuteDataBindings(void) {
 			if (bindToExecute->GetTargetType() == DataBinding::ENGINE) {
 
 			}
-			else if(bindToExecute->GetTargetType() == DataBinding::OBJECT) {
+			else if(bindToExecute->GetTargetType() == DataBinding::ENTITY) {
 				if (bindToExecute->GetTargetName() == "player") {
 					Entity* entity = Engine_Pointer->player;
 					if (entity != nullptr) {

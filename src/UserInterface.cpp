@@ -160,8 +160,7 @@ bool UserInterface::Load(const std::string& configFilePath) {
 							bindingType = DataBinding::ENGINE;
 						}
 						else if (dataBindingObjectType == "entity") {
-							bindingType = DataBinding::OBJECT;
-
+							bindingType = DataBinding::ENTITY;
 						}
 						else if (dataBindingObjectType == "level") {
 							bindingType = DataBinding::LEVEL;

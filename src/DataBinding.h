@@ -5,7 +5,7 @@
 
 class DataBinding {
 public:
-	enum BindingTargetType { ENGINE, OBJECT, LEVEL };
+	enum BindingTargetType { ENGINE, ENTITY, LEVEL };
 	DataBinding(const std::string& name, const BindingTargetType& targetType, const std::string& targetName, const std::string& bindingToken);
 	~DataBinding();
 
