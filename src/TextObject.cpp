@@ -102,7 +102,7 @@ void TextObject::Draw(void) {
 	glDisable(GL_BLEND);
 }
 void TextObject::UpdateText(const std::string& newText) {
-	this->textToRender = newText;
+	this->baseText = newText;
 	this->LoadText();
 }
 void TextObject::UpdateFont(Font* font) {
