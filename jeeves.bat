@@ -14,7 +14,7 @@ conan remove -f freetype/2.9.1
 conan remove -f glew/2.1.0
 conan remove -f glm/0.9.8.5
 conan remove -f libjpeg-turbo/1.5.2
-conan remove -f libpng/1.6.36
+conan remove -f libpng/1.6.37
 conan remove -f libtiff/4.0.9
 conan remove -f libwebp/1.0.0
 conan remove -f nasm/2.13.01
