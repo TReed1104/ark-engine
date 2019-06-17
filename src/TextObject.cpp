@@ -258,7 +258,21 @@ void TextObject::ExecuteDataBindings(void) {
 				}
 				case DataBinding::LEVEL:
 				{
-					Engine_Pointer->engineDebugger.WriteLine("NOT IMPLEMENTED -> DataBinding object type - Level");
+					Level* level = LevelManager::GetInstance()->GetLevel(bindToExecute->GetTargetName());
+
+					// Check the level was found
+					if (level == nullptr) {
+						break;
+					}
+
+					// Check the token is a valid binding
+					std::map<std::string, std::string>& validData = level->ExportDataForBinding();
+					if (validData.find(bindToExecute->GetBindingToken()) == validData.end()) {
+						break;
+					}
+
+					// Bind the data
+					potentialBinding = validData[bindToExecute->GetBindingToken()];
 					break;
 				}
 				case DataBinding::TILE:
