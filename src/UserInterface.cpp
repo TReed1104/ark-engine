@@ -159,12 +159,20 @@ bool UserInterface::Load(const std::string& configFilePath) {
 						if (dataBindingObjectType == "engine") {
 							bindingType = DataBinding::ENGINE;
 						}
-						else if (dataBindingObjectType == "entity") {
-							bindingType = DataBinding::ENTITY;
+						else if (dataBindingObjectType == "camera") {
+							bindingType = DataBinding::CAMERA;
 						}
 						else if (dataBindingObjectType == "level") {
 							bindingType = DataBinding::LEVEL;
-
+						}
+						else if (dataBindingObjectType == "tile") {
+							bindingType = DataBinding::TILE;
+						}
+						else if (dataBindingObjectType == "item") {
+							bindingType = DataBinding::ITEM;
+						}
+						else if (dataBindingObjectType == "entity") {
+							bindingType = DataBinding::ENTITY;
 						}
 						std::string dataBindingObjectID = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.object id");
 						std::string dataBindingToken = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.token");
