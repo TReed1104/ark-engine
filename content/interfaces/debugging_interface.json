@@ -82,6 +82,33 @@
                     }
                 }
             }
+            ,
+            {
+                "text": {
+                    "id": "debugging - level name",
+                    "font": "Arial",
+                    "text": "Level Name: %level_name",
+                    "data bindings": [
+                        {
+                            "binding": {
+                                "id": "level name",
+                                "object type": "level",
+                                "object id": "test",
+                                "token": "%level_name"
+                            }
+                        }
+                    ],
+                    "position": {
+                        "x": 10,
+                        "y": 30
+                    },
+                    "colour": {
+                        "red": 255.0,
+                        "green": 0.0,
+                        "blue": 0.0
+                    }
+                }
+            }
         ]
     }
 }
