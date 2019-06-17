@@ -128,7 +128,6 @@ public:
 	const int GetIndexOfModel(const std::string& modelName);
 	const int GetIndexOfTexture(const std::string& textureName);
 	const int GetIndexOfFont(const std::string& fontName);
-	const int GetIndexOfRenderableText(const std::string& renderableTextName);
 	const int GetIndexOfSoundEffect(const std::string& soundEffectName);
 	const int GetIndexOfTileset(const std::string& tilesetName);
 	const int GetIndexOfEntity(const std::string& entityName);
