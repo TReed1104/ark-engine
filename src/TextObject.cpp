@@ -223,11 +223,13 @@ void TextObject::ExecuteDataBindings(void) {
 		return;
 	}
 
+	// Store our last text
+	std::string previousText = textToRender;
+
 	// Go through each binding in the register
 	for (DataBinding* bindToExecute : dataBindingRegister) {
 		// We split the base text of the 
 		std::vector<std::string> splitTextString = StringUtilities::Split(baseText, ' ');
-
 
 		for (std::string& potentialBinding : splitTextString) {
 			// Check if the current word starts with a %
@@ -348,5 +350,8 @@ void TextObject::ExecuteDataBindings(void) {
 		}
 	}
 
-	LoadText();	// Reload the text glyphs using the new text
+	// If the text has changed, update the models
+	if (textToRender != previousText) {
+		LoadText();	// Reload the text glyphs using the new text
+	}
 }
