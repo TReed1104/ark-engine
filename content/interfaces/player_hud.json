@@ -26,6 +26,14 @@
                                 "object id": "player",
                                 "token": "%health"
                             }
+                        },
+                        {
+                            "binding": {
+                                "id": "energy",
+                                "object type": "entity",
+                                "object id": "player",
+                                "token": "%energy"
+                            }
                         }
                     ],
                     "position": {
