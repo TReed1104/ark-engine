@@ -248,22 +248,27 @@ void TextObject::ExecuteDataBindings(void) {
 			switch (bindToExecute->GetTargetType()) {
 				case DataBinding::ENGINE:
 				{
+					Engine_Pointer->engineDebugger.WriteLine("NOT IMPLEMENTED -> DataBinding object type - Engine");
 					break;
 				}
 				case DataBinding::CAMERA:
 				{
+					Engine_Pointer->engineDebugger.WriteLine("NOT IMPLEMENTED -> DataBinding object type - Camera");
 					break;
 				}
 				case DataBinding::LEVEL:
 				{
+					Engine_Pointer->engineDebugger.WriteLine("NOT IMPLEMENTED -> DataBinding object type - Level");
 					break;
 				}
 				case DataBinding::TILE:
 				{
+					Engine_Pointer->engineDebugger.WriteLine("NOT IMPLEMENTED -> DataBinding object type - Tile");
 					break;
 				}
 				case DataBinding::ITEM:
 				{
+					Engine_Pointer->engineDebugger.WriteLine("NOT IMPLEMENTED -> DataBinding object type - Item");
 					break;
 				}
 				case DataBinding::ENTITY:
