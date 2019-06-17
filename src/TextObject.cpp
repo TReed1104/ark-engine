@@ -301,7 +301,6 @@ void TextObject::ExecuteDataBindings(void) {
 
 						// Bind the data
 						potentialBinding = validData[bindToExecute->GetBindingToken()];
-
 					}
 					break;
 				}
