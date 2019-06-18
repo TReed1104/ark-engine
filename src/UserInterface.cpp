@@ -175,8 +175,9 @@ bool UserInterface::Load(const std::string& configFilePath) {
 							bindingType = DataBinding::ENTITY;
 						}
 						std::string dataBindingObjectID = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.object id");
+						std::string dataBindingObjectVariable = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.object variable");
 						std::string dataBindingToken = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.token");
-						DataBinding* dataBinding = new DataBinding(dataBindingName, bindingType, dataBindingObjectID, dataBindingToken);
+						DataBinding* dataBinding = new DataBinding(dataBindingName, bindingType, dataBindingObjectID, dataBindingObjectVariable, dataBindingToken);
 						newTextObject->RegisterDataBinding(dataBinding);
 					}
 
