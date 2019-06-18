@@ -231,11 +231,91 @@ void TextObject::ExecuteDataBindings(void) {
 
 	// Go through each binding in the register
 	for (DataBinding* bindToExecute : dataBindingRegister) {
+
+		// Our exported data on the object to bind
+		std::map<std::string, std::string> objectsExportedData;
+
+		// We've found our binding, lets find the object we wanna use
+		switch (bindToExecute->GetTargetType()) {
+			case DataBinding::ENGINE:
+			{
+				objectsExportedData = Engine_Pointer->ExportDataForBinding();
+				break;
+			}
+			case DataBinding::CAMERA:
+			{
+				Engine_Pointer->engineDebugger.WriteLine("NOT IMPLEMENTED -> DataBinding object type - Camera");
+				break;
+			}
+			case DataBinding::LEVEL:
+			{
+				// Get the level the binding focuses on
+				Level* level = LevelManager::GetInstance()->GetLevel(bindToExecute->GetTargetName());
+
+				// Check the level was found
+				if (level == nullptr) {
+					break;
+				}
+
+				// Check the token is a valid binding
+				objectsExportedData = level->ExportDataForBinding();
+				break;
+			}
+			case DataBinding::TILE:
+			{
+				Engine_Pointer->engineDebugger.WriteLine("NOT IMPLEMENTED -> DataBinding object type - Tile");
+				break;
+			}
+			case DataBinding::ITEM:
+			{
+				Engine_Pointer->engineDebugger.WriteLine("NOT IMPLEMENTED -> DataBinding object type - Item");
+				break;
+			}
+			case DataBinding::ENTITY:
+			{
+				Entity* entity = nullptr;
+				if (bindToExecute->GetTargetName() == "player") {
+					entity = Engine_Pointer->player;
+
+					// Check we found the player
+					if (entity == nullptr) {
+						break;
+					}
+
+					objectsExportedData = entity->ExportDataForBinding();
+				}
+				else {
+					int indexOfEntity = Engine_Pointer->GetIndexOfEntity(bindToExecute->GetTargetName());
+
+					// Make sure we found an entity
+					if (indexOfEntity != -1) {
+						break;
+					}
+					entity = Engine_Pointer->entityRegister[indexOfEntity];
+					objectsExportedData = entity->ExportDataForBinding();
+				}
+				break;
+			}
+			default:
+				break;
+		}
+
+
 		// For each binding, go through each word of the base text looking for it
+		textToRender = "";
 		for (std::string& potentialBinding : splitTextString) {
 			// Check if the current word starts with a %
 			if (potentialBinding[0] != '%') {
 				// No symbol found, continue to the next potentially binding
+
+				// check if its the last word in the string
+				if (splitTextString.back() == potentialBinding) {
+					// Last word doesn't need a space
+					textToRender += potentialBinding;
+				}
+				else {
+					textToRender += potentialBinding + " ";
+				}
 				continue;
 			}
 
@@ -244,109 +324,20 @@ void TextObject::ExecuteDataBindings(void) {
 				continue;
 			}
 
-			// We've found our binding, lets find the object we wanna use
-			switch (bindToExecute->GetTargetType()) {
-				case DataBinding::ENGINE:
-				{
-					// Check the token is a valid binding
-					std::map<std::string, std::string>& validData = Engine_Pointer->ExportDataForBinding();
-					if (validData.find(bindToExecute->GetBindingToken()) == validData.end()) {
-						break;
-					}
-
-					// Bind the data
-					potentialBinding = validData[bindToExecute->GetBindingToken()];
-					break;
-				}
-				case DataBinding::CAMERA:
-				{
-					Engine_Pointer->engineDebugger.WriteLine("NOT IMPLEMENTED -> DataBinding object type - Camera");
-					break;
-				}
-				case DataBinding::LEVEL:
-				{
-					Level* level = LevelManager::GetInstance()->GetLevel(bindToExecute->GetTargetName());
-
-					// Check the level was found
-					if (level == nullptr) {
-						break;
-					}
-
-					// Check the token is a valid binding
-					std::map<std::string, std::string>& validData = level->ExportDataForBinding();
-					if (validData.find(bindToExecute->GetBindingToken()) == validData.end()) {
-						break;
-					}
-
-					// Bind the data
-					potentialBinding = validData[bindToExecute->GetBindingToken()];
-					break;
-				}
-				case DataBinding::TILE:
-				{
-					Engine_Pointer->engineDebugger.WriteLine("NOT IMPLEMENTED -> DataBinding object type - Tile");
-					break;
-				}
-				case DataBinding::ITEM:
-				{
-					Engine_Pointer->engineDebugger.WriteLine("NOT IMPLEMENTED -> DataBinding object type - Item");
-					break;
-				}
-				case DataBinding::ENTITY:
-				{
-					if (bindToExecute->GetTargetName() == "player") {
-						Entity* entity = Engine_Pointer->player;
-
-						// Check we found the player
-						if (entity == nullptr) {
-							break;
-						}
-
-						// Check the token is a valid binding
-						std::map<std::string, std::string>& validData = entity->ExportDataForBinding();
-						if (validData.find(bindToExecute->GetBindingToken()) == validData.end()) {
-							break;
-						}
-
-						// Bind the data
-						potentialBinding = validData[bindToExecute->GetBindingToken()];
-
-					}
-					else {
-						int indexOfEntity = Engine_Pointer->GetIndexOfEntity(bindToExecute->GetTargetName());
-						if (indexOfEntity != -1) {
-							break;
-						}
-						Entity* entity = Engine_Pointer->entityRegister[indexOfEntity];
-
-						// Check the token is a valid binding
-						std::map<std::string, std::string>& validData = entity->ExportDataForBinding();
-						if (validData.find(bindToExecute->GetBindingToken()) == validData.end()) {
-							break;
-						}
-
-						// Bind the data
-						potentialBinding = validData[bindToExecute->GetBindingToken()];
-					}
-					break;
-				}
-				default:
-				{
-					break;
-				}
+			if (objectsExportedData.find(bindToExecute->GetBindingToken()) == objectsExportedData.end()) {
+				break;
 			}
-		}
 
-		// Reconstruct the text for rendering
-		textToRender = "";
-		for (std::string& word : splitTextString) {
+			// Bind the data
+			potentialBinding = objectsExportedData[bindToExecute->GetBindingToken()];
+
 			// check if its the last word in the string
-			if (splitTextString.back() == word) {
+			if (splitTextString.back() == potentialBinding) {
 				// Last word doesn't need a space
-				textToRender += word;
+				textToRender += potentialBinding;
 			}
 			else {
-				textToRender += word + " ";
+				textToRender += potentialBinding + " ";
 			}
 		}
 	}
