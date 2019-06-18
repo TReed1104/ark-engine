@@ -309,13 +309,16 @@ void TextObject::ExecuteDataBindings(void) {
 
 		// For each binding, go through each word of the base text looking for it
 		textToRender = "";
-		for (std::string& currentWord : splitTextString) {
+
+		const size_t numberOfWordsInText = splitTextString.size();
+		for (size_t i = 0; i < numberOfWordsInText; i++) {
+			std::string& currentWord = splitTextString[i];
 			// Check if the current word starts with a %
 			if (currentWord[0] != '%') {
 				// No symbol found, this word isn't a data binding
 
 				// check if its the last word in the string
-				if (splitTextString.back() == currentWord) {
+				if (i == (numberOfWordsInText - 1)) {
 					// Last word doesn't need a space
 					textToRender += currentWord;
 				}
@@ -342,7 +345,7 @@ void TextObject::ExecuteDataBindings(void) {
 			currentWord = objectsExportedData[bindToExecute->GetVariableName()];
 
 			// check if its the last word in the string
-			if (splitTextString.back() == currentWord) {
+			if (i == (numberOfWordsInText - 1)) {
 				// Last word doesn't need a space
 				textToRender += currentWord;
 			}
