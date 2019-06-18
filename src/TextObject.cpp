@@ -309,18 +309,18 @@ void TextObject::ExecuteDataBindings(void) {
 
 		// For each binding, go through each word of the base text looking for it
 		textToRender = "";
-		for (std::string& potentialBinding : splitTextString) {
+		for (std::string& currentWord : splitTextString) {
 			// Check if the current word starts with a %
-			if (potentialBinding[0] != '%') {
+			if (currentWord[0] != '%') {
 				// No symbol found, this word isn't a data binding
 
 				// check if its the last word in the string
-				if (splitTextString.back() == potentialBinding) {
+				if (splitTextString.back() == currentWord) {
 					// Last word doesn't need a space
-					textToRender += potentialBinding;
+					textToRender += currentWord;
 				}
 				else {
-					textToRender += potentialBinding + " ";
+					textToRender += currentWord + " ";
 				}
 
 				// continue to the next potentially binding
@@ -328,7 +328,7 @@ void TextObject::ExecuteDataBindings(void) {
 			}
 
 			// Check if the potential binding is the current binding we are executing
-			if (potentialBinding != bindToExecute->GetBindingToken()) {
+			if (currentWord != bindToExecute->GetBindingToken()) {
 				continue;
 			}
 
@@ -339,15 +339,15 @@ void TextObject::ExecuteDataBindings(void) {
 			}
 
 			// Bind the data
-			potentialBinding = objectsExportedData[bindToExecute->GetVariableName()];
+			currentWord = objectsExportedData[bindToExecute->GetVariableName()];
 
 			// check if its the last word in the string
-			if (splitTextString.back() == potentialBinding) {
+			if (splitTextString.back() == currentWord) {
 				// Last word doesn't need a space
-				textToRender += potentialBinding;
+				textToRender += currentWord;
 			}
 			else {
-				textToRender += potentialBinding + " ";
+				textToRender += currentWord + " ";
 			}
 		}
 	}
