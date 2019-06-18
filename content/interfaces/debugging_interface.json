@@ -41,6 +41,7 @@
                                 "id": "fps",
                                 "object type": "engine",
                                 "object id": "engine",
+                                "object variable" : "fps",
                                 "token": "%fps"
                             }
                         }
@@ -67,6 +68,7 @@
                                 "id": "grid position",
                                 "object type": "entity",
                                 "object id": "player",
+                                "object variable" : "grid_position",
                                 "token": "%grid_position"
                             }
                         }

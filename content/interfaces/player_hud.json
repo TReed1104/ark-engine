@@ -24,6 +24,7 @@
                                 "id": "health",
                                 "object type": "entity",
                                 "object id": "player",
+                                "object variable" : "health",
                                 "token": "%health"
                             }
                         },
@@ -32,6 +33,7 @@
                                 "id": "energy",
                                 "object type": "entity",
                                 "object id": "player",
+                                "object variable" : "energy",
                                 "token": "%energy"
                             }
                         }
