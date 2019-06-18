@@ -19,8 +19,8 @@ TextObject::TextObject(const std::string& name, const std::string& text, Font* f
 	// Rendering
 	this->colour = colour;
 	this->indexOfShader = Engine_Pointer->GetIndexOfShader("text object - default");
-	this->model = Model(text, false);
-	this->model.OverrideLoadState(true);
+	this->model = new Model(text, false);
+	this->model->OverrideLoadState(true);
 	this->useCamera = useCamera;
 	this->isEnabled = isEnabled;
 
@@ -31,6 +31,12 @@ TextObject::~TextObject() {
 	for (DataBinding* binding : dataBindingRegister) {
 		delete binding;
 		binding = nullptr;
+	}
+
+	// Delete the model
+	if (model != nullptr) {
+		delete model;
+		model = nullptr;
 	}
 }
 
@@ -62,10 +68,10 @@ void TextObject::Draw(void) {
 	}
 
 	glEnable(GL_BLEND);
-	const size_t numberOfMeshes = model.meshes.size();
+	const size_t numberOfMeshes = model->meshes.size();
 	for (size_t i = 0; i < numberOfMeshes; i++) {
 		Engine_Pointer->shaderRegister[indexOfShader]->Activate();
-		Model::Mesh &currentMesh = model.meshes[i];
+		Model::Mesh &currentMesh = model->meshes[i];
 		glBindVertexArray(currentMesh.vertexArrayObject);
 		const GLuint* shaderProgramID = Engine_Pointer->shaderRegister[indexOfShader]->GetShaderID();
 
@@ -115,7 +121,7 @@ const glm::vec3 TextObject::GetPosition(void) {
 }
 void TextObject::Reposition(const glm::vec3& newPosition) {
 	position = newPosition;
-	model.Translate(position);
+	model->Translate(position);
 
 	// TODO: Model/Mesh classes need to be rewritten to make it so full reloading isn't required
 	LoadText();
@@ -131,26 +137,26 @@ void TextObject::SetEnabledState(const bool& enableState) {
 }
 void TextObject::LoadText() {
 	glyphs.clear();
-	model.meshes.clear();
+	model->meshes.clear();
 	const size_t lengthOfText = textToRender.size();
 	for (size_t i = 0; i < lengthOfText; i++) {
 		Glyph& currentGlyph = font->GetGlyph(textToRender[i]);
 		glyphs.push_back(currentGlyph);
-		model.meshes.push_back(currentGlyph.mesh);
+		model->meshes.push_back(currentGlyph.mesh);
 	}
 
 	// Setup the Model for handling its new Meshes.
-	model.SetMeshParents();
-	model.Translate(position);
-	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-	model.Scale(scale);
+	model->SetMeshParents();
+	model->Translate(position);
+	model->Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+	model->Scale(scale);
 
 	// Configure the positioning of each glyph in a piece of text
 	glm::vec3 cursorPosition = position;	// The cursor is the horizontal position along a line of text where a character is to be rendered
 	for (size_t i = 0; i < lengthOfText; i++) {
 		// Create a reference directly to the glyph and model mesh to configure
 		Glyph& currentGlyph = glyphs[i];
-		Model::Mesh& currentMesh = model.meshes[i];
+		Model::Mesh& currentMesh = model->meshes[i];
 
 		/* Create the draw position for the glyph, this uses the cursor position and the glyph metrics for its bearings,
 		the bearing is the values deciding how the glyph itself is positioned in comparison to the line the text is rendered along.
@@ -169,13 +175,13 @@ void TextObject::LoadText() {
 	}
 }
 void TextObject::UpdatePosition() {
-	model.Translate(position);
+	model->Translate(position);
 }
 void TextObject::UpdateRotation() {
-	model.Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+	model->Rotate(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 }
 void TextObject::UpdateScale() {
-	model.Scale(scale);
+	model->Scale(scale);
 }
 
 // Data binding
