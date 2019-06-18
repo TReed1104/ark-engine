@@ -905,7 +905,7 @@ void Engine::SetSoundStateSoundEffects(const bool& muteSoundEffects) {
 std::map<std::string, std::string> Engine::ExportDataForBinding(void) {
 	std::map<std::string, std::string> exportData;
 
-	exportData["%fps"] = std::to_string(currentFPS);
+	exportData["fps"] = std::to_string(currentFPS);
 
 	return exportData;
 }
