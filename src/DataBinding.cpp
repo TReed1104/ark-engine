@@ -18,6 +18,9 @@ const DataBinding::BindingTargetType DataBinding::GetTargetType(void) {
 const std::string DataBinding::GetTargetName(void) {
 	return this->targetName;
 }
+const std::string DataBinding::GetVariableName(void) {
+	return this->variableName;
+}
 const std::string DataBinding::GetBindingToken(void) {
 	return this->bindingToken;
 }

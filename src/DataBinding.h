@@ -12,6 +12,7 @@ public:
 	const std::string GetName(void);
 	const BindingTargetType GetTargetType(void);
 	const std::string GetTargetName(void);
+	const std::string GetVariableName(void);
 	const std::string GetBindingToken(void);
 
 private:
@@ -19,6 +20,7 @@ private:
 	std::string name = "";
 	BindingTargetType targetType = BindingTargetType::ENGINE;
 	std::string targetName = "";
+	std::string variableName = "";
 	std::string bindingToken = "";
 };
 
