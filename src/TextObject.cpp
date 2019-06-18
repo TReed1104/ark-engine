@@ -117,7 +117,7 @@ void TextObject::UpdateFont(Font* font) {
 	LoadText();
 }
 const glm::vec3 TextObject::GetPosition(void) {
-	return position;
+	return this->position;
 }
 void TextObject::Reposition(const glm::vec3& newPosition) {
 	position = newPosition;
