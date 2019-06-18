@@ -6,7 +6,7 @@
 class DataBinding {
 public:
 	enum BindingTargetType { ENGINE, CAMERA, LEVEL, TILE, ITEM, ENTITY };
-	DataBinding(const std::string& name, const BindingTargetType& targetType, const std::string& targetName, const std::string& bindingToken);
+	DataBinding(const std::string& name, const BindingTargetType& targetType, const std::string& targetName, const std::string& variableName,  const std::string& bindingToken);
 	~DataBinding();
 
 	const std::string GetName(void);
