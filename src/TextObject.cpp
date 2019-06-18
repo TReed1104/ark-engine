@@ -306,7 +306,7 @@ void TextObject::ExecuteDataBindings(void) {
 		for (std::string& potentialBinding : splitTextString) {
 			// Check if the current word starts with a %
 			if (potentialBinding[0] != '%') {
-				// No symbol found, continue to the next potentially binding
+				// No symbol found, this word isn't a data binding
 
 				// check if its the last word in the string
 				if (splitTextString.back() == potentialBinding) {
@@ -316,6 +316,8 @@ void TextObject::ExecuteDataBindings(void) {
 				else {
 					textToRender += potentialBinding + " ";
 				}
+
+				// continue to the next potentially binding
 				continue;
 			}
 
@@ -324,6 +326,7 @@ void TextObject::ExecuteDataBindings(void) {
 				continue;
 			}
 
+			// Make sure the binding is actually a valid option in the objects exported variables
 			if (objectsExportedData.find(bindToExecute->GetBindingToken()) == objectsExportedData.end()) {
 				break;
 			}
