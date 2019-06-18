@@ -53,7 +53,7 @@ private:
 	int indexOfShader;
 	glm::vec3 colour;
 	std::vector<Glyph> glyphs;	// The glyphs making up the text
-	Model model;
+	Model* model = nullptr;
 	glm::vec3 position;
 	float rotation;
 	glm::vec3 scale;
