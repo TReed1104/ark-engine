@@ -339,7 +339,7 @@ void TextObject::ExecuteDataBindings(void) {
 			}
 
 			// Bind the data
-			potentialBinding = objectsExportedData[bindToExecute->GetBindingToken()];
+			potentialBinding = objectsExportedData[bindToExecute->GetVariableName()];
 
 			// check if its the last word in the string
 			if (splitTextString.back() == potentialBinding) {
