@@ -96,6 +96,7 @@
                                 "id": "level name",
                                 "object type": "level",
                                 "object id": "test",
+                                "object variable" : "level_name",
                                 "token": "%level_name"
                             }
                         }
