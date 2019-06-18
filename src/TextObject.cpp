@@ -333,7 +333,7 @@ void TextObject::ExecuteDataBindings(void) {
 			}
 
 			// Make sure the binding is actually a valid option in the objects exported variables
-			if (objectsExportedData.find(bindToExecute->GetBindingToken()) == objectsExportedData.end()) {
+			if (objectsExportedData.find(bindToExecute->GetVariableName()) == objectsExportedData.end()) {
 				Engine_Pointer->engineDebugger.WriteLine(">> Invalid Data Binding");
 				break;
 			}
