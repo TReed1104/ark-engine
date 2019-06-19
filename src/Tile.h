@@ -12,7 +12,7 @@ public:
 	float slopeAngle;
 
 	Tile(const Tile& otherTile);
-	Tile(const Texture* texture, const int& tileType, const glm::ivec2& sourceFramePosition = glm::ivec2(0), const glm::vec3& position = glm::vec3(0.0f), const BoundingBox& boundingBox = BoundingBox(glm::ivec2(0)), const glm::ivec2& boundingBoxOffset = glm::ivec2(0), const bool& isSlope = false, const glm::ivec2& slopeOffset = glm::vec2(0));
+	Tile(Texture* texture, const int& tileType, const glm::ivec2& sourceFramePosition = glm::ivec2(0), const glm::vec3& position = glm::vec3(0.0f), const BoundingBox& boundingBox = BoundingBox(glm::ivec2(0)), const glm::ivec2& boundingBoxOffset = glm::ivec2(0), const bool& isSlope = false, const glm::ivec2& slopeOffset = glm::vec2(0));
 	~Tile(void);
 
 	void Update(const float& deltaTime);

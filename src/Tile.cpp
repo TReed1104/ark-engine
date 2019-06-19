@@ -20,7 +20,7 @@ Tile::Tile(const Tile& otherTile) : GameObject() {
 	this->model.SetMeshParents();	// Configure the mesh
 	this->isLoaded = otherTile.isLoaded;
 }
-Tile::Tile(const Texture* texture, const int& tileType, const glm::ivec2& sourceFramePosition, const glm::vec3& position, const BoundingBox& boundingBox, const glm::ivec2& boundingBoxOffset, const bool& isSlope, const glm::ivec2& slopeOffset) : GameObject() {
+Tile::Tile(Texture* texture, const int& tileType, const glm::ivec2& sourceFramePosition, const glm::vec3& position, const BoundingBox& boundingBox, const glm::ivec2& boundingBoxOffset, const bool& isSlope, const glm::ivec2& slopeOffset) : GameObject() {
 	this->name = "Tile";
 	this->type = (Type)tileType;
 	// Set the tile name
