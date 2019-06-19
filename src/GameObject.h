@@ -23,7 +23,7 @@ public:
 	static Engine* Engine_Pointer;
 
 	// Rendering
-	const Texture* texture;
+	Texture* texture;
 	glm::ivec2 sourceFrameSize;
 	glm::ivec2 sourceFramePosition;
 	glm::vec3 drawPosition;
