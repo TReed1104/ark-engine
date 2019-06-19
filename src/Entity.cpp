@@ -133,10 +133,16 @@ std::map<std::string, std::string> Entity::ExportDataForBinding(void) {
 		exportData["shader"] = Engine_Pointer->shaderRegister[indexOfShader]->GetName();
 	}
 	else {
-		exportData["shader"] = "Shader not set";
+		exportData["shader"] = "Not Set";
 	}
 	exportData["texture"] = texture->GetName();
 	exportData["model"] = model.GetName();
+	if (animationIndex != -1) {
+		exportData["current_animation"] = animations[animationIndex].GetName();
+	}
+	else {
+		exportData["current_animation"] = "Not Set";
+	}
 
 	return exportData;
 }
