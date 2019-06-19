@@ -1070,7 +1070,7 @@ const int Engine::GetIndexOfModel(const std::string& modelName) {
 	int indexOfDesiredModel = -1;
 	const size_t modelRegisterSize = modelRegister.size();
 	for (size_t i = 0; i < modelRegisterSize; i++) {
-		if (modelRegister[i].name == modelName) {
+		if (modelRegister[i].GetName() == modelName) {
 			indexOfDesiredModel = (int)i;
 		}
 	}

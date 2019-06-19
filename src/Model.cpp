@@ -42,6 +42,10 @@ Model::Mesh Model::GenerateMesh(const glm::vec2& dimensions) {
 	return mesh;
 }
 
+const std::string Model::GetName(void) {
+	return this->name;
+}
+
 Model::Model(const std::string& modelPath, const bool& load) {
 	name = modelPath;
 	if (modelPath != "" && load) {

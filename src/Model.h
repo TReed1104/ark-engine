@@ -56,13 +56,14 @@ public:
 		glm::mat4 scaleMatrix;
 	};
 	static Engine* Engine_Pointer;
-	std::string name;
+	
 	std::vector<Mesh> meshes;
 
 	Model(const std::string& modelPath = "", const bool& load = true);
 	~Model(void);
 
 	static Mesh GenerateMesh(const glm::vec2& dimensions);
+	const std::string GetName(void);
 	const bool IsLoaded(void);
 	const void OverrideLoadState(const bool& newState);
 	void SetMeshParents(void);
@@ -74,6 +75,7 @@ public:
 	void SetMeshScale(const int& indexOfMesh, const glm::vec3& scale = glm::vec3(0.0f));
 
 private:
+	std::string name = "";
 	bool isLoaded = false;
 	glm::mat4 modelTranslationMatrix;
 	glm::mat4 modelRotationMatrix;
