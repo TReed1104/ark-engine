@@ -905,7 +905,23 @@ void Engine::SetSoundStateSoundEffects(const bool& muteSoundEffects) {
 std::map<std::string, std::string> Engine::ExportDataForBinding(void) {
 	std::map<std::string, std::string> exportData;
 
+	// General Variables
 	exportData["fps"] = std::to_string(currentFPS);
+	exportData["content_directory"] = contentDirectory;
+	exportData["tile_size"] = std::to_string(tileSize.x) + ", " + std::to_string(tileSize.y);
+	exportData["camnera_focus"] = mainCameraFocus->GetName();
+
+	// Window Variables
+	exportData["window_tile_default"] = defaultWindowTitle;
+	exportData["window_title"] = windowTitle;
+	exportData["window_dimensions"] = std::to_string(windowDimensions.x) + ", " + std::to_string(windowDimensions.y);
+	exportData["window_grid_size"] = std::to_string(windowGridSize.x) + ", " + std::to_string(windowGridSize.y);
+	exportData["window_scalar"] = std::to_string(windowScaler.x) + ", " + std::to_string(windowScaler.y);
+
+	// Sound Variables
+	exportData["sound_engine_mute"] = std::to_string(isEngineMuted);
+	exportData["sound_background_mute"] = std::to_string(areBackgroundSoundsMuted);
+	exportData["sound_effect_mute"] = std::to_string(areSoundEffectsMuted);
 
 	return exportData;
 }
