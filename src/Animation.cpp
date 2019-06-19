@@ -21,6 +21,9 @@ Animation::~Animation(void) {
 
 }
 
+const std::string Animation::GetName(void) {
+	return this->name;
+}
 void Animation::AddFrame(const glm::ivec2 & sourceRectanglePosition, const float & frameLength) {
 	frames.push_back(Frame(sourceRectanglePosition, frameLength));
 }
@@ -37,7 +40,6 @@ glm::ivec2 Animation::Run(const float & deltaTime) {
 		return glm::ivec2(0, 0);
 	}
 }
-
 void Animation::Reset(void) {
 	animationIndex = 0;
 	animationTimer = 0.0f;

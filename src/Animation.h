@@ -7,15 +7,12 @@
 
 class Engine;
 
-// Animation class
-class Animation
-{
+class Animation {
 public:
 	static Engine* Engine_Pointer;
 
 	// Animation Frame class
-	class Frame
-	{
+	class Frame {
 	public:
 		static Engine* Engine_Pointer;
 
@@ -29,16 +26,16 @@ public:
 
 	};
 
-	std::string name;
-
 	Animation(const std::string& name = "");
 	~Animation(void);
 
+	const std::string GetName(void);
 	void AddFrame(const glm::ivec2& sourceRectanglePosition, const float& frameLength);
 	glm::ivec2 Run(const float& deltaTime);
 	void Reset(void);
 
 private:
+	std::string name;
 	std::vector<Frame> frames;
 	int animationIndex;
 	float animationTimer;
