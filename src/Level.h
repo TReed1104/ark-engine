@@ -15,11 +15,8 @@ class Level
 {
 public:
 	static Engine* Engine_Pointer;
-	int indexOfTileset;
-	std::vector<Tile*> tileMap;
 	std::vector<LightSource*> lightSourcesRegister;
 	SoundEffect* backgroundSoundEffect = nullptr;
-	Background* levelBackground = nullptr;
 
 	Level(const std::string& filePath);
 	~Level(void);
@@ -42,10 +39,13 @@ private:
 	std::string name;
 	std::string filePath;
 	std::string nameOfTilest;
+	int indexOfTileset;
 	bool isLoaded;
 	glm::vec2 tileGridSize;
 	glm::vec2 pixelGridSize;
 	glm::vec2 playerStartPosition;
+	std::vector<Tile*> tileMap;
+	Background* levelBackground = nullptr;
 
 	bool Load(void);
 	bool IsTileValid(const glm::vec2& gridPosition);
