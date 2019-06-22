@@ -15,9 +15,6 @@ class Level
 {
 public:
 	static Engine* Engine_Pointer;
-	std::string name;
-	std::string filePath;
-	std::string nameOfTilest;
 	int indexOfTileset;
 	glm::vec2 tileGridSize;
 	glm::vec2 pixelGridSize;
@@ -40,6 +37,9 @@ public:
 
 private:
 	JsonFile* configFile = nullptr;
+	std::string name;
+	std::string filePath;
+	std::string nameOfTilest;
 	bool isLoaded;
 
 	bool Load(void);
