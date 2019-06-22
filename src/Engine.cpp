@@ -773,7 +773,7 @@ void Engine::LoadEntities(void) {
 				engineDebugger.WriteLine(">> 14 - FAILED");
 				this->Close();
 			}
-			player->Reposition(LevelManager::GetInstance()->GetCurrentLevel()->playerStartPosition);
+			player->Reposition(LevelManager::GetInstance()->GetCurrentLevel()->GetPlayerStartPosition());
 		}
 		else {
 			// Load the NPCs
@@ -1146,7 +1146,7 @@ const int Engine::GetIndexOfEntity(const std::string& entityName) {
 // Manager interactions
 void Engine::ChangeLevel(const std::string & newLevelID) {
 	// Get and store a pointer to our current level to prevent having to call GetCurrentLevel() multiple times
-	const Level* currentLevel = LevelManager::GetInstance()->GetCurrentLevel();
+	Level* currentLevel = LevelManager::GetInstance()->GetCurrentLevel();
 
 	// Check the level has had its background sound set
 	if (currentLevel->backgroundSoundEffect != nullptr) {
@@ -1161,7 +1161,7 @@ void Engine::ChangeLevel(const std::string & newLevelID) {
 	currentLevel = LevelManager::GetInstance()->GetCurrentLevel();
 
 	//TODO: Check start position against save position, change to the save position if they don't match and we know they've saved in that map
-	player->Reposition(currentLevel->playerStartPosition);	// Reposition the player to the new start position
+	player->Reposition(currentLevel->GetPlayerStartPosition());	// Reposition the player to the new start position
 
 	// Check the level has had its background sound set
 	if (currentLevel->backgroundSoundEffect != nullptr) {
