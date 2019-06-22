@@ -71,7 +71,9 @@ void Tile::Update(const float& deltaTime) {
 	GameObject::Update(deltaTime);
 }
 std::map<std::string, std::string> Tile::ExportDataForBinding(void) {
-	return std::map<std::string, std::string>();
+	std::map<std::string, std::string> exportData;	// Create the "map" (its a dictionary lets be honest)
+
+	return exportData;
 }
 float Tile::CalculateSlope(const glm::ivec2& slopeOffset) {
 	glm::ivec2 left = glm::ivec2(position) + glm::ivec2(0, slopeOffset.x);
