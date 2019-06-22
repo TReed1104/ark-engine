@@ -87,6 +87,12 @@ const std::string Level::GetFilePath(void) {
 const std::string Level::GetTileSetName(void) {
 	return this->nameOfTilest;
 }
+const glm::vec2 Level::GetPlayerStartPosition(void) {
+	return this->playerStartPosition;
+}
+const glm::vec2 Level::GetPixelGridSize(void) {
+	return this->pixelGridSize;
+}
 const bool Level::IsLoaded(void) {
 	return isLoaded;
 }
