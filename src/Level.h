@@ -16,9 +16,6 @@ class Level
 public:
 	static Engine* Engine_Pointer;
 	int indexOfTileset;
-	glm::vec2 tileGridSize;
-	glm::vec2 pixelGridSize;
-	glm::vec2 playerStartPosition;
 	std::vector<Tile*> tileMap;
 	std::vector<LightSource*> lightSourcesRegister;
 	SoundEffect* backgroundSoundEffect = nullptr;
@@ -32,6 +29,8 @@ public:
 	const std::string GetName(void);
 	const std::string GetFilePath(void);
 	const std::string GetTileSetName(void);
+	const glm::vec2 GetPlayerStartPosition(void);
+	const glm::vec2 GetPixelGridSize(void);
 	const bool IsLoaded(void);
 	bool IsTileSolid(const glm::vec2& gridPosition);
 	BoundingBox* GetTileBoundingBox(const glm::vec2& gridPosition);
@@ -44,6 +43,9 @@ private:
 	std::string filePath;
 	std::string nameOfTilest;
 	bool isLoaded;
+	glm::vec2 tileGridSize;
+	glm::vec2 pixelGridSize;
+	glm::vec2 playerStartPosition;
 
 	bool Load(void);
 	bool IsTileValid(const glm::vec2& gridPosition);
