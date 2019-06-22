@@ -14,7 +14,9 @@ Item::Item(const std::string& filePath) : GameObject(filePath) {
 Item::~Item() {
 }
 std::map<std::string, std::string> Item::ExportDataForBinding(void) {
-	return std::map<std::string, std::string>();
+	std::map<std::string, std::string> exportData;
+
+	return exportData;
 }
 void Item::LoadAnimations(void) {
 }
