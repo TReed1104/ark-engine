@@ -29,6 +29,9 @@ public:
 
 	void Update(const float& deltaTime);
 	void Draw(void);
+	const std::string GetName(void);
+	const std::string GetFilePath(void);
+	const std::string GetTileSetName(void);
 	const bool IsLoaded(void);
 	bool IsTileSolid(const glm::vec2& gridPosition);
 	BoundingBox* GetTileBoundingBox(const glm::vec2& gridPosition);
