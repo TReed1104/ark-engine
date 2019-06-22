@@ -78,6 +78,15 @@ void Level::Draw(void) {
 	}
 
 }
+const std::string Level::GetName(void) {
+	return this->name;
+}
+const std::string Level::GetFilePath(void) {
+	return this->filePath;
+}
+const std::string Level::GetTileSetName(void) {
+	return this->nameOfTilest;
+}
 const bool Level::IsLoaded(void) {
 	return isLoaded;
 }
