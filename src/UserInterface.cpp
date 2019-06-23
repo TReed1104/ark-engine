@@ -103,10 +103,14 @@ bool UserInterface::Load(const std::string& configFilePath) {
 				return false;
 			}
 
-			// Reloading check
+			// Reloading checks
 			if (texture != nullptr) {
 				delete texture;
 				texture = nullptr;
+			}
+			if (model != nullptr) {
+				delete model;
+				model = nullptr;
 			}
 
 			// Check if the config defines a UI background texture
@@ -120,12 +124,6 @@ bool UserInterface::Load(const std::string& configFilePath) {
 
 				// We've got a background background texture, flag the interface can use it
 				hasBackgroundTexture = true;
-			}
-
-			// Reloading check
-			if (model != nullptr) {
-				delete model;
-				model = nullptr;
 			}
 
 			// Generate the UIs model
