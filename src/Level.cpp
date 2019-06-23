@@ -20,8 +20,8 @@ Level::~Level(void) {
 	}
 
 	// Delete the background effect
-	if (levelBackground != nullptr) {
-		delete levelBackground;
+	if (levelBackgroundSurface != nullptr) {
+		delete levelBackgroundSurface;
 	}
 
 	// Delete the tilemap
@@ -53,14 +53,14 @@ void Level::Update(const float& deltaTime) {
 	}
 
 	// Update the level background
-	if (levelBackground != nullptr) {
-		levelBackground->Update(deltaTime);
+	if (levelBackgroundSurface != nullptr) {
+		levelBackgroundSurface->Update(deltaTime);
 	}
 }
 void Level::Draw(void) {
 	// Render the level background
-	if (levelBackground != nullptr) {
-		levelBackground->Draw();
+	if (levelBackgroundSurface != nullptr) {
+		levelBackgroundSurface->Draw();
 	}
 	// Use the cameras position (top left of its viewport) to calculate where to update
 	glm::vec2 topLeftGridPosition = Engine_Pointer->ConvertToGridPosition(glm::vec2(Engine_Pointer->mainCamera->position.x, Engine_Pointer->mainCamera->position.y));
@@ -177,10 +177,10 @@ bool Level::Load(void) {
 		std::string backgroundID = configFile->Get<std::string>("level.background.id");
 		std::string backgroundTexturePath = Engine_Pointer->contentDirectory + "textures\\" + configFile->Get<std::string>("level.background.texture");
 		std::string backgroundShaderID = configFile->Get<std::string>("level.background.shader");
-		levelBackground = new Background(backgroundID, backgroundTexturePath, backgroundShaderID);
-		if (!levelBackground->IsLoaded()) {
-			delete levelBackground;
-			levelBackground = nullptr;
+		levelBackgroundSurface = new Background(backgroundID, backgroundTexturePath, backgroundShaderID);
+		if (!levelBackgroundSurface->IsLoaded()) {
+			delete levelBackgroundSurface;
+			levelBackgroundSurface = nullptr;
 		}
 		
 		// Find the index of tileset to use for this level in the Engines tileset register.
@@ -248,7 +248,7 @@ std::map<std::string, std::string> Level::ExportDataForBinding(void) {
 	exportData["level_name"] = name;
 	exportData["level_file_path"] = filePath;
 	exportData["level_tile_set"] = nameOfTilest;
-	exportData["level_background"] = levelBackground->GetName();
+	exportData["level_background"] = levelBackgroundSurface->GetName();
 	exportData["level_size_in_tiles"] = std::to_string(tileGridSize.x) + ", " + std::to_string(tileGridSize.y);
 	exportData["level_music"] = levelMusicTrack->GetName();
 

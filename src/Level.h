@@ -47,7 +47,7 @@ private:
 	glm::vec2 pixelGridSize;
 	glm::vec2 playerStartPosition;
 	std::vector<Tile*> tileMap;
-	Background* levelBackground = nullptr;
+	Background* levelBackgroundSurface = nullptr;
 	SoundEffect* levelMusicTrack = nullptr;
 
 	bool Load(void);
