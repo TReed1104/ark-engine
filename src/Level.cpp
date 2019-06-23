@@ -96,6 +96,27 @@ const glm::vec2 Level::GetPixelGridSize(void) {
 const bool Level::IsLoaded(void) {
 	return isLoaded;
 }
+void Level::PlayBackgroundMusic(void) {
+	// Check the level has had its background sound set
+	if (backgroundSoundEffect != nullptr) {
+		// Play the background music of the level
+		backgroundSoundEffect->Play();
+	}
+}
+void Level::PauseBackgroundMusic(void) {
+	// Check the level has had its background sound set
+	if (backgroundSoundEffect != nullptr) {
+		// Play the background music of the level
+		backgroundSoundEffect->Pause();
+	}
+}
+void Level::StopBackgroundMusic(void) {
+	// Check the level has had its background sound set
+	if (backgroundSoundEffect != nullptr) {
+		// Play the background music of the level
+		backgroundSoundEffect->Stop();
+	}
+}
 bool Level::IsTileValid(const glm::vec2& gridPosition) {
 	if ((int)gridPosition.x < 0) return false;
 	if ((int)gridPosition.x >= tileGridSize.x) return false;

@@ -28,6 +28,9 @@ public:
 	const glm::vec2 GetPlayerStartPosition(void);
 	const glm::vec2 GetPixelGridSize(void);
 	const bool IsLoaded(void);
+	void PlayBackgroundMusic(void);
+	void PauseBackgroundMusic(void);
+	void StopBackgroundMusic(void);
 	bool IsTileSolid(const glm::vec2& gridPosition);
 	BoundingBox* GetTileBoundingBox(const glm::vec2& gridPosition);
 	void Reload(void);
