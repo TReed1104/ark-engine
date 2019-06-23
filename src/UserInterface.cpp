@@ -122,17 +122,18 @@ bool UserInterface::Load(const std::string& configFilePath) {
 					return false;
 				}
 
+				// Generate the UIs model
+				model = new Model(name, false);
+				model->meshes.push_back(Model::GenerateMesh(dimensions));
+				model->SetMeshParents();
+				model->Translate(position);
+				model->SetMeshTranslation(0, position);
+				model->OverrideLoadState(true);
+
 				// We've got a background background texture, flag the interface can use it
 				hasBackgroundTexture = true;
 			}
 
-			// Generate the UIs model
-			model = new Model(name, false);
-			model->meshes.push_back(Model::GenerateMesh(dimensions));
-			model->SetMeshParents();
-			model->Translate(position);
-			model->SetMeshTranslation(0, position);
-			model->OverrideLoadState(true);
 
 			// Load the interface elements from the config
 			const size_t numberOfInterfaceElements = configFile->SizeOfObjectArray("interface.interface elements");
