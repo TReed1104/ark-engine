@@ -902,6 +902,7 @@ void Engine::SetSoundStateSoundEffects(const bool& muteSoundEffects) {
 	}
 }
 
+// Export the state of the engines variables for use in UI text
 std::map<std::string, std::string> Engine::ExportDataForBinding(void) {
 	std::map<std::string, std::string> exportData;
 
