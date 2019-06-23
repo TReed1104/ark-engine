@@ -109,10 +109,17 @@ bool UserInterface::Load(const std::string& configFilePath) {
 				texture = nullptr;
 			}
 
-			texture = new Texture(name, "content/textures/" + configFile->Get<std::string>("interface.texture"), true, false);
-			// Check we actually loaded the texture correctly
-			if (!texture->IsLoaded()) {
-				return false;
+			// Check if the config defines a UI background texture
+			std::string textureName = configFile->Get<std::string>("interface.texture");
+			if (textureName != "") {
+				texture = new Texture(name, "content/textures/" + textureName, true, false);
+				// Check we actually loaded the texture correctly
+				if (!texture->IsLoaded()) {
+					return false;
+				}
+
+				// We've got a background background texture, flag the interface can use it
+				hasBackgroundTexture = true;
 			}
 
 			// Reloading check
@@ -186,7 +193,7 @@ bool UserInterface::Load(const std::string& configFilePath) {
 				// Register the text object with the interface
 				textRegister.push_back(newTextObject);
 			}
-			
+
 			// Loading succeeded!
 			return true;
 		}
@@ -221,43 +228,44 @@ void UserInterface::Draw(void) {
 	glm::mat4* projectionMatrix = &(glm::ortho(0.0f, viewPort.x, viewPort.y, 0.0f, 0.0f, 2.0f));
 	glm::mat4* viewMatrix = &(glm::lookAt(glm::vec3(position.x, position.y, 1.0f), glm::vec3(position.x, position.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
 
-	glEnable(GL_BLEND);
+	if (hasBackgroundTexture) {
+		glEnable(GL_BLEND);
+		for (Model::Mesh& mesh : model->meshes) {
+			Engine_Pointer->shaderRegister[indexOfShader]->Activate();
+			glBindVertexArray(mesh.vertexArrayObject);
+			const GLuint* shaderProgramID = Engine_Pointer->shaderRegister[indexOfShader]->GetShaderID();
 
-	for (Model::Mesh& mesh : model->meshes) {
-		Engine_Pointer->shaderRegister[indexOfShader]->Activate();
-		glBindVertexArray(mesh.vertexArrayObject);
-		const GLuint* shaderProgramID = Engine_Pointer->shaderRegister[indexOfShader]->GetShaderID();
+			// Transformations
+			glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
+			glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
+			glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(mesh.GetModelMatrix()));
 
-		// Transformations
-		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_viewMatrix"), 1, GL_FALSE, glm::value_ptr(*viewMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(*projectionMatrix));
-		glUniformMatrix4fv(glGetUniformLocation(*shaderProgramID, "u_modelMatrix"), 1, GL_FALSE, glm::value_ptr(mesh.GetModelMatrix()));
+			// Universal uniforms all shaders for this engine should support
+			glUniform2fv(glGetUniformLocation(*shaderProgramID, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
+			glUniform1f(glGetUniformLocation(*shaderProgramID, "iTime"), (float)SDL_GetTicks());	// TODO: Change to not use SDL_Ticks, due to SDL_Ticks being consistent in its values
+			glUniform3fv(glGetUniformLocation(*shaderProgramID, "iCameraPosition"), 1, glm::value_ptr(Engine_Pointer->mainCamera->position));
 
-		// Universal uniforms all shaders for this engine should support
-		glUniform2fv(glGetUniformLocation(*shaderProgramID, "iResolution"), 1, glm::value_ptr(Engine_Pointer->windowDimensions));
-		glUniform1f(glGetUniformLocation(*shaderProgramID, "iTime"), (float)SDL_GetTicks());	// TODO: Change to not use SDL_Ticks, due to SDL_Ticks being consistent in its values
-		glUniform3fv(glGetUniformLocation(*shaderProgramID, "iCameraPosition"), 1, glm::value_ptr(Engine_Pointer->mainCamera->position));
+			// Texturing
+			bool useTextures = useTextures = (texture->textureID != -1 && mesh.isSetupForTextures);
+			glUniform1i(glGetUniformLocation(*shaderProgramID, "u_hasTexture"), useTextures);
+			if (useTextures) {
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, texture->textureID);
+				glUniform1i(glGetUniformLocation(*shaderProgramID, "u_textureSampler"), 0);
+			}
 
-		// Texturing
-		bool useTextures = (texture->textureID != -1 && mesh.isSetupForTextures);
-		glUniform1i(glGetUniformLocation(*shaderProgramID, "u_hasTexture"), useTextures);
-		if (useTextures) {
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, texture->textureID);
-			glUniform1i(glGetUniformLocation(*shaderProgramID, "u_textureSampler"), 0);
+			// Draw calls
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.indicesBufferObject);
+			glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
+			if (useTextures) {
+				glBindTexture(GL_TEXTURE_2D, 0);
+			}
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+			glBindVertexArray(0);
+			glUseProgram(0);
 		}
-
-		// Draw calls
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.indicesBufferObject);
-		glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
-		if (useTextures) {
-			glBindTexture(GL_TEXTURE_2D, 0);
-		}
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		glBindVertexArray(0);
-		glUseProgram(0);
+		glDisable(GL_BLEND);
 	}
-	glDisable(GL_BLEND);
 
 	// Render Buttons
 	for (Button* button : buttonRegister) {
