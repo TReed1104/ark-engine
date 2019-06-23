@@ -249,6 +249,7 @@ std::map<std::string, std::string> Level::ExportDataForBinding(void) {
 	exportData["level_file_path"] = filePath;
 	exportData["level_tile_set"] = nameOfTilest;
 	exportData["level_background"] = levelBackgroundSurface->GetName();
+	exportData["level_size_in_pixels"] = std::to_string(pixelGridSize.x) + ", " + std::to_string(pixelGridSize.y);
 	exportData["level_size_in_tiles"] = std::to_string(tileGridSize.x) + ", " + std::to_string(tileGridSize.y);
 	exportData["level_music"] = levelMusicTrack->GetName();
 
