@@ -242,7 +242,7 @@ void Level::Reload(void) {
 	}
 }
 std::map<std::string, std::string> Level::ExportDataForBinding(void) {
-	std::map<std::string, std::string> exportData;	// Create the "map" (its a dictionary lets be honest)
+	std::map<std::string, std::string> exportData;
 
 	// Format the data into the strings which the UIs will be able to render
 	exportData["level_name"] = name;
