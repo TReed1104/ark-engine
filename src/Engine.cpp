@@ -571,7 +571,7 @@ void Engine::LoadUserInterfaces(void) {
 			UserInterfaceManager::GetInstance()->RegisterInterface(newUserInterface);
 		}
 		else {
-			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load Tileset " + listOfUserInterfaceConfigs[i]);
+			engineDebugger.WriteLine(">>>> ERROR!!!! - Failed to load User Interface " + listOfUserInterfaceConfigs[i]);
 			delete newUserInterface;
 		}
 	}
