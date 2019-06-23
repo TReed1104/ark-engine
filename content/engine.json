@@ -143,14 +143,28 @@
 				"fonts": [
 					{
 						"font": {
-							"id": "Arial",
+							"id": "Arial - 14",
 							"source": "arial.ttf",
 							"size": 16
 						}
 					},
 					{
 						"font": {
-							"id": "Digital-7",
+							"id": "Arial - 16",
+							"source": "arial.ttf",
+							"size": 16
+						}
+					},
+					{
+						"font": {
+							"id": "Arial - 18",
+							"source": "arial.ttf",
+							"size": 16
+						}
+					},
+					{
+						"font": {
+							"id": "Digital-7 - 16",
 							"source": "digital-7.ttf",
 							"size": 16
 						}
