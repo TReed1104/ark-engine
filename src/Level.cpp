@@ -98,23 +98,23 @@ const bool Level::IsLoaded(void) {
 }
 void Level::PlayBackgroundMusic(void) {
 	// Check the level has had its background sound set
-	if (backgroundSoundEffect != nullptr) {
+	if (levelMusicTrack != nullptr) {
 		// Play the background music of the level
-		backgroundSoundEffect->Play();
+		levelMusicTrack->Play();
 	}
 }
 void Level::PauseBackgroundMusic(void) {
 	// Check the level has had its background sound set
-	if (backgroundSoundEffect != nullptr) {
+	if (levelMusicTrack != nullptr) {
 		// Play the background music of the level
-		backgroundSoundEffect->Pause();
+		levelMusicTrack->Pause();
 	}
 }
 void Level::StopBackgroundMusic(void) {
 	// Check the level has had its background sound set
-	if (backgroundSoundEffect != nullptr) {
+	if (levelMusicTrack != nullptr) {
 		// Play the background music of the level
-		backgroundSoundEffect->Stop();
+		levelMusicTrack->Stop();
 	}
 }
 bool Level::IsTileValid(const glm::vec2& gridPosition) {
@@ -166,11 +166,11 @@ bool Level::Load(void) {
 		std::string soundEffectId = configFile->Get<std::string>("level.sounds.background");
 		int indexOfSoundEffect = Engine_Pointer->GetIndexOfSoundEffect(soundEffectId);
 		if (indexOfSoundEffect != -1) {
-			backgroundSoundEffect = Engine_Pointer->soundEffectRegister[indexOfSoundEffect];
+			levelMusicTrack = Engine_Pointer->soundEffectRegister[indexOfSoundEffect];
 		}
 		else {
 			Engine_Pointer->engineDebugger.WriteLine(">>>> Could not find background sound effect: " + soundEffectId);
-			backgroundSoundEffect = nullptr;
+			levelMusicTrack = nullptr;
 		}
 
 		// Backgrounds
@@ -230,15 +230,15 @@ void Level::Reload(void) {
 		tileMap.clear();
 
 		// Stop the background music if its been set and is playing
-		if (backgroundSoundEffect != nullptr) {
-			backgroundSoundEffect->Stop();
+		if (levelMusicTrack != nullptr) {
+			levelMusicTrack->Stop();
 		}
 	}
 	isLoaded = Load();
 	
 	// Start the background track playing again, now that we've reloaded the file
-	if (backgroundSoundEffect != nullptr) {
-		backgroundSoundEffect->Play();
+	if (levelMusicTrack != nullptr) {
+		levelMusicTrack->Play();
 	}
 }
 std::map<std::string, std::string> Level::ExportDataForBinding(void) {
@@ -250,7 +250,7 @@ std::map<std::string, std::string> Level::ExportDataForBinding(void) {
 	exportData["level_tile_set"] = nameOfTilest;
 	exportData["level_background"] = levelBackground->GetName();
 	exportData["level_size_in_tiles"] = std::to_string(tileGridSize.x) + ", " + std::to_string(tileGridSize.y);
-	exportData["level_music"] = backgroundSoundEffect->GetName();
+	exportData["level_music"] = levelMusicTrack->GetName();
 
 	return exportData;
 }

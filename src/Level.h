@@ -48,7 +48,7 @@ private:
 	glm::vec2 playerStartPosition;
 	std::vector<Tile*> tileMap;
 	Background* levelBackground = nullptr;
-	SoundEffect* backgroundSoundEffect = nullptr;
+	SoundEffect* levelMusicTrack = nullptr;
 
 	bool Load(void);
 	bool IsTileValid(const glm::vec2& gridPosition);
