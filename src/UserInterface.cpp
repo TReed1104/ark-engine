@@ -111,86 +111,84 @@ bool UserInterface::Load(const std::string& configFilePath) {
 
 			texture = new Texture(name, "content/textures/" + configFile->Get<std::string>("interface.texture"), true, false);
 			// Check we actually loaded the texture correctly
-			if (texture->IsLoaded()) {
-
-				// Reloading check
-				if (model != nullptr) {
-					delete model;
-					model = nullptr;
-				}
-
-				// Generate the UIs model
-				model = new Model(name, false);
-				model->meshes.push_back(Model::GenerateMesh(dimensions));
-				model->SetMeshParents();
-				model->Translate(position);
-				model->SetMeshTranslation(0, position);
-				model->OverrideLoadState(true);
-
-				// Load the interface elements from the config
-				const size_t numberOfInterfaceElements = configFile->SizeOfObjectArray("interface.interface elements");
-				for (size_t i = 0; i < numberOfInterfaceElements; i++) {
-					// Create the element
-				}
-
-				// Load the Text objects
-				const size_t numberOfTextObjects = configFile->SizeOfObjectArray("interface.text objects");
-				for (size_t i = 0; i < numberOfTextObjects; i++) {
-					// Create the Text object
-					std::string textName = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.id");
-					const int indexOfFont = Engine_Pointer->GetIndexOfFont(configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.font"));
-					if (indexOfFont == -1) {
-						return false;
-					}
-					std::string textString = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.text");
-					glm::vec3 textPosition = glm::vec3(configFile->Get<int>("interface.text objects." + std::to_string(i) + ".text.position.x"), configFile->Get<int>("interface.text objects." + std::to_string(i) + ".text.position.y"), 0.015f);
-					glm::vec3 relativePosition = position + textPosition;	// Move the text object relative to the UI background
-					glm::vec3 textColour = glm::vec3(configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.red") / 255.0f, configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.green") / 255.0f, configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.blue") / 255.0f);
-
-					// Create the TextObject (we create it here so we can then register any data bindings prior to pushing it to the textRegister)
-					TextObject* newTextObject = new TextObject(textName, textString, Engine_Pointer->fontRegister[indexOfFont], relativePosition, textColour, true, false);
-
-					// Get the data bindings from the config and register them with the text object
-					const size_t numberOfDataBindings = configFile->SizeOfObjectArray("interface.text objects." + std::to_string(i) + ".text.data bindings");
-					for (size_t j = 0; j < numberOfDataBindings; j++) {
-						std::string dataBindingName = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.id");
-						std::string dataBindingObjectType = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.object type");
-						DataBinding::BindingTargetType bindingType = DataBinding::ENGINE;
-						if (dataBindingObjectType == "engine") {
-							bindingType = DataBinding::ENGINE;
-						}
-						else if (dataBindingObjectType == "camera") {
-							bindingType = DataBinding::CAMERA;
-						}
-						else if (dataBindingObjectType == "level") {
-							bindingType = DataBinding::LEVEL;
-						}
-						else if (dataBindingObjectType == "tile") {
-							bindingType = DataBinding::TILE;
-						}
-						else if (dataBindingObjectType == "item") {
-							bindingType = DataBinding::ITEM;
-						}
-						else if (dataBindingObjectType == "entity") {
-							bindingType = DataBinding::ENTITY;
-						}
-						std::string dataBindingObjectID = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.object id");
-						std::string dataBindingObjectVariable = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.object variable");
-						std::string dataBindingToken = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.token");
-						DataBinding* dataBinding = new DataBinding(dataBindingName, bindingType, dataBindingObjectID, dataBindingObjectVariable, dataBindingToken);
-						newTextObject->RegisterDataBinding(dataBinding);
-					}
-
-					// Register the text object with the interface
-					textRegister.push_back(newTextObject);
-				}
-
-
-				return true;
-			}
-			else {
+			if (!texture->IsLoaded()) {
 				return false;
 			}
+
+			// Reloading check
+			if (model != nullptr) {
+				delete model;
+				model = nullptr;
+			}
+
+			// Generate the UIs model
+			model = new Model(name, false);
+			model->meshes.push_back(Model::GenerateMesh(dimensions));
+			model->SetMeshParents();
+			model->Translate(position);
+			model->SetMeshTranslation(0, position);
+			model->OverrideLoadState(true);
+
+			// Load the interface elements from the config
+			const size_t numberOfInterfaceElements = configFile->SizeOfObjectArray("interface.interface elements");
+			for (size_t i = 0; i < numberOfInterfaceElements; i++) {
+				// Create the element
+			}
+
+			// Load the Text objects
+			const size_t numberOfTextObjects = configFile->SizeOfObjectArray("interface.text objects");
+			for (size_t i = 0; i < numberOfTextObjects; i++) {
+				// Create the Text object
+				std::string textName = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.id");
+				const int indexOfFont = Engine_Pointer->GetIndexOfFont(configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.font"));
+				if (indexOfFont == -1) {
+					return false;
+				}
+				std::string textString = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.text");
+				glm::vec3 textPosition = glm::vec3(configFile->Get<int>("interface.text objects." + std::to_string(i) + ".text.position.x"), configFile->Get<int>("interface.text objects." + std::to_string(i) + ".text.position.y"), 0.015f);
+				glm::vec3 relativePosition = position + textPosition;	// Move the text object relative to the UI background
+				glm::vec3 textColour = glm::vec3(configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.red") / 255.0f, configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.green") / 255.0f, configFile->Get<float>("interface.text objects." + std::to_string(i) + ".text.colour.blue") / 255.0f);
+
+				// Create the TextObject (we create it here so we can then register any data bindings prior to pushing it to the textRegister)
+				TextObject* newTextObject = new TextObject(textName, textString, Engine_Pointer->fontRegister[indexOfFont], relativePosition, textColour, true, false);
+
+				// Get the data bindings from the config and register them with the text object
+				const size_t numberOfDataBindings = configFile->SizeOfObjectArray("interface.text objects." + std::to_string(i) + ".text.data bindings");
+				for (size_t j = 0; j < numberOfDataBindings; j++) {
+					std::string dataBindingName = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.id");
+					std::string dataBindingObjectType = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.object type");
+					DataBinding::BindingTargetType bindingType = DataBinding::ENGINE;
+					if (dataBindingObjectType == "engine") {
+						bindingType = DataBinding::ENGINE;
+					}
+					else if (dataBindingObjectType == "camera") {
+						bindingType = DataBinding::CAMERA;
+					}
+					else if (dataBindingObjectType == "level") {
+						bindingType = DataBinding::LEVEL;
+					}
+					else if (dataBindingObjectType == "tile") {
+						bindingType = DataBinding::TILE;
+					}
+					else if (dataBindingObjectType == "item") {
+						bindingType = DataBinding::ITEM;
+					}
+					else if (dataBindingObjectType == "entity") {
+						bindingType = DataBinding::ENTITY;
+					}
+					std::string dataBindingObjectID = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.object id");
+					std::string dataBindingObjectVariable = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.object variable");
+					std::string dataBindingToken = configFile->Get<std::string>("interface.text objects." + std::to_string(i) + ".text.data bindings." + std::to_string(j) + ".binding.token");
+					DataBinding* dataBinding = new DataBinding(dataBindingName, bindingType, dataBindingObjectID, dataBindingObjectVariable, dataBindingToken);
+					newTextObject->RegisterDataBinding(dataBinding);
+				}
+
+				// Register the text object with the interface
+				textRegister.push_back(newTextObject);
+			}
+			
+			// Loading succeeded!
+			return true;
 		}
 		else {
 			Engine_Pointer->engineDebugger.WriteLine(">>>> UserInteface failed to load Config File: " + configFilePath);
