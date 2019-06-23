@@ -16,7 +16,6 @@ class Level
 public:
 	static Engine* Engine_Pointer;
 	std::vector<LightSource*> lightSourcesRegister;
-	SoundEffect* backgroundSoundEffect = nullptr;
 
 	Level(const std::string& filePath);
 	~Level(void);
@@ -46,6 +45,7 @@ private:
 	glm::vec2 playerStartPosition;
 	std::vector<Tile*> tileMap;
 	Background* levelBackground = nullptr;
+	SoundEffect* backgroundSoundEffect = nullptr;
 
 	bool Load(void);
 	bool IsTileValid(const glm::vec2& gridPosition);
