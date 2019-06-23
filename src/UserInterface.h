@@ -63,6 +63,7 @@ private:
 	glm::ivec2 dimensions;
 	glm::vec3 position;
 	int indexOfShader = -1;
+	bool hasBackgroundTexture = false;
 	Texture* texture = nullptr;
 	Model* model = nullptr;
 
