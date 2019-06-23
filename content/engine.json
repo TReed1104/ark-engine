@@ -145,14 +145,14 @@
 						"font": {
 							"id": "Arial",
 							"source": "arial.ttf",
-							"size": 18
+							"size": 16
 						}
 					},
 					{
 						"font": {
 							"id": "Digital-7",
 							"source": "digital-7.ttf",
-							"size": 18
+							"size": 16
 						}
 					}
 				],
