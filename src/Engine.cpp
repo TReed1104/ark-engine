@@ -886,7 +886,7 @@ void Engine::SetSoundStateBackground(const bool& muteBackgroundSounds) {
 	}
 	else {
 		// Find the correct background sound, play it
-		LevelManager::GetInstance()->GetCurrentLevel()->backgroundSoundEffect->Play();
+		LevelManager::GetInstance()->GetCurrentLevel()->PlayBackgroundMusic();
 	}
 }
 void Engine::SetSoundStateSoundEffects(const bool& muteSoundEffects) {
@@ -1148,11 +1148,8 @@ void Engine::ChangeLevel(const std::string & newLevelID) {
 	// Get and store a pointer to our current level to prevent having to call GetCurrentLevel() multiple times
 	Level* currentLevel = LevelManager::GetInstance()->GetCurrentLevel();
 
-	// Check the level has had its background sound set
-	if (currentLevel->backgroundSoundEffect != nullptr) {
-		// Stop the background music of the level
-		currentLevel->backgroundSoundEffect->Stop();
-	}
+	// Stop the level music playing (the old level)
+	currentLevel->StopBackgroundMusic();
 
 	// Change to the new level
 	if (!LevelManager::GetInstance()->SetCurrentLevel(newLevelID)) {
@@ -1163,9 +1160,6 @@ void Engine::ChangeLevel(const std::string & newLevelID) {
 	//TODO: Check start position against save position, change to the save position if they don't match and we know they've saved in that map
 	player->Reposition(currentLevel->GetPlayerStartPosition());	// Reposition the player to the new start position
 
-	// Check the level has had its background sound set
-	if (currentLevel->backgroundSoundEffect != nullptr) {
-		// Play the background music of the level
-		currentLevel->backgroundSoundEffect->Play();
-	}
+	// Play the background music of the level
+	currentLevel->PlayBackgroundMusic();
 }
