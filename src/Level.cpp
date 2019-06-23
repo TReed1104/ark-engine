@@ -246,8 +246,11 @@ std::map<std::string, std::string> Level::ExportDataForBinding(void) {
 
 	// Format the data into the strings which the UIs will be able to render
 	exportData["level_name"] = name;
+	exportData["level_file_path"] = filePath;
+	exportData["tile_set"] = nameOfTilest;
 	exportData["background"] = levelBackground->GetName();
 	exportData["size_in_tiles"] = std::to_string(tileGridSize.x) + ", " + std::to_string(tileGridSize.y);
+	exportData["sound_background"] = backgroundSoundEffect->GetName();
 
 	return exportData;
 }
