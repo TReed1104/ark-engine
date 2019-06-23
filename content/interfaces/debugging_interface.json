@@ -33,7 +33,7 @@
             {
                 "text": {
                     "id": "debugging - FPS",
-                    "font": "Arial",
+                    "font": "Arial - 16",
                     "text": "FPS: %fps",
                     "data bindings": [
                         {
@@ -60,7 +60,7 @@
             {
                 "text": {
                     "id": "debugging - grid position",
-                    "font": "Arial",
+                    "font": "Arial - 16",
                     "text": "Grid Pos: %grid_position",
                     "data bindings": [
                         {
@@ -88,7 +88,7 @@
             {
                 "text": {
                     "id": "debugging - level name",
-                    "font": "Arial",
+                    "font": "Arial - 16",
                     "text": "Level Name: %level_name",
                     "data bindings": [
                         {
