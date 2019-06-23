@@ -145,7 +145,7 @@
 						"font": {
 							"id": "Arial - 14",
 							"source": "arial.ttf",
-							"size": 16
+							"size": 14
 						}
 					},
 					{
@@ -159,7 +159,7 @@
 						"font": {
 							"id": "Arial - 18",
 							"source": "arial.ttf",
-							"size": 16
+							"size": 18
 						}
 					},
 					{
