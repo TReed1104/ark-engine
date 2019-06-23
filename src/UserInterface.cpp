@@ -218,8 +218,10 @@ void UserInterface::Update(const float& deltaTime) {
 		text->Update(deltaTime);
 	}
 
-	// Update the position of the model before rendering
-	model->Translate(position);
+	if (model != nullptr) {
+		// Update the position of the model before rendering
+		model->Translate(position);
+	}
 }
 void UserInterface::Draw(void) {
 	// UIs are not Camera dependant, so we'll need to generate our own View & Projection (just like the text objects)
