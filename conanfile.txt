@@ -1,7 +1,8 @@
 [requires]
+zlib/1.2.11@conan/stable
 libpng/1.6.37@bincrafters/stable    # Fixes a conflict where sdl2_image requires 1.6.36, but freetype uses 1.6.37
-sdl2/2.0.9@bincrafters/stable
-sdl2_image/2.0.4@bincrafters/stable
+sdl2/2.0.12@bincrafters/stable
+sdl2_image/2.0.5@bincrafters/stable
 glew/2.1.0@bincrafters/stable
 glm/0.9.8.5@bincrafters/stable
 Assimp/4.1.0@jacmoe/stable
